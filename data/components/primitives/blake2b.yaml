@@ -1,0 +1,72 @@
+name: BLAKE2b
+full_name: BLAKE2b Hash Function
+category: hash_function
+description: |
+  BLAKE2b is a cryptographic hash function faster than MD5, SHA-1, SHA-2, and SHA-3,
+  yet is at least as secure as SHA-3. It is optimized for 64-bit platforms.
+
+parameters:
+  output_size: 512
+  block_size: 1024
+  rounds: 12
+
+properties:
+  - collision_resistant
+  - preimage_resistant
+  - extremely_fast
+  - keyed_hashing
+  - parallelizable
+  - tree_hashing_mode
+
+performance:
+  software_speed: very_high
+  hardware_speed: high
+  memory: low
+  power: very_low
+
+security:
+  security_level: 256
+  best_attack: none_practical
+  attack_complexity: "2^256 theoretical"
+  status: secure
+  standardized: false
+  proven_security: true
+
+compatible_with:
+  - MAC_mode
+  - password_hashing
+  - digital_signatures
+  - Argon2
+
+not_compatible_with: []
+
+use_cases:
+  - high_performance_hashing
+  - file_integrity
+  - cryptocurrency
+  - password_hashing
+  - mac_authentication
+  - deduplication
+  - general_purpose
+
+not_recommended_for:
+  - regulatory_compliance_only
+
+references:
+  - type: paper
+    title: "BLAKE2: simpler, smaller, fast as MD5"
+    authors: ["Jean-Philippe Aumasson", "Samuel Neves", "Zooko Wilcox-O'Hearn", "Christian Winnerlein"]
+    url: https://blake2.net/blake2.pdf
+    year: 2013
+  - type: specification
+    title: "RFC 7693: BLAKE2 Cryptographic Hash"
+    url: https://tools.ietf.org/html/rfc7693
+    year: 2015
+
+implementation_notes: |
+  - Faster than SHA-256 while providing equal or better security
+  - Can be used as MAC without HMAC construction
+  - Supports personalization and salting natively
+  - Used in Argon2 password hashing algorithm
+  - Default choice for many modern applications (Zcash, WireGuard)
+  - BLAKE2s variant optimized for 8-32 bit platforms

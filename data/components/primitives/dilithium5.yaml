@@ -1,0 +1,90 @@
+name: Dilithium5
+full_name: CRYSTALS-Dilithium Level 5 (ML-DSA-87)
+category: signature
+description: |
+  Dilithium5 is the 256-bit security level variant of CRYSTALS-Dilithium.
+  Highest security option in the Dilithium family, designed for ultra-high
+  security requirements and long-term protection.
+
+parameters:
+  security_level: 256
+  public_key_size: 2592
+  secret_key_size: 4864
+  signature_size: 4595
+
+properties:
+  - post_quantum
+  - digital_signature
+  - lattice_based
+  - nist_selected
+  - quantum_resistant
+  - maximum_security
+  - long_term_protection
+
+performance:
+  software_speed: high
+  hardware_speed: high
+  memory: medium
+  power: medium
+  signing_time: fast
+  verification_time: fast
+
+security:
+  security_level: 256
+  best_attack: none_practical
+  attack_complexity: "2^256 quantum operations"
+  status: secure
+  standardized: true
+  proven_security: true
+  quantum_resistant: true
+
+compatible_with:
+  - TLS
+  - certificates
+  - code_signing
+  - hybrid_signatures
+  - classified_systems
+  - top_secret_systems
+
+not_compatible_with:
+  - encryption
+  - bandwidth_constrained_systems
+
+use_cases:
+  - ultra_high_security
+  - top_secret_classification
+  - long_term_archives
+  - critical_infrastructure
+  - defense_systems
+  - intelligence_systems
+  - root_ca_certificates
+  - nuclear_systems
+
+not_recommended_for:
+  - general_web_applications
+  - mobile_devices
+  - iot_devices
+  - bandwidth_limited_networks
+
+references:
+  - type: standard
+    title: "NIST FIPS 204: Module-Lattice-Based Digital Signature Standard"
+    url: https://csrc.nist.gov/pubs/fips/204/final
+    year: 2024
+  - type: paper
+    title: "CRYSTALS-Dilithium"
+    url: https://pq-crystals.org/dilithium/
+    year: 2020
+
+implementation_notes: |
+  - NIST standardized as ML-DSA-87 (FIPS 204)
+  - 256-bit quantum security level (maximum)
+  - ~4.6 KB signatures (largest Dilithium variant)
+  - Still fast despite highest security level
+  - Suitable for ultra-high-security applications
+  - Recommended for TOP SECRET systems
+  - Can be used in hybrid mode with Ed448
+  - Best for long-term archives (50+ years)
+  - Appropriate for critical infrastructure
+  - Overkill for most commercial applications
+  - Use when maximum security assurance required

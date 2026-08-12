@@ -1,0 +1,67 @@
+name: P-384
+full_name: NIST P-384 (secp384r1)
+category: construction
+description: |
+  P-384 is a NIST standardized elliptic curve providing 192-bit security.
+  Used for high-security applications and long-term protection.
+
+parameters:
+  key_size: [384]
+  security_level: 192
+
+properties:
+  - elliptic_curve
+  - nist_standardized
+  - high_security
+  - fips_approved
+
+performance:
+  software_speed: medium
+  hardware_speed: high
+  memory: low
+  power: low
+
+security:
+  security_level: 192
+  best_attack: none_practical
+  attack_complexity: "2^192"
+  status: secure
+  standardized: true
+  proven_security: true
+
+compatible_with:
+  - ECDSA
+  - ECDH
+  - TLS
+  - X509
+  - high_security_applications
+
+not_compatible_with: []
+
+use_cases:
+  - top_secret_systems
+  - long_term_security
+  - high_security_tls
+  - government_applications
+  - suite_b_cryptography
+
+not_recommended_for:
+  - resource_constrained_devices
+  - high_performance_applications
+
+references:
+  - type: standard
+    title: "FIPS 186-5: Digital Signature Standard"
+    url: https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.186-5.pdf
+    year: 2023
+  - type: standard
+    title: "NSA Suite B Cryptography"
+    year: 2005
+
+implementation_notes: |
+  - 192-bit security level
+  - Approved for NSA Suite B (TOP SECRET)
+  - Slower than P-256
+  - Good for long-term security
+  - Often paired with SHA-384
+  - Required for some government applications

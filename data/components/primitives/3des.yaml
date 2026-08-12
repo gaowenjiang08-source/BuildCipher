@@ -1,0 +1,67 @@
+name: 3DES
+full_name: Triple Data Encryption Standard
+category: block_cipher
+description: |
+  3DES applies the DES cipher three times to each data block. It uses either two or three
+  independent keys (112-bit or 168-bit effective security). Being phased out in favor of AES.
+
+parameters:
+  block_size: 64
+  key_size: [112, 168]
+  rounds: 48
+
+properties:
+  - legacy
+  - standardized
+  - feistel_network
+  - backwards_compatible
+
+performance:
+  software_speed: low
+  hardware_speed: medium
+  memory: low
+  power: medium
+
+security:
+  security_level: 112
+  best_attack: meet_in_the_middle
+  attack_complexity: "2^112"
+  status: transitioning_to_deprecated
+  standardized: true
+  proven_security: true
+
+compatible_with:
+  - CBC
+  - ECB
+  - CFB
+  - OFB
+  - CTR
+
+not_compatible_with:
+  - GCM
+
+use_cases:
+  - legacy_payment_systems
+  - financial_applications
+  - atm_systems
+
+not_recommended_for:
+  - new_deployments
+  - high_performance_applications
+  - long_term_security
+
+references:
+  - type: standard
+    title: "NIST SP 800-67: Recommendation for Triple DES"
+    url: https://csrc.nist.gov/publications/detail/sp/800-67/rev-2/final
+    year: 2017
+  - type: standard
+    title: "FIPS 46-3: Data Encryption Standard"
+    url: https://csrc.nist.gov/publications/detail/fips/46/3/archive/1999-10-25
+    year: 1999
+
+implementation_notes: |
+  - NIST deprecated 3DES in 2023
+  - Use AES-128 or higher for new applications
+  - 64-bit block size limits data that can be encrypted
+  - Sweet32 attack concerns for large data volumes

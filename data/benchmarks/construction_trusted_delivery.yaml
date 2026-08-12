@@ -1,0 +1,46 @@
+benchmark_id: construction-trusted-delivery-v1
+name: Construction Trusted Delivery Benchmark
+description: 验证建筑场景 Skill 路由、报告模板选择和关键章节覆盖。
+cases:
+  - case_id: bim_ifc_tamper
+    scenario: construction
+    requirement: 请为 IFC 模型交付设计 manifest、内容哈希和签名验证，并检测保留文件名后的模型篡改。
+    expected_skill_id: bim_model_exchange_guard
+    expected_template_id: construction_trusted_delivery
+    required_sections: [BIM/IFC 版本与签名链, 攻击验证和修补结果, 证据清单]
+  - case_id: bim_version_rollback
+    scenario: construction
+    requirement: 请检测 BIM 已批准 v3 被合法签名但已过期的 v2 版本回滚，验证父版本与批准状态。
+    expected_skill_id: bim_model_exchange_guard
+    expected_template_id: construction_trusted_delivery
+    required_sections: [BIM/IFC 版本与签名链, 剩余风险和决策记录]
+  - case_id: subcontractor_overprivilege
+    scenario: construction
+    requirement: 专业分包尝试越权下载完整结构模型与造价信息，请生成最小权限、拒绝留痕和撤销策略。
+    expected_skill_id: construction_collaboration_ip_guard
+    expected_template_id: construction_trusted_delivery
+    required_sections: [权限与共享矩阵, 证据清单]
+  - case_id: iot_device_impersonation
+    scenario: construction
+    requirement: 未注册工地传感器冒充合法设备上传遥测，请验证设备身份、消息签名和可信数据门控。
+    expected_skill_id: construction_iot_trust_architect
+    expected_template_id: construction_iot_evidence_delivery
+    required_sections: [设备身份与注册, 可信遥测证据]
+  - case_id: iot_telemetry_replay
+    scenario: construction
+    requirement: 重放一条历史有效签名遥测，使用单调计数器、nonce 和时间窗口识别数据重放。
+    expected_skill_id: construction_iot_trust_architect
+    expected_template_id: construction_iot_evidence_delivery
+    required_sections: [时间顺序与重放防护, 异常处置与剩余风险]
+  - case_id: inspection_repudiation
+    scenario: construction
+    requirement: 监理否认隐蔽工程验收签批，请关联人员、时间、位置、模型版本和现场证据并支持责任回放。
+    expected_skill_id: inspection_evidence_chain_designer
+    expected_template_id: construction_trusted_delivery
+    required_sections: [参与方和信任边界, 证据清单]
+  - case_id: long_term_archive_pqc
+    scenario: construction
+    requirement: 请为需要保存 30 年以上的竣工模型和运维档案制定后量子迁移、混合部署、重签和再封装路线。
+    expected_skill_id: built_asset_pqc_migration_advisor
+    expected_template_id: built_asset_pqc_transition_delivery
+    required_sections: [长期资产分类, 混合部署路线, 重签与再封装策略]

@@ -1,0 +1,90 @@
+name: GG20
+full_name: Gennaro-Goldfeder 2020 Threshold ECDSA
+category: protocol
+description: |
+  GG20 is a threshold ECDSA protocol that enables distributed key generation and signing
+  without ever reconstructing the private key. It provides t-out-of-n threshold signatures
+  where any t parties can collaboratively sign without revealing individual shares.
+
+parameters:
+  threshold: configurable # t parties needed to sign
+  total_parties: configurable # n total parties
+  rounds: 9 # signing rounds
+  protocol_type: threshold_signature
+
+properties:
+  - threshold_signature
+  - distributed_key_generation
+  - no_trusted_dealer
+  - ecdsa_compatible
+  - proactive_security
+
+performance:
+  key_generation: slow
+  signing: medium # 9 rounds
+  verification: fast # standard ECDSA
+  communication: high
+  memory: medium
+
+security:
+  security_level: 128
+  best_attack: none_practical
+  attack_complexity: "discrete_log_assumption"
+  status: secure
+  standardized: false
+  proven_security: true
+  quantum_resistant: false
+
+compatible_with:
+  - bitcoin
+  - ethereum
+  - ecdsa_blockchains
+  - custodial_wallets
+  - key_management_systems
+
+not_compatible_with:
+  - post_quantum_scenarios
+  - low_latency_requirements
+  - offline_signing_only
+
+use_cases:
+  - cryptocurrency_custody
+  - distributed_wallet_management
+  - threshold_signatures
+  - key_management
+  - multi_party_authorization
+  - secure_signing_services
+  - institutional_crypto_custody
+
+not_recommended_for:
+  - high_frequency_signing
+  - post_quantum_security
+  - single_round_protocols
+
+references:
+  - type: paper
+    title: "Fast Multiparty Threshold ECDSA with Fast Trustless Setup"
+    authors: ["Rosario Gennaro", "Steven Goldfeder"]
+    year: 2020
+    url: https://eprint.iacr.org/2019/114
+  - type: implementation
+    title: "multi-party-ecdsa: GG20 Implementation"
+    url: https://github.com/ZenGo-X/multi-party-ecdsa
+    year: 2020
+  - type: paper
+    title: "One Round Threshold ECDSA with Identifiable Abort"
+    authors: ["Rosario Gennaro", "Steven Goldfeder"]
+    year: 2020
+
+implementation_notes: |
+  - No trusted dealer required (DKG protocol)
+  - Compatible with standard ECDSA verification
+  - 9 rounds for signing protocol
+  - Secure against malicious adversaries
+  - Supports proactive security (share refresh)
+  - Identifiable abort: can detect malicious parties
+  - Used in production by major crypto custodians
+  - Higher communication complexity than Schnorr alternatives
+  - Signature indistinguishable from standard ECDSA
+  - Supports key resharing and recovery
+  - Memory requirements scale with number of parties

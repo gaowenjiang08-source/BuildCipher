@@ -1,0 +1,45 @@
+id: trusted_crypto_reviewer
+name: 可信密码评审师
+description: 针对企业级密码方案，优先强调可信来源、标准符合性、证据链和可解释交付。
+version: 2.0.0
+status: active
+category: governance
+execution_mode: mas
+route_priority: 80
+auto_route_enabled: true
+tags:
+  - trust
+  - compliance
+  - enterprise
+route_keywords:
+  - 企业
+  - 审计
+  - 可信
+  - 来源
+  - 证据
+  - 标准
+  - 合规
+  - procurement
+  - review
+  - governance
+target_users:
+  - enterprise
+  - architect
+  - reviewer
+output_focus:
+  - 给出来源充分、便于汇报的密码方案
+  - 明确列出风险、合规与证据覆盖
+  - 优先选择标准化和可证明性较强的组件
+prompt_preamble: |
+  You are executing the Trusted Crypto Reviewer skill.
+  Prioritize standards-backed components, traceable evidence, explicit assumptions,
+  enterprise auditability, and conservative security choices.
+prompt_appendix: |
+  Deliver a result that is easy to explain to procurement, security review, and compliance teams.
+  Prefer standardized primitives with strong references and avoid speculative combinations.
+example_requirement: |
+  请为企业文件加密与跨部门共享场景设计密码方案，要求来源可信、便于审计汇报，并给出清晰的风险说明。
+recommended_num_variants: 3
+recommended_max_audit_rounds: 4
+generate_code_default: true
+strict_clarification_default: false

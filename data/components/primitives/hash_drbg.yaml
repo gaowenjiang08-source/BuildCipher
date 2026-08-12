@@ -1,0 +1,83 @@
+name: Hash_DRBG
+full_name: Hash-Based Deterministic Random Bit Generator
+category: random_number_generator
+description: |
+  Hash_DRBG is a deterministic random bit generator specified in NIST SP 800-90A.
+  It uses cryptographic hash functions (SHA-2, SHA-3) to generate pseudorandom
+  bits from a seed value without requiring block cipher operations.
+
+parameters:
+  hash_function: [SHA-256, SHA-512, SHA-384, SHA-512/256]
+  seed_length: [440, 888]
+  reseed_interval: 2^48
+  output_block_length: [256, 512]
+
+properties:
+  - deterministic
+  - cryptographically_secure
+  - nist_approved
+  - no_block_cipher_required
+  - prediction_resistance_supported
+  - reseeding_capability
+  - simple_implementation
+
+performance:
+  software_speed: high
+  hardware_speed: high
+  memory: low
+  power: low
+
+security:
+  security_level: 256  # With SHA-512
+  best_attack: none_known
+  attack_complexity: "2^256 for SHA-512 variant"
+  status: secure
+  standardized: true
+  proven_security: true
+
+compatible_with:
+  - SHA-256
+  - SHA-512
+  - SHA-384
+  - SHA3
+  - TLS
+  - cryptographic_protocols
+
+not_compatible_with:
+  - weak_hash_functions
+  - md5
+  - sha1
+
+use_cases:
+  - key_generation
+  - iv_generation
+  - nonce_generation
+  - cryptographic_protocols
+  - tls_random
+  - embedded_systems
+  - general_purpose_random
+
+not_recommended_for:
+  - gaming_applications
+  - monte_carlo_simulations
+  - non_cryptographic_use
+
+references:
+  - type: standard
+    title: "NIST SP 800-90A: Recommendation for Random Number Generation Using Deterministic Random Bit Generators"
+    url: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-90Ar1.pdf
+    year: 2015
+  - type: paper
+    title: "On the Security of Hash_DRBG"
+    year: 2013
+
+implementation_notes: |
+  - Requires secure entropy source for seeding
+  - Simpler than CTR_DRBG (no block cipher needed)
+  - Good choice for constrained environments
+  - SHA-256 recommended for most applications
+  - SHA-512 for higher security requirements
+  - Must implement proper reseeding mechanisms
+  - Reseed after no more than 2^48 requests
+  - Use at least 256 bits of entropy for initial seed
+  - More portable than CTR_DRBG

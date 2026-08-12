@@ -1,0 +1,66 @@
+name: Twofish
+full_name: Twofish Block Cipher
+category: block_cipher
+description: |
+  Twofish is a symmetric block cipher and one of the AES finalists. It operates on 128-bit blocks
+  with key sizes up to 256 bits. Known for excellent security margin and flexibility.
+
+parameters:
+  block_size: 128
+  key_size: [128, 192, 256]
+  rounds: 16
+
+properties:
+  - aes_finalist
+  - feistel_network
+  - key_dependent_sboxes
+  - flexible_design
+
+performance:
+  software_speed: medium
+  hardware_speed: medium
+  memory: medium
+  power: medium
+
+security:
+  security_level: 256
+  best_attack: impossible_differential
+  attack_complexity: "2^256"
+  status: secure
+  standardized: false
+  proven_security: true
+
+compatible_with:
+  - CBC
+  - CTR
+  - GCM
+  - CCM
+  - ECB
+  - XTS
+
+not_compatible_with: []
+
+use_cases:
+  - file_encryption
+  - disk_encryption
+  - secure_communications
+  - general_purpose
+
+not_recommended_for:
+  - ultra_high_speed_applications
+
+references:
+  - type: paper
+    title: "Twofish: A 128-Bit Block Cipher"
+    authors: ["Bruce Schneier", "John Kelsey", "Doug Whiting", "David Wagner", "Chris Hall", "Niels Ferguson"]
+    year: 1998
+  - type: specification
+    title: "The Twofish Encryption Algorithm"
+    url: https://www.schneier.com/academic/twofish/
+    year: 1998
+
+implementation_notes: |
+  - Strong security margin, no significant attacks
+  - Slower than AES on modern hardware (lacks hardware acceleration)
+  - Good choice when hardware AES unavailable
+  - Key setup is relatively expensive

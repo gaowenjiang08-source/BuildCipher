@@ -1,0 +1,76 @@
+name: Deoxys
+full_name: Deoxys-II AEAD
+category: mode
+description: |
+  Deoxys-II is a tweakable authenticated encryption mode and CAESAR competition finalist.
+  It uses a tweakable block cipher design optimized for both software and hardware.
+
+parameters:
+  block_size: 128
+  nonce_size: 120
+  tag_size: 128
+  tweak_size: 128
+
+properties:
+  - authenticated_encryption
+  - tweakable_block_cipher
+  - single_pass_mode
+  - provably_secure
+  - caesar_finalist
+
+performance:
+  software_speed: high
+  hardware_speed: very_high
+  memory: low
+  power: low
+
+security:
+  security_level: 256  # Deoxys-II-256
+  best_attack: none_practical
+  attack_complexity: "birthday bound at 2^64"
+  status: secure
+  standardized: false
+  proven_security: true
+
+compatible_with:
+  - modern_protocols
+  - embedded_systems
+  - iot_devices
+  - lightweight_applications
+
+not_compatible_with:
+  - legacy_systems
+  - non_tweakable_cipher_apis
+
+use_cases:
+  - authenticated_encryption
+  - lightweight_cryptography
+  - embedded_systems
+  - iot_security
+  - academic_research
+
+not_recommended_for:
+  - production_systems_requiring_standards
+  - widespread_library_support_needed
+
+references:
+  - type: paper
+    title: "Deoxys v1.41"
+    url: https://sites.google.com/view/deoxyscipher
+    year: 2016
+  - type: competition
+    title: "CAESAR Competition Finalist"
+    url: https://competitions.cr.yp.to/caesar-submissions.html
+    year: 2019
+
+implementation_notes: |
+  - CAESAR competition finalist (3rd portfolio)
+  - Uses tweakable AES-based block cipher
+  - Single-pass authenticated encryption
+  - Efficient in both software and hardware
+  - Nonce must never be reused
+  - Tweak provides additional input for domain separation
+  - Related to AES (uses AES round function)
+  - Deoxys-I (BC mode) and Deoxys-II (AEAD mode)
+  - Not yet widely standardized
+  - Good balance between security and performance

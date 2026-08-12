@@ -1,0 +1,87 @@
+name: zkSTARK
+full_name: Zero-Knowledge Scalable Transparent Argument of Knowledge
+category: protocol
+description: |
+  zkSTARK is a zero-knowledge proof protocol that requires no trusted setup and offers
+  post-quantum security. It provides transparent, scalable proofs using collision-resistant
+  hash functions. Used in StarkNet and other Layer 2 scaling solutions.
+
+parameters:
+  proof_size: 100-200 # kilobytes, logarithmic in computation
+  verification_time: logarithmic
+  setup_type: transparent
+  proof_type: non_interactive
+
+properties:
+  - zero_knowledge
+  - transparent_setup
+  - post_quantum_secure
+  - scalable
+  - non_interactive
+  - hash_based
+
+performance:
+  proof_generation: medium
+  proof_verification: fast
+  proof_size: large
+  setup_cost: none
+  memory: medium
+
+security:
+  security_level: 128
+  best_attack: none_practical
+  attack_complexity: "collision_resistance"
+  status: secure
+  standardized: false
+  proven_security: true
+  quantum_resistant: true
+
+compatible_with:
+  - blockchain_scaling
+  - starknet
+  - layer2_rollups
+  - verifiable_computation
+  - post_quantum_applications
+
+not_compatible_with:
+  - bandwidth_constrained_networks
+  - minimal_proof_size_required
+
+use_cases:
+  - blockchain_scalability
+  - layer2_solutions
+  - verifiable_computation
+  - post_quantum_privacy
+  - computational_integrity
+  - batched_transactions
+  - zk_rollups
+
+not_recommended_for:
+  - minimal_proof_size_critical
+  - very_simple_statements
+  - bandwidth_limited_environments
+
+references:
+  - type: paper
+    title: "Scalable, transparent, and post-quantum secure computational integrity"
+    authors: ["Eli Ben-Sasson", "Iddo Bentov", "Yinon Horesh", "Michael Riabzev"]
+    year: 2018
+    url: https://eprint.iacr.org/2018/046
+  - type: paper
+    title: "Fast Reed-Solomon Interactive Oracle Proofs of Proximity"
+    authors: ["Eli Ben-Sasson", "Iddo Bentov", "Ynon Horesh", "Michael Riabzev"]
+    year: 2018
+  - type: implementation
+    title: "StarkWare: STARKs in Production"
+    url: https://starkware.co/stark/
+    year: 2020
+
+implementation_notes: |
+  - No trusted setup required (transparent)
+  - Post-quantum secure based on collision-resistant hashing
+  - Larger proof sizes compared to SNARKs
+  - Verification time grows logarithmically with computation
+  - More efficient for very large computations
+  - Uses FRI (Fast Reed-Solomon Interactive Oracle Proofs)
+  - Excellent for blockchain scalability solutions
+  - Proof size: O(log^2 n) where n is computation size

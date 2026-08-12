@@ -1,0 +1,61 @@
+name: BLAKE2s
+full_name: BLAKE2s Cryptographic Hash Function
+category: hash_function
+description: |
+  BLAKE2s is optimized for 8- to 32-bit platforms. It is faster than MD5
+  while providing security similar to SHA-3.
+
+parameters:
+  output_size: 256
+  block_size: 512
+
+properties:
+  - collision_resistant
+  - preimage_resistant
+  - second_preimage_resistant
+  - keyed_hashing
+  - parallelizable
+
+performance:
+  software_speed: very_high
+  hardware_speed: high
+  memory: very_low
+  power: very_low
+
+security:
+  security_level: 256
+  best_attack: none_practical
+  attack_complexity: "2^256"
+  status: secure
+  standardized: true
+  proven_security: true
+
+compatible_with:
+  - HMAC
+  - KDF
+  - MAC
+
+not_compatible_with: []
+
+use_cases:
+  - embedded_systems
+  - iot_devices
+  - mobile_platforms
+  - 32bit_systems
+  - file_integrity
+
+not_recommended_for:
+  - password_hashing_alone
+
+references:
+  - type: standard
+    title: "RFC 7693: The BLAKE2 Cryptographic Hash and MAC"
+    url: https://www.rfc-editor.org/rfc/rfc7693
+    year: 2015
+
+implementation_notes: |
+  - Optimized for 32-bit platforms
+  - Faster than MD5, SHA-1, SHA-2, SHA-3
+  - Can be used as MAC (keyed hashing)
+  - No length extension attacks
+  - Supports salt and personalization

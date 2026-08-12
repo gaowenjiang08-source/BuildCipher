@@ -1,0 +1,70 @@
+name: SHA-3
+full_name: Secure Hash Algorithm 3 (Keccak)
+category: hash_function
+description: |
+  SHA-3 is the latest member of the Secure Hash Algorithm family, based on the Keccak algorithm.
+  It uses a sponge construction and is fundamentally different from SHA-1 and SHA-2.
+
+parameters:
+  output_size: 256
+  block_size: 1088
+  rounds: 24
+
+properties:
+  - collision_resistant
+  - preimage_resistant
+  - second_preimage_resistant
+  - sponge_construction
+  - permutation_based
+  - side_channel_resistant
+
+performance:
+  software_speed: medium
+  hardware_speed: high
+  memory: low
+  power: low
+
+security:
+  security_level: 128
+  best_attack: none_practical
+  attack_complexity: "2^128 for SHA3-256"
+  status: secure
+  standardized: true
+  proven_security: true
+
+compatible_with:
+  - HMAC
+  - digital_signatures
+  - KMAC
+  - cSHAKE
+  - TupleHash
+
+not_compatible_with: []
+
+use_cases:
+  - post_quantum_security
+  - digital_signatures
+  - random_number_generation
+  - extendable_output_functions
+  - general_purpose_hashing
+  - future_proof_applications
+
+not_recommended_for:
+  - legacy_system_replacement
+
+references:
+  - type: standard
+    title: "FIPS 202: SHA-3 Standard"
+    url: https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.202.pdf
+    year: 2015
+  - type: paper
+    title: "The Keccak SHA-3 submission"
+    authors: ["Guido Bertoni", "Joan Daemen", "Michael Peeters", "Gilles Van Assche"]
+    year: 2011
+
+implementation_notes: |
+  - Different internal structure from SHA-2 (sponge vs Merkle-Damgård)
+  - Provides hedging against potential SHA-2 vulnerabilities
+  - SHAKE128/256 variants provide extendable output
+  - More resistant to length extension attacks
+  - Suitable for post-quantum cryptographic schemes

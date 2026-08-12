@@ -1,0 +1,74 @@
+name: HMAC
+full_name: Hash-based Message Authentication Code
+category: mac
+description: |
+  HMAC is a mechanism for message authentication using cryptographic hash functions.
+  It can be used with any iterative cryptographic hash function (MD5, SHA-1, SHA-256, etc.).
+
+parameters:
+  output_size: 256
+
+properties:
+  - message_authentication
+  - keyed_hash
+  - provably_secure
+  - collision_resistant
+  - pseudorandom_function
+
+performance:
+  software_speed: high
+  hardware_speed: high
+  memory: low
+  power: low
+
+security:
+  security_level: 256  # HMAC-SHA256 provides 256-bit security
+  best_attack: none_practical
+  attack_complexity: "depends on underlying hash (SHA-256: 2^256)"
+  status: secure
+  standardized: true
+  proven_security: true
+
+compatible_with:
+  - SHA-256
+  - SHA-512
+  - SHA-3
+  - BLAKE2
+  - PBKDF2
+  - HKDF
+  - TLS
+  - IPSec
+
+not_compatible_with: []
+
+use_cases:
+  - message_authentication
+  - api_authentication
+  - jwt_signatures
+  - cookie_signing
+  - tls_handshake
+  - ipsec
+  - ssh
+  - data_integrity
+
+not_recommended_for:
+  - encryption
+  - password_storage_alone
+
+references:
+  - type: standard
+    title: "FIPS 198-1: The Keyed-Hash Message Authentication Code"
+    url: https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.198-1.pdf
+    year: 2008
+  - type: rfc
+    title: "RFC 2104: HMAC"
+    url: https://tools.ietf.org/html/rfc2104
+    year: 1997
+
+implementation_notes: |
+  - HMAC-SHA256 is the most commonly used variant
+  - More secure than simple hash(key || message) construction
+  - Resistant to length extension attacks
+  - Key should be at least as long as hash output
+  - Used in TLS 1.2 and earlier for MAC
+  - Core component of PBKDF2 and HKDF

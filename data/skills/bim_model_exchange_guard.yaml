@@ -1,0 +1,27 @@
+id: bim_model_exchange_guard
+name: BIM/IFC 可信交付守卫
+description: 面向 BIM/IFC 模型跨组织交付，设计最小披露、签名 manifest、版本链、批准状态与访问隔离策略。
+version: 1.0.0
+status: active
+category: construction
+execution_mode: mas
+route_priority: 32
+auto_route_enabled: true
+tags: [construction, bim, ifc, model_exchange, version_integrity]
+route_keywords: [BIM, IFC, 模型交付, 模型篡改, 版本回滚, 图纸版本, manifest, 批准版本]
+target_users: [owner, design_institute, general_contractor, supervisor]
+output_focus:
+  - 建立 IFC manifest、内容哈希、签名、父版本与批准状态验证
+  - 按项目角色和专业范围生成最小披露交付包
+  - 设计篡改、签名剥离和合法旧版本回滚验证
+prompt_preamble: |
+  You are executing the BIM Model Exchange Guard skill. Treat a valid old signature as insufficient
+  unless the version chain, approval state, signer authority, and project scope also validate.
+prompt_appendix: |
+  Cite evidence and artifact references for every trust decision. Distinguish demo controls from production integrations.
+example_requirement: 请为设计院向总包、分包和监理交付 IFC 模型设计验签、版本链、最小权限和篡改回滚验证方案。
+recommended_num_variants: 3
+recommended_max_audit_rounds: 4
+generate_code_default: true
+strict_clarification_default: true
+

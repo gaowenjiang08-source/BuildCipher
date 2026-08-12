@@ -1,0 +1,90 @@
+name: SRP
+full_name: Secure Remote Password Protocol
+category: protocol
+description: |
+  SRP is a password-authenticated key exchange protocol that allows a user to authenticate
+  to a server using a password without sending the password over the network. It provides
+  mutual authentication and protection against dictionary attacks even if the server is compromised.
+
+parameters:
+  version: SRP-6a
+  group_size: 1024-8192 # bits, safe prime modulus
+  hash: SHA256_or_SHA512
+  rounds: 2 # client and server exchange
+
+properties:
+  - password_authentication
+  - zero_knowledge_proof
+  - mutual_authentication
+  - dictionary_attack_resistant
+  - no_plaintext_transmission
+
+performance:
+  registration: fast
+  login: medium # modular exponentiation
+  server_storage: low
+  client_computation: medium
+  memory: low
+
+security:
+  security_level: 128 # depends on group size
+  best_attack: none_practical
+  attack_complexity: "discrete_log_assumption"
+  status: secure
+  standardized: true
+  proven_security: true
+  quantum_resistant: false
+
+compatible_with:
+  - tls_srp
+  - apple_homekit
+  - authentication_systems
+  - iot_devices
+  - legacy_systems
+
+not_compatible_with:
+  - post_quantum_scenarios
+  - very_low_power_devices
+  - hardware_accelerated_only
+
+use_cases:
+  - password_authentication
+  - iot_device_pairing
+  - secure_login
+  - client_server_authentication
+  - homekit_accessories
+  - vpn_authentication
+
+not_recommended_for:
+  - post_quantum_security
+  - new_protocol_design # consider OPAQUE
+  - minimal_computation_devices
+
+references:
+  - type: rfc
+    title: "RFC 2945: The SRP Authentication and Key Exchange System"
+    url: https://tools.ietf.org/html/rfc2945
+    year: 2000
+  - type: rfc
+    title: "RFC 5054: Using SRP for TLS Authentication"
+    url: https://tools.ietf.org/html/rfc5054
+    year: 2007
+  - type: paper
+    title: "SRP-6: Improvements and Refinements to the Secure Remote Password Protocol"
+    authors: ["Tom Wu"]
+    year: 2002
+    url: http://srp.stanford.edu/design.html
+
+implementation_notes: |
+  - Standardized in RFC 2945 and RFC 5054
+  - SRP-6a is the current recommended version
+  - Server stores verifier v = g^x, not password
+  - Client proves knowledge of password without revealing it
+  - Resistant to dictionary attacks even with server compromise
+  - Requires modular exponentiation (slower than DH)
+  - Choose large safe prime groups (2048+ bits recommended)
+  - Used in Apple HomeKit for device pairing
+  - TLS-SRP extension available but not widely adopted
+  - Consider migrating to OPAQUE for new systems
+  - Quantum vulnerable due to discrete log assumption
+  - Simpler than OPAQUE but older design

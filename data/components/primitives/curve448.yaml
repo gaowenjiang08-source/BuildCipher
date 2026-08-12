@@ -1,0 +1,62 @@
+name: Curve448
+full_name: Curve448 (Goldilocks)
+category: construction
+description: |
+  Curve448 is a high-security elliptic curve designed for safety and performance.
+  Provides ~224 bits of security and is used in X448 and Ed448.
+
+parameters:
+  key_size: [448]
+  security_level: 224
+
+properties:
+  - elliptic_curve
+  - edwards_curve
+  - constant_time
+  - high_security
+  - safe_curve
+
+performance:
+  software_speed: medium
+  hardware_speed: medium
+  memory: low
+  power: low
+
+security:
+  security_level: 224
+  best_attack: none_practical
+  attack_complexity: "2^224"
+  status: secure
+  standardized: true
+  proven_security: true
+
+compatible_with:
+  - X448
+  - Ed448
+  - TLS
+  - SSH
+
+not_compatible_with: []
+
+use_cases:
+  - high_security_applications
+  - x448_key_exchange
+  - ed448_signatures
+  - long_term_security
+
+not_recommended_for:
+  - resource_constrained_devices
+
+references:
+  - type: standard
+    title: "RFC 7748: Elliptic Curves for Security"
+    url: https://www.rfc-editor.org/rfc/rfc7748
+    year: 2016
+
+implementation_notes: |
+  - 224-bit security level
+  - Safe curve (rigidly designed)
+  - Constant-time operations
+  - Used in X448 (ECDH) and Ed448 (signatures)
+  - Slower than Curve25519 but higher security
+  - Good choice for >128-bit security needs

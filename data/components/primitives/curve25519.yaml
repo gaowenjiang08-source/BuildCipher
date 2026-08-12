@@ -1,0 +1,71 @@
+name: Curve25519
+full_name: Curve25519 Montgomery Curve
+category: construction
+description: |
+  Curve25519 is a high-performance elliptic curve designed by Daniel J. Bernstein.
+  Used in X25519 (key exchange) and the basis for Ed25519 (signatures).
+
+parameters:
+  key_size: [256]
+  security_level: 128
+
+properties:
+  - elliptic_curve
+  - montgomery_curve
+  - constant_time
+  - high_performance
+  - safe_curve
+
+performance:
+  software_speed: very_high
+  hardware_speed: high
+  memory: low
+  power: low
+
+security:
+  security_level: 128
+  best_attack: none_practical
+  attack_complexity: "2^128"
+  status: secure
+  standardized: true
+  proven_security: true
+
+compatible_with:
+  - X25519
+  - Ed25519
+  - TLS
+  - SSH
+  - Signal
+
+not_compatible_with: []
+
+use_cases:
+  - x25519_key_exchange
+  - tls
+  - ssh
+  - vpn
+  - secure_messaging
+  - general_purpose_ecdh
+
+not_recommended_for:
+  - fips_required_applications
+
+references:
+  - type: paper
+    title: "Curve25519: new Diffie-Hellman speed records"
+    authors: ["Daniel J. Bernstein"]
+    url: https://cr.yp.to/ecdh.html
+    year: 2006
+  - type: standard
+    title: "RFC 7748: Elliptic Curves for Security"
+    url: https://www.rfc-editor.org/rfc/rfc7748
+    year: 2016
+
+implementation_notes: |
+  - Extremely fast ECDH operations
+  - Constant-time by design
+  - Safe curve (rigidly designed parameters)
+  - Used in X25519, Signal Protocol, WireGuard
+  - Preferred over NIST curves by many cryptographers
+  - Not FIPS approved (use P-256 if needed)
+  - 32-byte keys and public keys

@@ -1,0 +1,90 @@
+name: Classic McEliece
+full_name: Classic McEliece Key Encapsulation Mechanism
+category: key_exchange
+description: |
+  Classic McEliece is a code-based post-quantum KEM with the longest security track record.
+  It offers extremely high confidence but has very large public keys (hundreds of KB to MB).
+
+parameters:
+  security_level: [mceliece348864, mceliece460896, mceliece6688128, mceliece6960119, mceliece8192128]
+  code_type: goppa_code
+  field: GF(2^m)
+
+properties:
+  - post_quantum_secure
+  - code_based
+  - goppa_codes
+  - zero_failure_probability
+  - very_large_keys
+  - longest_track_record
+
+performance:
+  software_speed: high
+  hardware_speed: very_high
+  memory: very_high
+  power: low
+  public_key_size: 261120  # mceliece348864
+  ciphertext_size: 128
+  secret_key_size: 6492
+
+security:
+  security_level: 128  # mceliece348864
+  best_attack: information_set_decoding
+  attack_complexity: "2^128 for mceliece348864"
+  status: secure
+  standardized: true
+  proven_security: true
+  quantum_resistant: true
+
+compatible_with:
+  - post_quantum_cryptography
+  - ultra_high_security
+  - hardware_implementations
+  - nist_pqc_standard
+
+not_compatible_with:
+  - bandwidth_constrained_systems
+  - memory_constrained_devices
+  - mobile_devices
+  - embedded_systems
+
+use_cases:
+  - ultra_high_security
+  - government_classified
+  - long_term_archives
+  - defense_systems
+  - critical_infrastructure
+  - satellite_communications
+
+not_recommended_for:
+  - web_applications
+  - mobile_apps
+  - iot_devices
+  - consumer_devices
+  - typical_commercial_use
+
+references:
+  - type: paper
+    title: "A Public-Key Cryptosystem Based on Algebraic Coding Theory"
+    authors: ["Robert J. McEliece"]
+    year: 1978
+  - type: paper
+    title: "Classic McEliece: conservative code-based cryptography"
+    authors: ["Daniel J. Bernstein", "Tung Chou", "Tanja Lange", "Ingo von Maurich", "Rafael Misoczki", "Ruben Niederhagen", "Edoardo Persichetti", "Christiane Peters", "Peter Schwabe", "Nicolas Sendrier", "Jakub Szefer", "Wen Wang"]
+    year: 2020
+
+implementation_notes: |
+  - NIST PQC Round 4 finalist (selected for standardization)
+  - Longest security track record (1978, 45+ years)
+  - Highest confidence in post-quantum security
+  - Very large public keys (261 KB to 1.3 MB)
+  - Small ciphertexts (128-256 bytes)
+  - Zero decapsulation failure probability
+  - Fast encapsulation and decapsulation
+  - Excellent hardware performance
+  - Based on binary Goppa codes
+  - Conservative and well-understood
+  - Quantum-resistant
+  - Use when maximum security assurance needed
+  - Public key size is main drawback
+  - Best for store-and-forward scenarios

@@ -1,0 +1,99 @@
+name: Searchable_Encryption
+full_name: Searchable Symmetric Encryption
+category: encryption_scheme
+description: |
+  Searchable Encryption (SE) allows a client to outsource encrypted data to an
+  untrusted server while retaining the ability to search over the encrypted data
+  without decrypting it. The server can perform searches using encrypted queries
+  without learning the plaintext data or search keywords.
+
+parameters:
+  scheme_type: [SSE, DSSE, OSSE]
+  construction: [inverted_index, forward_index, oblivious_index]
+  leakage_profile: [L1, L2, L3, L4]
+  security_parameter: [128, 256]
+
+properties:
+  - encrypted_search
+  - forward_privacy
+  - backward_privacy
+  - query_privacy
+  - keyword_privacy
+  - index_privacy
+  - dynamic_updates
+  - sublinear_search
+
+performance:
+  software_speed: medium
+  hardware_speed: medium
+  memory: high
+  power: medium
+  search_time: sublinear
+  update_time: medium
+  storage_overhead: high
+
+security:
+  security_level: 128
+  best_attack: leakage_abuse_attack
+  attack_complexity: "depends on leakage profile"
+  status: secure_with_leakage
+  standardized: false
+  proven_security: true
+
+compatible_with:
+  - cloud_storage
+  - encrypted_databases
+  - AES
+  - SHA-256
+  - HMAC
+  - bloom_filters
+
+not_compatible_with:
+  - zero_leakage_requirements
+  - real_time_systems
+  - extremely_high_throughput
+
+use_cases:
+  - encrypted_cloud_storage
+  - encrypted_email_search
+  - encrypted_databases
+  - secure_document_management
+  - project_archive_search
+  - secure_audit_logs
+  - privacy_preserving_search
+
+not_recommended_for:
+  - zero_leakage_requirements
+  - public_data
+  - high_frequency_updates
+  - unstructured_data
+
+references:
+  - type: paper
+    title: "Practical Techniques for Searches on Encrypted Data"
+    authors: ["Dawn Song", "David Wagner", "Adrian Perrig"]
+    year: 2000
+  - type: paper
+    title: "Dynamic Searchable Encryption via Blind Storage"
+    year: 2014
+  - type: paper
+    title: "Forward and Backward Private Searchable Encryption"
+    year: 2017
+  - type: survey
+    title: "Searchable Encryption: A Survey"
+    year: 2020
+
+implementation_notes: |
+  - Static SE: data encrypted once, no updates allowed
+  - Dynamic SE (DSSE): supports add/delete operations
+  - Oblivious SE (OSSE): hides access patterns using ORAM
+  - Forward privacy: new updates not linkable to past queries
+  - Backward privacy: deleted docs not returned in searches
+  - Typical leakage: search pattern, access pattern, volume
+  - Use encrypted inverted index for keyword search
+  - Search complexity typically O(r) where r is result size
+  - Trade-off between efficiency and leakage
+  - Consider leakage-abuse attacks in threat model
+  - Combine with ORAM for stronger security (high overhead)
+  - Popular schemes: SSE (Curtmola), DSSE (Kamara), Fides, Sophos
+  - Not suitable for complex SQL queries (only keyword search)

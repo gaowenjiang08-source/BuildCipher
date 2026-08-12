@@ -1,0 +1,37 @@
+id: enterprise_general_delivery
+name: 企业通用交付模板
+status: active
+scenario: general
+summary: 面向企业安全、架构与采购评审的通用交付模板，强调标准符合性、证据链与风险决策。
+target_audiences:
+  - security
+  - architecture
+  - governance
+  - procurement
+control_focus:
+  - 标准符合性与选型理由
+  - 风险说明与审计可追溯
+  - 生产落地与责任边界
+evidence_checklist:
+  - 明确适用标准/基线（如 NIST/FIPS/企业内部基线）
+  - 给出关键组件与选型理由
+  - 汇总主要风险、限制与后续行动
+open_question_prompts:
+  - 是否存在必须对齐的内部安全基线、采购标准或供应商限制？
+  - 是否需要输出给管理层/采购委员会的非技术摘要？
+sections:
+  - id: business_context
+    title: 业务背景与范围
+    purpose: 明确当前交付面向的业务场景、边界与适用对象。
+  - id: regulatory_mapping
+    title: 法规与控制映射
+    purpose: 将方案与标准、控制要求、审查口径关联起来。
+  - id: crypto_controls
+    title: 推荐密码控制措施
+    purpose: 提炼可执行的密码与密钥管理控制点。
+  - id: evidence_validation
+    title: 证据与验证清单
+    purpose: 汇总交付时必须附带的证据与验证材料。
+  - id: residual_risks
+    title: 剩余风险与决策记录
+    purpose: 说明剩余风险、待决策事项与下一步动作。

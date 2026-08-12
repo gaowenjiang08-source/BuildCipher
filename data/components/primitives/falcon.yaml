@@ -1,0 +1,83 @@
+name: FALCON
+full_name: Fast Fourier Lattice-based Compact Signatures over NTRU
+category: signature
+description: |
+  FALCON is a NIST PQC finalist offering fast verification and compact signatures.
+  It is lattice-based using NTRU lattices and provides strong post-quantum security guarantees.
+
+parameters:
+  security_level: [512, 1024]  # FALCON-512, FALCON-1024
+  hash_function: SHAKE256
+
+properties:
+  - post_quantum_secure
+  - lattice_based
+  - ntru_based
+  - fast_verification
+  - compact_signatures
+  - nist_pqc_finalist
+
+performance:
+  software_speed: high
+  hardware_speed: medium
+  memory: medium
+  power: medium
+  signature_size_512: 666
+  signature_size_1024: 1280
+  verification_fast: true
+  signing_slow: medium
+
+security:
+  security_level: 128  # FALCON-512 provides ~128-bit security
+  best_attack: lattice_reduction_attacks
+  attack_complexity: "2^128 for FALCON-512, 2^256 for FALCON-1024"
+  status: secure
+  standardized: true
+  proven_security: true
+  quantum_resistant: true
+
+compatible_with:
+  - post_quantum_tls
+  - x509_certificates
+  - pqc_hybrid_schemes
+  - nist_pqc_standards
+
+not_compatible_with:
+  - legacy_systems
+  - extremely_constrained_devices
+  - fixed_point_only_hardware
+
+use_cases:
+  - post_quantum_digital_signatures
+  - future_tls_connections
+  - code_signing
+  - firmware_signing
+  - certificate_authorities
+  - long_term_security
+
+not_recommended_for:
+  - ultra_low_power_devices
+  - systems_without_floating_point
+  - immediate_backward_compatibility
+
+references:
+  - type: paper
+    title: "FALCON: Fast-Fourier Lattice-based Compact Signatures over NTRU"
+    authors: ["Pierre-Alain Fouque", "Jeffrey Hoffstein", "Paul Kirchner", "Vadim Lyubashevsky", "Thomas Pornin", "Thomas Prest", "Thomas Ricosset", "Gregor Seiler", "William Whyte", "Zhenfei Zhang"]
+    year: 2020
+  - type: standard
+    title: "NIST PQC Standardization"
+    url: https://csrc.nist.gov/projects/post-quantum-cryptography
+    year: 2022
+
+implementation_notes: |
+  - NIST PQC finalist (not selected but recommended)
+  - Smallest signatures among lattice-based schemes
+  - Fast verification, moderate signing speed
+  - Uses floating-point arithmetic (implementation complexity)
+  - FALCON-512: 666-byte signatures, 128-bit security
+  - FALCON-1024: 1280-byte signatures, 256-bit security
+  - Based on NTRU lattices
+  - Requires careful floating-point implementation
+  - Quantum-resistant
+  - Suitable for constrained environments

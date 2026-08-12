@@ -1,0 +1,100 @@
+name: FHE_TFHE
+full_name: Fully Homomorphic Encryption (TFHE)
+category: homomorphic_encryption
+description: |
+  TFHE (Fast Fully Homomorphic Encryption over the Torus) is a fully homomorphic
+  encryption scheme that enables arbitrary computations on encrypted data without
+  decryption. TFHE is known for fast bootstrapping and supports gate-by-gate
+  evaluation with minimal noise growth.
+
+parameters:
+  security_parameter: [128, 256]
+  lattice_dimension: [630, 1024]
+  noise_parameter: variable
+  bootstrapping_key_size: large
+  ciphertext_expansion: very_high
+
+properties:
+  - fully_homomorphic
+  - bootstrappable
+  - fast_bootstrapping
+  - gate_level_operations
+  - noise_management
+  - leveled_evaluation
+  - quantum_resistant
+  - exact_arithmetic
+
+performance:
+  software_speed: very_low
+  hardware_speed: low
+  memory: very_high
+  power: very_high
+  encryption_time: slow
+  bootstrapping_time: medium
+  gate_evaluation_time: slow
+
+security:
+  security_level: 128
+  best_attack: lattice_reduction
+  attack_complexity: "2^128"
+  status: secure
+  standardized: false
+  proven_security: true
+
+compatible_with:
+  - private_machine_learning
+  - encrypted_computation
+  - secure_multiparty_computation
+  - cloud_computing
+  - privacy_preserving_analytics
+
+not_compatible_with:
+  - real_time_systems
+  - low_latency_applications
+  - resource_constrained_devices
+  - high_throughput_systems
+
+use_cases:
+  - private_machine_learning
+  - encrypted_inference
+  - secure_cloud_computing
+  - privacy_preserving_analytics
+  - encrypted_databases
+  - secure_computation_outsourcing
+  - confidential_data_processing
+  - genomic_privacy
+
+not_recommended_for:
+  - real_time_applications
+  - general_purpose_encryption
+  - low_latency_requirements
+  - mobile_devices
+
+references:
+  - type: paper
+    title: "TFHE: Fast Fully Homomorphic Encryption over the Torus"
+    authors: ["Ilaria Chillotti", "Nicolas Gama", "Mariya Georgieva", "Malika Izabachene"]
+    year: 2016
+  - type: paper
+    title: "Faster Bootstrapping with Polynomial Error"
+    year: 2017
+  - type: implementation
+    title: "TFHE Library"
+    url: https://tfhe.github.io/tfhe/
+    year: 2018
+
+implementation_notes: |
+  - Based on Learning With Errors (LWE) problem over torus
+  - Supports arbitrary boolean circuits on encrypted data
+  - Fast bootstrapping (~13ms per gate on modern hardware)
+  - Bootstrapping refreshes ciphertext, removing noise
+  - Ciphertext size expansion factor very large (1000x+)
+  - Gate-by-gate evaluation (AND, OR, XOR, NOT)
+  - Quantum resistant (lattice-based)
+  - Memory requirements very high (GB range)
+  - Used in private machine learning and encrypted inference
+  - Concrete library provides TFHE implementation
+  - Not suitable for large-scale computations (yet)
+  - Consider BFV/CKKS for SIMD operations
+  - TFHE best for boolean circuits and decision trees
+  - Ongoing research to improve performance

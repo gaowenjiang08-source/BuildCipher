@@ -1,0 +1,79 @@
+name: OFB
+full_name: Output Feedback
+category: mode
+description: |
+  OFB turns a block cipher into a synchronous stream cipher by encrypting an IV
+  and XORing the output with plaintext. It does not propagate errors but lacks authentication.
+
+parameters:
+  block_size: 128
+  iv_size: 128
+  no_padding: true
+
+properties:
+  - stream_cipher_mode
+  - synchronous_stream
+  - no_error_propagation
+  - no_padding_required
+  - sequential_encryption
+
+performance:
+  software_speed: medium
+  hardware_speed: medium
+  memory: very_low
+  power: low
+
+security:
+  security_level: 256  # Security depends on underlying cipher (AES-256)
+  best_attack: bit_flipping
+  attack_complexity: "Bit-flipping attacks, IV must never repeat"
+  status: legacy
+  standardized: true
+  proven_security: false
+
+compatible_with:
+  - AES
+  - DES
+  - 3DES
+  - legacy_systems
+  - error_sensitive_channels
+
+not_compatible_with:
+  - modern_security_standards
+  - parallel_processing
+  - stream_ciphers
+
+use_cases:
+  - legacy_systems
+  - error_sensitive_channels
+  - streaming_encryption
+  - educational_purposes
+
+not_recommended_for:
+  - new_systems
+  - high_security_applications
+  - unauthenticated_encryption
+  - parallel_processing
+
+references:
+  - type: standard
+    title: "NIST SP 800-38A: Block Cipher Modes of Operation"
+    url: https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-38a.pdf
+    year: 2001
+  - type: standard
+    title: "ISO/IEC 10116: Modes of Operation"
+    url: https://www.iso.org/standard/64575.html
+    year: 2017
+
+implementation_notes: |
+  - IV must be unique (never reused with same key)
+  - Errors in ciphertext only affect corresponding plaintext bits
+  - Encryption is sequential (not parallelizable)
+  - Decryption uses same operation as encryption
+  - No padding required
+  - Susceptible to bit-flipping attacks
+  - MUST use with authentication (HMAC)
+  - Keystream can be precomputed
+  - IV reuse is catastrophic (reveals XOR of plaintexts)
+  - Consider using CTR mode instead (allows parallel processing)
+  - Deprecated for most modern applications

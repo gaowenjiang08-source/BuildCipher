@@ -1,0 +1,12 @@
+ISO-10303-21;
+HEADER;
+FILE_DESCRIPTION(('ViewDefinition [CoordinationView]'),'2;1');
+FILE_NAME('buildtrust-coordination.ifc','2026-08-11T00:00:00',('BuildTrust'),('MedCipher Studio'),'BuildTrust V1','BuildTrust','');
+FILE_SCHEMA(('IFC4'));
+ENDSEC;
+DATA;
+#1=IFCPROJECT('0YvctVUKr0kugbFTf53O9L',$,'BuildTrust Project',$,$,$,$,$,$);
+#2=IFCSITE('1YvctVUKr0kugbFTf53O9L',$,'Main Site',$,$,$,$,$,$,$,$,$,$,$);
+#3=IFCWALL('2YvctVUKr0kugbFTf53O9L',$,'Coordination Wall',$,$,$,$,$);
+ENDSEC;
+END-ISO-10303-21;

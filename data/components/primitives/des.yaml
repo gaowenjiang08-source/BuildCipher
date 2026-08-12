@@ -1,0 +1,65 @@
+name: DES
+full_name: Data Encryption Standard
+category: block_cipher
+description: |
+  DES is a symmetric-key block cipher that was widely used from the 1970s through the 1990s.
+  It operates on 64-bit blocks with a 56-bit key (64 bits with parity). Now considered insecure
+  due to small key size.
+
+parameters:
+  block_size: 64
+  key_size: [56]
+  rounds: 16
+
+properties:
+  - legacy
+  - deprecated
+  - fast_software
+  - feistel_network
+
+performance:
+  software_speed: high
+  hardware_speed: high
+  memory: low
+  power: low
+
+security:
+  security_level: 56
+  best_attack: brute_force
+  attack_complexity: "2^56"
+  status: deprecated
+  standardized: true
+  proven_security: false
+
+compatible_with:
+  - CBC
+  - ECB
+  - CFB
+  - OFB
+
+not_compatible_with:
+  - GCM
+  - CTR
+
+use_cases:
+  - legacy_systems
+
+not_recommended_for:
+  - new_deployments
+  - any_security_critical_use
+
+references:
+  - type: standard
+    title: "FIPS 46-3: Data Encryption Standard"
+    url: https://csrc.nist.gov/publications/detail/fips/46/3/archive/1999-10-25
+    year: 1999
+  - type: paper
+    title: "DES is not a Group"
+    authors: ["D. Coppersmith", "E. Grossman"]
+    year: 1975
+
+implementation_notes: |
+  - DO NOT use for new applications
+  - Key size too small for modern security requirements
+  - Vulnerable to brute-force attacks
+  - Use 3DES or AES instead

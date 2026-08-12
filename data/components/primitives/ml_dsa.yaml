@@ -1,0 +1,115 @@
+name: ML-DSA
+full_name: Module-Lattice-Based Digital Signature Algorithm
+category: signature
+description: |
+  ML-DSA is the NIST-standardized version of CRYSTALS-Dilithium. A lattice-based
+  post-quantum digital signature scheme offering excellent performance and strong
+  security. Official FIPS 204 standard, primary recommendation for post-quantum signatures.
+
+parameters:
+  security_level: [128, 192, 256]
+  parameter_sets: [ML-DSA-44, ML-DSA-65, ML-DSA-87]
+  public_key_size: [1312, 1952, 2592]
+  signature_size: [2420, 3293, 4595]
+
+properties:
+  - post_quantum
+  - digital_signature
+  - lattice_based
+  - nist_standardized
+  - quantum_resistant
+  - fips_approved
+  - high_performance
+  - primary_standard
+
+performance:
+  software_speed: high
+  hardware_speed: high
+  memory: medium
+  power: medium
+  signing_time: fast
+  verification_time: very_fast
+
+security:
+  security_level: 256
+  best_attack: none_practical
+  attack_complexity: "quantum_resistant"
+  status: secure
+  standardized: true
+  proven_security: true
+  quantum_resistant: true
+  fips_approved: true
+
+security_profile:
+  classical_security_bits: 256
+  nist_pqc_category: 5
+  quantum_resistant: true
+  proof_model: module_lattice
+
+standard:
+  organization: NIST
+  identifier: FIPS-204
+  standardized_name: ML-DSA
+  status: final
+  published_at: "2024-08-13"
+  reviewed_at: "2026-08-11"
+  jurisdictions: [international]
+
+implementation_sources:
+  - name: Open Quantum Safe liboqs
+    source_type: mature_sdk
+    url: https://github.com/open-quantum-safe/liboqs
+    validation_status: integration_candidate_not_automatically_fips_validated
+
+compatible_with:
+  - TLS
+  - certificates
+  - code_signing
+  - hybrid_signatures
+  - email_signing
+  - federal_systems
+
+not_compatible_with:
+  - encryption
+  - ultra_constrained_devices
+
+use_cases:
+  - post_quantum_signatures
+  - web_certificates
+  - code_signing
+  - email_signatures
+  - document_signing
+  - government_systems
+  - enterprise_pki
+  - tls_authentication
+
+not_recommended_for:
+  - ultra_constrained_iot_devices
+
+references:
+  - type: standard
+    title: "NIST FIPS 204: Module-Lattice-Based Digital Signature Standard"
+    url: https://csrc.nist.gov/pubs/fips/204/final
+    year: 2024
+  - type: paper
+    title: "CRYSTALS-Dilithium"
+    url: https://pq-crystals.org/dilithium/
+    year: 2020
+
+implementation_notes: |
+  - Official NIST FIPS 204 standard (standardized Dilithium)
+  - FIPS-approved for federal government use
+  - Primary NIST recommendation for post-quantum signatures
+  - Three parameter sets:
+    * ML-DSA-44 (128-bit security) - general purpose
+    * ML-DSA-65 (192-bit security) - NIST RECOMMENDED
+    * ML-DSA-87 (256-bit security) - maximum security
+  - Fast signing and verification
+  - Moderate signature sizes (2.4-4.6 KB)
+  - Excellent software and hardware performance
+  - Can be used in hybrid mode with Ed25519/Ed448
+  - Recommended for immediate post-quantum migration
+  - Suitable for TLS, PKI, code signing, email
+  - Best choice for most applications
+  - Good balance of security, performance, and size
+  - Preferred over SLH-DSA for performance-sensitive applications

@@ -1,0 +1,61 @@
+name: DSA
+full_name: Digital Signature Algorithm
+category: signature
+description: |
+  DSA is a Federal Information Processing Standard for digital signatures.
+  It is based on the discrete logarithm problem and modular exponentiation.
+
+parameters:
+  key_size: [2048, 3072]
+  signature_size: 320
+
+properties:
+  - digital_signature
+  - non_repudiation
+  - standardized
+
+performance:
+  software_speed: medium
+  hardware_speed: medium
+  memory: medium
+  power: medium
+
+security:
+  security_level: 256
+  best_attack: none_practical
+  attack_complexity: "2^128 for DSA-3072/256"
+  status: secure
+  standardized: true
+  proven_security: true
+
+compatible_with:
+  - SHA-256
+  - SHA-384
+  - SHA-512
+
+not_compatible_with:
+  - encryption
+
+use_cases:
+  - digital_signatures
+  - document_signing
+  - code_signing
+  - government_systems
+
+not_recommended_for:
+  - encryption
+  - key_exchange
+  - new_applications_prefer_ecdsa
+
+references:
+  - type: standard
+    title: "FIPS 186-5: Digital Signature Standard"
+    url: https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.186-5.pdf
+    year: 2023
+
+implementation_notes: |
+  - Requires strong random number generator for k value
+  - k must never be reused or predictable
+  - Signature generation requires careful implementation
+  - ECDSA generally preferred for new applications
+  - Minimum 2048-bit keys recommended

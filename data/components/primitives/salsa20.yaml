@@ -1,0 +1,64 @@
+name: Salsa20
+full_name: Salsa20 Stream Cipher
+category: stream_cipher
+description: |
+  Salsa20 is a stream cipher designed by Daniel J. Bernstein. It is the predecessor
+  to ChaCha20 and was a finalist in the eSTREAM competition.
+
+parameters:
+  key_size: [128, 256]
+  nonce_size: 64
+  rounds: 20
+  block_size: 512
+
+properties:
+  - software_optimized
+  - constant_time
+  - no_lookup_tables
+  - cache_timing_resistant
+
+performance:
+  software_speed: very_high
+  hardware_speed: medium
+  memory: very_low
+  power: low
+
+security:
+  security_level: 256
+  best_attack: none_practical
+  attack_complexity: "No attacks better than brute force"
+  status: secure
+  standardized: true
+  proven_security: true
+
+compatible_with:
+  - Poly1305
+  - AEAD
+
+not_compatible_with: []
+
+use_cases:
+  - iot_encryption
+  - mobile_encryption
+  - embedded_systems
+  - lightweight_applications
+
+not_recommended_for:
+  - systems_requiring_hardware_acceleration
+
+references:
+  - type: paper
+    title: "Salsa20 specification"
+    authors: ["Daniel J. Bernstein"]
+    url: https://cr.yp.to/snuffle.html
+    year: 2005
+  - type: standard
+    title: "eSTREAM Portfolio"
+    year: 2008
+
+implementation_notes: |
+  - eSTREAM portfolio cipher
+  - Predecessor to ChaCha20
+  - Excellent software performance
+  - 64-bit nonce (smaller than ChaCha20's 96-bit)
+  - Constant-time by design

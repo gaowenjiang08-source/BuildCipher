@@ -1,0 +1,74 @@
+name: VMAC
+full_name: Very Fast Universal Hash MAC
+category: mac
+description: |
+  VMAC is a message authentication code algorithm providing very high performance
+  through universal hashing. It achieves exceptionally high speeds in software.
+
+parameters:
+  key_size: [128, 256]
+  tag_size: 128  # Common tag size, can be 64 or 128 bits
+  nonce_size: 128
+
+properties:
+  - universal_hash_based
+  - nonce_based
+  - extremely_fast
+  - constant_time
+  - software_optimized
+  - proven_security
+
+performance:
+  software_speed: very_high
+  hardware_speed: medium
+  memory: very_low
+  power: very_low
+
+security:
+  security_level: 128
+  best_attack: none_practical
+  attack_complexity: "2^128 with 128-bit tags"
+  status: secure
+  standardized: true
+  proven_security: true
+
+compatible_with:
+  - AES
+  - block_ciphers
+  - high_speed_networking
+  - UDP_protocols
+
+not_compatible_with: []
+
+use_cases:
+  - high_speed_networking
+  - vpn_protocols
+  - network_packet_authentication
+  - low_latency_systems
+  - data_center_networking
+  - high_throughput_applications
+
+not_recommended_for:
+  - password_storage
+  - key_derivation
+  - non_nonce_based_protocols
+
+references:
+  - type: rfc
+    title: "RFC 4418: VMAC"
+    url: https://tools.ietf.org/html/rfc4418
+    year: 2006
+  - type: paper
+    title: "VMAC: Message Authentication Code using Universal Hashing"
+    authors: ["Ted Krovetz", "Phillip Rogaway"]
+    year: 2007
+
+implementation_notes: |
+  - One of the fastest MAC algorithms available
+  - Requires unique nonce for each message
+  - Typically 2-3x faster than HMAC-SHA256
+  - Uses universal hashing with AES for high speed
+  - Nonce must never be reused with same key
+  - 64-bit tags provide 2^32 collision resistance
+  - 128-bit tags provide 2^64 collision resistance
+  - Optimized for 64-bit processors

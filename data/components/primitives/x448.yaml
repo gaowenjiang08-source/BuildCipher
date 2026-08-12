@@ -1,0 +1,60 @@
+name: X448
+full_name: X448 Key Exchange
+category: key_exchange
+description: |
+  X448 is a Diffie-Hellman key exchange using Curve448. It provides ~224 bits
+  of security and is designed for high-security applications.
+
+parameters:
+  key_size: [448]
+
+properties:
+  - key_exchange
+  - forward_secrecy
+  - constant_time
+  - high_security
+  - standardized
+
+performance:
+  software_speed: high
+  hardware_speed: high
+  memory: low
+  power: low
+
+security:
+  security_level: 224
+  best_attack: none_practical
+  attack_complexity: "2^224"
+  status: secure
+  standardized: true
+  proven_security: true
+
+compatible_with:
+  - Ed448
+  - TLS
+  - SSH
+
+not_compatible_with: []
+
+use_cases:
+  - high_security_key_exchange
+  - tls
+  - vpn
+  - secure_messaging
+  - long_term_security
+
+not_recommended_for:
+  - resource_constrained_devices
+
+references:
+  - type: standard
+    title: "RFC 7748: Elliptic Curves for Security"
+    url: https://www.rfc-editor.org/rfc/rfc7748
+    year: 2016
+
+implementation_notes: |
+  - Higher security than X25519
+  - Constant-time by design
+  - No point validation needed (clamping done automatically)
+  - Slower than X25519 but still fast
+  - Good choice for applications requiring >128-bit security

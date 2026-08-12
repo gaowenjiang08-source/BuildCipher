@@ -1,0 +1,74 @@
+name: OCB
+full_name: Offset Codebook Mode
+category: mode
+description: |
+  OCB is a single-pass authenticated encryption mode offering excellent performance.
+  It is patented (free for non-commercial use) and provides both encryption and authentication efficiently.
+
+parameters:
+  block_size: 128
+  nonce_size: 120
+  tag_size: 128
+
+properties:
+  - authenticated_encryption
+  - single_pass_mode
+  - parallelizable
+  - provably_secure
+  - patented
+
+performance:
+  software_speed: very_high
+  hardware_speed: very_high
+  memory: low
+  power: low
+
+security:
+  security_level: 256  # Security depends on underlying cipher (AES-256)
+  best_attack: none_practical
+  attack_complexity: "birthday bound at 2^64"
+  status: secure
+  standardized: true
+  proven_security: true
+
+compatible_with:
+  - AES
+  - block_ciphers_128bit
+  - high_performance_systems
+
+not_compatible_with:
+  - stream_ciphers
+  - non_128bit_block_ciphers
+  - commercial_use_without_license
+
+use_cases:
+  - high_speed_encryption
+  - academic_research
+  - non_commercial_applications
+  - performance_critical_systems
+
+not_recommended_for:
+  - commercial_products
+  - patent_sensitive_environments
+  - widespread_deployment
+
+references:
+  - type: paper
+    title: "OCB: A Block-Cipher Mode of Operation for Efficient Authenticated Encryption"
+    url: https://web.cs.ucdavis.edu/~rogaway/ocb/ocb-faq.htm
+    year: 2001
+  - type: rfc
+    title: "RFC 7253: OCB Authenticated-Encryption Algorithm"
+    url: https://tools.ietf.org/html/rfc7253
+    year: 2014
+
+implementation_notes: |
+  - Single-pass AEAD (most efficient design)
+  - Patented by Phillip Rogaway (free for non-commercial use)
+  - License required for commercial use
+  - Fully parallelizable
+  - OCB3 is the current version (2011)
+  - Nonce must never be reused
+  - Faster than GCM and CCM
+  - Not widely adopted due to patent concerns
+  - Patent expires in different years by region

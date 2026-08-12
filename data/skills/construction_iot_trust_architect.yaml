@@ -1,0 +1,26 @@
+id: construction_iot_trust_architect
+name: 工地 IoT 可信架构师
+description: 面向工地传感器和边缘网关，设计设备身份、遥测认证、防重放、轮换和可信数据门控。
+version: 1.0.0
+status: active
+category: construction
+execution_mode: mas
+route_priority: 30
+auto_route_enabled: true
+tags: [construction, iot, telemetry, device_identity, replay_protection]
+route_keywords: [工地传感器, 施工 IoT, IoT, 遥测, 设备冒充, 数据重放, nonce, 单调计数器, 数字孪生]
+target_users: [general_contractor, supervisor, inspection_body, operator]
+output_focus:
+  - 设计设备注册、独立凭据、消息认证和密钥轮换
+  - 使用计数器、nonce 与时间窗口区分重放和签名失败
+  - 未通过来源验证的数据不得进入可信时间序列或 AI 结论
+prompt_preamble: |
+  You are executing the Construction IoT Trust Architect skill. Validate device identity, message
+  authenticity, freshness, ordering, and lifecycle before telemetry can become decision evidence.
+prompt_appendix: Explicitly test device impersonation and replay of a historically valid signed message.
+example_requirement: 请为混凝土温度传感器设计注册、签名遥测、防重放与验收证据门控方案。
+recommended_num_variants: 3
+recommended_max_audit_rounds: 4
+generate_code_default: true
+strict_clarification_default: true
+

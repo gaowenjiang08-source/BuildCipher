@@ -1,0 +1,90 @@
+name: HMAC_DRBG
+full_name: HMAC-Based Deterministic Random Bit Generator
+category: random_number_generator
+description: |
+  HMAC_DRBG is a deterministic random bit generator specified in NIST SP 800-90A.
+  It uses HMAC with cryptographic hash functions to generate pseudorandom bits.
+  Most widely deployed DRBG due to simplicity and strong security properties.
+
+parameters:
+  hash_function: [SHA-256, SHA-512, SHA-384, SHA-1]
+  key_length: [256, 512]
+  seed_length: [256, 440]
+  reseed_interval: 2^48
+
+properties:
+  - deterministic
+  - cryptographically_secure
+  - nist_approved
+  - widely_deployed
+  - prediction_resistance_supported
+  - reseeding_capability
+  - simple_implementation
+  - proven_security
+
+performance:
+  software_speed: high
+  hardware_speed: high
+  memory: low
+  power: low
+
+security:
+  security_level: 256  # With SHA-512
+  best_attack: none_known
+  attack_complexity: "2^256 for SHA-512 variant"
+  status: secure
+  standardized: true
+  proven_security: true
+
+compatible_with:
+  - SHA-256
+  - SHA-512
+  - SHA-384
+  - TLS
+  - bitcoin
+  - ethereum
+  - cryptographic_protocols
+
+not_compatible_with:
+  - weak_hash_functions
+  - md5
+
+use_cases:
+  - key_generation
+  - iv_generation
+  - nonce_generation
+  - cryptographic_protocols
+  - tls_random
+  - bitcoin_wallets
+  - ethereum_keys
+  - general_purpose_random
+
+not_recommended_for:
+  - gaming_applications
+  - monte_carlo_simulations
+  - non_cryptographic_use
+
+references:
+  - type: standard
+    title: "NIST SP 800-90A: Recommendation for Random Number Generation Using Deterministic Random Bit Generators"
+    url: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-90Ar1.pdf
+    year: 2015
+  - type: standard
+    title: "RFC 6979: Deterministic Usage of the DSA and ECDSA"
+    url: https://tools.ietf.org/html/rfc6979
+    year: 2013
+  - type: paper
+    title: "On the Security of HMAC and NMAC Based on HAVAL, MD4, MD5, SHA-0 and SHA-1"
+    year: 2006
+
+implementation_notes: |
+  - Most widely recommended DRBG variant
+  - Used in Bitcoin (BIP 32/39) and Ethereum
+  - Requires secure entropy source for seeding
+  - Simpler security proof than CTR_DRBG
+  - No block cipher required
+  - Excellent choice for most applications
+  - SHA-256 sufficient for most use cases
+  - Must implement proper reseeding mechanisms
+  - Reseed after no more than 2^48 requests
+  - RFC 6979 uses HMAC_DRBG for deterministic signatures

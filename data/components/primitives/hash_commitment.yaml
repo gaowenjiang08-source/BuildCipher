@@ -1,0 +1,89 @@
+name: Hash_Commitment
+full_name: Hash-Based Commitment Scheme
+category: commitment_scheme
+description: |
+  Hash-based commitment is a simple commitment scheme using cryptographic hash
+  functions. The committer hashes a message concatenated with random data, and
+  later reveals both to open the commitment. Provides computational hiding and binding.
+
+parameters:
+  hash_function: [SHA-256, SHA-3, BLAKE2, SHA-512]
+  commitment_size: [256, 512]
+  nonce_size: 256  # 128-bit minimum, 256-bit recommended
+
+properties:
+  - computationally_hiding
+  - computationally_binding
+  - non_interactive
+  - simple_implementation
+  - no_trusted_setup
+  - collision_resistant
+  - preimage_resistant
+
+performance:
+  software_speed: very_high
+  hardware_speed: very_high
+  memory: very_low
+  power: very_low
+  commitment_time: very_fast
+  verification_time: very_fast
+
+security:
+  security_level: 256
+  best_attack: collision_attack
+  attack_complexity: "2^128 for SHA-256 (collision), 2^256 (preimage)"
+  status: secure
+  standardized: false
+  proven_security: true
+
+compatible_with:
+  - any_hash_function
+  - blockchain_systems
+  - smart_contracts
+  - voting_protocols
+  - commitment_protocols
+
+not_compatible_with:
+  - homomorphic_operations
+  - quantum_computers
+
+use_cases:
+  - commit_reveal_schemes
+  - sealed_bid_auctions
+  - voting_systems
+  - blockchain_applications
+  - smart_contracts
+  - lottery_systems
+  - poker_protocols
+  - timestamping
+
+not_recommended_for:
+  - homomorphic_operations
+  - zero_knowledge_proofs
+  - range_proofs
+  - quantum_resistant_applications
+
+references:
+  - type: paper
+    title: "Commitment Schemes and Zero-Knowledge Protocols"
+    year: 1996
+  - type: standard
+    title: "Hash-Based Commitment in Bitcoin"
+    year: 2009
+  - type: paper
+    title: "Practical Cryptographic Commitment Schemes"
+    year: 2001
+
+implementation_notes: |
+  - Commitment: C = H(m || r) where m is message, r is random nonce
+  - Opening: reveal m and r, verifier checks H(m || r) = C
+  - Must use cryptographically secure hash function
+  - Nonce r must be uniformly random and sufficiently long
+  - Simple and efficient compared to Pedersen commitments
+  - No homomorphic properties
+  - Use SHA-256 or better for security
+  - 128-bit nonce minimum, 256-bit recommended
+  - Very popular in blockchain smart contracts
+  - Used in Bitcoin hash time-locked contracts (HTLCs)
+  - Consider using HMAC instead of simple concatenation
+  - Quantum resistance depends on hash function choice

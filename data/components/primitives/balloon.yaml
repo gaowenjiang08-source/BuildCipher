@@ -1,0 +1,61 @@
+name: Balloon
+full_name: Balloon Hashing
+category: construction
+description: |
+  Balloon is a memory-hard password hashing function designed to be resistant to
+  cache-timing attacks and provide strong defense against brute-force attacks.
+
+parameters:
+  space_cost: configurable
+  time_cost: configurable
+
+properties:
+  - password_hashing
+  - memory_hard
+  - cache_timing_resistant
+  - sequential_memory_hard
+
+performance:
+  software_speed: low
+  hardware_speed: low
+  memory: high
+  power: high
+
+security:
+  security_level: 256
+  best_attack: none_practical_with_proper_params
+  attack_complexity: "memory_time_tradeoff_resistant"
+  status: secure
+  standardized: false
+  proven_security: true
+
+compatible_with:
+  - password_storage
+  - key_derivation
+
+not_compatible_with: []
+
+use_cases:
+  - password_hashing
+  - password_storage
+  - key_derivation_slow
+
+not_recommended_for:
+  - high_performance_kdf
+  - fast_key_derivation
+
+references:
+  - type: paper
+    title: "Balloon Hashing: A Memory-Hard Function Providing Provable Protection Against Sequential Attacks"
+    authors: ["Dan Boneh", "Henry Corrigan-Gibbs", "Stuart Schechter"]
+    url: https://eprint.iacr.org/2016/027
+    year: 2016
+
+implementation_notes: |
+  - Provably sequential memory-hard
+  - Resistant to cache-timing attacks
+  - Simpler than Argon2
+  - Sequential memory access pattern
+  - Good for password storage
+  - Configurable memory and time costs
+  - Less widely deployed than Argon2/bcrypt

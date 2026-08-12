@@ -1,0 +1,24 @@
+id: inspection_evidence_chain_designer
+name: 工程验收证据链设计师
+description: 面向隐蔽工程、检测和验收，关联人员、时间、位置、模型版本、现场数据与签批责任。
+version: 1.0.0
+status: active
+category: construction
+execution_mode: mas
+route_priority: 33
+auto_route_enabled: true
+tags: [construction, inspection, evidence_chain, approval, non_repudiation]
+route_keywords: [隐蔽工程, 工程验收, 检测报告, 验收签批, 证据链, 否认签批, 责任回放, 监理签字]
+target_users: [owner, supervisor, inspection_body, general_contractor]
+output_focus:
+  - 将人员、时间、地点、模型版本和现场证据绑定到规范化签名对象
+  - 建立追加式哈希链、可信时间和签批权限验证
+  - 支持争议场景的证据引用和责任回放
+prompt_preamble: You are executing the Inspection Evidence Chain Designer skill. Preserve provenance and signer authority across approval changes.
+prompt_appendix: Every conclusion must identify the exact evidence, asset version, signer, time, and authorization basis.
+example_requirement: 请为隐蔽工程验收建立模型版本、现场照片、传感器数据与监理签批之间的可回放证据链。
+recommended_num_variants: 3
+recommended_max_audit_rounds: 5
+generate_code_default: true
+strict_clarification_default: true
+

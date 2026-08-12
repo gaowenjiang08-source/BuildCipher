@@ -1,0 +1,103 @@
+<svg width="1600" height="960" viewBox="0 0 1600 960" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg3" x1="0" y1="0" x2="1600" y2="960" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FAF6EF"/>
+      <stop offset="1" stop-color="#EFE7DA"/>
+    </linearGradient>
+    <filter id="shadow3" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="12" stdDeviation="14" flood-color="#7C6A52" flood-opacity="0.14"/>
+    </filter>
+    <marker id="arrow3" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#8C857B"/>
+    </marker>
+    <style>
+      .title { font: 800 34px 'Microsoft YaHei', 'PingFang SC', sans-serif; fill: #17322B; }
+      .subtitle { font: 500 18px 'Microsoft YaHei', 'PingFang SC', sans-serif; fill: #60706A; }
+      .section { font: 800 22px 'Microsoft YaHei', 'PingFang SC', sans-serif; fill: #17322B; }
+      .label { font: 800 18px 'Microsoft YaHei', 'PingFang SC', sans-serif; fill: #17322B; }
+      .body { font: 500 15px 'Microsoft YaHei', 'PingFang SC', sans-serif; fill: #60706A; }
+      .small { font: 700 14px 'Microsoft YaHei', 'PingFang SC', sans-serif; fill: #17322B; }
+    </style>
+  </defs>
+
+  <rect width="1600" height="960" fill="url(#bg3)"/>
+
+  <rect x="48" y="40" width="1504" height="146" rx="28" fill="#FFFDF9" stroke="#DCCFBE" filter="url(#shadow3)"/>
+  <text x="88" y="94" class="title">MedCipher Studio 论文主图 V3：实验执行与沙盒验证架构</text>
+  <text x="88" y="130" class="subtitle">这张图适合讲“实验系统怎么跑起来”。重点是受控沙盒、模拟服务器、攻击观测、漏洞判定、修补回归和实验输出。</text>
+
+  <g filter="url(#shadow3)">
+    <rect x="72" y="234" width="270" height="612" rx="28" fill="#FFFDF9" stroke="#DCCFBE"/>
+    <text x="104" y="282" class="section">实验输入区</text>
+
+    <rect x="104" y="314" width="206" height="88" rx="22" fill="#ECF7F3" stroke="#CFE6DD"/>
+    <text x="128" y="352" class="label">业务需求</text>
+    <text x="128" y="380" class="body">场景、目标、约束、交付要求</text>
+
+    <rect x="104" y="428" width="206" height="88" rx="22" fill="#ECF7F3" stroke="#CFE6DD"/>
+    <text x="128" y="466" class="label">知识资料</text>
+    <text x="128" y="494" class="body">知识库、规则、论文、企业文档</text>
+
+    <rect x="104" y="542" width="206" height="88" rx="22" fill="#EAF0F8" stroke="#D4E0EE"/>
+    <text x="128" y="580" class="label">历史项目记忆</text>
+    <text x="128" y="608" class="body">漏洞经验、补丁经验、残余风险</text>
+
+    <rect x="104" y="656" width="206" height="88" rx="22" fill="#FFF2E8" stroke="#F1D2C2"/>
+    <text x="128" y="694" class="label">生成 / 审计 Agent</text>
+    <text x="128" y="722" class="body">形成待测方案与初步风险判断</text>
+  </g>
+
+  <g filter="url(#shadow3)">
+    <rect x="378" y="234" width="844" height="612" rx="32" fill="#FFF9F1" stroke="#E5D8C3"/>
+    <text x="414" y="282" class="section">核心实验区：受控沙盒</text>
+    <text x="414" y="312" class="body">这里不是生产环境，而是一个允许部署、攻击、记录、评估和修补的可控实验区。</text>
+
+    <rect x="414" y="352" width="772" height="104" rx="24" fill="#F5FBF8" stroke="#D7EADF"/>
+    <text x="442" y="390" class="label">阶段 A：部署与准备</text>
+    <text x="442" y="418" class="body">目标服务部署器将算法部署为模拟服务器，调度器控制预算和权限，上下文模块准备独立输入窗口。</text>
+
+    <rect x="414" y="490" width="772" height="104" rx="24" fill="#FFF4EC" stroke="#F1D2C2"/>
+    <text x="442" y="528" class="label">阶段 B：攻击与观测</text>
+    <text x="442" y="556" class="body">攻击 Agent 动态选择策略，模拟服务器暴露行为变化，遥测模块记录流量、日志、指标和漏洞工件。</text>
+
+    <rect x="414" y="628" width="772" height="104" rx="24" fill="#FFF4EC" stroke="#F1D2C2"/>
+    <text x="442" y="666" class="label">阶段 C：漏洞判定与修补</text>
+    <text x="442" y="694" class="body">评估 Agent 给出漏洞等级，修补 Agent 生成补丁和验证步骤，系统再执行回归检查。</text>
+
+    <rect x="414" y="766" width="772" height="56" rx="20" fill="#EAF0F8" stroke="#D4E0EE"/>
+    <text x="442" y="801" class="small">阶段 D：回放与优化 —— 时间线回放、项目记忆沉淀、经验回流下一轮</text>
+
+    <line x1="800" y1="456" x2="800" y2="490" stroke="#8C857B" stroke-width="4" marker-end="url(#arrow3)"/>
+    <line x1="800" y1="594" x2="800" y2="628" stroke="#8C857B" stroke-width="4" marker-end="url(#arrow3)"/>
+    <line x1="800" y1="732" x2="800" y2="766" stroke="#8C857B" stroke-width="4" marker-end="url(#arrow3)"/>
+  </g>
+
+  <g filter="url(#shadow3)">
+    <rect x="1258" y="234" width="270" height="612" rx="28" fill="#FFFDF9" stroke="#DCCFBE"/>
+    <text x="1290" y="282" class="section">实验输出区</text>
+
+    <rect x="1290" y="314" width="206" height="88" rx="22" fill="#FBF6E3" stroke="#E8DDAF"/>
+    <text x="1314" y="352" class="label">漏洞证据</text>
+    <text x="1314" y="380" class="body">日志、流量、指标、攻击结果</text>
+
+    <rect x="1290" y="428" width="206" height="88" rx="22" fill="#FBF6E3" stroke="#E8DDAF"/>
+    <text x="1314" y="466" class="label">修补方案</text>
+    <text x="1314" y="494" class="body">补丁描述、验证步骤、回滚说明</text>
+
+    <rect x="1290" y="542" width="206" height="88" rx="22" fill="#EAF0F8" stroke="#D4E0EE"/>
+    <text x="1314" y="580" class="label">回放记录</text>
+    <text x="1314" y="608" class="body">timeline、snapshot、结构化交接</text>
+
+    <rect x="1290" y="656" width="206" height="88" rx="22" fill="#FBF6E3" stroke="#E8DDAF"/>
+    <text x="1314" y="694" class="label">企业交付物</text>
+    <text x="1314" y="722" class="body">中文报告、伪代码、Python/C++</text>
+  </g>
+
+  <line x1="342" y1="540" x2="378" y2="540" stroke="#8C857B" stroke-width="4" marker-end="url(#arrow3)"/>
+  <line x1="1222" y1="540" x2="1258" y2="540" stroke="#8C857B" stroke-width="4" marker-end="url(#arrow3)"/>
+
+  <rect x="72" y="878" width="1456" height="50" rx="20" fill="#17322B"/>
+  <text x="104" y="909" font-family="Microsoft YaHei, PingFang SC, sans-serif" font-size="16" font-weight="700" fill="#F7F3EC">
+    外行解释法：这套系统不是只会“想方案”，而是在一个受控实验环境里完成部署、攻击、判定、修补、回归和交付。
+  </text>
+</svg>

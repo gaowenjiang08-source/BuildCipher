@@ -1,0 +1,82 @@
+name: Picnic
+full_name: Picnic Signature Scheme
+category: signature
+description: |
+  Picnic is a post-quantum signature scheme based on zero-knowledge proofs and symmetric primitives.
+  It was a NIST PQC alternate candidate with unique construction but large signatures.
+
+parameters:
+  security_level: [L1, L3, L5]  # 128, 192, 256-bit security
+  mode: [Picnic3, Picnic_full]
+  hash_function: SHAKE256
+
+properties:
+  - zero_knowledge_based
+  - symmetric_primitive_based
+  - post_quantum_secure
+  - provably_secure
+  - large_signatures
+  - nist_alternate_candidate
+
+performance:
+  software_speed: low
+  hardware_speed: low
+  memory: high
+  power: high
+  signature_size_large: true
+  signing_slow: true
+  verification_slow: true
+
+security:
+  security_level: 128  # For Picnic-L1
+  best_attack: attacks_on_lowmc
+  attack_complexity: "2^128 for L1, 2^192 for L3, 2^256 for L5"
+  status: secure
+  standardized: false
+  proven_security: true
+  quantum_resistant: true
+
+compatible_with:
+  - post_quantum_cryptography
+  - zero_knowledge_proofs
+  - academic_research
+
+not_compatible_with:
+  - bandwidth_constrained_systems
+  - low_latency_applications
+  - resource_constrained_devices
+
+use_cases:
+  - academic_research
+  - post_quantum_signatures
+  - zero_knowledge_applications
+  - experimental_deployments
+
+not_recommended_for:
+  - production_systems
+  - real_time_applications
+  - mobile_devices
+  - high_throughput_systems
+
+references:
+  - type: paper
+    title: "Post-Quantum Zero-Knowledge and Signatures from Symmetric-Key Primitives"
+    authors: ["Melissa Chase", "David Derler", "Steven Goldfeder", "Claudio Orlandi", "Sebastian Ramacher", "Christian Rechberger", "Daniel Slamanig", "Greg Zaverucha"]
+    year: 2017
+  - type: standard
+    title: "NIST PQC Round 3 (Alternate Candidate)"
+    url: https://csrc.nist.gov/projects/post-quantum-cryptography
+    year: 2021
+
+implementation_notes: |
+  - NIST PQC alternate candidate (not selected for standardization)
+  - Based on zero-knowledge proofs of knowledge
+  - Uses LowMC block cipher as underlying primitive
+  - Very large signatures (10-50 KB depending on parameters)
+  - Slow signing and verification
+  - Unique approach using only symmetric primitives
+  - Provable security in random oracle model
+  - Picnic3 is the optimized version
+  - Quantum-resistant
+  - Not recommended for production due to performance
+  - Interesting theoretical construction

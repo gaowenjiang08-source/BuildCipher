@@ -1,0 +1,87 @@
+name: Ed25519
+full_name: Edwards-curve Digital Signature Algorithm (Ed25519)
+category: signature
+description: |
+  Ed25519 is a modern, high-performance signature scheme using Curve25519. It provides
+  128-bit security, fast signing and verification, and is resistant to many side-channel attacks.
+
+parameters:
+  key_size: [256]
+  signature_size: [512]
+
+properties:
+  - public_key_cryptography
+  - digital_signatures
+  - deterministic
+  - fast_operations
+  - small_keys
+  - small_signatures
+  - side_channel_resistant
+
+performance:
+  software_speed: very_high
+  hardware_speed: high
+  memory: very_low
+  power: very_low
+  signature_generation_very_fast: true
+  verification_very_fast: true
+
+security:
+  security_level: 128  # 128-bit security level
+  best_attack: none_practical
+  attack_complexity: "2^128"
+  status: secure
+  standardized: true
+  proven_security: true
+
+compatible_with:
+  - SHA-512
+  - TLS_1_3
+  - SSH
+  - Signal_protocol
+  - Tor
+  - cryptocurrency
+
+not_compatible_with:
+  - legacy_systems
+  - systems_requiring_NIST_curves
+
+use_cases:
+  - digital_signatures
+  - ssh
+  - tls_1_3
+  - cryptocurrency
+  - blockchain
+  - signal_protocol
+  - tor
+  - modern_applications
+  - iot_devices
+  - mobile_applications
+
+not_recommended_for:
+  - post_quantum_security
+  - systems_requiring_rsa_compatibility
+  - systems_requiring_nist_compliance
+
+references:
+  - type: paper
+    title: "High-speed high-security signatures"
+    authors: ["Daniel J. Bernstein", "et al."]
+    url: https://ed25519.cr.yp.to/ed25519-20110926.pdf
+    year: 2011
+  - type: rfc
+    title: "RFC 8032: Edwards-Curve Digital Signature Algorithm (EdDSA)"
+    url: https://www.rfc-editor.org/rfc/rfc8032.html
+    year: 2017
+
+implementation_notes: |
+  - Based on Curve25519 (one of the safest elliptic curves)
+  - Deterministic signatures (no random nonce needed)
+  - Extremely fast: ~20-40x faster than ECDSA
+  - Constant-time by design (side-channel resistant)
+  - Small keys (32 bytes) and signatures (64 bytes)
+  - Used in: SSH, TLS 1.3, Signal, Tor, many cryptocurrencies
+  - Simpler and safer to implement than ECDSA
+  - Recommended for new applications over ECDSA
+  - No known weaknesses or attacks
+  - Widely supported in modern crypto libraries

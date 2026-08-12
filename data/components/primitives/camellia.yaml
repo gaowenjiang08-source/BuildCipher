@@ -1,0 +1,63 @@
+name: Camellia
+full_name: Camellia Block Cipher
+category: block_cipher
+description: |
+  Camellia is a symmetric block cipher developed by NTT and Mitsubishi Electric.
+  It offers security and performance comparable to AES with similar structure.
+
+parameters:
+  block_size: 128
+  key_size: [128, 192, 256]
+  rounds: 18
+
+properties:
+  - proven_security
+  - hardware_accelerated
+  - constant_time_capable
+  - parallelizable
+
+performance:
+  software_speed: medium
+  hardware_speed: high
+  memory: low
+  power: medium
+
+security:
+  security_level: 256
+  best_attack: impossible_differential
+  attack_complexity: "2^255.6 for Camellia-256"
+  status: secure
+  standardized: true
+  proven_security: true
+
+compatible_with:
+  - CBC
+  - CTR
+  - GCM
+  - CCM
+
+not_compatible_with: []
+
+use_cases:
+  - disk_encryption
+  - network_encryption
+  - tls
+  - ipsec
+
+not_recommended_for:
+  - ultra_lightweight_devices
+
+references:
+  - type: standard
+    title: "RFC 3713: A Description of the Camellia Encryption Algorithm"
+    url: https://www.rfc-editor.org/rfc/rfc3713
+    year: 2004
+  - type: standard
+    title: "ISO/IEC 18033-3:2010"
+    year: 2010
+
+implementation_notes: |
+  - Approved by ISO/IEC, NESSIE, and CRYPTREC
+  - Used in TLS, S/MIME, IPsec
+  - Similar performance to AES
+  - Good alternative to AES for diversity

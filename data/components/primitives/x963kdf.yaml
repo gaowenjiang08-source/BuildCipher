@@ -1,0 +1,77 @@
+name: X9.63-KDF
+full_name: ANSI X9.63 Key Derivation Function
+category: construction
+description: |
+  X9.63 KDF is a key derivation function standardized by ANSI for use with
+  elliptic curve cryptography. It is commonly used with ECDH for deriving shared keys.
+
+parameters:
+  output_size: 256
+
+properties:
+  - key_derivation
+  - hash_based
+  - counter_based
+  - deterministic
+  - ecc_specific
+  - simple_construction
+
+performance:
+  software_speed: very_high
+  hardware_speed: high
+  memory: low
+  power: low
+
+security:
+  security_level: 256
+  best_attack: none_practical
+  attack_complexity: "depends on hash (SHA-256: 2^256)"
+  status: secure
+  standardized: true
+  proven_security: true
+
+compatible_with:
+  - ECDH
+  - ECC
+  - SHA-256
+  - SHA-512
+  - elliptic_curves
+  - ECIES
+
+not_compatible_with: []
+
+use_cases:
+  - ecdh_key_derivation
+  - ecies_encryption
+  - ecc_key_agreement
+  - bitcoin_bip32
+  - elliptic_curve_protocols
+  - secure_messaging
+
+not_recommended_for:
+  - password_hashing
+  - non_ecc_applications
+
+references:
+  - type: standard
+    title: "ANSI X9.63: Public Key Cryptography for the Financial Services Industry"
+    year: 2001
+  - type: standard
+    title: "SEC 1: Elliptic Curve Cryptography"
+    url: https://www.secg.org/sec1-v2.pdf
+    year: 2009
+  - type: standard
+    title: "NIST SP 800-56A: Recommendation for Pair-Wise Key Establishment Schemes"
+    url: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-56Ar3.pdf
+
+implementation_notes: |
+  - Simple construction: KDF(Z, SharedInfo) = Hash(Z || Counter || SharedInfo)
+  - Counter starts at 1 and increments for each block
+  - Z is the shared secret (typically from ECDH)
+  - SharedInfo provides context binding
+  - Most commonly used with SHA-256
+  - Standardized for ECC key agreement protocols
+  - Used in ECIES (Elliptic Curve Integrated Encryption Scheme)
+  - Adopted by Bitcoin BIP-32 for HD wallet derivation
+  - Simpler than HKDF but less flexible
+  - NIST approved in SP 800-56A

@@ -1,0 +1,169 @@
+lesson_set_id: paper-attack-planning-v1
+name: Paper Attack Planning Lessons
+description: >
+  Compact planner-facing lesson cards distilled from classic cryptographic
+  attack papers. The goal is to provide attack patterns, boundary conditions,
+  and regression checkpoints without injecting long raw papers into the planner
+  context window.
+lessons:
+  - lesson_id: adaptive_error_oracle_boundary
+    lesson_kind: paper_attack_planning
+    title: Adaptive error oracle boundary card
+    summary: >
+      Distinguishable decryption, signature, or unwrap failures can become
+      chosen-ciphertext style feedback channels. The planner should prioritize
+      checks for uniform error responses, retry control, and internal state
+      leakage across failure paths.
+    attack_focus:
+      - error handling leakage
+      - adaptive error oracle
+      - http error boundary
+    regression_focus:
+      - uniform error regression
+      - oracle suppression regression
+    applicable_templates:
+      - mock_crypto_http_v1
+    attack_surface_kinds:
+      - http-json
+      - key-unwrap-api
+    service_kinds:
+      - crypto_api
+    planner_skill_hints:
+      - attack_surface_analysis
+      - error_oracle_review
+    scenario:
+      - general
+      - construction
+    boundary_conditions:
+      - normalize HTTP status, response body, and error wording
+      - avoid mapping internal decrypt errors directly to business-visible codes
+      - keep audit traces for failure paths without exposing attacker feedback
+    tags:
+      - attack_planning
+      - paper
+      - mock_crypto_http_v1
+      - key rotation boundary
+    source_title: "Security Flaws Induced by CBC Padding - Applications to SSL, IPSEC, WTLS..."
+    source_year: 2002
+
+  - lesson_id: rsa_padding_oracle_boundary
+    lesson_kind: paper_attack_planning
+    title: RSA padding oracle boundary card
+    summary: >
+      Key unwrap or certificate recovery interfaces can degrade into a strong
+      oracle when padding validity differences escape the boundary. The planner
+      should treat unwrap failures, certificate validation failures, and key
+      import errors as one controlled boundary instead of only checking the
+      primitive name.
+    attack_focus:
+      - rsa padding oracle
+      - error handling leakage
+      - certificate unwrap boundary
+    regression_focus:
+      - key import regression
+      - unwrap interface regression
+    applicable_templates:
+      - mock_crypto_http_v1
+    attack_surface_kinds:
+      - http-json
+      - key-unwrap-api
+    service_kinds:
+      - crypto_api
+    planner_skill_hints:
+      - key_boundary_review
+      - attack_surface_analysis
+    scenario:
+      - general
+      - construction
+    boundary_conditions:
+      - return one controlled failure shape for import and format errors
+      - isolate certificate and session key unwrap internals from callers
+      - preserve auditability without exposing branch-level failure differences
+    tags:
+      - attack_planning
+      - paper
+      - mock_crypto_http_v1
+      - key isolation boundary
+    source_title: "Chosen Ciphertext Attacks Against Protocols Based on the RSA Encryption Standard PKCS #1"
+    source_year: 1998
+
+  - lesson_id: lucky13_timing_boundary
+    lesson_kind: paper_attack_planning
+    title: Timing side-channel boundary card
+    summary: >
+      Even when error texts are normalized, stable timing differences in verify,
+      padding, or record processing paths can still leak usable signals. The
+      planner should observe response variance, batch latency distribution, and
+      whether slow paths appear only on abnormal branches.
+    attack_focus:
+      - timing side channel
+      - mac verification timing
+      - response variance
+    regression_focus:
+      - constant time regression
+      - timing jitter regression
+    applicable_templates:
+      - mock_crypto_http_v1
+    attack_surface_kinds:
+      - http-json
+      - tls-termination
+    service_kinds:
+      - crypto_api
+    planner_skill_hints:
+      - timing_side_channel_review
+      - sandbox_telemetry_observer
+    scenario:
+      - general
+      - construction
+    boundary_conditions:
+      - compare latency deltas across success and failure paths
+      - expose batch-level latency statistics in sandbox telemetry
+      - re-run timing checks after patches to catch residual slow paths
+    tags:
+      - attack_planning
+      - paper
+      - mock_crypto_http_v1
+      - baseline attack validation
+    source_title: "Lucky Thirteen: Breaking the TLS and DTLS Record Protocols"
+    source_year: 2013
+
+  - lesson_id: gcm_nonce_reuse_boundary
+    lesson_kind: paper_attack_planning
+    title: Nonce reuse and rotation boundary card
+    summary: >
+      AEAD research repeatedly shows that nonce reuse and weak rotation
+      boundaries can turn a correct primitive choice into a forgery-friendly
+      deployment path. The planner should validate nonce generation, session
+      isolation, key rotation, and retry behavior instead of only checking
+      whether GCM or AEAD is selected.
+    attack_focus:
+      - nonce reuse boundary
+      - key rotation boundary
+      - ciphertext forgery window
+    regression_focus:
+      - nonce management regression
+      - rotation policy regression
+    applicable_templates:
+      - mock_crypto_http_v1
+    attack_surface_kinds:
+      - http-json
+      - message-encryption-api
+    service_kinds:
+      - crypto_api
+    planner_skill_hints:
+      - key_boundary_review
+      - regression_matrix_planning
+    scenario:
+      - general
+      - construction
+    boundary_conditions:
+      - check whether retries reuse nonce or request context
+      - check whether tenants or tasks share rotation state
+      - verify nonce allocation still matches key rotation after patching
+    tags:
+      - attack_planning
+      - paper
+      - mock_crypto_http_v1
+      - regression validation after patch
+    source_title: "Nonce-Disrespecting Adversaries: Practical Forgery Attacks on GCM in TLS"
+    source_year: 2016

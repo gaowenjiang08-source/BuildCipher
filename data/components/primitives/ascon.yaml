@@ -1,0 +1,65 @@
+name: Ascon
+full_name: Ascon AEAD Cipher
+category: aead
+description: |
+  Ascon is a family of lightweight authenticated encryption algorithms, winner of the NIST
+  Lightweight Cryptography competition in 2023. Optimized for resource-constrained devices.
+
+parameters:
+  key_size: [128]
+  nonce_size: 128
+  tag_size: 128
+  rate: 64
+
+properties:
+  - lightweight
+  - aead
+  - nist_lwc_winner
+  - sponge_construction
+  - side_channel_resistant
+
+performance:
+  software_speed: high
+  hardware_speed: very_high
+  memory: very_low
+  power: very_low
+
+security:
+  security_level: 128
+  best_attack: none_known
+  attack_complexity: "2^128"
+  status: secure
+  standardized: true
+  proven_security: true
+
+compatible_with: []
+
+not_compatible_with: []
+
+use_cases:
+  - iot_devices
+  - embedded_systems
+  - lightweight_applications
+  - constrained_devices
+  - rfid
+  - sensor_networks
+
+not_recommended_for:
+  - high_throughput_servers
+
+references:
+  - type: standard
+    title: "NIST Lightweight Cryptography Standardization"
+    url: https://csrc.nist.gov/projects/lightweight-cryptography
+    year: 2023
+  - type: paper
+    title: "Ascon v1.2: Lightweight Authenticated Encryption"
+    authors: ["Christoph Dobraunig", "Maria Eichlseder", "Florian Mendel", "Martin Schläffer"]
+    year: 2021
+
+implementation_notes: |
+  - Selected as NIST lightweight crypto standard
+  - Excellent for IoT and embedded systems
+  - Low memory footprint (320 bits of state)
+  - Resistant to side-channel attacks
+  - Very efficient in hardware

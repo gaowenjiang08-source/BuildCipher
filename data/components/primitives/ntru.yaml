@@ -1,0 +1,84 @@
+name: NTRU
+full_name: NTRU Key Encapsulation Mechanism
+category: key_exchange
+description: |
+  NTRU is one of the oldest and fastest lattice-based post-quantum KEMs.
+  It has withstood decades of cryptanalysis and offers excellent performance with moderate key sizes.
+
+parameters:
+  security_level: [ntruhps2048509, ntruhps2048677, ntruhps4096821, ntruhrss701]
+  polynomial_ring: power_of_2_cyclotomic
+
+properties:
+  - post_quantum_secure
+  - lattice_based
+  - ntru_lattice
+  - fast_operations
+  - long_history
+  - nist_pqc_finalist
+
+performance:
+  software_speed: very_high
+  hardware_speed: very_high
+  memory: low
+  power: low
+  public_key_size: 699  # ntruhps2048509
+  ciphertext_size: 699
+  decapsulation_failure: low
+
+security:
+  security_level: 128  # ntruhps2048509
+  best_attack: lattice_reduction
+  attack_complexity: "2^128 for ntruhps2048509"
+  status: secure
+  standardized: true
+  proven_security: true
+  quantum_resistant: true
+
+compatible_with:
+  - post_quantum_tls
+  - embedded_systems
+  - iot_devices
+  - nist_pqc_standard
+  - hybrid_schemes
+
+not_compatible_with:
+  - legacy_systems
+  - systems_requiring_zero_failure_probability
+
+use_cases:
+  - post_quantum_key_exchange
+  - embedded_cryptography
+  - iot_security
+  - vpn_protocols
+  - secure_boot
+  - firmware_encryption
+
+not_recommended_for:
+  - applications_intolerant_to_decryption_failures
+  - legacy_system_integration
+
+references:
+  - type: paper
+    title: "NTRU: A Ring-Based Public Key Cryptosystem"
+    authors: ["Jeffrey Hoffstein", "Jill Pipher", "Joseph H. Silverman"]
+    year: 1998
+  - type: paper
+    title: "NTRU Algorithm Specifications and Supporting Documentation"
+    authors: ["Cong Chen", "Oussama Danba", "Jeffrey Hoffstein", "Andreas Hülsing", "Joost Rijneveld", "John M. Schanck", "Peter Schwabe", "William Whyte", "Zhenfei Zhang"]
+    year: 2020
+
+implementation_notes: |
+  - NIST PQC Round 3 finalist (not selected, but trusted)
+  - One of the oldest lattice-based schemes (1996)
+  - Excellent performance, faster than Kyber in some cases
+  - 699-byte public keys for 128-bit security
+  - Very fast key generation and encapsulation
+  - Small non-zero decapsulation failure probability
+  - Two variants: HPS (faster) and HRSS (more robust)
+  - ntruhps2048509: 128-bit security, fastest
+  - ntruhrss701: more conservative parameters
+  - Quantum-resistant
+  - Suitable for IoT and embedded systems
+  - 25+ years of cryptanalysis without major breaks
+  - Good alternative to Kyber

@@ -1,0 +1,97 @@
+name: ABE_CP
+full_name: Ciphertext-Policy Attribute-Based Encryption
+category: public_key_encryption
+description: |
+  CP-ABE is an advanced form of public-key encryption where ciphertexts are encrypted
+  under an access policy over attributes, and private keys are associated with sets
+  of attributes. Decryption succeeds only if the key's attributes satisfy the
+  ciphertext's policy. Enables fine-grained access control.
+
+parameters:
+  curve: [BN254, BLS12-381]
+  pairing_type: Type-3
+  policy_type: [monotone, threshold, boolean]
+  attribute_size: variable
+  security_parameter: [128, 256]
+
+properties:
+  - attribute_based
+  - pairing_based
+  - fine_grained_access_control
+  - one_to_many_encryption
+  - policy_in_ciphertext
+  - requires_trusted_authority
+  - expressive_policies
+  - collusion_resistant
+
+performance:
+  software_speed: very_low
+  hardware_speed: low
+  memory: high
+  power: very_high
+  encryption_time: slow
+  decryption_time: very_slow
+  key_generation_time: medium
+
+security:
+  security_level: 128
+  best_attack: bilinear_diffie_hellman
+  attack_complexity: "2^128"
+  status: secure
+  standardized: false
+  proven_security: true
+
+compatible_with:
+  - elliptic_curve_pairings
+  - IBE
+  - cloud_storage
+  - access_control_systems
+
+not_compatible_with:
+  - quantum_computers
+  - low_power_devices
+  - real_time_systems
+  - high_throughput_applications
+
+use_cases:
+  - cloud_storage_access_control
+  - encrypted_databases
+  - secure_data_sharing
+  - cross_organization_project_records
+  - broadcast_encryption
+  - secure_audit_logs
+  - iot_access_control
+  - military_communications
+
+not_recommended_for:
+  - high_performance_systems
+  - quantum_resistant_applications
+  - resource_constrained_devices
+  - real_time_encryption
+
+references:
+  - type: paper
+    title: "Ciphertext-Policy Attribute-Based Encryption"
+    authors: ["John Bethencourt", "Amit Sahai", "Brent Waters"]
+    year: 2007
+  - type: paper
+    title: "Efficient Statically-Secure Large-Universe Multi-Authority Attribute-Based Encryption"
+    year: 2015
+  - type: paper
+    title: "Fast CP-ABE Implementations for Real-World Applications"
+    year: 2018
+
+implementation_notes: |
+  - Requires trusted Attribute Authority (AA) for key generation
+  - Access policy embedded in ciphertext (e.g., "Doctor OR Nurse")
+  - Private keys associated with attribute sets
+  - Decryption computational cost linear in policy complexity
+  - Very expensive pairing operations required
+  - BLS12-381 recommended for security and performance
+  - Supports AND, OR, threshold gates in policies
+  - Collusion resistant (users cannot combine keys)
+  - Ciphertext size grows with policy complexity
+  - Consider using for cloud storage with complex access policies
+  - Multiple authority schemes available for distributed trust
+  - Much slower than traditional public-key encryption
+  - Not suitable for high-frequency operations

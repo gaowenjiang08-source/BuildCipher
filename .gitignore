@@ -1,0 +1,96 @@
+# Design Documents (设计文档 - 不上传)
+*设计报告*.docx
+*设计报告*.doc
+附件*.docx
+附件*.doc
+文档生成说明.md
+fill_design_report.py
+create_design_report.py
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual Environment
+venv/
+ENV/
+env/
+.venv
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Streamlit
+.streamlit/
+
+# Temporary files
+*.tmp
+*.bak
+*.backup
+~$*
+
+# Windows
+Thumbs.db
+Desktop.ini
+
+# Logs
+*.log
+logs/
+
+# API Keys
+*.key
+*_key.txt
+secrets.yaml
+credentials.json
+
+# Database
+*.db
+*.sqlite
+
+# Test/Cache
+.pytest_cache/
+.coverage
+*.cover
+.mypy_cache/
+.cache/
+knowledge/raw/uploads/
+knowledge/processed/chunks/uploads/
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+
+# Claude Code
+.claude/settings.local.json

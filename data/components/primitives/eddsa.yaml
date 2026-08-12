@@ -1,0 +1,65 @@
+name: EdDSA
+full_name: Edwards-curve Digital Signature Algorithm
+category: signature
+description: |
+  EdDSA is a digital signature scheme using twisted Edwards curves.
+  Ed25519 and Ed448 are specific instantiations of EdDSA.
+
+parameters:
+  key_size: [256, 448]
+  signature_size: 512
+
+properties:
+  - digital_signature
+  - deterministic
+  - constant_time
+  - no_random_required
+  - collision_resistant
+
+performance:
+  software_speed: very_high
+  hardware_speed: high
+  memory: low
+  power: low
+
+security:
+  security_level: 256
+  best_attack: none_practical
+  attack_complexity: "2^128 for Ed25519"
+  status: secure
+  standardized: true
+  proven_security: true
+
+compatible_with:
+  - Ed25519
+  - Ed448
+  - TLS
+  - SSH
+
+not_compatible_with:
+  - encryption
+
+use_cases:
+  - digital_signatures
+  - ssh_keys
+  - tls
+  - cryptocurrency
+  - git_commits
+  - secure_messaging
+
+not_recommended_for:
+  - encryption
+
+references:
+  - type: standard
+    title: "RFC 8032: Edwards-Curve Digital Signature Algorithm (EdDSA)"
+    url: https://www.rfc-editor.org/rfc/rfc8032
+    year: 2017
+
+implementation_notes: |
+  - Deterministic signatures (no random k needed)
+  - Fast signature generation and verification
+  - Small keys and signatures
+  - Constant-time by design
+  - Resistant to side-channel attacks
+  - Ed25519 widely used in SSH, TLS 1.3, cryptocurrencies

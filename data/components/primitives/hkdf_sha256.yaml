@@ -1,0 +1,76 @@
+name: HKDF-SHA256
+full_name: HMAC-based Key Derivation Function with SHA-256
+category: construction
+description: |
+  HKDF-SHA256 is a key derivation function based on HMAC-SHA256. It is designed
+  to derive cryptographic keys from shared secrets or high-entropy inputs.
+
+parameters:
+  output_size: 256
+
+properties:
+  - key_derivation
+  - extract_then_expand
+  - cryptographically_strong
+  - deterministic
+  - context_binding
+  - widely_deployed
+
+performance:
+  software_speed: very_high
+  hardware_speed: high
+  memory: low
+  power: low
+
+security:
+  security_level: 256
+  best_attack: none_practical
+  attack_complexity: "2^256"
+  status: secure
+  standardized: true
+  proven_security: true
+
+compatible_with:
+  - HMAC
+  - SHA-256
+  - TLS_1_3
+  - Signal_protocol
+  - WireGuard
+  - Noise_protocol
+
+not_compatible_with: []
+
+use_cases:
+  - tls_1_3_key_schedule
+  - signal_protocol
+  - wireguard
+  - noise_protocol
+  - ipsec
+  - deriving_multiple_keys
+  - key_stretching_from_ecdh
+  - session_key_derivation
+
+not_recommended_for:
+  - password_hashing
+  - low_entropy_inputs
+
+references:
+  - type: rfc
+    title: "RFC 5869: HKDF"
+    url: https://tools.ietf.org/html/rfc5869
+    year: 2010
+  - type: paper
+    title: "Cryptographic Extraction and Key Derivation"
+    authors: ["Hugo Krawczyk"]
+    year: 2010
+
+implementation_notes: |
+  - Two-step process: Extract then Expand
+  - Extract: HKDF-Extract(salt, IKM) = HMAC-SHA256(salt, IKM)
+  - Expand: HKDF-Expand(PRK, info, L) generates output keys
+  - Salt is optional but recommended for security
+  - Info provides application-specific context
+  - Used in TLS 1.3 for all key derivation
+  - Not designed for password hashing (use PBKDF2/Argon2)
+  - Can generate up to 8160 bytes (32 * 255) of output
+  - Most common HKDF variant in modern protocols

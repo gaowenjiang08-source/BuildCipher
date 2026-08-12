@@ -1,0 +1,80 @@
+name: AEGIS-256
+full_name: AEGIS-256 AEAD
+category: mode
+description: |
+  AEGIS-256 is the high-security variant of AEGIS, offering 256-bit security while maintaining
+  exceptional performance. It uses AES round functions in a state-based construction.
+
+parameters:
+  block_size: 128
+  nonce_size: 256
+  tag_size: 128
+
+properties:
+  - authenticated_encryption
+  - aes_round_based
+  - single_pass_mode
+  - parallelizable
+  - hardware_accelerated
+  - caesar_winner
+
+performance:
+  software_speed: very_high
+  hardware_speed: extremely_high
+  memory: low
+  power: low
+
+security:
+  security_level: 256
+  best_attack: none_practical
+  attack_complexity: "2^256"
+  status: secure
+  standardized: true
+  proven_security: true
+
+compatible_with:
+  - modern_processors
+  - AES_NI_hardware
+  - high_security_systems
+  - quantum_resistant_protocols
+
+not_compatible_with:
+  - systems_without_AES_acceleration
+  - legacy_processors
+  - extremely_constrained_devices
+
+use_cases:
+  - high_security_encryption
+  - long_term_security
+  - government_applications
+  - classified_data
+  - post_quantum_preparation
+  - high_value_assets
+
+not_recommended_for:
+  - software_only_constrained_devices
+  - low_power_microcontrollers
+  - systems_without_AES_NI
+
+references:
+  - type: paper
+    title: "AEGIS: A Fast Authenticated Encryption Algorithm (v1.1)"
+    url: https://competitions.cr.yp.to/round3/aegisv11.pdf
+    year: 2016
+  - type: rfc
+    title: "RFC 9180: AEGIS AEAD Algorithm"
+    url: https://datatracker.ietf.org/doc/draft-irtf-cfrg-aegis-aead/
+    year: 2023
+
+implementation_notes: |
+  - CAESAR competition winner (high-performance portfolio)
+  - 256-bit security level (higher than AEGIS-128)
+  - Uses AES round function as building block
+  - Extremely fast with AES-NI
+  - Single-pass authenticated encryption
+  - Nonce size is 256 bits (32 bytes)
+  - State-based design with 6 AES states
+  - Nonce must never be reused
+  - Slightly slower than AEGIS-128 but still very fast
+  - Better long-term security margin
+  - Suitable for post-quantum security considerations

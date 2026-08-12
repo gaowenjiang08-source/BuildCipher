@@ -1,0 +1,73 @@
+name: BLAKE2-MAC
+full_name: BLAKE2 Keyed Hashing Mode
+category: mac
+description: |
+  BLAKE2-MAC is the keyed hashing mode of BLAKE2, providing message authentication
+  through direct keying of the hash function. Faster and simpler than HMAC-BLAKE2.
+
+parameters:
+  key_size: [128, 256, 512]
+  tag_size: 256  # Variable output length, 256 is common default
+
+properties:
+  - keyed_hash
+  - fast_software_implementation
+  - simpler_than_hmac
+  - variable_output_length
+  - no_padding_oracle
+  - built_in_key_support
+
+performance:
+  software_speed: very_high
+  hardware_speed: high
+  memory: very_low
+  power: very_low
+
+security:
+  security_level: 256
+  best_attack: none_practical
+  attack_complexity: "2^256 for BLAKE2b, 2^128 for BLAKE2s"
+  status: secure
+  standardized: true
+  proven_security: true
+
+compatible_with:
+  - BLAKE2b
+  - BLAKE2s
+  - Argon2
+  - modern_protocols
+
+not_compatible_with: []
+
+use_cases:
+  - message_authentication
+  - data_integrity
+  - api_authentication
+  - high_speed_mac
+  - embedded_systems
+  - mobile_applications
+  - iot_devices
+
+not_recommended_for:
+  - password_storage_alone
+
+references:
+  - type: rfc
+    title: "RFC 7693: BLAKE2 Cryptographic Hash and MAC"
+    url: https://tools.ietf.org/html/rfc7693
+    year: 2015
+  - type: paper
+    title: "BLAKE2: simpler, smaller, fast as MD5"
+    authors: ["Jean-Philippe Aumasson", "Samuel Neves", "Zooko Wilcox-O'Hearn", "Christian Winnerlein"]
+    url: https://blake2.net/blake2.pdf
+    year: 2013
+
+implementation_notes: |
+  - Native keying (not HMAC construction)
+  - Faster than HMAC-BLAKE2 (single pass vs. two passes)
+  - Key size up to 64 bytes for BLAKE2b, 32 bytes for BLAKE2s
+  - Variable output length
+  - Simpler implementation than HMAC
+  - Resistant to length extension attacks
+  - Personalization string support for domain separation
+  - Widely used in modern cryptographic protocols

@@ -1,0 +1,88 @@
+name: Pedersen_Commitment
+full_name: Pedersen Commitment Scheme
+category: commitment_scheme
+description: |
+  Pedersen commitment is a cryptographic commitment scheme based on the discrete
+  logarithm problem. It provides both hiding and binding properties while being
+  homomorphic, making it useful in zero-knowledge proofs and blockchain applications.
+
+parameters:
+  group: elliptic_curve
+  curve: [secp256k1, Curve25519, BLS12-381]
+  commitment_size: 256
+  opening_size: 256
+
+properties:
+  - computationally_hiding
+  - computationally_binding
+  - homomorphic
+  - zero_knowledge_compatible
+  - additive_homomorphism
+  - public_verifiability
+  - non_interactive
+
+performance:
+  software_speed: medium
+  hardware_speed: medium
+  memory: low
+  power: medium
+  commitment_time: medium
+  verification_time: medium
+
+security:
+  security_level: 128
+  best_attack: discrete_logarithm
+  attack_complexity: "2^128 for 256-bit curve"
+  status: secure
+  standardized: false
+  proven_security: true
+
+compatible_with:
+  - zero_knowledge_proofs
+  - bulletproofs
+  - zkSNARKs
+  - confidential_transactions
+  - blockchain_systems
+  - range_proofs
+
+not_compatible_with:
+  - quantum_computers
+  - perfect_hiding_requirements
+
+use_cases:
+  - confidential_transactions
+  - zero_knowledge_proofs
+  - blockchain_privacy
+  - range_proofs
+  - voting_systems
+  - auction_protocols
+  - secure_multiparty_computation
+
+not_recommended_for:
+  - information_theoretic_security
+  - quantum_resistant_applications
+  - unconditional_hiding
+
+references:
+  - type: paper
+    title: "Non-Interactive and Information-Theoretic Secure Verifiable Secret Sharing"
+    authors: ["Torben Pryds Pedersen"]
+    year: 1991
+  - type: paper
+    title: "Bulletproofs: Short Proofs for Confidential Transactions and More"
+    year: 2017
+  - type: application
+    title: "Confidential Transactions in Monero"
+    year: 2016
+
+implementation_notes: |
+  - Commitment: C = g^m * h^r where m is message, r is random blinding factor
+  - Requires trusted setup or verifiable generation of generators g and h
+  - Homomorphic: C1 + C2 = commitment to (m1 + m2)
+  - Used extensively in Monero, Zcash, and Grin
+  - Bulletproofs rely heavily on Pedersen commitments
+  - Cannot provide perfect hiding (only computational)
+  - Binding property relies on discrete log hardness
+  - Popular in confidential transactions for hiding amounts
+  - Use strong elliptic curves (secp256k1, Curve25519)
+  - Vulnerable to quantum computers (Shor's algorithm)

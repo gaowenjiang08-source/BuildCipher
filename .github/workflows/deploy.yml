@@ -1,0 +1,63 @@
+name: Deploy to Production
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Deployment environment'
+        required: true
+        default: 'staging'
+        type: choice
+        options:
+          - staging
+          - production
+
+jobs:
+  deploy-streamlit-cloud:
+    name: Deploy to Streamlit Cloud
+    runs-on: ubuntu-latest
+    if: github.event_name == 'release'
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Deploy to Streamlit Cloud
+      run: |
+        echo "Deployment to Streamlit Cloud is managed through their web interface"
+        echo "Visit https://share.streamlit.io to deploy"
+        echo "Repository: ${{ github.repository }}"
+        echo "Version: ${{ github.event.release.tag_name }}"
+
+  deploy-docker:
+    name: Deploy Docker Container
+    runs-on: ubuntu-latest
+    environment: ${{ github.event.inputs.environment || 'production' }}
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Configure deployment
+      run: |
+        echo "Deploying to: ${{ github.event.inputs.environment || 'production' }}"
+        echo "Version: ${{ github.sha }}"
+
+    - name: Deploy via SSH (placeholder)
+      run: |
+        echo "# Deployment commands would go here"
+        echo "# Example:"
+        echo "ssh user@server 'cd /app && docker-compose pull && docker-compose up -d'"
+
+    - name: Health check
+      run: |
+        echo "# Health check commands would go here"
+        echo "# curl https://your-domain.com/_stcore/health"
+
+    - name: Notification
+      if: always()
+      run: |
+        echo "Deployment ${{ job.status }}"
+        # Add notification logic (Slack, Discord, etc.)

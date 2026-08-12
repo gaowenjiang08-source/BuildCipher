@@ -1,0 +1,89 @@
+name: SPAKE2+
+full_name: Simple Password-Authenticated Key Exchange (SPAKE2 Plus)
+category: protocol
+description: |
+  SPAKE2+ is an efficient password-authenticated key exchange protocol that provides
+  mutual authentication with forward secrecy. It is a symmetric PAKE suitable for
+  device pairing and secure communication establishment based on shared passwords.
+
+parameters:
+  variant: SPAKE2plus
+  curve: P256_P384_P521_Ed25519
+  hash: SHA256_or_SHA512
+  rounds: 1 # single simultaneous exchange
+
+properties:
+  - password_authentication
+  - forward_secrecy
+  - mutual_authentication
+  - single_round
+  - efficient
+
+performance:
+  key_exchange: fast
+  computation: low # 2-3 scalar multiplications
+  communication: low # 2 group elements
+  server_storage: low
+  memory: low
+
+security:
+  security_level: 128
+  best_attack: none_practical
+  attack_complexity: "CDH_assumption"
+  status: secure
+  standardized: true
+  proven_security: true
+  quantum_resistant: false
+
+compatible_with:
+  - matter_protocol
+  - thread_networking
+  - device_pairing
+  - iot_authentication
+  - secure_channels
+
+not_compatible_with:
+  - post_quantum_scenarios
+  - server_compromise_resistance # like OPAQUE
+
+use_cases:
+  - iot_device_pairing
+  - smart_home_setup
+  - matter_devices
+  - password_based_pairing
+  - secure_communication_bootstrap
+  - wifi_provisioning
+
+not_recommended_for:
+  - server_authentication # use OPAQUE instead
+  - post_quantum_security
+  - high_security_environments
+
+references:
+  - type: rfc
+    title: "RFC 9383: SPAKE2+, an Augmented PAKE"
+    url: https://datatracker.ietf.org/doc/rfc9383/
+    year: 2023
+  - type: paper
+    title: "Security Analysis of SPAKE2+"
+    authors: ["Victor Shoup"]
+    year: 2020
+    url: https://eprint.iacr.org/2020/313
+  - type: implementation
+    title: "SPAKE2+ in Matter Protocol"
+    url: https://github.com/project-chip/connectedhomeip
+    year: 2021
+
+implementation_notes: |
+  - Standardized in RFC 9383 (2023)
+  - Single simultaneous message exchange (very efficient)
+  - SPAKE2+ is augmented version (asymmetric, server stores verifier)
+  - Used in Matter (smart home) protocol for device commissioning
+  - Supports multiple elliptic curves: P-256, P-384, Ed25519, Ed448
+  - Forward secrecy through ephemeral Diffie-Hellman
+  - Does not protect against server compromise (unlike OPAQUE)
+  - Excellent for device pairing scenarios
+  - Constant-time implementation important
+  - Hash-to-curve for random oracle instantiation
+  - Simpler and faster than SRP or OPAQUE
+  - Ideal for IoT and constrained devices

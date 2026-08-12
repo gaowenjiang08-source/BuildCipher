@@ -1,0 +1,61 @@
+name: GMAC
+full_name: Galois Message Authentication Code
+category: mac
+description: |
+  GMAC is a MAC algorithm based on GCM mode. It provides authentication without
+  encryption and can be computed in parallel.
+
+parameters:
+  output_size: 128
+
+properties:
+  - message_authentication
+  - parallelizable
+  - hardware_accelerated
+  - gcm_based
+
+performance:
+  software_speed: very_high
+  hardware_speed: very_high
+  memory: low
+  power: low
+
+security:
+  security_level: 128
+  best_attack: none_practical
+  attack_complexity: "2^128"
+  status: secure
+  standardized: true
+  proven_security: true
+
+compatible_with:
+  - AES
+  - GCM
+  - IPsec
+  - TLS
+
+not_compatible_with: []
+
+use_cases:
+  - message_authentication
+  - ipsec
+  - tls
+  - high_performance_mac
+  - authenticated_encryption
+
+not_recommended_for:
+  - encryption
+
+references:
+  - type: standard
+    title: "NIST SP 800-38D: Galois/Counter Mode"
+    url: https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-38d.pdf
+    year: 2007
+
+implementation_notes: |
+  - Authentication part of GCM mode
+  - Highly parallelizable
+  - Excellent hardware performance
+  - Must never reuse nonce with same key
+  - Used in IPsec and TLS
+  - Often implemented with PCLMULQDQ instruction

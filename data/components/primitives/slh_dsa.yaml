@@ -1,0 +1,91 @@
+name: SLH-DSA
+full_name: Stateless Hash-Based Digital Signature Algorithm
+category: signature
+description: |
+  SLH-DSA is the NIST-standardized version of SPHINCS+. A stateless hash-based
+  post-quantum signature scheme offering conservative security based solely on
+  hash function security. Official FIPS 205 standard.
+
+parameters:
+  hash_function: [SHAKE256, SHA-256]
+  security_level: [128, 192, 256]
+  signature_size: [7856, 16224, 29792]
+
+properties:
+  - post_quantum
+  - digital_signature
+  - hash_based
+  - stateless
+  - quantum_resistant
+  - nist_standardized
+  - fips_approved
+  - conservative_security
+
+performance:
+  software_speed: low
+  hardware_speed: low
+  memory: medium
+  power: medium
+  signing_time: slow
+  verification_time: moderate
+
+security:
+  security_level: 256
+  best_attack: none_practical
+  attack_complexity: "quantum_resistant_conservative"
+  status: secure
+  standardized: true
+  proven_security: true
+  quantum_resistant: true
+  fips_approved: true
+
+compatible_with:
+  - certificates
+  - code_signing
+  - hybrid_signatures
+  - firmware_signing
+  - federal_systems
+
+not_compatible_with:
+  - high_performance_applications
+  - bandwidth_constrained_systems
+
+use_cases:
+  - ultra_long_term_security
+  - conservative_post_quantum
+  - root_certificates
+  - firmware_signing
+  - government_systems
+  - federal_compliance
+  - code_signing
+
+not_recommended_for:
+  - high_frequency_signing
+  - bandwidth_constrained_systems
+  - resource_constrained_devices
+  - real_time_applications
+
+references:
+  - type: standard
+    title: "NIST FIPS 205: Stateless Hash-Based Digital Signature Standard"
+    url: https://csrc.nist.gov/pubs/fips/205/final
+    year: 2024
+  - type: paper
+    title: "SPHINCS+: Stateless Hash-Based Signatures"
+    url: https://sphincs.org/
+    year: 2020
+
+implementation_notes: |
+  - Official NIST FIPS 205 standard (standardized SPHINCS+)
+  - FIPS-approved for federal government use
+  - Very large signatures (7-30 KB depending on security level)
+  - Based only on hash functions (no algebraic structure)
+  - Most conservative post-quantum signature option
+  - Slower than ML-DSA (Dilithium) but more conservative
+  - No structured hardness assumptions required
+  - Stateless operation (no state synchronization needed)
+  - Two hash function options: SHAKE256 or SHA-256
+  - Three security levels: SLH-DSA-128, SLH-DSA-192, SLH-DSA-256
+  - Use when maximum security assurance is required
+  - Recommended alternative to ML-DSA for diversification
+  - Good for long-term archives and critical infrastructure

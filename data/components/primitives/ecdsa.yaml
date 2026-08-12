@@ -1,0 +1,83 @@
+name: ECDSA
+full_name: Elliptic Curve Digital Signature Algorithm
+category: signature
+description: |
+  ECDSA is a variant of the Digital Signature Algorithm that uses elliptic curve cryptography.
+  It provides the same security as RSA with much smaller key sizes and is widely used in
+  modern cryptographic protocols.
+
+parameters:
+  key_size: [256, 384, 521]
+  signature_size: [64, 96, 132]
+
+properties:
+  - public_key_cryptography
+  - digital_signatures
+  - small_signature_size
+  - fast_verification
+  - deterministic_variant_available
+
+performance:
+  software_speed: high
+  hardware_speed: high
+  memory: low
+  power: low
+  signature_generation_fast: true
+
+security:
+  security_level: 256  # P-521 provides ~256-bit security
+  best_attack: pollards_rho
+  attack_complexity: "2^128 for P-256, 2^192 for P-384, 2^260 for P-521"
+  status: secure
+  standardized: true
+  proven_security: true
+
+compatible_with:
+  - SHA-256
+  - SHA-384
+  - SHA-512
+  - SHA-3
+  - BLAKE2b
+  - TLS
+  - SSH
+  - Bitcoin
+  - Ethereum
+
+not_compatible_with:
+  - quantum_computers
+  - legacy_systems_without_ecc
+
+use_cases:
+  - digital_signatures
+  - blockchain
+  - bitcoin
+  - ethereum
+  - tls_1_3
+  - ssh
+  - code_signing
+  - certificate_authorities
+  - iot_devices
+  - mobile_applications
+
+not_recommended_for:
+  - post_quantum_security
+  - systems_requiring_rsa_compatibility
+
+references:
+  - type: standard
+    title: "FIPS 186-4: Digital Signature Standard"
+    url: https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.186-4.pdf
+    year: 2013
+  - type: standard
+    title: "SEC 1: Elliptic Curve Cryptography"
+    url: https://www.secg.org/sec1-v2.pdf
+    year: 2009
+
+implementation_notes: |
+  - Use deterministic ECDSA (RFC 6979) to avoid nonce reuse vulnerabilities
+  - P-256 (secp256r1) widely supported but consider Curve25519 alternatives
+  - secp256k1 used in Bitcoin and Ethereum
+  - ECDSA is more complex to implement securely than RSA
+  - Vulnerable to lattice attacks if nonces are biased
+  - Side-channel resistant implementations critical
+  - Consider Ed25519 (EdDSA) as a modern alternative

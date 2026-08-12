@@ -1,0 +1,66 @@
+name: RSA-4096
+full_name: RSA with 4096-bit keys
+category: signature
+description: |
+  RSA with 4096-bit keys provides ~152 bits of security. Suitable for
+  long-term security and high-security applications.
+
+parameters:
+  key_size: [4096]
+  signature_size: 4096
+
+properties:
+  - digital_signature
+  - encryption_capable
+  - key_exchange_capable
+  - long_term_security
+  - standardized
+
+performance:
+  software_speed: very_low
+  hardware_speed: low
+  memory: high
+  power: high
+
+security:
+  security_level: 152
+  best_attack: gnfs
+  attack_complexity: "~2^152"
+  status: secure
+  standardized: true
+  proven_security: true
+
+compatible_with:
+  - PKCS1
+  - PSS
+  - OAEP
+  - TLS
+  - X509
+
+not_compatible_with: []
+
+use_cases:
+  - long_term_security
+  - high_security_applications
+  - government_systems
+  - code_signing
+  - root_certificates
+
+not_recommended_for:
+  - resource_constrained_devices
+  - high_performance_applications
+  - mobile_devices
+
+references:
+  - type: standard
+    title: "FIPS 186-5: Digital Signature Standard"
+    url: https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.186-5.pdf
+    year: 2023
+
+implementation_notes: |
+  - Very high security margin
+  - ~152 bits of security
+  - Significantly slower than RSA-2048
+  - Large key and signature sizes
+  - Good for root CAs and long-term signing keys
+  - Consider ECDSA-384 or Ed448 as faster alternatives

@@ -1,0 +1,70 @@
+name: SPHINCS+
+full_name: SPHINCS+ Stateless Hash-based Signature
+category: signature
+description: |
+  SPHINCS+ is a stateless hash-based post-quantum signature scheme.
+  Selected by NIST as an alternative to Dilithium for diversification.
+
+parameters:
+  key_size: [128, 192, 256]
+  signature_size: [7856, 16224, 29792]
+
+properties:
+  - post_quantum
+  - digital_signature
+  - hash_based
+  - stateless
+  - quantum_resistant
+  - conservative_security
+
+performance:
+  software_speed: low
+  hardware_speed: low
+  memory: medium
+  power: medium
+
+security:
+  security_level: 256
+  best_attack: none_practical
+  attack_complexity: "quantum_resistant_conservative"
+  status: secure
+  standardized: true
+  proven_security: true
+
+compatible_with:
+  - certificates
+  - code_signing
+  - hybrid_signatures
+
+not_compatible_with:
+  - high_performance_applications
+
+use_cases:
+  - ultra_long_term_security
+  - conservative_post_quantum
+  - root_certificates
+  - firmware_signing
+
+not_recommended_for:
+  - high_frequency_signing
+  - bandwidth_constrained_systems
+  - resource_constrained_devices
+
+references:
+  - type: standard
+    title: "NIST FIPS 205: Stateless Hash-Based Digital Signature Standard"
+    url: https://csrc.nist.gov/pubs/fips/205/final
+    year: 2024
+  - type: paper
+    title: "SPHINCS+: Stateless Hash-Based Signatures"
+    url: https://sphincs.org/
+    year: 2020
+
+implementation_notes: |
+  - NIST standardized as SLH-DSA (FIPS 205)
+  - Very large signatures (7-30 KB)
+  - Based only on hash functions (conservative security)
+  - Slower than Dilithium
+  - No structured hardness assumptions (unlike lattice-based)
+  - Good for ultra-long-term security
+  - Stateless (no state management needed)

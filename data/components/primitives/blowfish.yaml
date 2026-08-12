@@ -1,0 +1,70 @@
+name: Blowfish
+full_name: Blowfish Block Cipher
+category: block_cipher
+description: |
+  Blowfish is a symmetric block cipher designed by Bruce Schneier in 1993. It operates on 64-bit blocks
+  and supports variable key sizes from 32 to 448 bits. Known for its speed and effectiveness, it's now
+  considered legacy due to its small block size, which makes it vulnerable to birthday attacks.
+
+parameters:
+  block_size: 64
+  key_size: [32, 448]
+  rounds: 16
+
+properties:
+  - fast_software_implementation
+  - variable_key_length
+  - feistel_structure
+  - legacy_status
+  - simple_design
+
+performance:
+  software_speed: high
+  hardware_speed: medium
+  memory: medium
+  power: low
+
+security:
+  security_level: 128  # Limited by 64-bit block size
+  best_attack: birthday_attack
+  attack_complexity: "2^32 blocks (birthday bound)"
+  status: legacy
+  standardized: false
+  proven_security: false
+
+compatible_with:
+  - CBC
+  - CTR
+  - CFB
+  - OFB
+  - ECB
+
+not_compatible_with: []
+
+use_cases:
+  - legacy_system_support
+  - password_hashing
+  - embedded_systems
+  - file_compression_encryption
+
+not_recommended_for:
+  - new_implementations
+  - high_volume_data_encryption
+  - long_term_security
+
+references:
+  - type: paper
+    title: "Description of a New Variable-Length Key, 64-bit Block Cipher (Blowfish)"
+    authors: ["Bruce Schneier"]
+    year: 1993
+  - type: website
+    title: "Blowfish Algorithm"
+    url: https://www.schneier.com/academic/blowfish/
+    year: 1993
+
+implementation_notes: |
+  - Pre-compute P-array and S-boxes during key setup for better performance
+  - Key setup is intentionally slow to resist brute-force attacks
+  - Not recommended for new applications due to 64-bit block size vulnerability
+  - Consider using a more modern cipher like AES for new implementations
+  - Bcrypt (based on Blowfish) remains secure for password hashing

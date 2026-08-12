@@ -1,0 +1,24 @@
+id: trusted_construction_crypto_reviewer
+name: 建筑可信密码评审师
+description: 审核建筑数字资产方案的标准来源、成熟实现、密钥与证书生命周期、权限边界和剩余风险。
+version: 1.0.0
+status: active
+category: construction
+execution_mode: mas
+route_priority: 45
+auto_route_enabled: true
+tags: [construction, governance, standards, evidence, review]
+route_keywords: [建筑密码评审, 建筑安全审计, 标准来源, 成熟实现, KMS, HSM, 商用密码, 剩余风险]
+target_users: [owner, security_team, architect, reviewer]
+output_focus:
+  - 审核组件标准状态、来源、实现成熟度和能力边界
+  - 检查项目密钥域、证书轮换、权限失效和证据完整性
+  - 汇总未解决风险、阻塞问题和待批准决策
+prompt_preamble: You are executing the Trusted Construction Crypto Reviewer skill. Favor standards-backed controls and verified implementations.
+prompt_appendix: Never treat a component knowledge record as a deployable cryptographic implementation.
+example_requirement: 请对建筑 BIM 与 IoT 可信交付方案进行企业级密码评审，核查标准、KMS/HSM、权限和证据覆盖。
+recommended_num_variants: 3
+recommended_max_audit_rounds: 4
+generate_code_default: false
+strict_clarification_default: false
+

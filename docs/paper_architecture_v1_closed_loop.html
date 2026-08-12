@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>论文风架构图 V1 - 闭环主流程</title>
+  <style>
+    :root {
+      --bg: #f7f4ee;
+      --panel: #fffdf9;
+      --ink: #19332b;
+      --muted: #61716b;
+      --line: #d8d0c3;
+      --agent: #f8dfd1;
+      --agent-ink: #b95c34;
+      --system: #dff1ea;
+      --system-ink: #2d7b6c;
+      --memory: #e8eef6;
+      --memory-ink: #56718f;
+      --output: #f5eccb;
+      --output-ink: #9d7728;
+      --shadow: 0 18px 44px rgba(40, 34, 24, 0.1);
+      --radius: 22px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: "Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(185, 92, 52, 0.12), transparent 26rem),
+        radial-gradient(circle at top right, rgba(45, 123, 108, 0.12), transparent 26rem),
+        linear-gradient(180deg, #faf7f1 0%, var(--bg) 100%);
+      color: var(--ink);
+    }
+
+    .page {
+      max-width: 1460px;
+      margin: 0 auto;
+      padding: 28px 22px 42px;
+    }
+
+    .hero {
+      background: rgba(255, 253, 249, 0.92);
+      border: 1px solid rgba(112, 96, 73, 0.14);
+      border-radius: 28px;
+      box-shadow: var(--shadow);
+      padding: 28px 30px;
+      margin-bottom: 24px;
+    }
+
+    .eyebrow {
+      margin: 0 0 10px;
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--agent-ink);
+      font-weight: 800;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(28px, 4vw, 48px);
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+    }
+
+    .hero p {
+      margin: 12px 0 0;
+      max-width: 860px;
+      color: var(--muted);
+      font-size: 16px;
+    }
+
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .pill {
+      padding: 9px 14px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .pill.agent { background: var(--agent); color: var(--agent-ink); }
+    .pill.system { background: var(--system); color: var(--system-ink); }
+    .pill.memory { background: var(--memory); color: var(--memory-ink); }
+    .pill.output { background: var(--output); color: var(--output-ink); }
+
+    .figure {
+      background: rgba(255, 253, 249, 0.92);
+      border: 1px solid rgba(112, 96, 73, 0.14);
+      border-radius: 28px;
+      box-shadow: var(--shadow);
+      padding: 26px;
+    }
+
+    .row {
+      display: flex;
+      gap: 12px;
+      align-items: stretch;
+      flex-wrap: wrap;
+    }
+
+    .row + .row {
+      margin-top: 16px;
+    }
+
+    .node {
+      flex: 1 1 150px;
+      min-width: 150px;
+      border-radius: var(--radius);
+      padding: 18px 16px;
+      border: 1px solid rgba(112, 96, 73, 0.14);
+      background: var(--panel);
+      position: relative;
+    }
+
+    .node.agent { background: linear-gradient(180deg, #fff7f1 0%, #fff0e6 100%); }
+    .node.system { background: linear-gradient(180deg, #f4fbf8 0%, #e9f6f1 100%); }
+    .node.memory { background: linear-gradient(180deg, #f3f6fb 0%, #e9eef6 100%); }
+    .node.output { background: linear-gradient(180deg, #fbf8eb 0%, #f5edd4 100%); }
+
+    .node strong {
+      display: block;
+      font-size: 16px;
+      margin-bottom: 8px;
+    }
+
+    .node span {
+      display: block;
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .arrow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 34px;
+      color: rgba(25, 51, 43, 0.48);
+      font-size: 26px;
+      font-weight: 800;
+    }
+
+    .loop {
+      margin-top: 18px;
+      border-radius: 24px;
+      padding: 16px 18px;
+      border: 1px dashed rgba(86, 113, 143, 0.32);
+      background: linear-gradient(90deg, rgba(86, 113, 143, 0.08), rgba(45, 123, 108, 0.1));
+      color: var(--ink);
+      font-weight: 700;
+    }
+
+    .notes {
+      display: grid;
+      gap: 14px;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      margin-top: 22px;
+    }
+
+    .note {
+      background: rgba(255, 253, 249, 0.9);
+      border: 1px solid rgba(112, 96, 73, 0.14);
+      border-radius: 22px;
+      box-shadow: var(--shadow);
+      padding: 18px;
+    }
+
+    .note h3 {
+      margin: 0 0 10px;
+      font-size: 18px;
+    }
+
+    .note p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    @media (max-width: 980px) {
+      .notes {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .page {
+        padding: 18px 14px 28px;
+      }
+
+      .hero,
+      .figure,
+      .note {
+        padding: 18px;
+      }
+
+      .row {
+        flex-direction: column;
+      }
+
+      .arrow {
+        min-height: 26px;
+        transform: rotate(90deg);
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="hero">
+      <p class="eyebrow">Paper Figure V1</p>
+      <h1>MedCipher Studio 多智能体闭环主流程图</h1>
+      <p>适合作为论文或答辩里的“主图 1”。重点讲系统从需求输入到中文交付的完整闭环，让外行一眼看懂每一步是谁在做事、为什么要做这一步。</p>
+      <div class="legend">
+        <span class="pill agent">橙色：Agent 决策</span>
+        <span class="pill system">绿色：系统执行</span>
+        <span class="pill memory">蓝灰：记忆与回放</span>
+        <span class="pill output">金色：交付输出</span>
+      </div>
+    </section>
+
+    <section class="figure">
+      <div class="row">
+        <div class="node system">
+          <strong>业务需求输入</strong>
+          <span>用户提出场景、约束、目标和交付要求</span>
+        </div>
+        <div class="arrow">→</div>
+        <div class="node agent">
+          <strong>生成 Agent</strong>
+          <span>结合知识库、Skill 提示词和历史经验生成候选方案</span>
+        </div>
+        <div class="arrow">→</div>
+        <div class="node agent">
+          <strong>审计 Agent</strong>
+          <span>先从理论、实现和合规角度审查方案质量</span>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="node system">
+          <strong>沙盒部署模块</strong>
+          <span>将候选算法部署成受控的模拟服务器实例</span>
+        </div>
+        <div class="arrow">→</div>
+        <div class="node agent">
+          <strong>攻击 Agent</strong>
+          <span>基于实时结果决定攻击路径，而不是只跑固定脚本</span>
+        </div>
+        <div class="arrow">→</div>
+        <div class="node system">
+          <strong>流量与工件采集</strong>
+          <span>记录日志、指标、漏洞证据、攻击轨迹和差异结果</span>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="node agent">
+          <strong>评估 Agent</strong>
+          <span>判断漏洞是否成立、严重度如何、修补优先级多高</span>
+        </div>
+        <div class="arrow">→</div>
+        <div class="node agent">
+          <strong>修补 Agent</strong>
+          <span>给出补丁、验证步骤和回归检查方案</span>
+        </div>
+        <div class="arrow">→</div>
+        <div class="node system">
+          <strong>回归验证模块</strong>
+          <span>再次部署并复测，检查问题是否真正被修掉</span>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="node memory">
+          <strong>项目级记忆</strong>
+          <span>保留阶段摘要、结构化交接、漏洞经验和上下文压缩结果</span>
+        </div>
+        <div class="arrow">→</div>
+        <div class="node memory">
+          <strong>时间线回放</strong>
+          <span>支持回看“谁做了什么、为什么这么做、证据来自哪里”</span>
+        </div>
+        <div class="arrow">→</div>
+        <div class="node output">
+          <strong>中文交付输出</strong>
+          <span>输出报告、伪代码、Python/C++ 代码与证据引用</span>
+        </div>
+      </div>
+
+      <div class="loop">闭环优化：本轮攻击与修补经验会回流到下一轮生成与审计，系统会越跑越懂这个项目。</div>
+    </section>
+
+    <section class="notes">
+      <article class="note">
+        <h3>图的重点</h3>
+        <p>这版最适合第一页。它强调“不是一次性生成报告”，而是一个从设计到验证再到修补的闭环。</p>
+      </article>
+      <article class="note">
+        <h3>适合怎么讲</h3>
+        <p>可以用一句话解释：系统会先提出方案，再自己找问题，再在沙盒里验证，最后给出带证据的交付结果。</p>
+      </article>
+      <article class="note">
+        <h3>当前边界</h3>
+        <p>这张图展示的是架构方向与已落地主线，不等于已经完成生产级容器执行器或远程攻击平面。</p>
+      </article>
+    </section>
+  </main>
+</body>
+</html>

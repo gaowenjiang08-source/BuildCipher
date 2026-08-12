@@ -1,0 +1,60 @@
+name: AES-192
+full_name: Advanced Encryption Standard 192-bit
+category: block_cipher
+description: |
+  AES-192 is the 192-bit key variant of AES, providing a middle ground between
+  AES-128 and AES-256 in terms of security margin and performance.
+
+parameters:
+  block_size: 128
+  key_size: [192]
+  rounds: 12
+
+properties:
+  - proven_security
+  - hardware_accelerated
+  - constant_time_capable
+  - parallelizable
+
+performance:
+  software_speed: medium
+  hardware_speed: very_high
+  memory: low
+  power: medium
+
+security:
+  security_level: 192
+  best_attack: biclique
+  attack_complexity: "2^190.2"
+  status: secure
+  standardized: true
+  proven_security: true
+
+compatible_with:
+  - CBC
+  - CTR
+  - GCM
+  - CCM
+  - XTS
+
+not_compatible_with: []
+
+use_cases:
+  - government_encryption
+  - financial_systems
+  - network_encryption
+  - tls
+
+not_recommended_for:
+  - ultra_lightweight_devices
+
+references:
+  - type: standard
+    title: "FIPS 197: Advanced Encryption Standard"
+    url: https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.197.pdf
+    year: 2001
+
+implementation_notes: |
+  - 12 rounds (vs 10 for AES-128, 14 for AES-256)
+  - Good balance between security and performance
+  - Approved for TOP SECRET information in US government

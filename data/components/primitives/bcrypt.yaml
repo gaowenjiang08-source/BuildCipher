@@ -1,0 +1,66 @@
+name: bcrypt
+full_name: bcrypt Password Hashing Function
+category: construction
+description: |
+  Password hashing function based on Blowfish cipher, designed to be
+  computationally expensive to resist brute-force attacks. Widely used
+  for password storage.
+
+parameters:
+  output_size: 184  # 23 bytes encoded in base64
+  rounds: 12  # Default work factor (2^12 iterations)
+
+properties:
+  - password_hashing
+  - salted
+  - adaptive_cost
+  - slow_by_design
+  - widely_deployed
+
+performance:
+  software_speed: slow
+  hardware_speed: medium
+  memory: moderate
+  power: moderate
+
+security:
+  security_level: 128
+  best_attack: none_practical
+  attack_complexity: "Configurable work factor makes brute-force expensive"
+  status: secure
+  standardized: false
+  proven_security: true
+
+compatible_with: []
+not_compatible_with:
+  - resource_constrained_devices
+  - high_throughput_systems
+
+use_cases:
+  - password_storage
+  - user_authentication
+  - credential_management
+  - web_authentication
+
+not_recommended_for:
+  - key_derivation
+  - new_systems  # Prefer Argon2
+
+references:
+  - type: paper
+    title: "A Future-Adaptable Password Scheme"
+    authors: ["Niels Provos", "David Mazières"]
+    year: 1999
+  - type: documentation
+    title: "OWASP Password Storage Cheat Sheet"
+    url: https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html
+
+implementation_notes: |
+  - Cost factor should be set as high as tolerable (typically 10-14)
+  - Consider migrating to Argon2 for new systems
+  - Still acceptable for existing deployments with proper cost factor
+  - Maximum password length of 72 bytes
+  - No parallelism support
+  - Not memory-hard (less resistant to specialized hardware than Argon2)
+  - Battle-tested since 1999
+  - Widely supported in web frameworks

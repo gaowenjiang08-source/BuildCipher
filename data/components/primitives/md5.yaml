@@ -1,0 +1,67 @@
+name: MD5
+full_name: Message Digest Algorithm 5
+category: hash_function
+description: |
+  MD5 is a widely used but cryptographically broken hash function. It should NOT
+  be used for security purposes but is still used for non-cryptographic checksums.
+
+parameters:
+  output_size: 128
+  block_size: 512
+
+properties:
+  - legacy
+  - deprecated
+  - broken
+
+performance:
+  software_speed: very_high
+  hardware_speed: very_high
+  memory: very_low
+  power: very_low
+
+security:
+  security_level: 0  # Broken
+  best_attack: collision_attack
+  attack_complexity: "2^18 (practical collisions)"
+  status: broken
+  standardized: true
+  proven_security: false
+
+compatible_with:
+  - legacy_systems
+  - non_cryptographic_checksums
+
+not_compatible_with:
+  - any_cryptographic_applications
+
+use_cases:
+  - file_checksums_non_adversarial
+  - legacy_compatibility
+  - educational_purposes
+
+not_recommended_for:
+  - digital_signatures
+  - certificates
+  - password_hashing
+  - message_authentication
+  - integrity_verification_adversarial
+  - any_security_critical_application
+
+references:
+  - type: standard
+    title: "RFC 1321: The MD5 Message-Digest Algorithm"
+    url: https://www.rfc-editor.org/rfc/rfc1321
+    year: 1992
+  - type: paper
+    title: "How to Break MD5 and Other Hash Functions"
+    authors: ["Xiaoyun Wang", "Hongbo Yu"]
+    year: 2005
+
+implementation_notes: |
+  - SEVERELY BROKEN: Do not use for ANY security purpose
+  - Practical collision attacks since 2004
+  - Can generate collisions in seconds on modern hardware
+  - Only acceptable for non-adversarial checksums
+  - Included only for educational purposes and legacy support
+  - Use SHA-256, SHA-3, or BLAKE3 instead

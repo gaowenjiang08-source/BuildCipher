@@ -1,0 +1,77 @@
+name: GCM
+full_name: Galois/Counter Mode
+category: mode
+description: |
+  GCM is an authenticated encryption mode that provides both confidentiality and authenticity.
+  It combines Counter mode encryption with Galois field multiplication for authentication.
+
+parameters:
+  block_size: 128
+  nonce_size: 96
+  tag_size: 128
+
+properties:
+  - authenticated_encryption
+  - parallelizable
+  - hardware_accelerated
+  - random_access
+  - patent_free
+
+performance:
+  software_speed: high
+  hardware_speed: very_high
+  memory: low
+  power: low
+
+security:
+  security_level: 256  # Security depends on underlying cipher (AES-256)
+  best_attack: none_practical
+  attack_complexity: "birthday bound at 2^64, cipher-dependent"
+  status: secure
+  standardized: true
+  proven_security: true
+
+compatible_with:
+  - AES
+  - Camellia
+  - TLS_1_2
+  - TLS_1_3
+  - IPSec
+  - disk_encryption
+
+not_compatible_with:
+  - stream_ciphers
+  - 64bit_block_ciphers
+
+use_cases:
+  - tls_record_encryption
+  - ipsec_esp
+  - ssh
+  - disk_encryption
+  - high_speed_networks
+  - wireless_security
+  - general_purpose
+  - file_encryption
+  - cloud_storage
+
+not_recommended_for:
+  - short_messages_only
+  - software_only_constrained_devices
+
+references:
+  - type: standard
+    title: "NIST SP 800-38D: Galois/Counter Mode"
+    url: https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-38d.pdf
+    year: 2007
+  - type: rfc
+    title: "RFC 5288: AES-GCM for TLS"
+    url: https://tools.ietf.org/html/rfc5288
+    year: 2008
+
+implementation_notes: |
+  - IV/nonce must NEVER be reused with the same key
+  - Recommended to use 96-bit random IV
+  - Hardware acceleration available (PCLMULQDQ on x86)
+  - Most widely used AEAD mode in TLS 1.2/1.3
+  - Birthday bound: no more than 2^32 blocks per key
+  - Use AES-GCM-SIV for nonce-misuse resistance

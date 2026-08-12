@@ -1,0 +1,83 @@
+name: SPHINCS+ SHAKE256
+full_name: SPHINCS+ with SHAKE256 Hash Function
+category: signature
+description: |
+  SPHINCS+ with SHAKE256 is a stateless hash-based post-quantum signature scheme
+  using SHAKE256 as the underlying hash function. Offers robust security based
+  solely on the security of hash functions.
+
+parameters:
+  hash_function: SHAKE256
+  security_level: [128, 192, 256]
+  signature_size: [7856, 16224, 29792]
+
+properties:
+  - post_quantum
+  - digital_signature
+  - hash_based
+  - stateless
+  - quantum_resistant
+  - conservative_security
+  - shake_variant
+
+performance:
+  software_speed: low
+  hardware_speed: low
+  memory: medium
+  power: medium
+  signing_time: slow
+  verification_time: moderate
+
+security:
+  security_level: 256
+  best_attack: none_practical
+  attack_complexity: "quantum_resistant_conservative"
+  status: secure
+  standardized: true
+  proven_security: true
+  quantum_resistant: true
+
+compatible_with:
+  - certificates
+  - code_signing
+  - hybrid_signatures
+  - firmware_signing
+
+not_compatible_with:
+  - high_performance_applications
+  - bandwidth_constrained_systems
+
+use_cases:
+  - ultra_long_term_security
+  - conservative_post_quantum
+  - root_certificates
+  - firmware_signing
+  - code_signing
+  - document_signing
+
+not_recommended_for:
+  - high_frequency_signing
+  - bandwidth_constrained_systems
+  - resource_constrained_devices
+  - real_time_applications
+
+references:
+  - type: standard
+    title: "NIST FIPS 205: Stateless Hash-Based Digital Signature Standard"
+    url: https://csrc.nist.gov/pubs/fips/205/final
+    year: 2024
+  - type: paper
+    title: "SPHINCS+: Stateless Hash-Based Signatures"
+    url: https://sphincs.org/
+    year: 2020
+
+implementation_notes: |
+  - SHAKE256 variant of SPHINCS+ (part of FIPS 205)
+  - Very large signatures (7-30 KB depending on security level)
+  - Based only on hash functions (no structured assumptions)
+  - Slower than Dilithium but more conservative
+  - SHAKE256 provides quantum-resistant hash security
+  - Good for scenarios requiring maximum security assurance
+  - Stateless operation (no state management complexity)
+  - Three security levels: 128-bit, 192-bit, 256-bit
+  - Can be used when lattice-based schemes are distrusted

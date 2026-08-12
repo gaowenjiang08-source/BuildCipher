@@ -1,0 +1,64 @@
+name: DH
+full_name: Diffie-Hellman Key Exchange
+category: key_exchange
+description: |
+  Classic Diffie-Hellman key exchange based on discrete logarithm problem.
+  The foundation of modern key exchange protocols.
+
+parameters:
+  key_size: [2048, 3072, 4096]
+
+properties:
+  - key_exchange
+  - forward_secrecy
+  - standardized
+  - legacy
+
+performance:
+  software_speed: low
+  hardware_speed: medium
+  memory: medium
+  power: medium
+
+security:
+  security_level: 256
+  best_attack: gnfs
+  attack_complexity: "2^128 for DH-3072"
+  status: secure
+  standardized: true
+  proven_security: true
+
+compatible_with:
+  - TLS
+  - IPsec
+  - SSH
+
+not_compatible_with: []
+
+use_cases:
+  - legacy_systems
+  - tls
+  - ipsec
+  - vpn
+
+not_recommended_for:
+  - new_applications_prefer_ecdh
+  - resource_constrained_devices
+
+references:
+  - type: paper
+    title: "New Directions in Cryptography"
+    authors: ["Whitfield Diffie", "Martin Hellman"]
+    year: 1976
+  - type: standard
+    title: "RFC 2631: Diffie-Hellman Key Agreement Method"
+    url: https://www.rfc-editor.org/rfc/rfc2631
+    year: 1999
+
+implementation_notes: |
+  - Original key exchange protocol
+  - Requires large keys (2048+ bits)
+  - Slower than ECDH
+  - Use safe primes or standardized groups (RFC 3526)
+  - Vulnerable to small subgroup attacks without validation
+  - ECDH generally preferred for new applications

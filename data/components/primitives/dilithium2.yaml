@@ -1,0 +1,87 @@
+name: Dilithium2
+full_name: CRYSTALS-Dilithium Level 2 (ML-DSA-44)
+category: signature
+description: |
+  Dilithium2 is the 128-bit security level variant of the CRYSTALS-Dilithium
+  post-quantum signature scheme. Offers the smallest key and signature sizes
+  in the Dilithium family, suitable for most general-purpose applications.
+
+parameters:
+  security_level: 128
+  public_key_size: 1312
+  secret_key_size: 2528
+  signature_size: 2420
+
+properties:
+  - post_quantum
+  - digital_signature
+  - lattice_based
+  - nist_selected
+  - quantum_resistant
+  - compact_size
+  - fast_verification
+
+performance:
+  software_speed: high
+  hardware_speed: high
+  memory: low
+  power: low
+  signing_time: fast
+  verification_time: very_fast
+
+security:
+  security_level: 128
+  best_attack: none_practical
+  attack_complexity: "2^128 quantum operations"
+  status: secure
+  standardized: true
+  proven_security: true
+  quantum_resistant: true
+
+compatible_with:
+  - TLS
+  - certificates
+  - code_signing
+  - hybrid_signatures
+  - email_signing
+  - web_authentication
+
+not_compatible_with:
+  - encryption
+  - ultra_high_security_requirements
+
+use_cases:
+  - general_purpose_signing
+  - web_certificates
+  - tls_authentication
+  - email_signatures
+  - document_signing
+  - api_authentication
+  - mobile_applications
+
+not_recommended_for:
+  - top_secret_classification
+  - ultra_long_term_archives
+  - classified_government_systems
+
+references:
+  - type: standard
+    title: "NIST FIPS 204: Module-Lattice-Based Digital Signature Standard"
+    url: https://csrc.nist.gov/pubs/fips/204/final
+    year: 2024
+  - type: paper
+    title: "CRYSTALS-Dilithium"
+    url: https://pq-crystals.org/dilithium/
+    year: 2020
+
+implementation_notes: |
+  - NIST standardized as ML-DSA-44 (FIPS 204)
+  - 128-bit quantum security level
+  - Smallest Dilithium variant (good for bandwidth)
+  - ~2.4 KB signatures (larger than ECDSA but manageable)
+  - Fast signing and verification operations
+  - Suitable for most general-purpose applications
+  - Can be used in hybrid mode with Ed25519
+  - Recommended for web TLS certificates
+  - Good balance of security and performance
+  - Ideal for mainstream post-quantum migration

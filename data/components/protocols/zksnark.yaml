@@ -1,0 +1,86 @@
+name: zkSNARK
+full_name: Zero-Knowledge Succinct Non-Interactive Argument of Knowledge
+category: protocol
+description: |
+  zkSNARK is a zero-knowledge proof protocol that allows one party to prove they possess certain
+  information without revealing that information. It provides succinct proofs that are fast to verify.
+  Used extensively in blockchain privacy solutions like Zcash.
+
+parameters:
+  proof_size: 128-288 # bytes, depending on implementation
+  verification_time: constant
+  setup_type: trusted
+  proof_type: non_interactive
+
+properties:
+  - zero_knowledge
+  - succinct_proofs
+  - non_interactive
+  - efficient_verification
+  - requires_trusted_setup
+
+performance:
+  proof_generation: slow
+  proof_verification: very_fast
+  proof_size: very_small
+  setup_cost: high
+  memory: high
+
+security:
+  security_level: 128
+  best_attack: none_practical
+  attack_complexity: "discrete_log_assumption"
+  status: secure
+  standardized: false
+  proven_security: true
+  quantum_resistant: false
+
+compatible_with:
+  - blockchain_privacy
+  - zcash
+  - anonymous_credentials
+  - private_transactions
+  - verifiable_computation
+
+not_compatible_with:
+  - post_quantum_scenarios
+  - trustless_setup_required
+
+use_cases:
+  - privacy_preserving_cryptocurrencies
+  - private_transactions
+  - anonymous_credentials
+  - verifiable_computation
+  - rollups_layer2
+  - identity_systems
+  - voting_systems
+
+not_recommended_for:
+  - real_time_applications
+  - resource_constrained_devices
+  - post_quantum_security
+
+references:
+  - type: paper
+    title: "Succinct Non-Interactive Zero Knowledge for a von Neumann Architecture"
+    authors: ["Eli Ben-Sasson", "Alessandro Chiesa", "Eran Tromer", "Madars Virza"]
+    year: 2014
+    url: https://eprint.iacr.org/2013/879
+  - type: implementation
+    title: "Zcash: Privacy-Protecting Digital Currency"
+    url: https://z.cash/technology/zksnarks/
+    year: 2016
+  - type: paper
+    title: "Pinocchio: Nearly Practical Verifiable Computation"
+    authors: ["Bryan Parno", "Craig Gentry", "Jon Howell", "Mariana Raykova"]
+    year: 2013
+
+implementation_notes: |
+  - Requires trusted setup ceremony (Common Reference String)
+  - Setup must be performed once per circuit
+  - Toxic waste from setup must be destroyed
+  - Proof generation is computationally expensive
+  - Verification is constant time regardless of computation size
+  - Circuit-specific setup required
+  - Use Groth16 for most efficient proofs
+  - Consider zkSTARK for transparent setup

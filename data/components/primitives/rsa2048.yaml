@@ -1,0 +1,64 @@
+name: RSA-2048
+full_name: RSA with 2048-bit keys
+category: signature
+description: |
+  RSA with 2048-bit keys provides ~112 bits of security. This is the minimum
+  recommended key size for RSA in modern applications.
+
+parameters:
+  key_size: [2048]
+  signature_size: 2048
+
+properties:
+  - digital_signature
+  - encryption_capable
+  - key_exchange_capable
+  - standardized
+
+performance:
+  software_speed: low
+  hardware_speed: medium
+  memory: medium
+  power: medium
+
+security:
+  security_level: 112
+  best_attack: gnfs
+  attack_complexity: "~2^112"
+  status: secure
+  standardized: true
+  proven_security: true
+
+compatible_with:
+  - PKCS1
+  - PSS
+  - OAEP
+  - TLS
+  - X509
+
+not_compatible_with: []
+
+use_cases:
+  - digital_signatures
+  - tls
+  - certificates
+  - legacy_compatibility
+  - encryption
+
+not_recommended_for:
+  - long_term_secrets_beyond_2030
+  - ultra_high_security_applications
+
+references:
+  - type: standard
+    title: "FIPS 186-5: Digital Signature Standard"
+    url: https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.186-5.pdf
+    year: 2023
+
+implementation_notes: |
+  - Minimum recommended key size for RSA
+  - ~112 bits of security
+  - Slow compared to elliptic curve alternatives
+  - Use RSA-PSS for signatures (preferred over PKCS#1 v1.5)
+  - Use OAEP for encryption
+  - Consider migrating to 3072-bit or 4096-bit for long-term use

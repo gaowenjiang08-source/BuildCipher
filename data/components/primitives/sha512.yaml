@@ -1,0 +1,77 @@
+name: SHA-512
+full_name: Secure Hash Algorithm 512-bit
+category: hash_function
+description: |
+  SHA-512 is a cryptographic hash function from the SHA-2 family, producing a 512-bit (64-byte)
+  hash value. It offers higher security margin than SHA-256 and is optimized for 64-bit processors.
+
+parameters:
+  output_size: 512
+  block_size: 1024
+
+properties:
+  - collision_resistant
+  - preimage_resistant
+  - second_preimage_resistant
+  - deterministic
+  - avalanche_effect
+  - 64bit_optimized
+
+performance:
+  software_speed: high
+  hardware_speed: very_high
+  memory: low
+  power: medium
+
+security:
+  security_level: 256  # 512-bit preimage resistance, 256-bit collision resistance
+  best_attack: none_practical
+  attack_complexity: "2^256 for collision, 2^512 for preimage"
+  status: secure
+  standardized: true
+  proven_security: true
+
+compatible_with:
+  - HMAC
+  - HKDF
+  - PBKDF2
+  - RSA-PSS
+  - ECDSA
+  - digital_signatures
+  - Ed25519
+
+not_compatible_with: []
+
+use_cases:
+  - digital_signatures
+  - certificate_generation
+  - high_security_hashing
+  - integrity_verification
+  - hmac
+  - key_derivation
+  - blockchain
+  - file_checksums
+
+not_recommended_for:
+  - password_storage_alone
+  - extremely_high_speed_hashing
+  - 32bit_systems
+
+references:
+  - type: standard
+    title: "FIPS 180-4: Secure Hash Standard"
+    url: https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.180-4.pdf
+    year: 2015
+  - type: standard
+    title: "NIST SP 800-107: Recommendation for Applications Using Approved Hash Algorithms"
+    url: https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-107r1.pdf
+    year: 2012
+
+implementation_notes: |
+  - Faster than SHA-256 on 64-bit processors
+  - Larger output provides higher security margin
+  - Use for high-security applications requiring 256-bit security
+  - For password hashing, use PBKDF2-HMAC-SHA512 or Argon2
+  - Truncated variants: SHA-512/256, SHA-512/224
+  - More secure than SHA-256 for long-term security
+  - Widely supported in modern cryptographic libraries

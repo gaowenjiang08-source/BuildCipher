@@ -1,0 +1,69 @@
+name: SHA3-384
+full_name: SHA-3 with 384-bit output
+category: hash_function
+description: |
+  SHA3-384 is part of the SHA-3 family based on the Keccak algorithm.
+  It provides 384-bit hash output and offers an alternative to SHA-384.
+
+parameters:
+  output_size: 384
+  block_size: 832
+
+properties:
+  - collision_resistant
+  - preimage_resistant
+  - second_preimage_resistant
+  - sponge_construction
+  - standardized
+  - no_length_extension
+
+performance:
+  software_speed: medium
+  hardware_speed: high
+  memory: low
+  power: medium
+
+security:
+  security_level: 384  # 384-bit preimage, 192-bit collision
+  best_attack: none_practical
+  attack_complexity: "2^192 for collision, 2^384 for preimage"
+  status: secure
+  standardized: true
+  proven_security: true
+
+compatible_with:
+  - HMAC
+  - KDF
+  - digital_signatures
+  - SHAKE
+  - high_security_applications
+
+not_compatible_with: []
+
+use_cases:
+  - high_security_applications
+  - file_integrity
+  - digital_signatures
+  - certificates
+  - long_term_security
+  - diversity_from_sha2
+
+not_recommended_for:
+  - password_hashing_alone
+  - performance_critical_applications
+
+references:
+  - type: standard
+    title: "FIPS 202: SHA-3 Standard"
+    url: https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.202.pdf
+    year: 2015
+
+implementation_notes: |
+  - Based on Keccak sponge construction
+  - Different internal structure from SHA-2 family
+  - Good for hedging against SHA-2 vulnerabilities
+  - Slower than SHA3-256 due to smaller rate
+  - No length extension attacks (unlike SHA-2)
+  - Provides 192-bit collision resistance
+  - Suitable for applications requiring higher security margins
+  - Often paired with 384-bit ECC curves

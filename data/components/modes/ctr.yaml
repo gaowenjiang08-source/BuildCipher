@@ -1,0 +1,79 @@
+name: CTR
+full_name: Counter Mode
+category: mode
+description: |
+  CTR (Counter) mode turns a block cipher into a stream cipher by encrypting a counter value
+  and XORing the result with the plaintext. It supports parallel encryption and random access.
+
+parameters:
+  block_size: 128
+  nonce_size: 96
+  counter_size: 32
+
+properties:
+  - stream_cipher_mode
+  - parallelizable
+  - random_access
+  - no_padding_required
+  - seekable
+
+performance:
+  software_speed: very_high
+  hardware_speed: very_high
+  memory: very_low
+  power: low
+
+security:
+  security_level: 256  # Security depends on underlying cipher (AES-256)
+  best_attack: none_practical
+  attack_complexity: "Cipher-dependent, nonce reuse catastrophic"
+  status: secure
+  standardized: true
+  proven_security: true
+
+compatible_with:
+  - AES
+  - Camellia
+  - TLS
+  - IPSec
+  - SSH
+  - disk_encryption
+
+not_compatible_with:
+  - stream_ciphers
+  - ciphers_without_block_structure
+
+use_cases:
+  - disk_encryption
+  - network_encryption
+  - high_speed_encryption
+  - random_access_encryption
+  - tls
+  - ipsec
+  - ssh
+  - general_purpose
+  - file_encryption
+
+not_recommended_for:
+  - authentication_required
+  - systems_prone_to_nonce_reuse
+
+references:
+  - type: standard
+    title: "NIST SP 800-38A: Block Cipher Modes of Operation"
+    url: https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-38a.pdf
+    year: 2001
+  - type: rfc
+    title: "RFC 3686: Using AES Counter Mode With IPsec ESP"
+    url: https://tools.ietf.org/html/rfc3686
+    year: 2004
+
+implementation_notes: |
+  - Nonce/IV must NEVER be reused with the same key
+  - Recommended to use a 96-bit nonce + 32-bit counter
+  - Fully parallelizable for encryption and decryption
+  - Does not provide authentication - use with HMAC or AEAD
+  - No padding required - works with any plaintext length
+  - Excellent for random access (e.g., disk encryption)
+  - Counter overflow must be prevented
+  - Consider GCM or CCM for authenticated encryption

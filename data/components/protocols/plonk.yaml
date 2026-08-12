@@ -1,0 +1,89 @@
+name: PLONK
+full_name: Permutations over Lagrange-bases for Oecumenical Noninteractive arguments of Knowledge
+category: protocol
+description: |
+  PLONK is a universal zkSNARK protocol that requires only a single trusted setup ceremony
+  for all circuits. It provides efficient proof generation and verification with a universal
+  and updateable Common Reference String (CRS).
+
+parameters:
+  proof_size: 400 # bytes, constant size
+  verification_time: constant
+  setup_type: universal_trusted
+  proof_type: non_interactive
+
+properties:
+  - zero_knowledge
+  - universal_setup
+  - updateable_srs
+  - constant_proof_size
+  - efficient_verification
+  - non_interactive
+
+performance:
+  proof_generation: medium
+  proof_verification: very_fast
+  proof_size: small
+  setup_cost: low # one-time universal setup
+  memory: medium
+
+security:
+  security_level: 128
+  best_attack: none_practical
+  attack_complexity: "discrete_log_assumption"
+  status: secure
+  standardized: false
+  proven_security: true
+  quantum_resistant: false
+
+compatible_with:
+  - ethereum_layer2
+  - zk_rollups
+  - general_purpose_zkp
+  - blockchain_privacy
+  - smart_contracts
+
+not_compatible_with:
+  - post_quantum_scenarios
+  - trustless_setup_required
+
+use_cases:
+  - zk_rollups
+  - ethereum_scaling
+  - private_smart_contracts
+  - general_purpose_zkp
+  - verifiable_computation
+  - layer2_protocols
+  - privacy_preserving_dapps
+
+not_recommended_for:
+  - post_quantum_security
+  - absolute_trustless_requirement
+  - minimal_prover_time
+
+references:
+  - type: paper
+    title: "PLONK: Permutations over Lagrange-bases for Oecumenical Noninteractive arguments of Knowledge"
+    authors: ["Ariel Gabizon", "Zachary J. Williamson", "Oana Ciobotaru"]
+    year: 2019
+    url: https://eprint.iacr.org/2019/953
+  - type: implementation
+    title: "Aztec Protocol: PLONK Implementation"
+    url: https://github.com/AztecProtocol/barretenberg
+    year: 2019
+  - type: paper
+    title: "TurboPLONK: Optimizations for PLONK"
+    authors: ["Ariel Gabizon", "Zachary J. Williamson"]
+    year: 2020
+
+implementation_notes: |
+  - Universal and updateable trusted setup
+  - Single setup works for all circuits up to a size bound
+  - Constant-size proofs (~400 bytes)
+  - Custom gates support for optimization
+  - Lookup arguments for efficient table lookups
+  - More flexible than Groth16
+  - Slightly slower proving than Groth16
+  - Used in zkSync, Polygon Miden, Aztec
+  - TurboPLONK and UltraPLONK variants available
+  - Supports recursive proof composition

@@ -1,0 +1,80 @@
+name: Yarrow
+full_name: Yarrow Pseudorandom Number Generator
+category: random_number_generator
+description: |
+  Yarrow is a cryptographically secure PRNG designed by Bruce Schneier, John Kelsey,
+  and Niels Ferguson. It was a predecessor to Fortuna and focuses on entropy
+  accumulation from multiple sources with periodic reseeding.
+
+parameters:
+  block_cipher: [3DES, AES]
+  hash_function: SHA-1
+  pool_count: 2
+  fast_pool_threshold: 100
+  slow_pool_threshold: 2
+
+properties:
+  - cryptographically_secure
+  - automatic_reseeding
+  - entropy_accumulation
+  - dual_pool_design
+  - multiple_entropy_sources
+  - catastrophic_reseeding
+
+performance:
+  software_speed: medium
+  hardware_speed: high
+  memory: low
+  power: low
+
+security:
+  security_level: 128  # Limited by original 3DES design
+  best_attack: none_known
+  attack_complexity: "2^128"
+  status: legacy
+  standardized: false
+  proven_security: true
+
+compatible_with:
+  - 3DES
+  - AES
+  - SHA-1
+  - operating_systems
+  - legacy_systems
+
+not_compatible_with:
+  - modern_security_standards
+  - high_security_applications
+
+use_cases:
+  - legacy_systems
+  - operating_system_prng
+  - general_purpose_random
+  - historical_reference
+
+not_recommended_for:
+  - new_implementations
+  - high_security_applications
+  - modern_cryptographic_systems
+
+references:
+  - type: paper
+    title: "Yarrow-160: Notes on the Design and Analysis of the Yarrow Cryptographic Pseudorandom Number Generator"
+    authors: ["John Kelsey", "Bruce Schneier", "Niels Ferguson"]
+    year: 1999
+  - type: specification
+    title: "Yarrow PRNG Specification"
+    url: https://www.schneier.com/academic/paperfiles/paper-yarrow.pdf
+    year: 1999
+
+implementation_notes: |
+  - Uses two entropy pools: fast and slow
+  - Fast pool reseeds frequently (after 100 events)
+  - Slow pool reseeds infrequently (after 2 fast reseeds)
+  - Originally designed with 3DES and SHA-1
+  - Superseded by Fortuna which addresses several weaknesses
+  - Used in older versions of macOS and FreeBSD
+  - Modern implementations should use Fortuna instead
+  - Historical significance in CSPRNG design
+  - Dual pool design influenced later PRNGs
+  - Consider this legacy; prefer Fortuna or NIST DRBGs

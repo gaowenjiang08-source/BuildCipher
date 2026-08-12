@@ -1,0 +1,84 @@
+name: Fortuna
+full_name: Fortuna Cryptographically Secure Pseudorandom Number Generator
+category: random_number_generator
+description: |
+  Fortuna is a cryptographically secure PRNG designed by Niels Ferguson and Bruce Schneier.
+  It addresses various theoretical and practical issues in earlier PRNGs like Yarrow,
+  particularly improving entropy accumulation and pool management.
+
+parameters:
+  block_cipher: AES-256
+  hash_function: SHA-256
+  pool_count: 32
+  min_pool_size: 64
+  reseed_interval: 100ms
+
+properties:
+  - cryptographically_secure
+  - automatic_reseeding
+  - entropy_accumulation
+  - catastrophic_reseeding_recovery
+  - multiple_entropy_pools
+  - state_compromise_recovery
+  - long_term_reliable
+
+performance:
+  software_speed: high
+  hardware_speed: very_high
+  memory: medium
+  power: low
+
+security:
+  security_level: 256
+  best_attack: none_known
+  attack_complexity: "2^256"
+  status: secure
+  standardized: false
+  proven_security: true
+
+compatible_with:
+  - AES
+  - SHA-256
+  - operating_systems
+  - cryptographic_libraries
+  - general_applications
+
+not_compatible_with:
+  - deterministic_environments
+  - hardware_without_entropy_sources
+
+use_cases:
+  - operating_system_prng
+  - key_generation
+  - cryptographic_applications
+  - general_purpose_random
+  - long_running_systems
+  - session_keys
+  - ivs_and_nonces
+
+not_recommended_for:
+  - deterministic_key_derivation
+  - reproducible_testing
+  - embedded_systems_without_entropy
+
+references:
+  - type: book
+    title: "Cryptography Engineering: Design Principles and Practical Applications"
+    authors: ["Niels Ferguson", "Bruce Schneier", "Tadayoshi Kohno"]
+    year: 2010
+  - type: specification
+    title: "Fortuna CSPRNG Specification"
+    year: 2003
+
+implementation_notes: |
+  - Uses 32 entropy pools with exponential reseeding schedule
+  - Pool 0 reseeded most frequently, pool 31 least frequently
+  - AES-256 in counter mode for generation
+  - SHA-256 for entropy accumulation
+  - Automatic recovery from state compromise
+  - Reseed at most once per 100ms to prevent entropy depletion
+  - Each pool must accumulate at least 64 bytes before first reseed
+  - Generator reseeds from pools in round-robin fashion
+  - Used in FreeBSD, macOS, and various crypto libraries
+  - Superior to Yarrow in entropy management
+  - Requires multiple entropy sources for best operation

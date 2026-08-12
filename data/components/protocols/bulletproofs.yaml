@@ -1,0 +1,86 @@
+name: Bulletproofs
+full_name: Bulletproofs (Short Non-Interactive Zero-Knowledge Proofs)
+category: protocol
+description: |
+  Bulletproofs are short non-interactive zero-knowledge proofs that require no trusted setup.
+  They are particularly efficient for range proofs and are used in Monero and other privacy-focused
+  cryptocurrencies to prove values are within valid ranges without revealing the actual values.
+
+parameters:
+  proof_size: 1300 # bytes for single range proof, logarithmic aggregation
+  verification_time: linear
+  setup_type: transparent
+  proof_type: non_interactive
+
+properties:
+  - zero_knowledge
+  - transparent_setup
+  - short_proofs
+  - aggregatable
+  - non_interactive
+  - range_proof_optimized
+
+performance:
+  proof_generation: medium
+  proof_verification: medium
+  proof_size: small
+  setup_cost: none
+  memory: low
+
+security:
+  security_level: 128
+  best_attack: none_practical
+  attack_complexity: "discrete_log_assumption"
+  status: secure
+  standardized: false
+  proven_security: true
+  quantum_resistant: false
+
+compatible_with:
+  - confidential_transactions
+  - monero
+  - range_proofs
+  - privacy_coins
+  - mimblewimble
+
+not_compatible_with:
+  - post_quantum_scenarios
+  - general_circuit_proofs
+
+use_cases:
+  - confidential_transactions
+  - range_proofs
+  - privacy_preserving_cryptocurrencies
+  - anonymous_payments
+  - value_hiding
+  - asset_confidentiality
+
+not_recommended_for:
+  - general_purpose_zkp
+  - post_quantum_security
+  - very_fast_verification_required
+
+references:
+  - type: paper
+    title: "Bulletproofs: Short Proofs for Confidential Transactions and More"
+    authors: ["Benedikt Bünz", "Jonathan Bootle", "Dan Boneh", "Andrew Poelstra", "Pieter Wuille", "Greg Maxwell"]
+    year: 2018
+    url: https://eprint.iacr.org/2017/1066
+  - type: implementation
+    title: "Monero Bulletproofs Implementation"
+    url: https://www.getmonero.org/resources/moneropedia/bulletproofs.html
+    year: 2018
+  - type: rfc
+    title: "The Bulletproofs Protocol"
+    url: https://github.com/dalek-cryptography/bulletproofs
+
+implementation_notes: |
+  - No trusted setup required
+  - Proof size logarithmic in number of range proofs (aggregation)
+  - Single range proof: ~1.3 KB
+  - Verification time linear in proof size
+  - Excellent for range proofs in confidential transactions
+  - Uses Pedersen commitments
+  - Inner product argument for efficiency
+  - Batch verification possible for multiple proofs
+  - Used in Monero since 2018

@@ -1,0 +1,73 @@
+name: SM4
+full_name: ShangMi 4 Block Cipher
+category: block_cipher
+description: |
+  SM4 is a symmetric block cipher standardized by the Chinese government for use in commercial applications.
+  It operates on 128-bit blocks using 128-bit keys with a Feistel-like structure and 32 rounds. SM4 is
+  mandatory for certain Chinese cryptographic applications and is increasingly used in international standards.
+
+parameters:
+  block_size: 128
+  key_size: [128]
+  rounds: 32
+
+properties:
+  - chinese_national_standard
+  - feistel_structure
+  - international_adoption
+  - simple_design
+  - constant_time_capable
+
+performance:
+  software_speed: medium
+  hardware_speed: high
+  memory: low
+  power: medium
+
+security:
+  security_level: 128
+  best_attack: impossible_differential
+  attack_complexity: "2^119.9 for 23 rounds"
+  status: secure
+  standardized: true
+  proven_security: true
+
+compatible_with:
+  - CBC
+  - CTR
+  - GCM
+  - CCM
+  - CFB
+  - OFB
+  - ECB
+
+not_compatible_with: []
+
+use_cases:
+  - chinese_commercial_applications
+  - wireless_lan_security
+  - mobile_communications
+  - iot_devices_china
+  - international_trade_systems
+
+not_recommended_for:
+  - us_government_applications
+  - nato_systems
+  - applications_requiring_fips_compliance
+
+references:
+  - type: standard
+    title: "GM/T 0002-2012: SM4 Block Cipher Algorithm"
+    url: https://www.oscca.gov.cn/sca/xxgk/2010-12/17/1002389/files/302a3ada057c4a73830536d03e683110.pdf
+    year: 2012
+  - type: standard
+    title: "ISO/IEC 18033-3:2010/Amd 1:2021 - SM4"
+    url: https://www.iso.org/standard/54531.html
+    year: 2021
+
+implementation_notes: |
+  - Uses four 8x8-bit S-boxes based on affine transformation
+  - Key expansion generates 32 round keys from the master key
+  - Gaining international recognition and ISO standardization
+  - Hardware implementations benefit from parallel S-box lookups
+  - Consider for applications requiring Chinese cryptographic compliance

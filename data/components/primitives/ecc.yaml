@@ -1,0 +1,79 @@
+name: ECC
+full_name: Elliptic Curve Cryptography
+category: key_exchange
+description: |
+  ECC provides equivalent security to RSA with much smaller key sizes.
+  Popular curves include P-256, P-384, Curve25519, and secp256k1.
+
+parameters:
+  key_size: [256, 384, 521]
+
+properties:
+  - public_key_cryptography
+  - small_key_size
+  - fast_operations
+  - digital_signatures
+  - key_exchange
+  - perfect_forward_secrecy
+
+performance:
+  software_speed: high
+  hardware_speed: high
+  memory: low
+  power: low
+  key_generation_fast: true
+
+security:
+  security_level: 256  # P-521 provides ~256-bit security
+  best_attack: pollards_rho
+  attack_complexity: "2^128 for P-256, 2^192 for P-384, 2^260 for P-521"
+  status: secure
+  standardized: true
+  proven_security: true
+
+compatible_with:
+  - ECDSA_signatures
+  - ECDH_key_exchange
+  - EdDSA
+  - TLS_1_3
+  - SSH
+  - Bitcoin
+  - Signal_protocol
+
+not_compatible_with:
+  - quantum_computers
+  - legacy_systems
+
+use_cases:
+  - tls_1_3
+  - ssh
+  - bitcoin
+  - ethereum
+  - mobile_applications
+  - iot_devices
+  - perfect_forward_secrecy
+  - modern_cryptography
+
+not_recommended_for:
+  - post_quantum_security
+  - regulatory_environments_requiring_rsa
+
+references:
+  - type: standard
+    title: "FIPS 186-4: Digital Signature Standard"
+    url: https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.186-4.pdf
+    year: 2013
+  - type: rfc
+    title: "RFC 7748: Curve25519 and Curve448"
+    url: https://tools.ietf.org/html/rfc7748
+    year: 2016
+
+implementation_notes: |
+  - Curve25519 recommended for modern applications
+  - P-256 (secp256r1) widely supported in standards
+  - secp256k1 used in Bitcoin
+  - Much faster than RSA for equivalent security
+  - 256-bit ECC ≈ 3072-bit RSA security
+  - Vulnerable to quantum computers but better than RSA
+  - Use safe curves (avoid secp256r1 if possible, prefer Curve25519)
+  - Side-channel resistant implementations critical

@@ -1,0 +1,94 @@
+name: IBE_Boneh_Franklin
+full_name: Identity-Based Encryption (Boneh-Franklin)
+category: public_key_encryption
+description: |
+  Boneh-Franklin Identity-Based Encryption is a public-key encryption system where
+  any string (email address, name, etc.) can serve as a public key. A trusted
+  authority generates corresponding private keys. Based on bilinear pairings on
+  elliptic curves and the Bilinear Diffie-Hellman problem.
+
+parameters:
+  curve: [BN254, BLS12-381, BLS12-377]
+  key_size: [256]
+  pairing_type: Type-3
+  security_parameter: [128, 256]
+
+properties:
+  - identity_based
+  - pairing_based
+  - chosen_ciphertext_secure
+  - requires_trusted_authority
+  - no_certificates_needed
+  - public_key_is_identity
+  - key_escrow
+
+performance:
+  software_speed: low
+  hardware_speed: low
+  memory: high
+  power: high
+  encryption_time: medium
+  decryption_time: slow
+  key_extraction_time: slow
+
+security:
+  security_level: 128
+  best_attack: bilinear_diffie_hellman
+  attack_complexity: "2^128"
+  status: secure
+  standardized: true
+  proven_security: true
+
+compatible_with:
+  - elliptic_curve_pairings
+  - BLS_signatures
+  - attribute_based_encryption
+  - hierarchical_ibe
+
+not_compatible_with:
+  - quantum_computers
+  - systems_without_trusted_authority
+  - low_power_devices
+
+use_cases:
+  - email_encryption
+  - forward_secure_encryption
+  - time_based_encryption
+  - hierarchical_encryption
+  - secure_messaging
+  - key_management_simplification
+  - encrypted_broadcast
+
+not_recommended_for:
+  - high_performance_encryption
+  - quantum_resistant_systems
+  - systems_without_pki
+  - resource_constrained_devices
+
+references:
+  - type: paper
+    title: "Identity-Based Encryption from the Weil Pairing"
+    authors: ["Dan Boneh", "Matthew Franklin"]
+    year: 2001
+  - type: standard
+    title: "RFC 5091: Identity-Based Cryptography Standard (IBCS) #1"
+    url: https://tools.ietf.org/html/rfc5091
+    year: 2007
+  - type: paper
+    title: "Chosen Ciphertext Secure Identity Based Encryption"
+    year: 2004
+
+implementation_notes: |
+  - Requires trusted Private Key Generator (PKG)
+  - PKG has master secret key and can derive all user keys
+  - Key escrow is inherent (PKG can decrypt all messages)
+  - Public key is any string identifier (email, name, etc.)
+  - Uses bilinear pairings on elliptic curves (expensive)
+  - BLS12-381 recommended for modern implementations
+  - Eliminates need for certificate infrastructure
+  - Useful for forward-secure encryption (time-based keys)
+  - Decryption requires pairing computation (slow)
+  - Vulnerable to quantum computers
+  - Consider using for email encryption to future recipients
+  - Can implement time-based access control
+  - Hierarchical IBE (HIBE) available for delegation

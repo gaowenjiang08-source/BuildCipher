@@ -1,0 +1,81 @@
+name: ECB
+full_name: Electronic Codebook
+category: mode
+description: |
+  ECB is the simplest block cipher mode, encrypting each block independently.
+  It is insecure for most purposes as it reveals patterns in plaintext and should only be used for educational purposes.
+
+parameters:
+  block_size: 128
+  no_iv: true
+  padding_required: true
+
+properties:
+  - encryption_only
+  - deterministic
+  - parallelizable
+  - stateless
+  - pattern_revealing
+
+performance:
+  software_speed: very_high
+  hardware_speed: very_high
+  memory: very_low
+  power: very_low
+
+security:
+  security_level: 0  # Insecure mode
+  best_attack: pattern_analysis
+  attack_complexity: "Trivial - identical plaintext blocks produce identical ciphertext"
+  status: insecure
+  standardized: true
+  proven_security: false
+
+compatible_with:
+  - AES
+  - DES
+  - 3DES
+  - all_block_ciphers
+  - legacy_systems
+
+not_compatible_with:
+  - secure_applications
+  - modern_security_standards
+  - stream_ciphers
+
+use_cases:
+  - educational_purposes
+  - demonstration_of_insecurity
+  - random_key_encryption
+  - academic_examples
+
+not_recommended_for:
+  - any_real_world_encryption
+  - data_encryption
+  - network_encryption
+  - file_encryption
+  - production_systems
+
+references:
+  - type: standard
+    title: "NIST SP 800-38A: Block Cipher Modes of Operation"
+    url: https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-38a.pdf
+    year: 2001
+  - type: example
+    title: "ECB Penguin (Why ECB is Bad)"
+    url: https://blog.filippo.io/the-ecb-penguin/
+    year: 2013
+
+implementation_notes: |
+  - INSECURE: Do not use for real data encryption
+  - Identical plaintext blocks produce identical ciphertext blocks
+  - Reveals patterns in plaintext (famous "ECB penguin" example)
+  - No IV required (deterministic encryption)
+  - Fully parallelizable (encryption and decryption)
+  - Requires padding (PKCS#7 is common)
+  - No error propagation
+  - Only acceptable for encrypting random keys
+  - Educational value to demonstrate why block chaining is needed
+  - NEVER use for images, text, or structured data
+  - Explicitly forbidden in many security standards
+  - Use CBC, CTR, or AEAD modes instead

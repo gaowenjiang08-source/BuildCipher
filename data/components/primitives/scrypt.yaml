@@ -1,0 +1,72 @@
+name: scrypt
+full_name: scrypt Key Derivation Function
+category: construction
+description: |
+  Memory-hard key derivation function designed to be expensive on both
+  CPU and memory, making it more resistant to hardware brute-force attacks
+  than CPU-only functions like bcrypt or PBKDF2.
+
+parameters:
+  output_size: 256
+  rounds: 16384  # CPU/memory cost (2^14)
+
+properties:
+  - memory_hard
+  - password_hashing
+  - key_derivation
+  - salted
+  - adaptive_cost
+  - parallel_resistant
+
+performance:
+  software_speed: slow
+  hardware_speed: slow
+  memory: high
+  power: high
+
+security:
+  security_level: 128
+  best_attack: none_practical
+  attack_complexity: "Memory-hard: resistant to ASIC/GPU attacks"
+  status: secure
+  standardized: true
+  proven_security: true
+
+compatible_with: []
+not_compatible_with:
+  - ultra_low_memory_systems
+  - real_time_systems
+
+use_cases:
+  - password_storage
+  - key_derivation
+  - cryptocurrency
+  - user_authentication
+  - high_security_password_hashing
+
+not_recommended_for:
+  - iot_devices
+  - embedded_systems
+  - mobile_devices
+
+references:
+  - type: paper
+    title: "Stronger Key Derivation via Sequential Memory-Hard Functions"
+    authors: ["Colin Percival"]
+    year: 2009
+  - type: standard
+    title: "RFC 7914"
+    url: https://www.rfc-editor.org/rfc/rfc7914.html
+    year: 2016
+
+implementation_notes: |
+  - For password hashing: N=16384, r=8, p=1 (conservative)
+  - For key derivation: N=32768, r=8, p=1 (moderate security)
+  - For high security: N=1048576, r=8, p=1 (requires ~1GB RAM)
+  - Memory requirement: 128 * N * r * p bytes
+  - Memory-hard: resistant to ASIC/GPU attacks
+  - Tunable parameters for CPU and memory cost
+  - Used in cryptocurrencies (Litecoin, Dogecoin)
+  - Better defense against custom hardware than bcrypt
+  - Higher memory usage may not suit all environments
+  - More complex to configure than bcrypt

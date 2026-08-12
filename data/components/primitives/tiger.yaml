@@ -1,0 +1,74 @@
+name: Tiger
+full_name: Tiger Hash Function
+category: hash_function
+description: |
+  Tiger is a cryptographic hash function designed for efficiency on 64-bit platforms.
+  It produces a 192-bit hash and was designed by Ross Anderson and Eli Biham.
+
+parameters:
+  output_size: 192
+  block_size: 512
+  rounds: 24
+
+properties:
+  - collision_resistant
+  - preimage_resistant
+  - fast_on_64bit
+  - deterministic
+  - avalanche_effect
+
+performance:
+  software_speed: very_high  # on 64-bit platforms
+  hardware_speed: medium
+  memory: low
+  power: low
+
+security:
+  security_level: 128  # Weakened by recent attacks
+  best_attack: collision_attacks_found
+  attack_complexity: "2^61 for collision (theoretical)"
+  status: not_recommended
+  standardized: false
+  proven_security: false
+
+compatible_with:
+  - HMAC
+  - file_checksums
+  - legacy_systems
+
+not_compatible_with: []
+
+use_cases:
+  - file_integrity_non_adversarial
+  - legacy_system_compatibility
+  - checksum_generation
+  - deduplication
+
+not_recommended_for:
+  - new_applications
+  - digital_signatures
+  - certificates
+  - password_hashing
+  - security_critical_applications
+
+references:
+  - type: paper
+    title: "Tiger: A Fast New Hash Function"
+    authors: ["Ross Anderson", "Eli Biham"]
+    url: https://www.cl.cam.ac.uk/~rja14/Papers/tiger.pdf
+    year: 1996
+  - type: paper
+    title: "Cryptanalysis of the Tiger Hash Function"
+    authors: ["Florian Mendel", "Martin Schlaffer"]
+    year: 2007
+
+implementation_notes: |
+  - Designed for optimal performance on 64-bit processors
+  - Very fast on Alpha, AMD64, and other 64-bit architectures
+  - Collision attacks found (2^61 complexity, theoretical)
+  - Not recommended for new applications
+  - Consider SHA-256, SHA3-256, or BLAKE2b instead
+  - Tiger2 variant addresses some weaknesses
+  - Three variants: Tiger, Tiger2, Tiger/192
+  - 192-bit output smaller than SHA-256 but larger than SHA-1
+  - Historical significance but superseded by modern hashes

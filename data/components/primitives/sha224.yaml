@@ -1,0 +1,71 @@
+name: SHA-224
+full_name: Secure Hash Algorithm 224-bit
+category: hash_function
+description: |
+  SHA-224 is a truncated version of SHA-256, producing a 224-bit hash output.
+  It is part of the SHA-2 family and provides a trade-off between security and output size.
+
+parameters:
+  output_size: 224
+  block_size: 512
+
+properties:
+  - collision_resistant
+  - preimage_resistant
+  - second_preimage_resistant
+  - deterministic
+  - avalanche_effect
+  - truncated_sha256
+
+performance:
+  software_speed: high
+  hardware_speed: very_high
+  memory: low
+  power: low
+
+security:
+  security_level: 224  # 224-bit preimage resistance, 112-bit collision resistance
+  best_attack: none_practical
+  attack_complexity: "2^112 for collision, 2^224 for preimage"
+  status: secure
+  standardized: true
+  proven_security: true
+
+compatible_with:
+  - HMAC
+  - HKDF
+  - PBKDF2
+  - digital_signatures
+  - TLS
+
+not_compatible_with: []
+
+use_cases:
+  - digital_signatures
+  - certificate_generation
+  - integrity_verification
+  - file_checksums
+  - hmac
+  - space_constrained_applications
+
+not_recommended_for:
+  - password_storage_alone
+  - applications_requiring_256bit_security
+
+references:
+  - type: standard
+    title: "FIPS 180-4: Secure Hash Standard"
+    url: https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.180-4.pdf
+    year: 2015
+  - type: standard
+    title: "RFC 3874: SHA-224"
+    url: https://tools.ietf.org/html/rfc3874
+    year: 2004
+
+implementation_notes: |
+  - Identical to SHA-256 but with different initial values and truncated output
+  - Use hardware acceleration (SHA extensions) when available
+  - Provides 112-bit collision resistance (vs 128-bit for SHA-256)
+  - Useful when 224-bit output is sufficient
+  - Same performance as SHA-256
+  - Less common than SHA-256, consider compatibility requirements

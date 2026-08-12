@@ -1,0 +1,80 @@
+name: ElGamal
+full_name: ElGamal Signature Scheme
+category: signature
+description: |
+  ElGamal is an early public-key signature scheme based on the discrete logarithm problem.
+  It is of historical importance but largely superseded by DSA and ECDSA in modern applications.
+
+parameters:
+  key_size: [2048, 3072]
+  hash_function: [SHA-256, SHA-512]
+  group: [multiplicative_group, elliptic_curve]
+
+properties:
+  - discrete_log_based
+  - randomized_signatures
+  - double_size_signatures
+  - legacy_algorithm
+  - historical_importance
+
+performance:
+  software_speed: low
+  hardware_speed: medium
+  memory: medium
+  power: high
+  signature_size_large: true
+  signature_expansion: 2x
+
+security:
+  security_level: 112  # For 2048-bit keys
+  best_attack: discrete_log_algorithms
+  attack_complexity: "2^112 for 2048-bit, 2^128 for 3072-bit"
+  status: legacy
+  standardized: false
+  proven_security: true
+
+compatible_with:
+  - pgp_legacy_systems
+  - academic_implementations
+  - discrete_log_cryptography
+
+not_compatible_with:
+  - quantum_computers
+  - modern_protocols
+  - resource_constrained_systems
+
+use_cases:
+  - legacy_pgp_systems
+  - academic_study
+  - cryptographic_history
+  - theoretical_research
+
+not_recommended_for:
+  - new_applications
+  - production_systems
+  - post_quantum_security
+  - bandwidth_constrained_systems
+
+references:
+  - type: paper
+    title: "A Public Key Cryptosystem and a Signature Scheme Based on Discrete Logarithms"
+    authors: ["Taher ElGamal"]
+    year: 1985
+  - type: standard
+    title: "IEEE P1363: Standard Specifications for Public Key Cryptography"
+    url: https://standards.ieee.org/standard/1363-2000.html
+    year: 2000
+
+implementation_notes: |
+  - Legacy algorithm, largely superseded by DSA/ECDSA
+  - Signatures are twice the size of the modulus
+  - Requires random nonce per signature (critical for security)
+  - Nonce reuse reveals private key
+  - Used in some early PGP implementations
+  - Basis for DSA and ECDSA designs
+  - Slower than RSA and DSA
+  - Large signature sizes (4096 bits for 2048-bit keys)
+  - Vulnerable to quantum computers
+  - DSA was specifically designed to improve ElGamal
+  - Of historical and academic interest
+  - Not recommended for new deployments

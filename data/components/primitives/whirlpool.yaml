@@ -1,0 +1,74 @@
+name: Whirlpool
+full_name: Whirlpool Hash Function
+category: hash_function
+description: |
+  Whirlpool is a cryptographic hash function producing a 512-bit digest.
+  Designed by Vincent Rijmen and Paulo Barreto, based on a modified AES design.
+
+parameters:
+  output_size: 512
+  block_size: 512
+  rounds: 10
+
+properties:
+  - collision_resistant
+  - preimage_resistant
+  - second_preimage_resistant
+  - deterministic
+  - avalanche_effect
+  - aes_based
+
+performance:
+  software_speed: medium
+  hardware_speed: medium
+  memory: low
+  power: medium
+
+security:
+  security_level: 256  # 256-bit collision resistance
+  best_attack: none_practical
+  attack_complexity: "2^256 for collision, 2^512 for preimage"
+  status: secure
+  standardized: true
+  proven_security: true
+
+compatible_with:
+  - HMAC
+  - digital_signatures
+  - ISO_IEC_10118_3
+
+not_compatible_with: []
+
+use_cases:
+  - file_integrity
+  - digital_signatures
+  - checksum_verification
+  - forensic_analysis
+  - archival_systems
+
+not_recommended_for:
+  - high_performance_applications
+  - password_hashing_alone
+  - embedded_systems
+
+references:
+  - type: standard
+    title: "ISO/IEC 10118-3:2004"
+    year: 2004
+  - type: paper
+    title: "The WHIRLPOOL Hashing Function"
+    authors: ["Paulo S. L. M. Barreto", "Vincent Rijmen"]
+    url: https://web.archive.org/web/20171129084214/http://www.larc.usp.br/~pbarreto/WhirlpoolPage.html
+    year: 2003
+
+implementation_notes: |
+  - Based on modified AES structure (W-transformation)
+  - Designed by co-creator of AES (Rijmen)
+  - ISO/IEC standardized since 2000
+  - Three versions: Whirlpool-0, Whirlpool-T, Whirlpool (final)
+  - Use latest version (Whirlpool, 2003)
+  - Slower than SHA-2 and SHA-3
+  - Good security margin, no practical attacks
+  - Less common than SHA-2/SHA-3
+  - Consider SHA-512 or SHA3-512 for better performance
+  - Useful for diversity in hash function selection

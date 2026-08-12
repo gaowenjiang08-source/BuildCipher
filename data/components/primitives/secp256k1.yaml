@@ -1,0 +1,67 @@
+name: secp256k1
+full_name: secp256k1 Elliptic Curve
+category: construction
+description: |
+  Elliptic curve used in Bitcoin and many other cryptocurrencies for
+  digital signatures (ECDSA). Part of the SEC2 standard, optimized
+  for efficient signature verification.
+
+parameters:
+  key_size: [256]
+
+properties:
+  - efficient_verification
+  - deterministic_signatures
+
+performance:
+  software_speed: fast
+  hardware_speed: moderate
+  memory: low
+  power: moderate
+
+security:
+  security_level: 128
+  best_attack: discrete_logarithm
+  attack_complexity: "2^128 operations (discrete log on secp256k1)"
+  status: secure
+  standardized: true
+  proven_security: true
+
+compatible_with:
+  - SHA-256
+  - RIPEMD-160
+  - Keccak-256
+
+not_compatible_with: []
+
+use_cases:
+  - blockchain
+  - bitcoin
+  - ethereum
+  - cryptocurrency
+  - digital_signatures
+  - smart_contracts
+
+not_recommended_for:
+  - post_quantum_security  # Vulnerable to quantum computers
+
+references:
+  - type: standard
+    title: "SEC 2: Recommended Elliptic Curve Domain Parameters"
+    url: https://www.secg.org/sec2-v2.pdf
+    year: 2010
+  - type: standard
+    title: "RFC 6979: Deterministic Usage of DSA and ECDSA"
+    url: https://www.rfc-editor.org/rfc/rfc6979.html
+    year: 2013
+
+implementation_notes: |
+  - Use RFC 6979 for deterministic nonce generation
+  - NEVER reuse nonces (leads to private key recovery)
+  - Required for Bitcoin: secp256k1 + SHA-256 + RIPEMD-160
+  - Ethereum uses secp256k1 + Keccak-256
+  - Consider Schnorr signatures for advanced features (batch verification, multisig)
+  - Validate all curve points to prevent invalid-curve attacks
+  - Widely used in cryptocurrency ecosystem
+  - Extensive tooling and library support
+  - Less side-channel resistant than Ed25519

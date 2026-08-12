@@ -1,0 +1,86 @@
+name: Kyber-512
+full_name: Kyber-512 Key Encapsulation Mechanism
+category: key_exchange
+description: |
+  Kyber-512 is the 128-bit security level variant of the NIST PQC winner Kyber.
+  It provides post-quantum key encapsulation with excellent performance and moderate key sizes.
+
+parameters:
+  security_level: 128
+  n: 256
+  k: 2
+  q: 3329
+
+properties:
+  - post_quantum_secure
+  - lattice_based
+  - module_lwe
+  - nist_pqc_winner
+  - kem_not_pke
+  - fast_operations
+
+performance:
+  software_speed: very_high
+  hardware_speed: high
+  memory: low
+  power: low
+  public_key_size: 800
+  ciphertext_size: 768
+  secret_key_size: 1632
+
+security:
+  security_level: 128
+  best_attack: lattice_reduction
+  attack_complexity: "2^128"
+  status: secure
+  standardized: true
+  proven_security: true
+  quantum_resistant: true
+
+compatible_with:
+  - TLS_1.3
+  - post_quantum_hybrid_schemes
+  - x25519_hybrid
+  - nist_pqc_standard
+  - ml_kem_128
+
+not_compatible_with:
+  - legacy_tls
+  - dhe_dh_infrastructure
+  - extremely_constrained_devices
+
+use_cases:
+  - post_quantum_tls
+  - vpn_key_exchange
+  - secure_messaging
+  - hybrid_key_exchange
+  - future_proof_communications
+  - iot_security
+
+not_recommended_for:
+  - pre_2024_legacy_systems
+  - systems_requiring_perfect_forward_secrecy_only
+
+references:
+  - type: paper
+    title: "CRYSTALS-Kyber: A CCA-secure module-lattice-based KEM"
+    authors: ["Roberto Avanzi", "Joppe Bos", "Leo Ducas", "Eike Kiltz", "Tancrede Lepoint", "Vadim Lyubashevsky", "John M. Schanck", "Peter Schwabe", "Gregor Seiler", "Damien Stehle"]
+    year: 2020
+  - type: standard
+    title: "NIST FIPS 203: Module-Lattice-Based Key-Encapsulation Mechanism Standard"
+    url: https://csrc.nist.gov/publications/detail/fips/203/final
+    year: 2024
+
+implementation_notes: |
+  - NIST PQC winner (standardized as ML-KEM-128)
+  - Excellent performance across all platforms
+  - 800-byte public keys, 768-byte ciphertexts
+  - Equivalent to AES-128 security level
+  - Based on Module Learning With Errors (M-LWE)
+  - IND-CCA2 secure KEM
+  - Fast key generation, encapsulation, decapsulation
+  - Suitable for hybrid schemes (e.g., X25519 + Kyber-512)
+  - Already deployed in Chrome, Cloudflare, Signal
+  - Quantum-resistant
+  - Good for IoT and embedded systems
+  - Use for 128-bit security applications

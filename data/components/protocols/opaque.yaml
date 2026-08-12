@@ -1,0 +1,90 @@
+name: OPAQUE
+full_name: OPAQUE Password-Authenticated Key Exchange
+category: protocol
+description: |
+  OPAQUE is an asymmetric password-authenticated key exchange protocol that provides strong
+  security even against server compromise. The server never learns the password, and a
+  compromised server cannot perform offline dictionary attacks without additional interaction.
+
+parameters:
+  variant: ristretto255_or_p256
+  rounds: 3 # registration + 2 login rounds
+  oprf_type: VOPRF
+  kdf: HKDF_SHA256_or_SHA512
+
+properties:
+  - password_authentication
+  - server_compromise_resistant
+  - offline_dictionary_attack_resistant
+  - forward_secrecy
+  - mutual_authentication
+
+performance:
+  registration: fast
+  login: fast
+  server_storage: minimal
+  client_computation: low
+  memory: low
+
+security:
+  security_level: 128
+  best_attack: none_practical
+  attack_complexity: "CDH_assumption"
+  status: secure
+  standardized: true
+  proven_security: true
+  quantum_resistant: false
+
+compatible_with:
+  - web_authentication
+  - secure_messaging
+  - vpn_authentication
+  - ssh_alternatives
+  - end_to_end_encryption
+
+not_compatible_with:
+  - legacy_password_systems
+  - post_quantum_scenarios
+  - single_round_required
+
+use_cases:
+  - web_authentication
+  - secure_login_systems
+  - end_to_end_encrypted_services
+  - password_based_encryption
+  - zero_knowledge_password_proof
+  - secure_messaging_apps
+
+not_recommended_for:
+  - legacy_system_integration
+  - post_quantum_security
+  - offline_authentication
+
+references:
+  - type: rfc
+    title: "RFC 9497: The OPAQUE Asymmetric PAKE Protocol"
+    url: https://datatracker.ietf.org/doc/draft-irtf-cfrg-opaque/
+    year: 2023
+  - type: paper
+    title: "OPAQUE: An Asymmetric PAKE Protocol Secure Against Pre-Computation Attacks"
+    authors: ["Stanislaw Jarecki", "Hugo Krawczyk", "Jiayu Xu"]
+    year: 2018
+    url: https://eprint.iacr.org/2018/163
+  - type: implementation
+    title: "opaque-ke: Rust Implementation"
+    url: https://github.com/novifinancial/opaque-ke
+    year: 2020
+
+implementation_notes: |
+  - IRTF CFRG standardized (RFC draft)
+  - Uses OPRF (Oblivious PRF) as core building block
+  - Server never sees plaintext password
+  - Resistant to offline dictionary attacks even if server compromised
+  - 3-message protocol: 1 registration, 2 login
+  - Combines OPRF with authenticated key exchange
+  - Envelope stored on server protects client credentials
+  - Supports external authenticators (e.g., hardware tokens)
+  - Ristretto255 or P-256 curve options
+  - Strong security proof in UC model
+  - Export keys for application-layer encryption
+  - Consider for new password-based systems

@@ -1,0 +1,71 @@
+name: IDEA
+full_name: International Data Encryption Algorithm
+category: block_cipher
+description: |
+  IDEA is a symmetric block cipher designed by James Massey and Xuejia Lai in 1991. It operates on 64-bit blocks
+  using 128-bit keys and was widely used in PGP encryption. Originally patented, the algorithm is now free to use
+  as the patents have expired, though it's considered legacy due to its small block size.
+
+parameters:
+  block_size: 64
+  key_size: [128]
+  rounds: 8
+
+properties:
+  - simple_operations
+  - patent_free
+  - pgp_legacy
+  - provable_security
+  - constant_time_capable
+
+performance:
+  software_speed: medium
+  hardware_speed: medium
+  memory: low
+  power: low
+
+security:
+  security_level: 80  # Limited by 64-bit block size
+  best_attack: narrow_bicliques
+  attack_complexity: "2^126.8 for full 8.5 rounds"
+  status: legacy
+  standardized: false
+  proven_security: true
+
+compatible_with:
+  - CBC
+  - CTR
+  - CFB
+  - OFB
+  - ECB
+
+not_compatible_with: []
+
+use_cases:
+  - legacy_pgp_support
+  - historical_cryptographic_education
+  - backward_compatibility
+  - embedded_systems_legacy
+  - secure_telephony_legacy
+
+not_recommended_for:
+  - new_implementations
+  - high_volume_encryption
+  - long_term_data_protection
+
+references:
+  - type: paper
+    title: "A Proposal for a New Block Encryption Standard"
+    authors: ["Xuejia Lai", "James Massey"]
+    year: 1991
+  - type: paper
+    title: "Markov Ciphers and Differential Cryptanalysis"
+    authors: ["Xuejia Lai", "James Massey", "Sean Murphy"]
+    year: 1991
+
+implementation_notes: |
+  - Uses three group operations: XOR, addition mod 2^16, and multiplication mod 2^16+1
+  - Key schedule generates 52 16-bit subkeys from the 128-bit master key
+  - Patents expired in 2012, making it freely usable without licensing
+  - 64-bit block size vulnerable to birthday attacks after 2^32 blocks
+  - For new applications, use AES instead of IDEA for better security margins

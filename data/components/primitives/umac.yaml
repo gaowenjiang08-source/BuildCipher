@@ -1,0 +1,75 @@
+name: UMAC
+full_name: Ultra-Fast Message Authentication Code
+category: mac
+description: |
+  UMAC is an ultra-fast message authentication code used in SSH and other protocols.
+  It uses universal hashing and is optimized for software performance.
+
+parameters:
+  key_size: [128, 256]
+  tag_size: 128  # Common tag size, can be 32, 64, 96, or 128 bits
+  nonce_size: 64
+
+properties:
+  - universal_hash_based
+  - nonce_based
+  - extremely_fast
+  - provably_secure
+  - software_optimized
+  - aes_based
+
+performance:
+  software_speed: very_high
+  hardware_speed: medium
+  memory: very_low
+  power: very_low
+
+security:
+  security_level: 128
+  best_attack: none_practical
+  attack_complexity: "2^60 for 64-bit tags, 2^128 for 128-bit tags"
+  status: secure
+  standardized: true
+  proven_security: true
+
+compatible_with:
+  - SSH
+  - AES
+  - high_speed_networking
+  - OpenSSH
+
+not_compatible_with: []
+
+use_cases:
+  - ssh_protocol
+  - high_speed_networking
+  - network_packet_authentication
+  - low_latency_systems
+  - vpn_protocols
+  - real_time_communications
+
+not_recommended_for:
+  - password_storage
+  - key_derivation
+  - non_nonce_based_protocols
+
+references:
+  - type: rfc
+    title: "RFC 4418: UMAC"
+    url: https://tools.ietf.org/html/rfc4418
+    year: 2006
+  - type: paper
+    title: "UMAC: Fast and Secure Message Authentication"
+    authors: ["John Black", "Shai Halevi", "Hugo Krawczyk", "Ted Krovetz", "Phillip Rogaway"]
+    url: https://web.cs.ucdavis.edu/~rogaway/papers/umac-full.pdf
+    year: 1999
+
+implementation_notes: |
+  - One of the fastest MAC algorithms (similar to VMAC)
+  - Used in OpenSSH as umac-64@openssh.com and umac-128@openssh.com
+  - Requires unique nonce for each message
+  - Based on universal hashing with AES
+  - Nonce must never be reused with same key
+  - Typically 5-10x faster than HMAC-SHA1
+  - Optimized for 32-bit and 64-bit processors
+  - Tag sizes can be 32, 64, 96, or 128 bits

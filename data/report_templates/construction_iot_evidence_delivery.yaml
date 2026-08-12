@@ -1,0 +1,19 @@
+id: construction_iot_evidence_delivery
+name: 工地 IoT 验收证据报告
+status: active
+scenario: construction
+applies_to_skills: [construction_iot_trust_architect]
+summary: 面向工地设备注册、可信遥测和验收证据门控的专项报告。
+target_audiences: [contractor, supervisor, inspection_body, operator]
+control_focus: [设备身份, 遥测认证, 防重放, 边缘密钥, 可信证据门控]
+evidence_checklist: [设备注册证据, 消息签名或 MAC 结果, 计数器 nonce 时间窗口, 冒充与重放 artifact]
+open_question_prompts: [设备是否具有独立硬件或证书身份？, 现场时间同步和离线容忍窗口是多少？]
+sections:
+  - {id: scope, title: 设备与验收范围, purpose: 说明设备、指标和验收用途。}
+  - {id: identity, title: 设备身份与注册, purpose: 说明注册、凭据和撤销。}
+  - {id: provenance, title: 遥测来源与消息认证, purpose: 说明消息签名或 MAC 与来源验证。}
+  - {id: freshness, title: 时间顺序与重放防护, purpose: 说明计数器、nonce 和时间窗口。}
+  - {id: edge_keys, title: 边缘密钥与轮换, purpose: 说明独立密钥、存储和轮换。}
+  - {id: evidence, title: 可信遥测证据, purpose: 汇总可供 AI 和验收引用的证据。}
+  - {id: incidents, title: 异常处置与剩余风险, purpose: 记录拒绝、隔离、修复和限制。}
+

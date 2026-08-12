@@ -1,0 +1,79 @@
+name: CFB
+full_name: Cipher Feedback
+category: mode
+description: |
+  CFB turns a block cipher into a self-synchronizing stream cipher.
+  It allows encryption of data smaller than the block size without padding.
+
+parameters:
+  block_size: 128
+  iv_size: 128
+  segment_size: variable
+
+properties:
+  - stream_cipher_mode
+  - self_synchronizing
+  - sequential_encryption
+  - no_padding_required
+  - error_propagation
+
+performance:
+  software_speed: medium
+  hardware_speed: medium
+  memory: very_low
+  power: low
+
+security:
+  security_level: 256  # Security depends on underlying cipher (AES-256)
+  best_attack: bit_flipping
+  attack_complexity: "IV manipulation, bit-flipping attacks"
+  status: legacy
+  standardized: true
+  proven_security: false
+
+compatible_with:
+  - AES
+  - DES
+  - 3DES
+  - legacy_systems
+  - streaming_applications
+
+not_compatible_with:
+  - modern_security_standards
+  - high_performance_requirements
+  - stream_ciphers
+
+use_cases:
+  - legacy_systems
+  - streaming_encryption
+  - error_recovery_systems
+  - educational_purposes
+
+not_recommended_for:
+  - new_systems
+  - high_security_applications
+  - unauthenticated_encryption
+  - parallel_processing
+
+references:
+  - type: standard
+    title: "NIST SP 800-38A: Block Cipher Modes of Operation"
+    url: https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-38a.pdf
+    year: 2001
+  - type: standard
+    title: "ISO/IEC 10116: Modes of Operation"
+    url: https://www.iso.org/standard/64575.html
+    year: 2017
+
+implementation_notes: |
+  - IV must be unpredictable (random)
+  - Self-synchronizing after one block
+  - Encryption is sequential (not parallelizable)
+  - Decryption is also sequential
+  - No padding required
+  - Error in ciphertext affects corresponding plaintext bit and next block
+  - MUST use with authentication (HMAC)
+  - Segment size can vary (1-bit to full block)
+  - CFB-8 and CFB-128 are common variants
+  - Consider using CTR or AEAD modes for new systems
+  - Deprecated for most modern applications

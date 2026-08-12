@@ -1,0 +1,63 @@
+name: ARIA
+full_name: Academy Research Institute Agency
+category: block_cipher
+description: |
+  ARIA is a symmetric block cipher developed by South Korean researchers.
+  It is the national standard block cipher of South Korea (KS X 1213:2004).
+
+parameters:
+  block_size: 128
+  key_size: [128, 192, 256]
+  rounds: 12
+
+properties:
+  - proven_security
+  - involution_structure
+  - constant_time_capable
+  - parallelizable
+
+performance:
+  software_speed: medium
+  hardware_speed: high
+  memory: low
+  power: medium
+
+security:
+  security_level: 256
+  best_attack: impossible_differential
+  attack_complexity: "2^255 for ARIA-256"
+  status: secure
+  standardized: true
+  proven_security: true
+
+compatible_with:
+  - CBC
+  - CTR
+  - GCM
+  - CCM
+
+not_compatible_with: []
+
+use_cases:
+  - government_encryption
+  - network_encryption
+  - tls
+  - regional_compliance
+
+not_recommended_for:
+  - ultra_lightweight_devices
+
+references:
+  - type: standard
+    title: "RFC 5794: A Description of the ARIA Encryption Algorithm"
+    url: https://www.rfc-editor.org/rfc/rfc5794
+    year: 2010
+  - type: standard
+    title: "KS X 1213:2004"
+    year: 2004
+
+implementation_notes: |
+  - National standard of South Korea
+  - Used in Korean government systems
+  - Similar structure to AES with involution property
+  - Approved by ISO/IEC 18033-3

@@ -1,0 +1,85 @@
+name: HQC
+full_name: Hamming Quasi-Cyclic
+category: key_exchange
+description: |
+  HQC is a code-based post-quantum Key Encapsulation Mechanism (KEM) based on
+  the Hamming metric. NIST Round 4 candidate offering simple design and
+  strong security from code-based assumptions.
+
+parameters:
+  security_level: [128, 192, 256]
+  code_type: quasi_cyclic
+  error_correction: reed_solomon
+
+properties:
+  - post_quantum
+  - key_encapsulation
+  - code_based
+  - nist_round4_candidate
+  - quantum_resistant
+  - simple_design
+  - kem
+
+performance:
+  software_speed: medium
+  hardware_speed: medium
+  memory: medium
+  power: medium
+  key_generation: fast
+  encapsulation: fast
+  decapsulation: fast
+
+security:
+  security_level: 256
+  best_attack: information_set_decoding
+  attack_complexity: "quantum_resistant"
+  status: secure
+  standardized: false
+  proven_security: true
+  quantum_resistant: true
+
+compatible_with:
+  - TLS
+  - VPN
+  - hybrid_modes
+  - post_quantum_protocols
+
+not_compatible_with:
+  - bandwidth_constrained_systems
+  - ultra_constrained_devices
+
+use_cases:
+  - post_quantum_key_exchange
+  - code_based_cryptography
+  - diversification_from_lattices
+  - research_systems
+  - experimental_deployments
+
+not_recommended_for:
+  - production_deployment_before_standardization
+  - mobile_devices
+  - iot_devices
+
+references:
+  - type: standard
+    title: "NIST PQC Round 4 Candidate"
+    url: https://csrc.nist.gov/projects/post-quantum-cryptography
+    year: 2023
+  - type: paper
+    title: "Hamming Quasi-Cyclic (HQC)"
+    url: https://pqc-hqc.org/
+    year: 2023
+
+implementation_notes: |
+  - NIST Round 4 candidate (under evaluation)
+  - Code-based cryptography (alternative to lattices)
+  - Based on Hamming metric over quasi-cyclic codes
+  - Uses Reed-Solomon error correction
+  - Simple and conservative design
+  - Larger public keys (~2-7 KB depending on level)
+  - No decryption failures (unlike BIKE)
+  - Good for diversification from lattice schemes
+  - Three security levels: 128-bit, 192-bit, 256-bit
+  - Deterministic decapsulation (more predictable)
+  - Not yet standardized (experimental use only)
+  - Consider for scenarios requiring code-based security

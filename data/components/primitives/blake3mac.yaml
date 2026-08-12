@@ -1,0 +1,76 @@
+name: BLAKE3-MAC
+full_name: BLAKE3 Keyed Hashing Mode
+category: mac
+description: |
+  BLAKE3-MAC is the keyed hashing mode of BLAKE3, providing extremely fast message
+  authentication through direct keying. It uses a Merkle tree for parallelization.
+
+parameters:
+  key_size: [256]
+  tag_size: 256  # Variable output length, 256 is common default
+
+properties:
+  - keyed_hash
+  - extremely_fast
+  - parallelizable
+  - merkle_tree_based
+  - variable_output_length
+  - no_padding_oracle
+  - built_in_key_support
+
+performance:
+  software_speed: extremely_high
+  hardware_speed: very_high
+  memory: very_low
+  power: very_low
+
+security:
+  security_level: 256
+  best_attack: none_practical
+  attack_complexity: "2^256"
+  status: secure
+  standardized: false
+  proven_security: true
+
+compatible_with:
+  - BLAKE3
+  - BLAKE2
+  - modern_protocols
+  - parallel_processing
+
+not_compatible_with: []
+
+use_cases:
+  - message_authentication
+  - data_integrity
+  - high_speed_mac
+  - file_integrity_checking
+  - content_addressable_storage
+  - deduplication
+  - cloud_storage
+  - big_data_applications
+
+not_recommended_for:
+  - password_storage_alone
+  - legacy_systems_requiring_standards
+
+references:
+  - type: paper
+    title: "BLAKE3: one function, fast everywhere"
+    authors: ["Jack O'Connor", "Jean-Philippe Aumasson", "Samuel Neves", "Zooko Wilcox-O'Hearn"]
+    url: https://github.com/BLAKE3-team/BLAKE3-specs/blob/master/blake3.pdf
+    year: 2020
+  - type: specification
+    title: "BLAKE3 Specification"
+    url: https://github.com/BLAKE3-team/BLAKE3-specs
+
+implementation_notes: |
+  - One of the fastest cryptographic hash/MAC functions
+  - Native keying (not HMAC construction)
+  - Highly parallelizable (uses Merkle tree)
+  - Fixed 256-bit key size
+  - Variable unlimited output length
+  - Can utilize SIMD instructions efficiently
+  - Resistant to length extension attacks
+  - Supports incremental updates
+  - Context string support for domain separation

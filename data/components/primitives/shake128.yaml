@@ -1,0 +1,75 @@
+name: SHAKE128
+full_name: SHA-3 Extendable-Output Function 128
+category: hash_function
+description: |
+  SHAKE128 is an extendable-output function (XOF) based on SHA-3. It can produce
+  outputs of any desired length, making it useful for KDFs and custom-length hashes.
+
+parameters:
+  output_size: 128
+  block_size: 1344
+
+properties:
+  - extendable_output
+  - collision_resistant
+  - preimage_resistant
+  - sponge_construction
+  - variable_length_output
+  - no_length_extension
+
+performance:
+  software_speed: medium_high
+  hardware_speed: high
+  memory: low
+  power: medium
+
+security:
+  security_level: 128  # 128-bit security strength
+  best_attack: none_practical
+  attack_complexity: "2^128"
+  status: secure
+  standardized: true
+  proven_security: true
+
+compatible_with:
+  - KDF
+  - PRF
+  - customizable_applications
+  - SHAKE256
+  - cSHAKE
+
+not_compatible_with: []
+
+use_cases:
+  - key_derivation
+  - random_number_generation
+  - custom_length_hashing
+  - merkle_trees
+  - commitments
+  - stream_cipher_construction
+  - mask_generation
+
+not_recommended_for:
+  - password_hashing_alone
+  - applications_requiring_256bit_security
+
+references:
+  - type: standard
+    title: "FIPS 202: SHA-3 Standard"
+    url: https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.202.pdf
+    year: 2015
+  - type: standard
+    title: "NIST SP 800-185: SHA-3 Derived Functions"
+    url: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-185.pdf
+    year: 2016
+
+implementation_notes: |
+  - Can produce arbitrary-length output
+  - More flexible than fixed-output SHA3
+  - Faster than SHAKE256 due to larger rate (1344 bits)
+  - Useful for KDFs and domain-specific applications
+  - Provides 128-bit security strength
+  - No length extension attacks
+  - cSHAKE128 adds customization string support
+  - Suitable for general-purpose applications
+  - Consider SHAKE256 for higher security margins

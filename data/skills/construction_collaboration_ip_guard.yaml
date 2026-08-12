@@ -1,0 +1,24 @@
+id: construction_collaboration_ip_guard
+name: 建筑协作与知识产权守卫
+description: 面向图纸、结构计算书、造价和投标资料跨组织协作，设计最小权限、可撤销访问、密钥隔离和外发追踪。
+version: 1.0.0
+status: active
+category: construction
+execution_mode: mas
+route_priority: 34
+auto_route_enabled: true
+tags: [construction, collaboration, ip_protection, least_privilege]
+route_keywords: [专业分包, 分包越权, 造价信息, 投标资料, 结构计算书, 图纸外发, 项目结束, 权限撤销]
+target_users: [owner, design_institute, general_contractor, specialty_subcontractor]
+output_focus:
+  - 按项目、角色、专业、阶段和时间生成访问矩阵
+  - 采用项目级信封加密、独立数据密钥和 KMS/HSM 边界
+  - 对越权、导出、二次分发和离场后访问进行拒绝留痕
+prompt_preamble: You are executing the Construction Collaboration IP Guard skill. Minimize disclosure and blast radius across organizations.
+prompt_appendix: Do not disclose whether forbidden sensitive fields exist when rejecting an unauthorized request.
+example_requirement: 请防止专业分包下载完整结构模型与造价信息，并支持项目结束后的权限撤销和密钥轮换。
+recommended_num_variants: 3
+recommended_max_audit_rounds: 4
+generate_code_default: false
+strict_clarification_default: true
+

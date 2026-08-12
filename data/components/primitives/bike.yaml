@@ -1,0 +1,84 @@
+name: BIKE
+full_name: Bit Flipping Key Encapsulation
+category: key_exchange
+description: |
+  BIKE is a code-based post-quantum Key Encapsulation Mechanism (KEM) based on
+  QC-MDPC codes. NIST Round 4 candidate offering compact keys and strong
+  security guarantees from code-based cryptography.
+
+parameters:
+  security_level: [128, 192, 256]
+  code_type: QC-MDPC
+  block_length: [12323, 24659, 40973]
+
+properties:
+  - post_quantum
+  - key_encapsulation
+  - code_based
+  - nist_round4_candidate
+  - quantum_resistant
+  - compact_keys
+  - kem
+
+performance:
+  software_speed: medium
+  hardware_speed: high
+  memory: medium
+  power: medium
+  key_generation: moderate
+  encapsulation: fast
+  decapsulation: moderate
+
+security:
+  security_level: 256
+  best_attack: information_set_decoding
+  attack_complexity: "quantum_resistant"
+  status: secure
+  standardized: false
+  proven_security: true
+  quantum_resistant: true
+
+compatible_with:
+  - TLS
+  - VPN
+  - hybrid_modes
+  - post_quantum_protocols
+
+not_compatible_with:
+  - ultra_constrained_devices
+
+use_cases:
+  - post_quantum_key_exchange
+  - code_based_cryptography
+  - diversification_from_lattices
+  - tls
+  - vpn
+  - secure_communications
+
+not_recommended_for:
+  - production_deployment_before_standardization
+  - iot_devices
+  - real_time_systems
+
+references:
+  - type: standard
+    title: "NIST PQC Round 4 Candidate"
+    url: https://csrc.nist.gov/projects/post-quantum-cryptography
+    year: 2023
+  - type: paper
+    title: "BIKE: Bit Flipping Key Encapsulation"
+    url: https://bikesuite.org/
+    year: 2023
+
+implementation_notes: |
+  - NIST Round 4 candidate (under evaluation)
+  - Code-based cryptography (different from lattices)
+  - Based on QC-MDPC (Quasi-Cyclic Moderate Density Parity Check)
+  - Compact public keys (~1.5 KB for 128-bit security)
+  - Uses bit-flipping decoding algorithm
+  - Small decryption failure probability (needs careful implementation)
+  - Good alternative to lattice-based schemes
+  - Provides cryptographic diversity
+  - Hardware-friendly design
+  - Not yet standardized (use with caution in production)
+  - Three security levels: L1 (128-bit), L3 (192-bit), L5 (256-bit)

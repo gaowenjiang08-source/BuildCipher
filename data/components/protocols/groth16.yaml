@@ -1,0 +1,89 @@
+name: Groth16
+full_name: Groth16 zkSNARK Protocol
+category: protocol
+description: |
+  Groth16 is the most efficient zkSNARK protocol in terms of proof size and verification time.
+  It produces the smallest proofs and fastest verification but requires a circuit-specific
+  trusted setup. Widely used in production systems like Zcash and Filecoin.
+
+parameters:
+  proof_size: 128 # bytes, constant (3 group elements)
+  verification_time: constant
+  setup_type: circuit_specific_trusted
+  proof_type: non_interactive
+
+properties:
+  - zero_knowledge
+  - minimal_proof_size
+  - fastest_verification
+  - circuit_specific_setup
+  - non_interactive
+  - pairing_based
+
+performance:
+  proof_generation: fast
+  proof_verification: very_fast
+  proof_size: minimal
+  setup_cost: high # per-circuit setup
+  memory: medium
+
+security:
+  security_level: 128
+  best_attack: none_practical
+  attack_complexity: "discrete_log_assumption"
+  status: secure
+  standardized: false
+  proven_security: true
+  quantum_resistant: false
+
+compatible_with:
+  - zcash
+  - filecoin
+  - blockchain_privacy
+  - fixed_circuits
+  - high_throughput_applications
+
+not_compatible_with:
+  - post_quantum_scenarios
+  - dynamic_circuits
+  - trustless_setup_required
+
+use_cases:
+  - privacy_preserving_cryptocurrencies
+  - blockchain_privacy
+  - high_performance_zkp
+  - fixed_computation_verification
+  - private_transactions
+  - anonymous_credentials
+
+not_recommended_for:
+  - frequently_changing_circuits
+  - post_quantum_security
+  - transparent_setup_required
+
+references:
+  - type: paper
+    title: "On the Size of Pairing-based Non-interactive Arguments"
+    authors: ["Jens Groth"]
+    year: 2016
+    url: https://eprint.iacr.org/2016/260
+  - type: implementation
+    title: "bellman: zkSNARK Library (Rust)"
+    url: https://github.com/zkcrypto/bellman
+    year: 2017
+  - type: implementation
+    title: "Zcash Sapling: Groth16 in Production"
+    url: https://z.cash/upgrade/sapling/
+    year: 2018
+
+implementation_notes: |
+  - Most efficient zkSNARK in proof size and verification
+  - Proof size: exactly 3 group elements (~128 bytes)
+  - Verification: 1 pairing equation
+  - Requires circuit-specific trusted setup
+  - Setup ceremony must be repeated for each circuit
+  - Widely battle-tested in production
+  - Used in Zcash, Filecoin, Tornado Cash
+  - Optimal for fixed circuits in production
+  - Not suitable for frequently updated circuits
+  - Prover time: O(n log n) for n gates

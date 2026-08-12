@@ -1,0 +1,75 @@
+name: CCM
+full_name: Counter with CBC-MAC
+category: mode
+description: |
+  CCM combines Counter mode for encryption with CBC-MAC for authentication.
+  It is designed for constrained environments and is simpler than GCM.
+
+parameters:
+  block_size: 128
+  nonce_size: 13
+  tag_size: 128
+
+properties:
+  - authenticated_encryption
+  - two_pass_mode
+  - simple_design
+  - patent_free
+  - provably_secure
+
+performance:
+  software_speed: medium
+  hardware_speed: high
+  memory: very_low
+  power: very_low
+
+security:
+  security_level: 256  # Security depends on underlying cipher (AES-256)
+  best_attack: none_practical
+  attack_complexity: "2^128 for AES-128, 2^256 for AES-256"
+  status: secure
+  standardized: true
+  proven_security: true
+
+compatible_with:
+  - AES
+  - IEEE_802_15_4
+  - ZigBee
+  - Bluetooth_LE
+  - TLS
+
+not_compatible_with:
+  - stream_ciphers
+  - non_128bit_block_ciphers
+
+use_cases:
+  - iot_devices
+  - wireless_sensor_networks
+  - zigbee
+  - bluetooth_le
+  - ieee_802_15_4
+  - constrained_environments
+
+not_recommended_for:
+  - high_throughput_applications
+  - parallel_processing
+  - streaming_data
+
+references:
+  - type: standard
+    title: "NIST SP 800-38C: CCM Mode"
+    url: https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-38c.pdf
+    year: 2004
+  - type: rfc
+    title: "RFC 3610: CCM Mode for AES"
+    url: https://tools.ietf.org/html/rfc3610
+    year: 2003
+
+implementation_notes: |
+  - Requires two passes over data (authentication then encryption)
+  - Nonce must never be reused
+  - Simpler than GCM, good for resource-constrained devices
+  - Message length must be known in advance
+  - No parallelization possible
+  - Lower memory footprint than GCM
+  - Widely used in IoT and wireless protocols

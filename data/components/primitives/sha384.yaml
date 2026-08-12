@@ -1,0 +1,62 @@
+name: SHA-384
+full_name: Secure Hash Algorithm 384
+category: hash_function
+description: |
+  SHA-384 is a truncated version of SHA-512, producing a 384-bit hash value.
+  It offers a good balance between security and output size.
+
+parameters:
+  output_size: 384
+  block_size: 1024
+
+properties:
+  - collision_resistant
+  - preimage_resistant
+  - second_preimage_resistant
+  - truncated_hash
+
+performance:
+  software_speed: high
+  hardware_speed: high
+  memory: low
+  power: low
+
+security:
+  security_level: 384
+  best_attack: none_practical
+  attack_complexity: "2^384"
+  status: secure
+  standardized: true
+  proven_security: true
+
+compatible_with:
+  - HMAC
+  - HKDF
+  - PBKDF2
+  - TLS
+  - certificates
+
+not_compatible_with: []
+
+use_cases:
+  - digital_signatures
+  - certificates
+  - tls
+  - high_security_applications
+  - government_systems
+
+not_recommended_for:
+  - resource_constrained_devices
+
+references:
+  - type: standard
+    title: "FIPS 180-4: Secure Hash Standard"
+    url: https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.180-4.pdf
+    year: 2015
+
+implementation_notes: |
+  - Truncated version of SHA-512
+  - Same performance as SHA-512 on 64-bit platforms
+  - Approved for US government TOP SECRET information
+  - Good for applications needing >256-bit but <512-bit output
+  - Often used in combination with ECDSA-384

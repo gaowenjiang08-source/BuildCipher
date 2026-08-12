@@ -1,0 +1,65 @@
+name: CMAC
+full_name: Cipher-based Message Authentication Code
+category: mac
+description: |
+  CMAC is a block cipher-based MAC algorithm. It can be used with any approved
+  block cipher such as AES to provide message authentication.
+
+parameters:
+  output_size: 128
+
+properties:
+  - message_authentication
+  - block_cipher_based
+  - provably_secure
+  - standardized
+
+performance:
+  software_speed: high
+  hardware_speed: very_high
+  memory: low
+  power: low
+
+security:
+  security_level: 128
+  best_attack: none_practical
+  attack_complexity: "2^128"
+  status: secure
+  standardized: true
+  proven_security: true
+
+compatible_with:
+  - AES
+  - Camellia
+  - ARIA
+  - 3DES
+
+not_compatible_with: []
+
+use_cases:
+  - message_authentication
+  - data_integrity
+  - authenticated_encryption
+  - protocols
+
+not_recommended_for:
+  - encryption
+  - hashing
+
+references:
+  - type: standard
+    title: "NIST SP 800-38B: The CMAC Mode for Authentication"
+    url: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-38B.pdf
+    year: 2016
+  - type: standard
+    title: "RFC 4493: The AES-CMAC Algorithm"
+    url: https://www.rfc-editor.org/rfc/rfc4493
+    year: 2006
+
+implementation_notes: |
+  - Based on CBC-MAC with improvements
+  - No length extension attacks
+  - Requires only one key
+  - AES-CMAC widely used
+  - Used in various protocols including 802.11i
+  - More efficient than HMAC in hardware with AES acceleration

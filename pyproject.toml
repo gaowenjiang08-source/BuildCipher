@@ -1,0 +1,88 @@
+[tool.poetry]
+name = "buildtrust-studio"
+version = "0.1.0"
+description = "A construction digital-asset trust and cryptographic strategy agent"
+authors = ["BuildTrust Team"]
+readme = "README.md"
+license = "MIT"
+packages = [{include = "cipher_genius", from = "src"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+fastapi = "^0.115.0"
+uvicorn = {extras = ["standard"], version = "^0.32.0"}
+pydantic = "^2.10.0"
+pydantic-settings = "^2.7.0"
+openai = "^1.58.0"
+anthropic = "^0.42.0"
+zhipuai = "^2.1.5"
+langchain = "^0.3.0"
+langchain-openai = "^0.2.0"
+langchain-anthropic = "^0.3.0"
+langgraph = "^0.2.60"
+langchain-core = "^0.3.0"
+tiktoken = "^0.8.0"
+pyyaml = "^6.0.2"
+jinja2 = "^3.1.4"
+typer = {extras = ["all"], version = "^0.15.0"}
+rich = "^13.9.0"
+httpx = "^0.28.0"
+python-dotenv = "^1.0.1"
+sqlalchemy = "^2.0.36"
+alembic = "^1.14.0"
+psycopg2-binary = "^2.9.10"
+redis = "^5.2.0"
+celery = {extras = ["redis"], version = "^5.4.0"}
+qdrant-client = "^1.12.0"
+sentence-transformers = "^3.3.0"
+numpy = "^2.2.0"
+pandas = "^2.2.0"
+streamlit = "^1.41.0"
+pypdf = "^5.4.0"
+pdfplumber = "^0.11.5"
+python-docx = "^1.1.2"
+reportlab = "^4.4.1"
+python-multipart = "^0.0.20"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3.0"
+pytest-asyncio = "^0.24.0"
+pytest-cov = "^6.0.0"
+black = "^24.10.0"
+ruff = "^0.8.0"
+mypy = "^1.13.0"
+pre-commit = "^4.0.0"
+ipython = "^8.31.0"
+pytest-redis = "^3.1.0"
+fakeredis = "^2.26.0"
+
+[tool.poetry.scripts]
+buildtrust = "cipher_genius.cli.main:app"
+buildtrust-api = "cipher_genius.api.main:run"
+
+[tool.black]
+line-length = 100
+target-version = ['py310']
+include = '\.pyi?$'
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+select = ["E", "F", "I", "N", "W", "UP"]
+
+[tool.mypy]
+python_version = "3.10"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = "-v --cov=cipher_genius --cov-report=html --cov-report=term"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

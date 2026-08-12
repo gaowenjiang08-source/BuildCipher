@@ -1,0 +1,76 @@
+name: HKDF-BLAKE2b
+full_name: HMAC-based Key Derivation Function with BLAKE2b
+category: construction
+description: |
+  HKDF-BLAKE2b is a key derivation function using HMAC-BLAKE2b. It combines
+  the speed of BLAKE2 with the proven HKDF construction for high-performance KDF.
+
+parameters:
+  output_size: 512
+
+properties:
+  - key_derivation
+  - extract_then_expand
+  - cryptographically_strong
+  - deterministic
+  - context_binding
+  - high_performance
+
+performance:
+  software_speed: very_high
+  hardware_speed: high
+  memory: low
+  power: very_low
+
+security:
+  security_level: 512
+  best_attack: none_practical
+  attack_complexity: "2^512"
+  status: secure
+  standardized: false
+  proven_security: true
+
+compatible_with:
+  - HMAC
+  - BLAKE2b
+  - modern_protocols
+  - WireGuard
+  - Noise_protocol
+
+not_compatible_with: []
+
+use_cases:
+  - high_performance_key_derivation
+  - modern_protocols
+  - wireguard
+  - noise_protocol
+  - deriving_multiple_keys
+  - key_stretching_from_ecdh
+  - embedded_systems
+  - iot_applications
+
+not_recommended_for:
+  - password_hashing
+  - low_entropy_inputs
+  - legacy_systems
+
+references:
+  - type: rfc
+    title: "RFC 5869: HKDF"
+    url: https://tools.ietf.org/html/rfc5869
+    year: 2010
+  - type: rfc
+    title: "RFC 7693: BLAKE2"
+    url: https://tools.ietf.org/html/rfc7693
+    year: 2015
+
+implementation_notes: |
+  - Two-step process: Extract then Expand
+  - Extract: HKDF-Extract(salt, IKM) = HMAC-BLAKE2b(salt, IKM)
+  - Expand: HKDF-Expand(PRK, info, L) generates output keys
+  - Salt is optional but recommended for security
+  - Info provides application-specific context
+  - Faster than HKDF-SHA512
+  - Can generate up to 16,320 bytes (64 * 255) of output
+  - Not standardized but used in modern protocols like WireGuard
+  - Provides excellent performance on modern CPUs

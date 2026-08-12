@@ -1,0 +1,88 @@
+name: Kyber-1024
+full_name: Kyber-1024 Key Encapsulation Mechanism
+category: key_exchange
+description: |
+  Kyber-1024 is the 256-bit security level variant of the NIST PQC winner Kyber.
+  It provides the highest security level with still good performance for long-term security needs.
+
+parameters:
+  security_level: 256
+  n: 256
+  k: 4
+  q: 3329
+
+properties:
+  - post_quantum_secure
+  - lattice_based
+  - module_lwe
+  - nist_pqc_winner
+  - kem_not_pke
+  - highest_security
+
+performance:
+  software_speed: high
+  hardware_speed: high
+  memory: medium
+  power: low
+  public_key_size: 1568
+  ciphertext_size: 1568
+  secret_key_size: 3168
+
+security:
+  security_level: 256
+  best_attack: lattice_reduction
+  attack_complexity: "2^256"
+  status: secure
+  standardized: true
+  proven_security: true
+  quantum_resistant: true
+
+compatible_with:
+  - TLS_1.3
+  - post_quantum_hybrid_schemes
+  - x448_hybrid
+  - nist_pqc_standard
+  - ml_kem_256
+
+not_compatible_with:
+  - legacy_tls
+  - dhe_dh_infrastructure
+  - constrained_devices
+
+use_cases:
+  - top_secret_communications
+  - long_term_security
+  - government_classified
+  - critical_infrastructure
+  - ultra_high_security
+  - defense_applications
+
+not_recommended_for:
+  - pre_2024_legacy_systems
+  - bandwidth_constrained_systems
+  - typical_commercial_applications
+
+references:
+  - type: paper
+    title: "CRYSTALS-Kyber: A CCA-secure module-lattice-based KEM"
+    authors: ["Roberto Avanzi", "Joppe Bos", "Leo Ducas", "Eike Kiltz", "Tancrede Lepoint", "Vadim Lyubashevsky", "John M. Schanck", "Peter Schwabe", "Gregor Seiler", "Damien Stehle"]
+    year: 2020
+  - type: standard
+    title: "NIST FIPS 203: Module-Lattice-Based Key-Encapsulation Mechanism Standard"
+    url: https://csrc.nist.gov/publications/detail/fips/203/final
+    year: 2024
+
+implementation_notes: |
+  - NIST PQC winner (standardized as ML-KEM-256)
+  - Highest security level of Kyber variants
+  - 1568-byte public keys and ciphertexts
+  - Equivalent to AES-256 security level
+  - Based on Module Learning With Errors (M-LWE)
+  - IND-CCA2 secure KEM
+  - Good performance despite highest security
+  - Suitable for hybrid schemes (e.g., X448 + Kyber-1024)
+  - Quantum-resistant
+  - Recommended for top-secret/classified use
+  - Use for long-term security (30+ years)
+  - Larger keys than Kyber-768 (1.5 KB vs 1.2 KB)
+  - Consider Kyber-768 unless maximum security needed

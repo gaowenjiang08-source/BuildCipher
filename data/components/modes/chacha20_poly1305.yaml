@@ -1,0 +1,79 @@
+name: ChaCha20-Poly1305
+full_name: ChaCha20-Poly1305 AEAD
+category: mode
+description: |
+  ChaCha20-Poly1305 is a modern AEAD construction combining the ChaCha20 stream cipher
+  with Poly1305 MAC. It offers excellent software performance without hardware acceleration.
+
+parameters:
+  block_size: 64
+  nonce_size: 96
+  tag_size: 128
+
+properties:
+  - authenticated_encryption
+  - stream_cipher_based
+  - software_efficient
+  - parallelizable
+  - constant_time
+
+performance:
+  software_speed: very_high
+  hardware_speed: medium
+  memory: very_low
+  power: very_low
+
+security:
+  security_level: 256
+  best_attack: none_practical
+  attack_complexity: "2^256"
+  status: secure
+  standardized: true
+  proven_security: true
+
+compatible_with:
+  - TLS_1_2
+  - TLS_1_3
+  - WireGuard
+  - SSH
+  - mobile_devices
+  - embedded_systems
+
+not_compatible_with:
+  - legacy_systems_requiring_AES
+  - hardware_AES_only_accelerators
+
+use_cases:
+  - mobile_encryption
+  - tls_1_3
+  - wireguard_vpn
+  - ssh
+  - software_only_encryption
+  - embedded_systems
+  - iot_devices
+  - general_purpose
+
+not_recommended_for:
+  - systems_with_AES_hardware_only
+  - legacy_protocol_compatibility
+
+references:
+  - type: rfc
+    title: "RFC 8439: ChaCha20 and Poly1305 for IETF Protocols"
+    url: https://tools.ietf.org/html/rfc8439
+    year: 2018
+  - type: rfc
+    title: "RFC 7539: ChaCha20-Poly1305 Cipher Suites for TLS"
+    url: https://tools.ietf.org/html/rfc7539
+    year: 2015
+
+implementation_notes: |
+  - Nonce must NEVER be reused with the same key
+  - Excellent software performance on all platforms
+  - No timing side-channels (constant-time operations)
+  - Widely used in modern protocols (TLS 1.3, WireGuard)
+  - Better than AES-GCM on devices without AES-NI
+  - Single-pass AEAD
+  - Uses first block of ChaCha20 to generate Poly1305 key
+  - Recommended for mobile and embedded devices
+  - Default choice in many modern implementations

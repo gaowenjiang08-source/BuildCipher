@@ -1,0 +1,82 @@
+name: SM2
+full_name: ShangMi 2 Digital Signature Algorithm
+category: signature
+description: |
+  SM2 is a Chinese national cryptographic standard for elliptic curve digital signatures.
+  It is similar to ECDSA but with specific parameter choices and is mandatory in Chinese applications.
+
+parameters:
+  curve: SM2P256V1
+  hash_function: SM3
+  key_size: [256]
+
+properties:
+  - elliptic_curve_based
+  - chinese_standard
+  - government_approved
+  - similar_to_ecdsa
+  - deterministic_option
+
+performance:
+  software_speed: high
+  hardware_speed: high
+  memory: low
+  power: low
+  signature_size: 64
+  key_size: 32
+
+security:
+  security_level: 128  # 256-bit curve
+  best_attack: discrete_log_attacks
+  attack_complexity: "2^128"
+  status: secure
+  standardized: true
+  proven_security: true
+
+compatible_with:
+  - chinese_commercial_cryptography
+  - sm3_hash
+  - sm4_cipher
+  - chinese_pki_systems
+  - gbt_32918_standard
+
+not_compatible_with:
+  - quantum_computers
+  - western_pki_standards
+  - nist_curves
+
+use_cases:
+  - chinese_government_systems
+  - chinese_financial_systems
+  - chinese_commercial_applications
+  - domestic_chinese_pki
+  - chinese_blockchain
+
+not_recommended_for:
+  - post_quantum_security
+  - international_interoperability
+  - non_chinese_jurisdictions
+
+references:
+  - type: standard
+    title: "GB/T 32918: Information Security Technology - Public Key Cryptographic Algorithm SM2 Based on Elliptic Curves"
+    url: https://www.sca.gov.cn/
+    year: 2016
+  - type: standard
+    title: "ISO/IEC 14888-3:2018 - SM2 Digital Signature Algorithm"
+    url: https://www.iso.org/standard/76382.html
+    year: 2018
+
+implementation_notes: |
+  - Chinese national cryptographic standard
+  - Mandatory for certain Chinese applications
+  - Based on 256-bit elliptic curve (SM2P256V1)
+  - Uses SM3 hash function (Chinese SHA-256 equivalent)
+  - Similar to ECDSA but with different parameters
+  - Supports both deterministic and random nonce generation
+  - 64-byte signatures (32-byte r, 32-byte s)
+  - Required in Chinese commercial cryptography
+  - ISO/IEC standardized in 2018
+  - Not quantum-resistant
+  - Good performance, comparable to ECDSA P-256
+  - Use with SM3 and SM4 for complete Chinese crypto suite

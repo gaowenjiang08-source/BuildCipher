@@ -1,0 +1,92 @@
+name: PSI
+full_name: Private Set Intersection
+category: protocol
+description: |
+  Private Set Intersection allows two or more parties to compute the intersection of their
+  private sets without revealing any information about elements not in the intersection.
+  Enables privacy-preserving data matching and comparison.
+
+parameters:
+  parties: 2-N # number of parties
+  set_size: scalable # depends on protocol variant
+  security_model: semi_honest_or_malicious
+  communication_rounds: variable # 1-3 rounds typical
+
+properties:
+  - privacy_preserving
+  - set_intersection
+  - multi_party_capable
+  - size_hiding_variants
+  - threshold_variants
+
+performance:
+  computation: medium
+  communication: medium_to_high
+  setup_cost: medium
+  scalability: high # millions of elements
+  memory: medium
+
+security:
+  security_level: 128
+  best_attack: none_practical
+  attack_complexity: "OWF_DDH_or_OT_assumption"
+  status: secure
+  standardized: false
+  proven_security: true
+  quantum_resistant: false # standard variants
+
+compatible_with:
+  - contact_discovery
+  - private_matching
+  - secure_analytics
+  - compliance_checking
+  - threat_intelligence
+
+not_compatible_with:
+  - public_intersection_required
+  - real_time_streaming # typically batch
+
+use_cases:
+  - contact_discovery
+  - private_matching
+  - fraud_detection
+  - threat_intelligence_sharing
+  - ad_conversion_measurement
+  - genetic_data_matching
+  - compromised_credential_checking
+
+not_recommended_for:
+  - public_intersection
+  - very_small_sets # overhead not worth it
+  - continuous_streaming_data
+
+references:
+  - type: paper
+    title: "Practical Private Set Intersection Protocols with Linear Complexity"
+    authors: ["Emiliano De Cristofaro", "Gene Tsudik"]
+    year: 2010
+  - type: paper
+    title: "Private Set Intersection: Are Garbled Circuits Better than Custom Protocols?"
+    authors: ["Yan Huang", "David Evans", "Jonathan Katz"]
+    year: 2012
+  - type: implementation
+    title: "PSI: Private Set Intersection Library"
+    url: https://github.com/OpenMined/PSI
+    year: 2020
+  - type: paper
+    title: "Labeled PSI from Homomorphic Encryption with Reduced Computation"
+    authors: ["Kelong Cong", "Radames Cruz Moreno", "Mariana Botelho da Gama"]
+    year: 2021
+
+implementation_notes: |
+  - Multiple protocol variants: OT-based, DH-based, circuit-based
+  - OT-based PSI: efficient for unbalanced set sizes
+  - DH-based PSI: efficient for balanced sets
+  - Circuit-based PSI: flexible but slower
+  - Communication: O(n) for n elements in smaller set
+  - Supports cardinality-only output (PSI-CA)
+  - Labeled PSI: also transfer associated data
+  - Threshold PSI: only reveal if intersection > threshold
+  - Used in Signal, WhatsApp for contact discovery
+  - Unbalanced PSI optimizations for server-client scenarios
+  - Consider homomorphic encryption variants for labeled PSI

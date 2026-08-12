@@ -1,0 +1,82 @@
+name: Rainbow
+full_name: Rainbow Signature Scheme
+category: signature
+description: |
+  Rainbow is a multivariate signature scheme that was a NIST PQC finalist.
+  It was broken in 2022 by a practical key recovery attack, making it of historical interest only.
+
+parameters:
+  security_level: [I, III, V]  # 128, 192, 256-bit security (theoretical)
+  field: GF(256)
+
+properties:
+  - multivariate_based
+  - fast_signing
+  - fast_verification
+  - small_signatures
+  - broken_2022
+  - historical_interest
+
+performance:
+  software_speed: very_high
+  hardware_speed: high
+  memory: high
+  power: low
+  signature_size: 66
+  key_size_large: true
+
+security:
+  security_level: 0  # Broken in 2022
+  best_attack: key_recovery_attack
+  attack_complexity: "Practical (2^53 operations for Rainbow-I)"
+  status: broken
+  standardized: false
+  proven_security: false
+  quantum_resistant: false
+
+compatible_with:
+  - academic_research
+  - cryptographic_history
+
+not_compatible_with:
+  - production_systems
+  - secure_applications
+  - any_real_world_use
+
+use_cases:
+  - academic_study
+  - cryptanalysis_research
+  - historical_reference
+
+not_recommended_for:
+  - any_production_use
+  - digital_signatures
+  - authentication
+  - security_applications
+
+references:
+  - type: paper
+    title: "Rainbow"
+    authors: ["Jintai Ding", "Dieter Schmidt"]
+    year: 2005
+  - type: paper
+    title: "Breaking Rainbow Takes a Weekend on a Laptop"
+    authors: ["Ward Beullens"]
+    year: 2022
+  - type: standard
+    title: "NIST PQC Round 3 (Eliminated)"
+    url: https://csrc.nist.gov/projects/post-quantum-cryptography
+    year: 2022
+
+implementation_notes: |
+  - BROKEN in 2022 - DO NOT USE
+  - Was a NIST PQC Round 3 finalist
+  - Ward Beullens published practical key recovery attack
+  - Attack complexity: ~2^53 operations for Rainbow-I
+  - Can break on a laptop in a weekend
+  - Very large public keys (hundreds of KB)
+  - Fast signing and verification (when it was considered secure)
+  - Small signatures (66 bytes for Rainbow-I)
+  - Of historical interest only
+  - Shows importance of conservative security margins
+  - Example of post-quantum scheme that failed

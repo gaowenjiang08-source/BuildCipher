@@ -1,0 +1,76 @@
+name: HKDF-SHA512
+full_name: HMAC-based Key Derivation Function with SHA-512
+category: construction
+description: |
+  HKDF-SHA512 is a key derivation function based on HMAC-SHA512. It provides
+  higher security margins and is suitable for applications requiring 256-bit security.
+
+parameters:
+  output_size: 512
+
+properties:
+  - key_derivation
+  - extract_then_expand
+  - cryptographically_strong
+  - deterministic
+  - context_binding
+  - high_security
+
+performance:
+  software_speed: high
+  hardware_speed: high
+  memory: low
+  power: low
+
+security:
+  security_level: 512
+  best_attack: none_practical
+  attack_complexity: "2^512"
+  status: secure
+  standardized: true
+  proven_security: true
+
+compatible_with:
+  - HMAC
+  - SHA-512
+  - high_security_protocols
+  - Signal_protocol
+  - WireGuard
+  - Noise_protocol
+
+not_compatible_with: []
+
+use_cases:
+  - high_security_applications
+  - long_term_key_derivation
+  - signal_protocol
+  - deriving_multiple_keys
+  - key_stretching_from_ecdh
+  - quantum_resistant_designs
+  - post_quantum_key_encapsulation
+
+not_recommended_for:
+  - password_hashing
+  - low_entropy_inputs
+  - resource_constrained_devices
+
+references:
+  - type: rfc
+    title: "RFC 5869: HKDF"
+    url: https://tools.ietf.org/html/rfc5869
+    year: 2010
+  - type: paper
+    title: "Cryptographic Extraction and Key Derivation"
+    authors: ["Hugo Krawczyk"]
+    year: 2010
+
+implementation_notes: |
+  - Two-step process: Extract then Expand
+  - Extract: HKDF-Extract(salt, IKM) = HMAC-SHA512(salt, IKM)
+  - Expand: HKDF-Expand(PRK, info, L) generates output keys
+  - Salt is optional but recommended for security
+  - Info provides application-specific context
+  - Not designed for password hashing (use PBKDF2/Argon2)
+  - Can generate up to 16,320 bytes (64 * 255) of output
+  - Provides higher security margin than SHA-256 variant
+  - Recommended for applications requiring 256-bit security

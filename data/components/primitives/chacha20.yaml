@@ -1,0 +1,70 @@
+name: ChaCha20
+full_name: ChaCha20 Stream Cipher
+category: stream_cipher
+description: |
+  ChaCha20 is a stream cipher designed by Daniel J. Bernstein. It is optimized for software
+  implementations and provides excellent performance on a wide range of platforms, including
+  resource-constrained devices.
+
+parameters:
+  key_size: [256]
+  nonce_size: 96
+  rounds: 20
+  block_size: 512
+
+properties:
+  - software_optimized
+  - constant_time
+  - no_lookup_tables
+  - cache_timing_resistant
+
+performance:
+  software_speed: very_high
+  hardware_speed: medium
+  memory: very_low
+  power: low
+
+security:
+  security_level: 256
+  best_attack: none_practical
+  attack_complexity: "No attacks better than brute force"
+  status: secure
+  standardized: true
+  proven_security: true
+
+compatible_with:
+  - Poly1305
+  - AEAD
+  - TLS
+
+not_compatible_with: []
+
+use_cases:
+  - iot_encryption
+  - mobile_encryption
+  - tls
+  - vpn
+  - embedded_systems
+  - lightweight_applications
+
+not_recommended_for:
+  - systems_requiring_hardware_acceleration
+
+references:
+  - type: paper
+    title: "ChaCha, a variant of Salsa20"
+    authors: ["Daniel J. Bernstein"]
+    url: https://cr.yp.to/chacha.html
+    year: 2008
+  - type: standard
+    title: "RFC 8439: ChaCha20 and Poly1305 for IETF Protocols"
+    url: https://www.rfc-editor.org/rfc/rfc8439
+    year: 2018
+
+implementation_notes: |
+  - No lookup tables required - resistant to cache-timing attacks
+  - Excellent performance on ARM processors
+  - Constant-time by design
+  - ChaCha20-Poly1305 is the recommended AEAD construction
+  - Used in TLS 1.3, WireGuard VPN, and other modern protocols
+  - Nonce must never be reused with the same key

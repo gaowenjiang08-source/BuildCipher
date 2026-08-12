@@ -1,0 +1,88 @@
+name: Kyber-768
+full_name: Kyber-768 Key Encapsulation Mechanism
+category: key_exchange
+description: |
+  Kyber-768 is the 192-bit security level variant of the NIST PQC winner Kyber.
+  It offers higher security than Kyber-512 with still excellent performance and is the recommended default.
+
+parameters:
+  security_level: 192
+  n: 256
+  k: 3
+  q: 3329
+
+properties:
+  - post_quantum_secure
+  - lattice_based
+  - module_lwe
+  - nist_pqc_winner
+  - kem_not_pke
+  - recommended_default
+
+performance:
+  software_speed: very_high
+  hardware_speed: high
+  memory: low
+  power: low
+  public_key_size: 1184
+  ciphertext_size: 1088
+  secret_key_size: 2400
+
+security:
+  security_level: 192
+  best_attack: lattice_reduction
+  attack_complexity: "2^192"
+  status: secure
+  standardized: true
+  proven_security: true
+  quantum_resistant: true
+
+compatible_with:
+  - TLS_1.3
+  - post_quantum_hybrid_schemes
+  - x25519_hybrid
+  - nist_pqc_standard
+  - ml_kem_192
+
+not_compatible_with:
+  - legacy_tls
+  - dhe_dh_infrastructure
+  - very_constrained_devices
+
+use_cases:
+  - post_quantum_tls
+  - vpn_key_exchange
+  - secure_messaging
+  - hybrid_key_exchange
+  - high_security_applications
+  - government_systems
+  - financial_systems
+
+not_recommended_for:
+  - pre_2024_legacy_systems
+  - ultra_low_bandwidth_systems
+
+references:
+  - type: paper
+    title: "CRYSTALS-Kyber: A CCA-secure module-lattice-based KEM"
+    authors: ["Roberto Avanzi", "Joppe Bos", "Leo Ducas", "Eike Kiltz", "Tancrede Lepoint", "Vadim Lyubashevsky", "John M. Schanck", "Peter Schwabe", "Gregor Seiler", "Damien Stehle"]
+    year: 2020
+  - type: standard
+    title: "NIST FIPS 203: Module-Lattice-Based Key-Encapsulation Mechanism Standard"
+    url: https://csrc.nist.gov/publications/detail/fips/203/final
+    year: 2024
+
+implementation_notes: |
+  - NIST PQC winner (standardized as ML-KEM-192)
+  - RECOMMENDED DEFAULT for most applications
+  - 1184-byte public keys, 1088-byte ciphertexts
+  - Equivalent to AES-192 security level
+  - Based on Module Learning With Errors (M-LWE)
+  - IND-CCA2 secure KEM
+  - Excellent performance with higher security margin
+  - Suitable for hybrid schemes (e.g., X25519 + Kyber-768)
+  - Used by Google, Cloudflare, AWS
+  - Quantum-resistant
+  - Best balance of security and performance
+  - Recommended by NIST for general use
+  - Use for most production applications

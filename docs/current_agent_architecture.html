@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MedCipher Studio 简约 Agent 架构图</title>
+  <style>
+    :root {
+      --bg: #f5f1ea;
+      --paper: rgba(255, 252, 247, 0.92);
+      --paper-strong: #fffdf9;
+      --ink: #17322b;
+      --muted: #5f6f69;
+      --line: #d9cec1;
+      --accent: #d56b3d;
+      --accent-soft: #f9e1d4;
+      --teal: #2b7a6b;
+      --teal-soft: #dff1eb;
+      --gold: #b2872d;
+      --gold-soft: #f5eac6;
+      --slate: #4c6073;
+      --slate-soft: #e6edf4;
+      --shadow: 0 20px 46px rgba(51, 42, 25, 0.12);
+      --radius-xl: 28px;
+      --radius-lg: 22px;
+      --radius-md: 18px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top left, rgba(213, 107, 61, 0.14), transparent 26rem),
+        radial-gradient(circle at top right, rgba(43, 122, 107, 0.18), transparent 30rem),
+        linear-gradient(180deg, #f9f5ee 0%, #f3ede3 50%, #efe7da 100%);
+      line-height: 1.6;
+    }
+
+    .page {
+      max-width: 1380px;
+      margin: 0 auto;
+      padding: 34px 22px 54px;
+    }
+
+    .hero,
+    .panel,
+    .lane,
+    .story-card,
+    .note,
+    .legend-item {
+      background: var(--paper);
+      border: 1px solid rgba(118, 102, 78, 0.14);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(8px);
+    }
+
+    .hero {
+      border-radius: var(--radius-xl);
+      padding: 34px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      right: -48px;
+      top: -48px;
+      width: 220px;
+      height: 220px;
+      border-radius: 999px;
+      background: radial-gradient(circle, rgba(213, 107, 61, 0.18), transparent 70%);
+    }
+
+    .eyebrow {
+      margin: 0 0 10px;
+      color: var(--accent);
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(32px, 4.5vw, 56px);
+      line-height: 1.08;
+      letter-spacing: -0.04em;
+    }
+
+    .hero-subtitle {
+      margin: 14px 0 0;
+      max-width: 780px;
+      color: var(--muted);
+      font-size: 17px;
+    }
+
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 700;
+      border: 1px solid transparent;
+      background: #f8efe9;
+      color: #86452d;
+    }
+
+    .chip.teal {
+      background: var(--teal-soft);
+      color: var(--teal);
+    }
+
+    .chip.gold {
+      background: var(--gold-soft);
+      color: var(--gold);
+    }
+
+    .chip.slate {
+      background: var(--slate-soft);
+      color: var(--slate);
+    }
+
+    .section {
+      margin-top: 26px;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 14px;
+    }
+
+    .section-head h2 {
+      margin: 0;
+      font-size: 26px;
+      line-height: 1.15;
+    }
+
+    .section-head p {
+      margin: 0;
+      max-width: 760px;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .story-grid {
+      display: grid;
+      gap: 14px;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      align-items: stretch;
+    }
+
+    .story-card {
+      border-radius: var(--radius-lg);
+      padding: 20px 16px 18px;
+      position: relative;
+      min-height: 220px;
+    }
+
+    .story-card.agent {
+      background: linear-gradient(180deg, #fff8f2 0%, #fff0e6 100%);
+    }
+
+    .story-card.system {
+      background: linear-gradient(180deg, #f4fbf8 0%, #e9f6f1 100%);
+    }
+
+    .story-card.output {
+      background: linear-gradient(180deg, #fbf7ea 0%, #f5edd3 100%);
+    }
+
+    .step {
+      display: inline-flex;
+      width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 14px;
+      margin-bottom: 14px;
+      background: rgba(23, 50, 43, 0.08);
+      color: var(--ink);
+    }
+
+    .story-card h3 {
+      margin: 0 0 8px;
+      font-size: 18px;
+      line-height: 1.2;
+    }
+
+    .story-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .story-card ul {
+      margin: 14px 0 0;
+      padding-left: 18px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .story-card li + li {
+      margin-top: 6px;
+    }
+
+    .story-card::after {
+      content: "→";
+      position: absolute;
+      right: -12px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 26px;
+      font-weight: 800;
+      color: rgba(213, 107, 61, 0.7);
+      z-index: 2;
+    }
+
+    .story-card:last-child::after {
+      display: none;
+    }
+
+    .loop-banner {
+      margin-top: 16px;
+      border-radius: var(--radius-lg);
+      padding: 16px 18px;
+      background: linear-gradient(90deg, rgba(43, 122, 107, 0.12), rgba(213, 107, 61, 0.12));
+      border: 1px dashed rgba(91, 88, 72, 0.26);
+      color: var(--ink);
+      font-weight: 700;
+    }
+
+    .lane-grid {
+      display: grid;
+      gap: 16px;
+    }
+
+    .lane {
+      border-radius: var(--radius-xl);
+      padding: 22px;
+    }
+
+    .lane-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+
+    .lane-title {
+      margin: 0;
+      font-size: 22px;
+    }
+
+    .lane-desc {
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+      max-width: 760px;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .tag.agent {
+      background: var(--accent-soft);
+      color: var(--accent);
+    }
+
+    .tag.system {
+      background: var(--teal-soft);
+      color: var(--teal);
+    }
+
+    .tag.memory {
+      background: var(--slate-soft);
+      color: var(--slate);
+    }
+
+    .box-row {
+      display: grid;
+      gap: 12px;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      align-items: stretch;
+    }
+
+    .box {
+      border-radius: var(--radius-md);
+      padding: 16px 14px;
+      border: 1px solid rgba(118, 102, 78, 0.14);
+      background: rgba(255, 255, 255, 0.8);
+      position: relative;
+    }
+
+    .box.agent {
+      background: #fff3ea;
+    }
+
+    .box.system {
+      background: #ebf7f3;
+    }
+
+    .box.memory {
+      background: #eef3f8;
+    }
+
+    .box strong {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 15px;
+    }
+
+    .box span {
+      display: block;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .box::after {
+      content: "→";
+      position: absolute;
+      right: -10px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 22px;
+      font-weight: 800;
+      color: rgba(23, 50, 43, 0.3);
+    }
+
+    .box:last-child::after {
+      display: none;
+    }
+
+    .insight-grid {
+      display: grid;
+      gap: 16px;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .note,
+    .legend-item {
+      border-radius: var(--radius-lg);
+      padding: 20px;
+    }
+
+    .note h3,
+    .legend-item h3 {
+      margin: 0 0 10px;
+      font-size: 18px;
+    }
+
+    .note p,
+    .legend-item p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .note ul {
+      margin: 12px 0 0;
+      padding-left: 18px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .note li + li {
+      margin-top: 7px;
+    }
+
+    .legend-grid {
+      display: grid;
+      gap: 14px;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .legend-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-weight: 800;
+      font-size: 12px;
+      margin-bottom: 12px;
+    }
+
+    .legend-pill.agent {
+      background: var(--accent-soft);
+      color: var(--accent);
+    }
+
+    .legend-pill.system {
+      background: var(--teal-soft);
+      color: var(--teal);
+    }
+
+    .legend-pill.memory {
+      background: var(--slate-soft);
+      color: var(--slate);
+    }
+
+    .footer-note {
+      margin-top: 22px;
+      padding: 18px 20px;
+      border-radius: var(--radius-lg);
+      background: rgba(23, 50, 43, 0.9);
+      color: rgba(255, 255, 255, 0.88);
+      font-size: 14px;
+    }
+
+    .footer-note strong {
+      color: #fff;
+    }
+
+    @media (max-width: 1240px) {
+      .story-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+
+      .story-card:nth-child(4)::after {
+        display: none;
+      }
+
+      .box-row {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .box:nth-child(3)::after {
+        display: none;
+      }
+
+      .insight-grid,
+      .legend-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 860px) {
+      .page {
+        padding: 20px 14px 34px;
+      }
+
+      .hero,
+      .lane,
+      .story-card,
+      .note,
+      .legend-item {
+        padding: 18px;
+      }
+
+      .story-grid,
+      .box-row {
+        grid-template-columns: 1fr;
+      }
+
+      .story-card::after,
+      .box::after {
+        content: "↓";
+        top: auto;
+        right: 50%;
+        bottom: -20px;
+        transform: translateX(50%);
+      }
+
+      .story-card:last-child::after,
+      .box:last-child::after {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="hero">
+      <p class="eyebrow">MedCipher Studio / 面向演示与答辩</p>
+      <h1>一张给外行人看的<br />多智能体架构图</h1>
+      <p class="hero-subtitle">
+        这套系统做的事情很简单：先生成加密方案，再自己审查，再在沙盒里模拟攻击，
+        发现问题后给出修补方案，最后形成中文交付，并把经验留给下一轮继续变聪明。
+      </p>
+      <div class="chip-row">
+        <span class="chip">中文交付优先</span>
+        <span class="chip teal">真实 LLM 决策</span>
+        <span class="chip gold">沙盒验证闭环</span>
+        <span class="chip slate">每个 Agent 独立上下文</span>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <h2>先看一条主流程</h2>
+        <p>如果把整个系统讲给不懂技术的人听，可以直接讲下面这 7 步。它描述的是“一个需求如何变成可验证、可修补、可交付的方案”。</p>
+      </div>
+      <div class="story-grid">
+        <article class="story-card system">
+          <div class="step">1</div>
+          <h3>提出需求</h3>
+          <p>用户输入业务目标，例如“我要一个更安全的加密服务”。</p>
+          <ul>
+            <li>明确场景</li>
+            <li>补齐约束</li>
+            <li>准备资料</li>
+          </ul>
+        </article>
+        <article class="story-card agent">
+          <div class="step">2</div>
+          <h3>生成方案</h3>
+          <p>生成 Agent 结合知识库和技能提示词，给出候选设计与伪代码。</p>
+          <ul>
+            <li>方案草案</li>
+            <li>实现思路</li>
+            <li>风险假设</li>
+          </ul>
+        </article>
+        <article class="story-card agent">
+          <div class="step">3</div>
+          <h3>内部审计</h3>
+          <p>审计 Agent 先挑毛病，避免一开始就把不靠谱的方案推下去执行。</p>
+          <ul>
+            <li>查漏洞点</li>
+            <li>查合规性</li>
+            <li>给整改意见</li>
+          </ul>
+        </article>
+        <article class="story-card system">
+          <div class="step">4</div>
+          <h3>沙盒部署</h3>
+          <p>系统在受控沙盒里搭一个“模拟服务器”，把待测算法真正跑起来。</p>
+          <ul>
+            <li>不碰真实生产环境</li>
+            <li>可记录流量</li>
+            <li>可留痕回放</li>
+          </ul>
+        </article>
+        <article class="story-card agent">
+          <div class="step">5</div>
+          <h3>模拟攻击</h3>
+          <p>攻击 Agent 根据当前结果继续试探，寻找弱点，而不是机械跑固定脚本。</p>
+          <ul>
+            <li>动态换策略</li>
+            <li>看结果再决定</li>
+            <li>输出攻击证据</li>
+          </ul>
+        </article>
+        <article class="story-card agent">
+          <div class="step">6</div>
+          <h3>评估与修补</h3>
+          <p>评估 Agent 判断漏洞值不值得修，修补 Agent 给出补丁与回归验证方案。</p>
+          <ul>
+            <li>漏洞定级</li>
+            <li>生成补丁</li>
+            <li>再次验证</li>
+          </ul>
+        </article>
+        <article class="story-card output">
+          <div class="step">7</div>
+          <h3>形成交付</h3>
+          <p>输出中文报告、伪代码、Python/C++ 代码，并把经验沉淀给下一轮。</p>
+          <ul>
+            <li>可读报告</li>
+            <li>证据引用</li>
+            <li>闭环优化</li>
+          </ul>
+        </article>
+      </div>
+      <div class="loop-banner">闭环重点：最后一步不会结束在“报告写完”，而是把这轮经验回灌给下一次生成与审计。</div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <h2>背后其实分成三层</h2>
+        <p>外行最容易把“所有模块都当成 Agent”。更清楚的讲法是：上层是会思考的 Agent，中层是负责安全执行的系统底座，下层是记忆与回放。</p>
+      </div>
+
+      <div class="lane-grid">
+        <article class="lane">
+          <div class="lane-head">
+            <div>
+              <h3 class="lane-title">第一层：会做判断的 Agent</h3>
+              <p class="lane-desc">这层负责“思考、判断、给方案”。真正有 LLM 决策能力的主要都在这里。</p>
+            </div>
+            <span class="tag agent">认知层</span>
+          </div>
+          <div class="box-row">
+            <div class="box agent">
+              <strong>生成 Agent</strong>
+              <span>根据知识库提出方案</span>
+            </div>
+            <div class="box agent">
+              <strong>审计 Agent</strong>
+              <span>先找方案中的问题</span>
+            </div>
+            <div class="box agent">
+              <strong>攻击 Agent</strong>
+              <span>决定怎样攻击更有效</span>
+            </div>
+            <div class="box agent">
+              <strong>评估 Agent</strong>
+              <span>判断漏洞严重程度</span>
+            </div>
+            <div class="box agent">
+              <strong>修补 Agent</strong>
+              <span>提出补丁与回归验证</span>
+            </div>
+            <div class="box agent">
+              <strong>反思 Agent</strong>
+              <span>把经验留给下一轮</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="lane">
+          <div class="lane-head">
+            <div>
+              <h3 class="lane-title">第二层：负责安全执行的系统底座</h3>
+              <p class="lane-desc">这层不负责“想”，而是负责“让事情在安全、可控、可追踪的环境中发生”。</p>
+            </div>
+            <span class="tag system">执行层</span>
+          </div>
+          <div class="box-row">
+            <div class="box system">
+              <strong>知识检索</strong>
+              <span>给 Agent 提供资料和证据</span>
+            </div>
+            <div class="box system">
+              <strong>上下文编排</strong>
+              <span>控制每个 Agent 该看什么</span>
+            </div>
+            <div class="box system">
+              <strong>沙盒调度器</strong>
+              <span>决定是否允许执行</span>
+            </div>
+            <div class="box system">
+              <strong>模拟服务器</strong>
+              <span>部署待测加密服务</span>
+            </div>
+            <div class="box system">
+              <strong>流量与工件记录</strong>
+              <span>保存日志、指标、漏洞证据</span>
+            </div>
+            <div class="box system">
+              <strong>交付输出器</strong>
+              <span>汇总为报告和代码</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="lane">
+          <div class="lane-head">
+            <div>
+              <h3 class="lane-title">第三层：项目记忆与回放</h3>
+              <p class="lane-desc">这层负责“记住这次发生了什么”，让系统不是一次性对话，而是能持续进步的项目型系统。</p>
+            </div>
+            <span class="tag memory">记忆层</span>
+          </div>
+          <div class="box-row">
+            <div class="box memory">
+              <strong>独立上下文窗口</strong>
+              <span>每个 Agent 只看自己的摘要</span>
+            </div>
+            <div class="box memory">
+              <strong>结构化交接</strong>
+              <span>不是共享一大段长对话</span>
+            </div>
+            <div class="box memory">
+              <strong>项目级记忆</strong>
+              <span>记录本次经验与风险</span>
+            </div>
+            <div class="box memory">
+              <strong>时间线回放</strong>
+              <span>回看每一步做了什么</span>
+            </div>
+            <div class="box memory">
+              <strong>证据引用</strong>
+              <span>能解释结论从哪里来</span>
+            </div>
+            <div class="box memory">
+              <strong>下轮优化</strong>
+              <span>把经验喂给下一次生成</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <h2>为什么这个架构更容易讲清楚</h2>
+        <p>这部分适合答辩时直接口头解释，用来避免听众产生误解。</p>
+      </div>
+      <div class="insight-grid">
+        <article class="note">
+          <h3>不是所有模块都是 Agent</h3>
+          <p>Agent 负责思考和决策，系统模块负责检索、调度、落盘、回放和可视化。这样分开后，职责就很清楚。</p>
+        </article>
+        <article class="note">
+          <h3>不是共享一个超长上下文</h3>
+          <p>每个 Agent 都有自己的独立上下文窗口，阶段之间靠结构化摘要传递信息，这样更省上下文，也更可维护。</p>
+        </article>
+        <article class="note">
+          <h3>不是只会生成报告</h3>
+          <p>系统会真正经历“方案生成 → 模拟攻击 → 评估修补 → 回归验证”，最后再形成交付，所以它是闭环系统，不是单次写作工具。</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <h2>对外展示时建议这样解释颜色</h2>
+        <p>如果你要截图放 PPT，这一块可以直接当图例。</p>
+      </div>
+      <div class="legend-grid">
+        <article class="legend-item">
+          <div class="legend-pill agent">橙色 = Agent</div>
+          <h3>会思考、会决策</h3>
+          <p>这些模块带有真实 LLM 能力，负责提出方案、决定攻击策略、评估漏洞和修补问题。</p>
+        </article>
+        <article class="legend-item">
+          <div class="legend-pill system">绿色 = 系统底座</div>
+          <h3>会执行、会控制</h3>
+          <p>这些模块负责知识检索、沙盒调度、模拟服务器、日志记录和交付输出，不负责“思考”。</p>
+        </article>
+        <article class="legend-item">
+          <div class="legend-pill memory">蓝灰 = 记忆与回放</div>
+          <h3>会记住、可回看</h3>
+          <p>这些模块负责上下文摘要、项目记忆、证据引用和时间线回放，是闭环优化的关键。</p>
+        </article>
+      </div>
+    </section>
+
+    <div class="footer-note">
+      <strong>一句话总结：</strong>
+      MedCipher Studio 不是“几个 Agent 轮流聊天”，而是一套把生成、审计、攻击、评估、修补、回放和交付串起来的多智能体闭环系统。
+      当前重点仍然是沙盒内的可控验证与项目级记忆，不把未完成的生产级执行器说成已经落地。
+    </div>
+  </main>
+</body>
+</html>

@@ -1,0 +1,74 @@
+name: GCM-SIV
+full_name: Galois/Counter Mode - Synthetic IV
+category: mode
+description: |
+  GCM-SIV is a nonce-misuse resistant authenticated encryption mode.
+  It provides deterministic encryption when nonces repeat, maintaining security even under nonce reuse.
+
+parameters:
+  block_size: 128
+  nonce_size: 96
+  tag_size: 128
+
+properties:
+  - authenticated_encryption
+  - nonce_misuse_resistant
+  - deterministic_on_nonce_reuse
+  - parallelizable
+  - hardware_accelerated
+
+performance:
+  software_speed: high
+  hardware_speed: very_high
+  memory: low
+  power: low
+
+security:
+  security_level: 256  # Security depends on underlying cipher (AES-256)
+  best_attack: none_practical
+  attack_complexity: "birthday bound at 2^48 per nonce"
+  status: secure
+  standardized: true
+  proven_security: true
+
+compatible_with:
+  - AES
+  - TLS
+  - QUIC
+  - modern_protocols
+
+not_compatible_with:
+  - stream_ciphers
+  - 64bit_block_ciphers
+  - legacy_systems
+
+use_cases:
+  - nonce_reuse_risky_environments
+  - stateless_protocols
+  - distributed_systems
+  - key_wrap
+  - deterministic_encryption
+
+not_recommended_for:
+  - extremely_high_throughput
+  - systems_with_guaranteed_unique_nonces
+
+references:
+  - type: rfc
+    title: "RFC 8452: AES-GCM-SIV"
+    url: https://tools.ietf.org/html/rfc8452
+    year: 2019
+  - type: paper
+    title: "GCM-SIV: Full Nonce Misuse-Resistant Authenticated Encryption at Under One Cycle per Byte"
+    url: https://eprint.iacr.org/2015/102
+    year: 2015
+
+implementation_notes: |
+  - Nonce reuse reveals only duplicate messages (no catastrophic failure)
+  - Slightly slower than standard GCM
+  - Two-pass mode (derives IV from message in first pass)
+  - Hardware acceleration available (AES-NI, PCLMULQDQ)
+  - Recommended for scenarios where nonce uniqueness is hard to guarantee
+  - Used in Google's QUIC protocol
+  - Safe fallback when nonce generation is uncertain
+  - Birthday bound at 2^48 blocks per nonce

@@ -1,0 +1,67 @@
+name: Serpent
+full_name: Serpent Block Cipher
+category: block_cipher
+description: |
+  Serpent is a symmetric block cipher and AES finalist designed for maximum security.
+  It uses 32 rounds (compared to AES's 10/12/14) providing exceptional security margin.
+
+parameters:
+  block_size: 128
+  key_size: [128, 192, 256]
+  rounds: 32
+
+properties:
+  - aes_finalist
+  - high_security_margin
+  - substitution_permutation_network
+  - conservative_design
+
+performance:
+  software_speed: low
+  hardware_speed: high
+  memory: low
+  power: low
+
+security:
+  security_level: 256
+  best_attack: differential_cryptanalysis
+  attack_complexity: "2^256"
+  status: secure
+  standardized: false
+  proven_security: true
+
+compatible_with:
+  - CBC
+  - CTR
+  - GCM
+  - CCM
+  - ECB
+  - XTS
+
+not_compatible_with: []
+
+use_cases:
+  - high_security_applications
+  - classified_data
+  - long_term_archival
+  - disk_encryption
+
+not_recommended_for:
+  - low_power_devices
+  - high_throughput_requirements
+
+references:
+  - type: paper
+    title: "Serpent: A Proposal for the Advanced Encryption Standard"
+    authors: ["Ross Anderson", "Eli Biham", "Lars Knudsen"]
+    year: 1998
+  - type: specification
+    title: "The Serpent Block Cipher"
+    url: https://www.cl.cam.ac.uk/~rja14/serpent.html
+    year: 1998
+
+implementation_notes: |
+  - Highest security margin among AES finalists
+  - 32 rounds provides exceptional resistance to cryptanalysis
+  - Slower than AES but extremely secure
+  - Excellent choice for long-term data protection

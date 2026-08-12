@@ -1,0 +1,74 @@
+name: PBKDF2
+full_name: Password-Based Key Derivation Function 2
+category: construction
+description: |
+  PBKDF2 applies a pseudorandom function (like HMAC) to the password along with
+  a salt and repeats the process many times to produce a derived key.
+
+parameters:
+  output_size: 256
+
+properties:
+  - password_hashing
+  - key_derivation
+  - computationally_expensive
+  - salt_required
+  - iteration_count_tunable
+
+performance:
+  software_speed: slow_by_design
+  hardware_speed: medium
+  memory: low
+  power: medium
+
+security:
+  security_level: 256  # PBKDF2-HMAC-SHA256 can provide up to 256-bit security
+  best_attack: brute_force
+  attack_complexity: "iterations * dictionary_size, hash-dependent"
+  status: secure
+  standardized: true
+  proven_security: true
+
+compatible_with:
+  - HMAC
+  - SHA-256
+  - SHA-512
+  - password_storage
+  - encrypted_containers
+  - WPA2
+
+not_compatible_with:
+  - high_speed_key_derivation
+
+use_cases:
+  - password_storage
+  - password_based_encryption
+  - wpa2_wifi
+  - encrypted_disk_images
+  - key_derivation_from_passwords
+
+not_recommended_for:
+  - high_entropy_inputs
+  - high_speed_applications
+  - defense_against_asics
+
+references:
+  - type: rfc
+    title: "RFC 2898: PKCS #5 v2.0"
+    url: https://tools.ietf.org/html/rfc2898
+    year: 2000
+  - type: standard
+    title: "NIST SP 800-132: Password-Based Key Derivation"
+    url: https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-132.pdf
+    year: 2010
+
+implementation_notes: |
+  - Use cryptographically random salt (at least 128 bits)
+  - Never reuse salts
+  - OWASP recommendations (2023):
+    * PBKDF2-HMAC-SHA256: 600,000 iterations
+    * PBKDF2-HMAC-SHA512: 210,000 iterations
+  - Consider Argon2 for new applications (more resistant to hardware attacks)
+  - Memory-hard alternatives (Argon2, scrypt) better against ASICs
+  - Still widely used and acceptable for password storage
+  - Adjust iterations based on performance requirements

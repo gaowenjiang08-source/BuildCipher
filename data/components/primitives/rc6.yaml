@@ -1,0 +1,72 @@
+name: RC6
+full_name: Rivest Cipher 6
+category: block_cipher
+description: |
+  RC6 is a symmetric block cipher designed by Ron Rivest and others as an AES finalist. It operates on 128-bit blocks
+  and supports variable key sizes of 128, 192, and 256 bits. Based on RC5 with additional features, RC6 uses
+  data-dependent rotations and is notable for its simplicity and efficiency in both software and hardware.
+
+parameters:
+  block_size: 128
+  key_size: [128, 192, 256]
+  rounds: 20
+
+properties:
+  - aes_finalist
+  - data_dependent_rotations
+  - simple_design
+  - efficient_software
+  - variable_key_length
+
+performance:
+  software_speed: high
+  hardware_speed: high
+  memory: low
+  power: medium
+
+security:
+  security_level: 256  # With RC6-256
+  best_attack: differential_cryptanalysis
+  attack_complexity: "2^126 for reduced-round variants"
+  status: secure
+  standardized: false
+  proven_security: true
+
+compatible_with:
+  - CBC
+  - CTR
+  - GCM
+  - CFB
+  - OFB
+  - ECB
+
+not_compatible_with: []
+
+use_cases:
+  - general_purpose_encryption
+  - embedded_systems
+  - software_encryption
+  - file_encryption
+  - academic_research
+
+not_recommended_for:
+  - regulatory_compliance_requiring_nist_approval
+  - systems_requiring_standardized_algorithms
+  - ultra_low_power_devices
+
+references:
+  - type: paper
+    title: "The RC6 Block Cipher"
+    authors: ["Ronald Rivest", "M.J.B. Robshaw", "R. Sidney", "Y.L. Yin"]
+    year: 1998
+  - type: standard
+    title: "AES Finalist Algorithm Specifications"
+    url: https://csrc.nist.gov/projects/cryptographic-standards-and-guidelines/archived-crypto-projects/aes-development
+    year: 2000
+
+implementation_notes: |
+  - Uses integer multiplication for increased diffusion compared to RC5
+  - Four working registers provide parallelism opportunities
+  - Data-dependent rotations provide non-linearity and security
+  - Despite being an AES finalist, RC6 is not as widely adopted as AES
+  - Patent status should be verified before commercial use

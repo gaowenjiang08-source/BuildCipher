@@ -1,0 +1,96 @@
+name: VRF
+full_name: Verifiable Random Function
+category: signature
+description: |
+  A Verifiable Random Function (VRF) is a pseudorandom function that provides
+  publicly verifiable proofs of its outputs. The key holder can compute the function
+  and generate a proof, which anyone can verify using the public key. Used extensively
+  in blockchain consensus and leader election protocols.
+
+parameters:
+  key_size: [256, 512]
+  output_size: 256  # Typically 256 bits
+  proof_size: [80, 96]
+  curve: [Curve25519, secp256k1, BLS12-381]
+
+properties:
+  - pseudorandom
+  - publicly_verifiable
+  - unique_output
+  - collision_resistant
+  - unpredictable
+  - deterministic
+  - non_interactive
+
+performance:
+  software_speed: medium
+  hardware_speed: medium
+  memory: low
+  power: medium
+  proving_time: medium
+  verification_time: fast
+
+security:
+  security_level: 128
+  best_attack: discrete_logarithm
+  attack_complexity: "2^128 for 256-bit security"
+  status: secure
+  standardized: true
+  proven_security: true
+
+compatible_with:
+  - ECDSA
+  - EdDSA
+  - blockchain_consensus
+  - distributed_systems
+  - smart_contracts
+
+not_compatible_with:
+  - quantum_computers
+  - symmetric_key_systems
+
+use_cases:
+  - blockchain_consensus
+  - leader_election
+  - random_beacons
+  - lottery_systems
+  - proof_of_stake
+  - algorand_consensus
+  - cardano_ouroboros
+  - dfinity
+  - sortition_algorithms
+
+not_recommended_for:
+  - high_throughput_random_generation
+  - quantum_resistant_systems
+  - symmetric_encryption
+
+references:
+  - type: paper
+    title: "Verifiable Random Functions"
+    authors: ["Silvio Micali", "Michael Rabin", "Salil Vadhan"]
+    year: 1999
+  - type: standard
+    title: "IETF Draft: Verifiable Random Functions (VRFs)"
+    url: https://datatracker.ietf.org/doc/html/draft-irtf-cfrg-vrf
+    year: 2023
+  - type: paper
+    title: "Algorand: Scaling Byzantine Agreements for Cryptocurrencies"
+    year: 2017
+  - type: paper
+    title: "Ouroboros: A Provably Secure Proof-of-Stake Blockchain Protocol"
+    year: 2017
+
+implementation_notes: |
+  - VRF output is pseudorandom and unpredictable
+  - Public key allows anyone to verify correctness of output
+  - Secret key holder can compute output and generate proof
+  - Used in Algorand, Cardano, Polkadot, DFINITY, and others
+  - ECVRF (Elliptic Curve VRF) most common implementation
+  - Based on elliptic curve cryptography (vulnerable to quantum)
+  - Proof size typically 80-96 bytes
+  - Output deterministic for same input and key
+  - Cannot forge valid outputs without secret key
+  - Use Curve25519 or secp256k1 for implementations
+  - Critical for proof-of-stake blockchain consensus
+  - Enables fair leader election without trusted parties

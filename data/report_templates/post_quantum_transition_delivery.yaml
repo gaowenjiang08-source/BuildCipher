@@ -1,0 +1,39 @@
+id: post_quantum_transition_delivery
+name: 后量子迁移交付模板
+status: active
+scenario: general
+summary: 面向长期安全与算法迁移规划的企业交付模板，强调阶段性落地、兼容性与路线图。
+applies_to_skills:
+  - pqc_migration_advisor
+target_audiences:
+  - security
+  - architecture
+  - platform
+control_focus:
+  - 混合部署与兼容性
+  - 长期安全与迁移路线图
+  - 演进风险与切换条件
+evidence_checklist:
+  - 区分近期可落地方案与长期目标方案
+  - 给出阶段切换条件、兼容风险与回滚建议
+open_question_prompts:
+  - 是否已有既定算法白名单、硬件约束或兼容性边界？
+sections:
+  - id: business_context
+    title: 业务背景与范围
+    purpose: 说明当前资产范围、长期安全目标与平台约束。
+  - id: regulatory_mapping
+    title: 迁移控制映射
+    purpose: 说明迁移策略与控制要求的对应关系。
+  - id: crypto_controls
+    title: 推荐密码控制措施
+    purpose: 提炼当前阶段与目标阶段的控制策略。
+  - id: evidence_validation
+    title: 证据与验证清单
+    purpose: 列出迁移评审、兼容性验证与演进证据。
+  - id: open_questions
+    title: 开放问题与当前假设
+    purpose: 记录仍需明确的兼容性、合规与平台问题。
+  - id: residual_risks
+    title: 剩余风险与决策记录
+    purpose: 说明迁移窗口、兼容风险与下一步动作。

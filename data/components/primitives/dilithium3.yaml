@@ -1,0 +1,88 @@
+name: Dilithium3
+full_name: CRYSTALS-Dilithium Level 3 (ML-DSA-65)
+category: signature
+description: |
+  Dilithium3 is the 192-bit security level variant of CRYSTALS-Dilithium.
+  NIST RECOMMENDED parameter set providing high security with reasonable
+  performance. Best choice for most high-security applications.
+
+parameters:
+  security_level: 192
+  public_key_size: 1952
+  secret_key_size: 4000
+  signature_size: 3293
+
+properties:
+  - post_quantum
+  - digital_signature
+  - lattice_based
+  - nist_selected
+  - quantum_resistant
+  - nist_recommended
+  - high_security
+
+performance:
+  software_speed: high
+  hardware_speed: high
+  memory: medium
+  power: medium
+  signing_time: fast
+  verification_time: fast
+
+security:
+  security_level: 192
+  best_attack: none_practical
+  attack_complexity: "2^192 quantum operations"
+  status: secure
+  standardized: true
+  proven_security: true
+  quantum_resistant: true
+
+compatible_with:
+  - TLS
+  - certificates
+  - code_signing
+  - hybrid_signatures
+  - government_systems
+  - enterprise_pki
+
+not_compatible_with:
+  - encryption
+  - ultra_constrained_devices
+
+use_cases:
+  - enterprise_security
+  - government_applications
+  - high_value_transactions
+  - code_signing
+  - root_certificates
+  - long_term_security
+  - financial_systems
+  - long_lived_built_asset_archives
+
+not_recommended_for:
+  - iot_devices
+  - ultra_constrained_bandwidth
+
+references:
+  - type: standard
+    title: "NIST FIPS 204: Module-Lattice-Based Digital Signature Standard"
+    url: https://csrc.nist.gov/pubs/fips/204/final
+    year: 2024
+  - type: paper
+    title: "CRYSTALS-Dilithium"
+    url: https://pq-crystals.org/dilithium/
+    year: 2020
+
+implementation_notes: |
+  - NIST standardized as ML-DSA-65 (FIPS 204)
+  - 192-bit quantum security level
+  - NIST RECOMMENDED parameter set
+  - ~3.3 KB signatures (moderate size)
+  - Excellent balance of security and performance
+  - Suitable for high-security applications
+  - Recommended for enterprise and government use
+  - Can be used in hybrid mode with Ed25519
+  - Preferred choice for long-term security
+  - Good for root CA certificates
+  - Appropriate for classified systems (up to SECRET)

@@ -1,0 +1,76 @@
+name: Schnorr
+full_name: Schnorr Signature
+category: signature
+description: |
+  Schnorr signatures are based on the discrete logarithm problem and offer simplicity and provable security.
+  They are deterministic, support key aggregation, and are used in Bitcoin's Taproot upgrade.
+
+parameters:
+  curve: [secp256k1, P-256, Ed25519]
+  hash_function: [SHA-256, SHA-512]
+
+properties:
+  - discrete_log_based
+  - provably_secure
+  - deterministic
+  - linear_signature_aggregation
+  - batch_verification
+  - small_signatures
+
+performance:
+  software_speed: high
+  hardware_speed: high
+  memory: low
+  power: low
+  signature_size: 64
+
+security:
+  security_level: 128  # For 256-bit curves
+  best_attack: discrete_log_algorithms
+  attack_complexity: "2^128 for 256-bit curves"
+  status: secure
+  standardized: true
+  proven_security: true
+
+compatible_with:
+  - Bitcoin_Taproot
+  - secp256k1
+  - Ed25519
+  - multi_signatures
+  - threshold_signatures
+
+not_compatible_with:
+  - quantum_computers
+  - RSA_infrastructure
+
+use_cases:
+  - bitcoin_transactions
+  - cryptocurrency_signatures
+  - multi_signature_schemes
+  - threshold_cryptography
+  - blockchain_protocols
+
+not_recommended_for:
+  - post_quantum_security
+  - legacy_systems
+  - x509_certificates
+
+references:
+  - type: paper
+    title: "Efficient Signature Generation by Smart Cards"
+    authors: ["Claus-Peter Schnorr"]
+    year: 1991
+  - type: standard
+    title: "BIP 340: Schnorr Signatures for secp256k1"
+    url: https://github.com/bitcoin/bips/blob/master/bip-0340.mediawiki
+    year: 2020
+
+implementation_notes: |
+  - Simpler than ECDSA with provable security
+  - Requires unique nonce per signature (like ECDSA)
+  - Supports signature aggregation and batch verification
+  - Used in Bitcoin Taproot (BIP 340)
+  - 64-byte signatures (32-byte R, 32-byte s)
+  - Deterministic nonce generation recommended (RFC 6979)
+  - Vulnerable to quantum computers
+  - Key aggregation enables multi-signature protocols

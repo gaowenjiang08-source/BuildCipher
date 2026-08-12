@@ -1,0 +1,64 @@
+name: ECDH
+full_name: Elliptic Curve Diffie-Hellman
+category: key_exchange
+description: |
+  ECDH is a key agreement protocol based on elliptic curves. It allows two parties
+  to establish a shared secret over an insecure channel.
+
+parameters:
+  key_size: [256, 384, 521]
+
+properties:
+  - key_exchange
+  - forward_secrecy
+  - standardized
+  - constant_time_capable
+
+performance:
+  software_speed: high
+  hardware_speed: high
+  memory: low
+  power: low
+
+security:
+  security_level: 256
+  best_attack: none_practical
+  attack_complexity: "2^128 for P-256"
+  status: secure
+  standardized: true
+  proven_security: true
+
+compatible_with:
+  - P-256
+  - P-384
+  - P-521
+  - secp256k1
+  - X25519
+  - TLS
+  - IPsec
+
+not_compatible_with: []
+
+use_cases:
+  - tls_handshake
+  - ipsec
+  - vpn
+  - secure_messaging
+  - key_establishment
+
+not_recommended_for:
+  - digital_signatures
+  - encryption_directly
+
+references:
+  - type: standard
+    title: "NIST SP 800-56A Rev. 3: Recommendation for Pair-Wise Key-Establishment Schemes"
+    url: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-56Ar3.pdf
+    year: 2018
+
+implementation_notes: |
+  - Provides forward secrecy in TLS and other protocols
+  - Ephemeral ECDH (ECDHE) recommended for forward secrecy
+  - Must validate public keys to prevent attacks
+  - Combine with KDF (like HKDF) to derive session keys
+  - X25519 often preferred over NIST curves

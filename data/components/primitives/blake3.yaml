@@ -1,0 +1,67 @@
+name: BLAKE3
+full_name: BLAKE3 Cryptographic Hash Function
+category: hash_function
+description: |
+  BLAKE3 is a cryptographic hash function based on BLAKE2. It is extremely fast
+  while maintaining high security, and supports parallel hashing and tree hashing.
+
+parameters:
+  output_size: 256
+  block_size: 1024
+
+properties:
+  - collision_resistant
+  - preimage_resistant
+  - second_preimage_resistant
+  - parallelizable
+  - tree_hashing
+  - incremental_updates
+
+performance:
+  software_speed: very_high
+  hardware_speed: very_high
+  memory: very_low
+  power: very_low
+
+security:
+  security_level: 256
+  best_attack: none_practical
+  attack_complexity: "2^256 for collision resistance"
+  status: secure
+  standardized: false
+  proven_security: true
+
+compatible_with:
+  - HMAC
+  - KDF
+  - MAC
+  - PRF
+
+not_compatible_with: []
+
+use_cases:
+  - file_integrity
+  - content_addressing
+  - deduplication
+  - merkle_trees
+  - high_performance_hashing
+  - parallel_hashing
+
+not_recommended_for:
+  - password_hashing_alone
+
+references:
+  - type: paper
+    title: "BLAKE3: one function, fast everywhere"
+    authors: ["Jack O'Connor", "Jean-Philippe Aumasson", "Samuel Neves", "Zooko Wilcox-O'Hearn"]
+    url: https://github.com/BLAKE3-team/BLAKE3-specs/blob/master/blake3.pdf
+    year: 2020
+
+implementation_notes: |
+  - Extremely fast: faster than SHA-256, SHA-3, BLAKE2
+  - Parallelizable across cores
+  - Tree hashing mode for parallel processing
+  - Supports incremental updates
+  - Arbitrary output length
+  - No initialization vector needed
+  - Used by Zcash, Filecoin, and others

@@ -1,0 +1,44 @@
+id: pqc_migration_advisor
+name: 后量子迁移顾问
+description: 面向长期安全与迁移规划，优先输出经典算法到后量子或混合架构的迁移方案。
+version: 2.0.0
+status: active
+category: post_quantum
+execution_mode: mas
+route_priority: 70
+auto_route_enabled: true
+tags:
+  - pqc
+  - migration
+  - hybrid
+route_keywords:
+  - 后量子
+  - 量子
+  - 迁移
+  - 混合
+  - hybrid
+  - pqc
+  - kyber
+  - ml-kem
+  - long-term
+  - 长期
+target_users:
+  - enterprise
+  - security_team
+  - architect
+output_focus:
+  - 设计可迁移的经典加后量子混合架构
+  - 明确量子风险、迁移路径和替代建议
+  - 给出短期可落地与长期可演进方案
+prompt_preamble: |
+  You are executing the Post-Quantum Migration Advisor skill.
+  Prefer hybrid cryptographic designs, highlight migration phases, and explicitly discuss
+  quantum exposure, interoperability, and rollout sequencing.
+prompt_appendix: |
+  The result should distinguish near-term deployable options from long-term post-quantum targets.
+example_requirement: |
+  请为长期保存的合同与审计归档系统设计密码方案，要求兼顾当前兼容性与未来后量子迁移能力。
+recommended_num_variants: 4
+recommended_max_audit_rounds: 5
+generate_code_default: true
+strict_clarification_default: true

@@ -1,0 +1,62 @@
+name: SHA3-256
+full_name: SHA-3 with 256-bit output
+category: hash_function
+description: |
+  SHA3-256 is part of the SHA-3 family based on the Keccak algorithm.
+  It provides 256-bit hash output and is fundamentally different from SHA-2.
+
+parameters:
+  output_size: 256
+  block_size: 1088
+
+properties:
+  - collision_resistant
+  - preimage_resistant
+  - second_preimage_resistant
+  - sponge_construction
+  - standardized
+
+performance:
+  software_speed: medium
+  hardware_speed: high
+  memory: low
+  power: medium
+
+security:
+  security_level: 256
+  best_attack: none_practical
+  attack_complexity: "2^256"
+  status: secure
+  standardized: true
+  proven_security: true
+
+compatible_with:
+  - HMAC
+  - KDF
+  - SHAKE
+
+not_compatible_with: []
+
+use_cases:
+  - file_integrity
+  - digital_signatures
+  - certificates
+  - general_hashing
+  - diversity_from_sha2
+
+not_recommended_for:
+  - password_hashing_alone
+
+references:
+  - type: standard
+    title: "FIPS 202: SHA-3 Standard"
+    url: https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.202.pdf
+    year: 2015
+
+implementation_notes: |
+  - Based on Keccak sponge construction
+  - Different internal structure from SHA-2
+  - Good for hedging against SHA-2 vulnerabilities
+  - Slightly slower than SHA-256 in software
+  - No length extension attacks
+  - SHAKE128/SHAKE256 are XOF variants

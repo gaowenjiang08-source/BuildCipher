@@ -1,0 +1,84 @@
+name: XTS
+full_name: XEX-based Tweaked Codebook Mode
+category: mode
+description: |
+  XTS is a tweakable block cipher mode designed specifically for disk encryption.
+  It provides confidentiality for stored data with support for random access and sector-based encryption.
+
+parameters:
+  block_size: 128
+  tweak_size: 128
+  key_size: [256, 512]  # Uses two keys (2 x 128 or 2 x 256)
+  sector_based: true
+
+properties:
+  - disk_encryption
+  - tweakable_block_cipher
+  - random_access
+  - sector_based
+  - no_padding_expansion
+
+performance:
+  software_speed: high
+  hardware_speed: very_high
+  memory: low
+  power: low
+
+security:
+  security_level: 256  # For XTS-AES-256
+  best_attack: none_practical
+  attack_complexity: "narrow-block attack on small sectors"
+  status: secure
+  standardized: true
+  proven_security: true
+
+compatible_with:
+  - AES
+  - disk_encryption
+  - full_disk_encryption
+  - file_system_encryption
+  - sector_storage
+
+not_compatible_with:
+  - network_encryption
+  - stream_data
+  - non_sector_based_storage
+  - stream_ciphers
+
+use_cases:
+  - full_disk_encryption
+  - bitlocker
+  - filevault
+  - luks
+  - dm_crypt
+  - ssd_encryption
+  - usb_drive_encryption
+
+not_recommended_for:
+  - network_protocols
+  - streaming_data
+  - cloud_storage_encryption
+  - authenticated_encryption
+
+references:
+  - type: standard
+    title: "NIST SP 800-38E: XTS-AES Mode"
+    url: https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-38e.pdf
+    year: 2010
+  - type: standard
+    title: "IEEE P1619: XTS-AES Standard"
+    url: https://standards.ieee.org/standard/1619-2018.html
+    year: 2018
+
+implementation_notes: |
+  - Uses two independent keys (key1 for encryption, key2 for tweak)
+  - Tweak is typically sector number or block address
+  - No authentication (use with integrity checking separately)
+  - Minimum data unit size is 128 bits (one block)
+  - Does not hide patterns within a sector
+  - Ciphertext size equals plaintext size (no expansion)
+  - Resistant to copy-and-paste attacks between sectors
+  - Widely used in BitLocker, FileVault, dm-crypt
+  - XTS-AES-128 uses 256-bit key (2 x 128)
+  - XTS-AES-256 uses 512-bit key (2 x 256)
+  - Not suitable for network encryption

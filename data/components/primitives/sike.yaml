@@ -1,0 +1,81 @@
+name: SIKE
+full_name: Supersingular Isogeny Key Encapsulation
+category: key_exchange
+description: |
+  SIKE was a NIST PQC Round 4 candidate based on supersingular isogeny Diffie-Hellman.
+  It was broken in 2022 by an efficient classical attack, making it of historical interest only.
+
+parameters:
+  security_level: [SIKEp434, SIKEp503, SIKEp610, SIKEp751]
+  base_field: prime_field
+
+properties:
+  - isogeny_based
+  - smallest_keys
+  - broken_2022
+  - historical_interest
+  - nist_round_4_eliminated
+
+performance:
+  software_speed: very_low
+  hardware_speed: low
+  memory: low
+  power: low
+  public_key_size: 330  # SIKEp434
+  ciphertext_size: 346
+  operation_slow: true
+
+security:
+  security_level: 0  # Broken in 2022
+  best_attack: castryck_decru_attack
+  attack_complexity: "Polynomial time (practical)"
+  status: broken
+  standardized: false
+  proven_security: false
+  quantum_resistant: false
+
+compatible_with:
+  - academic_research
+  - cryptographic_history
+
+not_compatible_with:
+  - production_systems
+  - secure_applications
+  - any_real_world_use
+
+use_cases:
+  - academic_study
+  - cryptanalysis_research
+  - historical_reference
+  - isogeny_research
+
+not_recommended_for:
+  - any_production_use
+  - key_exchange
+  - encryption
+  - security_applications
+
+references:
+  - type: paper
+    title: "SIKE: Supersingular Isogeny Key Encapsulation"
+    authors: ["David Jao", "Reza Azarderakhsh", "Matthew Campagna", "Craig Costello", "Luca De Feo", "Basil Hess", "Amir Jalali", "Brian Koziel", "Brian LaMacchia", "Patrick Longa", "Michael Naehrig", "Joost Renes", "Vladimir Soukharev", "David Urbanik"]
+    year: 2020
+  - type: paper
+    title: "An efficient key recovery attack on SIDH"
+    authors: ["Wouter Castryck", "Thomas Decru"]
+    year: 2022
+
+implementation_notes: |
+  - BROKEN in 2022 - DO NOT USE
+  - Was a NIST PQC Round 4 candidate
+  - Castryck-Decru attack breaks it in polynomial time
+  - Attack is practical and efficient on classical computers
+  - Had smallest key sizes among PQC candidates (330 bytes)
+  - Very slow operations (hundreds of milliseconds)
+  - Based on supersingular elliptic curve isogenies
+  - The attack broke SIDH, the underlying primitive
+  - Shows importance of conservative cryptographic design
+  - Of historical and academic interest only
+  - Example of PQC candidate that failed
+  - NOT quantum-resistant despite being post-quantum candidate
+  - Entire isogeny-based approach needs reevaluation

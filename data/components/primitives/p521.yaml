@@ -1,0 +1,65 @@
+name: P-521
+full_name: NIST P-521 (secp521r1)
+category: construction
+description: |
+  P-521 is a NIST standardized elliptic curve providing 260-bit security.
+  Highest security NIST curve, suitable for ultra-long-term protection.
+
+parameters:
+  key_size: [521]
+  security_level: 260
+
+properties:
+  - elliptic_curve
+  - nist_standardized
+  - ultra_high_security
+  - fips_approved
+
+performance:
+  software_speed: low
+  hardware_speed: medium
+  memory: low
+  power: medium
+
+security:
+  security_level: 260
+  best_attack: none_practical
+  attack_complexity: "2^260"
+  status: secure
+  standardized: true
+  proven_security: true
+
+compatible_with:
+  - ECDSA
+  - ECDH
+  - TLS
+  - X509
+  - ultra_high_security_applications
+
+not_compatible_with: []
+
+use_cases:
+  - ultra_long_term_security
+  - root_certificates
+  - government_top_secret
+  - maximum_classical_security
+
+not_recommended_for:
+  - resource_constrained_devices
+  - performance_critical_applications
+  - most_general_applications
+
+references:
+  - type: standard
+    title: "FIPS 186-5: Digital Signature Standard"
+    url: https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.186-5.pdf
+    year: 2023
+
+implementation_notes: |
+  - 260-bit security (not 256 due to key size)
+  - Slowest NIST curve
+  - Very high security margin
+  - 521 bits (not 512) for mathematical reasons
+  - Overkill for most applications
+  - Good for paranoid long-term security
+  - Consider post-quantum alternatives instead

@@ -1,0 +1,72 @@
+name: MARS
+full_name: MARS Block Cipher
+category: block_cipher
+description: |
+  MARS is a symmetric block cipher developed by IBM as an AES finalist. It operates on 128-bit blocks with
+  variable key sizes of 128, 192, and 256 bits. MARS features a complex heterogeneous design combining multiple
+  cryptographic techniques including type-3 Feistel structure, S-boxes, and data-dependent rotations.
+
+parameters:
+  block_size: 128
+  key_size: [128, 192, 256]
+  rounds: 32
+
+properties:
+  - aes_finalist
+  - heterogeneous_design
+  - type3_feistel
+  - conservative_security
+  - complex_structure
+
+performance:
+  software_speed: medium
+  hardware_speed: medium
+  memory: medium
+  power: medium
+
+security:
+  security_level: 256  # With MARS-256
+  best_attack: impossible_differential
+  attack_complexity: "2^228 for reduced rounds"
+  status: secure
+  standardized: false
+  proven_security: true
+
+compatible_with:
+  - CBC
+  - CTR
+  - GCM
+  - CFB
+  - OFB
+  - ECB
+
+not_compatible_with: []
+
+use_cases:
+  - high_security_applications
+  - defense_systems
+  - academic_research
+  - cryptographic_diversity
+  - legacy_ibm_systems
+
+not_recommended_for:
+  - resource_constrained_devices
+  - performance_critical_applications
+  - systems_requiring_standardized_algorithms
+
+references:
+  - type: paper
+    title: "The MARS Encryption Algorithm"
+    authors: ["Carolynn Burwick", "Don Coppersmith", "Edward D'Avignon", "Rosario Gennaro", "Shai Halevi", "Charanjit Jutla", "Stephen M. Matyas Jr.", "Luke O'Connor", "Mohammad Peyravian", "David Safford", "Nevenko Zunic"]
+    year: 1998
+  - type: standard
+    title: "AES Finalist Algorithm Specifications"
+    url: https://csrc.nist.gov/projects/cryptographic-standards-and-guidelines/archived-crypto-projects/aes-development
+    year: 2000
+
+implementation_notes: |
+  - Complex design with three layers: forward mixing, cryptographic core, backward mixing
+  - Uses 8x32-bit S-boxes generated from SHA-1
+  - 32 rounds provide conservative security margin
+  - Higher memory requirements due to large S-boxes
+  - Not widely adopted despite being an AES finalist, consider AES for broader compatibility

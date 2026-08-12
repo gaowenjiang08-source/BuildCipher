@@ -1,0 +1,92 @@
+name: CPace
+full_name: Composable Password-Authenticated Connection Establishment
+category: protocol
+description: |
+  CPace is a balanced password-authenticated key exchange protocol designed for simplicity
+  and security. It is a CFRG (Crypto Forum Research Group) PAKE that provides strong
+  security guarantees with a clean, composable design.
+
+parameters:
+  variant: CPace
+  curve: ristretto255_P256_P384_P521
+  hash_to_curve: elligator_or_sswu
+  rounds: 1 # single simultaneous exchange
+
+properties:
+  - password_authentication
+  - balanced_pake
+  - forward_secrecy
+  - composable_security
+  - hash_to_curve_based
+
+performance:
+  key_exchange: fast
+  computation: low
+  communication: low
+  server_storage: minimal
+  memory: low
+
+security:
+  security_level: 128
+  best_attack: none_practical
+  attack_complexity: "CDH_assumption"
+  status: secure
+  standardized: true
+  proven_security: true
+  quantum_resistant: false
+
+compatible_with:
+  - peer_to_peer_authentication
+  - symmetric_scenarios
+  - device_to_device
+  - password_based_channels
+  - secure_messaging
+
+not_compatible_with:
+  - post_quantum_scenarios
+  - asymmetric_authentication
+  - server_client_only
+
+use_cases:
+  - peer_to_peer_authentication
+  - device_pairing
+  - secure_channel_establishment
+  - password_based_encryption
+  - symmetric_authentication
+  - secure_messaging_setup
+
+not_recommended_for:
+  - client_server_scenarios # use OPAQUE
+  - post_quantum_security
+  - asymmetric_authentication
+
+references:
+  - type: rfc
+    title: "RFC 9382: CPace, a Balanced Composable PAKE"
+    url: https://datatracker.ietf.org/doc/rfc9382/
+    year: 2023
+  - type: paper
+    title: "CPace: Composable, Efficient and Secure Password-Authenticated Connection Establishment"
+    authors: ["Björn Haase", "Benoît Labrique"]
+    year: 2021
+    url: https://eprint.iacr.org/2018/286
+  - type: implementation
+    title: "CPace Reference Implementation"
+    url: https://github.com/cpace/cpace
+    year: 2021
+
+implementation_notes: |
+  - CFRG standardized in RFC 9382 (2023)
+  - Balanced PAKE: both parties have same role
+  - Single simultaneous message exchange
+  - Strong composability guarantees in UC model
+  - Hash-to-curve is central to security
+  - Supports Ristretto255, P-256, P-384, P-521
+  - Elligator or SSWU hash-to-curve methods
+  - Simpler than SPAKE2+ with similar efficiency
+  - Excellent security proof and analysis
+  - Suitable for peer-to-peer scenarios
+  - Not augmented (both parties know password)
+  - Post-quantum variants under research
+  - Channel ID binds key exchange to application
+  - Session ID for channel binding

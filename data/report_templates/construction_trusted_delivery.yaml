@@ -1,0 +1,21 @@
+id: construction_trusted_delivery
+name: 建筑数字资产可信交付报告
+status: active
+scenario: construction
+summary: 面向 BIM/IFC、项目协同和工程验收的主交付模板，强调版本、权限、签批、攻击验证与证据回放。
+target_audiences: [owner, design, contractor, supervisor, security]
+control_focus: [参与方与信任边界, 资产生命周期, BIM 版本与签名链, 权限矩阵, 攻击修补回归]
+evidence_checklist: [IFC manifest 与内容摘要, 签名和批准状态证据, 访问拒绝日志, 攻击与回归 artifact, 决策 lineage]
+open_question_prompts: [当前批准版本和签批责任人是谁？, 各专业分包允许查看哪些构件和属性？]
+sections:
+  - {id: project_scope, title: 项目背景与范围, purpose: 说明项目阶段、参与方、目标和边界。}
+  - {id: trust_boundary, title: 参与方和信任边界, purpose: 说明组织、角色、设备身份和跨域流动。}
+  - {id: asset_lifecycle, title: 资产分类和生命周期, purpose: 说明资产、敏感度、版本和保存期限。}
+  - {id: access_matrix, title: 权限与共享矩阵, purpose: 说明项目、专业、阶段和时间约束。}
+  - {id: crypto_controls, title: 密码组件和密钥策略, purpose: 说明成熟实现、密钥域、证书和轮换。}
+  - {id: bim_chain, title: BIM/IFC 版本与签名链, purpose: 说明 manifest、父版本、批准状态和验真。}
+  - {id: iot_trust, title: IoT 数据可信策略, purpose: 说明设备身份、消息认证和新鲜度。}
+  - {id: attack_loop, title: 攻击验证和修补结果, purpose: 记录攻击、漏洞、补丁和回归。}
+  - {id: evidence, title: 证据清单, purpose: 汇总 evidence、artifact 和 lineage 引用。}
+  - {id: residual_risks, title: 剩余风险和决策记录, purpose: 记录假设、限制、责任人和下一步。}
+

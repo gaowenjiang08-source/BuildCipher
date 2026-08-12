@@ -1,0 +1,62 @@
+name: SHAKE256
+full_name: SHA-3 Extendable-Output Function 256
+category: hash_function
+description: |
+  SHAKE256 is an extendable-output function (XOF) based on SHA-3. It can produce
+  outputs of any desired length, making it useful for KDFs and custom-length hashes.
+
+parameters:
+  output_size: 256
+  block_size: 1088
+
+properties:
+  - extendable_output
+  - collision_resistant
+  - preimage_resistant
+  - sponge_construction
+  - variable_length_output
+
+performance:
+  software_speed: medium
+  hardware_speed: high
+  memory: low
+  power: medium
+
+security:
+  security_level: 256
+  best_attack: none_practical
+  attack_complexity: "2^256"
+  status: secure
+  standardized: true
+  proven_security: true
+
+compatible_with:
+  - KDF
+  - PRF
+  - customizable_applications
+
+not_compatible_with: []
+
+use_cases:
+  - key_derivation
+  - random_number_generation
+  - custom_length_hashing
+  - merkle_trees
+  - commitments
+
+not_recommended_for:
+  - password_hashing_alone
+
+references:
+  - type: standard
+    title: "FIPS 202: SHA-3 Standard"
+    url: https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.202.pdf
+    year: 2015
+
+implementation_notes: |
+  - Can produce arbitrary-length output
+  - More flexible than fixed-output SHA3
+  - Useful for KDFs and domain-specific applications
+  - SHAKE128 provides 128-bit security
+  - SHAKE256 provides 256-bit security
+  - No length extension attacks

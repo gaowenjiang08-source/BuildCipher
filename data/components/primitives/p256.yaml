@@ -1,0 +1,67 @@
+name: P-256
+full_name: NIST P-256 (secp256r1)
+category: construction
+description: |
+  P-256 is a NIST standardized elliptic curve providing 128-bit security.
+  Widely used in TLS, certificates, and government applications.
+
+parameters:
+  key_size: [256]
+  security_level: 128
+
+properties:
+  - elliptic_curve
+  - nist_standardized
+  - hardware_accelerated
+  - fips_approved
+
+performance:
+  software_speed: high
+  hardware_speed: very_high
+  memory: low
+  power: low
+
+security:
+  security_level: 128
+  best_attack: none_practical
+  attack_complexity: "2^128"
+  status: secure
+  standardized: true
+  proven_security: true
+
+compatible_with:
+  - ECDSA
+  - ECDH
+  - TLS
+  - X509
+  - JWT
+
+not_compatible_with: []
+
+use_cases:
+  - tls
+  - certificates
+  - government_systems
+  - fips_compliance
+  - web_authentication
+
+not_recommended_for:
+  - applications_requiring_256bit_security
+
+references:
+  - type: standard
+    title: "FIPS 186-5: Digital Signature Standard"
+    url: https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.186-5.pdf
+    year: 2023
+  - type: standard
+    title: "SEC 2: Recommended Elliptic Curve Domain Parameters"
+    url: https://www.secg.org/sec2-v2.pdf
+    year: 2010
+
+implementation_notes: |
+  - Most widely used NIST curve
+  - Hardware acceleration in many CPUs
+  - FIPS 140-2/140-3 approved
+  - Same curve as secp256r1
+  - Some prefer Curve25519 for software performance
+  - Required for many government and enterprise applications

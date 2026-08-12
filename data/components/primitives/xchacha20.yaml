@@ -1,0 +1,67 @@
+name: XChaCha20
+full_name: Extended-nonce ChaCha20
+category: stream_cipher
+description: |
+  XChaCha20 is an extended-nonce variant of ChaCha20 with a 192-bit nonce,
+  making it safe to generate random nonces without risk of collision.
+
+parameters:
+  key_size: [256]
+  nonce_size: 192
+  rounds: 20
+  block_size: 512
+
+properties:
+  - software_optimized
+  - constant_time
+  - no_lookup_tables
+  - cache_timing_resistant
+  - large_nonce
+
+performance:
+  software_speed: very_high
+  hardware_speed: medium
+  memory: very_low
+  power: low
+
+security:
+  security_level: 256
+  best_attack: none_practical
+  attack_complexity: "No attacks better than brute force"
+  status: secure
+  standardized: true
+  proven_security: true
+
+compatible_with:
+  - Poly1305
+  - AEAD
+
+not_compatible_with: []
+
+use_cases:
+  - iot_encryption
+  - mobile_encryption
+  - embedded_systems
+  - random_nonce_generation
+  - long_term_keys
+
+not_recommended_for:
+  - systems_requiring_hardware_acceleration
+
+references:
+  - type: paper
+    title: "XSalsa20 and XChaCha20"
+    authors: ["Daniel J. Bernstein"]
+    url: https://cr.yp.to/snuffle/xsalsa-20110204.pdf
+    year: 2011
+  - type: draft
+    title: "draft-irtf-cfrg-xchacha"
+    url: https://datatracker.ietf.org/doc/html/draft-irtf-cfrg-xchacha
+    year: 2020
+
+implementation_notes: |
+  - 192-bit nonce allows safe random generation
+  - Eliminates nonce reuse concerns for long-term keys
+  - Used in libsodium crypto_secretbox_xchacha20poly1305
+  - Same performance as ChaCha20
+  - Recommended for applications with random nonces

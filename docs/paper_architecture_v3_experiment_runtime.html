@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>论文风架构图 V3 - 实验执行架构</title>
+  <style>
+    :root {
+      --bg: #f5f2eb;
+      --paper: rgba(255, 252, 247, 0.94);
+      --ink: #193129;
+      --muted: #62716a;
+      --accent: #c96439;
+      --accent-soft: #f8dfd1;
+      --teal: #2c7a6c;
+      --teal-soft: #e0f1eb;
+      --slate: #5b7390;
+      --slate-soft: #e6edf6;
+      --gold: #aa7e2c;
+      --gold-soft: #f5eccb;
+      --shadow: 0 18px 44px rgba(40, 34, 24, 0.1);
+      --radius-xl: 28px;
+      --radius-lg: 22px;
+      --radius-md: 18px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: "Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top left, rgba(201, 100, 57, 0.12), transparent 24rem),
+        radial-gradient(circle at top right, rgba(44, 122, 108, 0.12), transparent 24rem),
+        linear-gradient(180deg, #faf7f1 0%, var(--bg) 100%);
+    }
+
+    .page {
+      max-width: 1460px;
+      margin: 0 auto;
+      padding: 28px 22px 42px;
+    }
+
+    .hero,
+    .board,
+    .note {
+      background: var(--paper);
+      border: 1px solid rgba(110, 96, 74, 0.14);
+      box-shadow: var(--shadow);
+    }
+
+    .hero {
+      border-radius: var(--radius-xl);
+      padding: 28px 30px;
+      margin-bottom: 24px;
+    }
+
+    .eyebrow {
+      margin: 0 0 10px;
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--accent);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(28px, 4vw, 48px);
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+    }
+
+    .hero p {
+      margin: 12px 0 0;
+      color: var(--muted);
+      max-width: 900px;
+      font-size: 16px;
+    }
+
+    .board {
+      border-radius: var(--radius-xl);
+      padding: 24px;
+    }
+
+    .columns {
+      display: grid;
+      gap: 16px;
+      grid-template-columns: 300px minmax(0, 1fr) 300px;
+      align-items: start;
+    }
+
+    .panel {
+      border-radius: var(--radius-lg);
+      padding: 18px;
+      border: 1px solid rgba(110, 96, 74, 0.14);
+      background: rgba(255, 255, 255, 0.76);
+    }
+
+    .panel h2,
+    .sandbox h2 {
+      margin: 0 0 12px;
+      font-size: 20px;
+    }
+
+    .stack {
+      display: grid;
+      gap: 10px;
+    }
+
+    .box {
+      border-radius: var(--radius-md);
+      padding: 14px 14px;
+      border: 1px solid rgba(110, 96, 74, 0.14);
+      background: #fffdfa;
+    }
+
+    .box.agent { background: #fff4ec; border-left: 4px solid var(--accent); }
+    .box.system { background: #edf8f4; border-left: 4px solid var(--teal); }
+    .box.memory { background: #eef3f9; border-left: 4px solid var(--slate); }
+    .box.output { background: #faf6e8; border-left: 4px solid var(--gold); }
+
+    .box strong {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 15px;
+    }
+
+    .box span {
+      display: block;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    .sandbox {
+      border-radius: 26px;
+      padding: 20px;
+      background:
+        linear-gradient(180deg, rgba(255, 251, 245, 0.98), rgba(250, 246, 239, 0.95));
+      border: 1px solid rgba(110, 96, 74, 0.16);
+      min-height: 620px;
+    }
+
+    .sandbox-head p {
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .sandbox-zone {
+      display: grid;
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .zone {
+      border-radius: 22px;
+      padding: 16px;
+      border: 1px dashed rgba(110, 96, 74, 0.22);
+      background: rgba(255, 255, 255, 0.82);
+    }
+
+    .zone h3 {
+      margin: 0 0 12px;
+      font-size: 17px;
+    }
+
+    .flow {
+      display: grid;
+      gap: 10px;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .mini {
+      border-radius: 16px;
+      padding: 12px;
+      background: rgba(255, 255, 255, 0.92);
+      border: 1px solid rgba(110, 96, 74, 0.14);
+      min-height: 88px;
+    }
+
+    .mini strong {
+      display: block;
+      font-size: 14px;
+      margin-bottom: 6px;
+    }
+
+    .mini span {
+      display: block;
+      color: var(--muted);
+      font-size: 12.5px;
+      line-height: 1.5;
+    }
+
+    .mini.agent { background: #fff4ec; }
+    .mini.system { background: #edf8f4; }
+    .mini.memory { background: #eef3f9; }
+    .mini.output { background: #faf6e8; }
+
+    .arrow-line {
+      margin: 12px 0;
+      text-align: center;
+      color: rgba(25, 49, 41, 0.44);
+      font-size: 24px;
+      font-weight: 800;
+    }
+
+    .notes {
+      display: grid;
+      gap: 14px;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      margin-top: 22px;
+    }
+
+    .note {
+      border-radius: 22px;
+      padding: 18px;
+    }
+
+    .note h3 {
+      margin: 0 0 10px;
+      font-size: 18px;
+    }
+
+    .note p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    @media (max-width: 1180px) {
+      .columns {
+        grid-template-columns: 1fr;
+      }
+
+      .notes {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .page {
+        padding: 18px 14px 28px;
+      }
+
+      .hero,
+      .board,
+      .note,
+      .sandbox,
+      .panel {
+        padding: 18px;
+      }
+
+      .flow {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="hero">
+      <p class="eyebrow">Paper Figure V3</p>
+      <h1>MedCipher Studio 实验执行与沙盒验证架构图</h1>
+      <p>适合作为论文或答辩里的“主图 3”。这一版聚焦实验环境：知识输入如何进入、攻击如何在沙盒内执行、证据如何被记录、修补如何回归验证，特别适合讲“实验架构”而不是泛泛讲系统架构。</p>
+    </section>
+
+    <section class="board">
+      <div class="columns">
+        <aside class="panel">
+          <h2>实验输入</h2>
+          <div class="stack">
+            <div class="box system">
+              <strong>业务需求</strong>
+              <span>场景、目标、约束、交付形式</span>
+            </div>
+            <div class="box system">
+              <strong>知识资料</strong>
+              <span>知识库、论文、规则、企业文档</span>
+            </div>
+            <div class="box memory">
+              <strong>项目历史记忆</strong>
+              <span>上一轮漏洞、补丁、剩余风险和反思摘要</span>
+            </div>
+            <div class="box agent">
+              <strong>生成/审计 Agent</strong>
+              <span>在实验开始前形成待测方案和初步风险判断</span>
+            </div>
+          </div>
+        </aside>
+
+        <section class="sandbox">
+          <div class="sandbox-head">
+            <h2>核心实验区：受控沙盒</h2>
+            <p>这里是整套系统最像“实验平台”的部分。它不是直接打真实生产服务器，而是在可控环境中部署、攻击、记录、评估和修补。</p>
+          </div>
+
+          <div class="sandbox-zone">
+            <div class="zone">
+              <h3>阶段 A：部署与准备</h3>
+              <div class="flow">
+                <div class="mini system">
+                  <strong>目标服务部署</strong>
+                  <span>将候选算法部署成可攻击的模拟服务</span>
+                </div>
+                <div class="mini system">
+                  <strong>沙盒调度器</strong>
+                  <span>控制预算、权限、执行边界</span>
+                </div>
+                <div class="mini memory">
+                  <strong>上下文压缩</strong>
+                  <span>给不同 Agent 分发独立输入窗口</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="arrow-line">↓</div>
+
+            <div class="zone">
+              <h3>阶段 B：攻击与观测</h3>
+              <div class="flow">
+                <div class="mini agent">
+                  <strong>攻击 Agent</strong>
+                  <span>动态决定试探策略、继续或切换路径</span>
+                </div>
+                <div class="mini system">
+                  <strong>模拟服务器</strong>
+                  <span>承接请求并暴露流量变化与异常行为</span>
+                </div>
+                <div class="mini system">
+                  <strong>遥测采集</strong>
+                  <span>记录流量、日志、指标和攻击工件</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="arrow-line">↓</div>
+
+            <div class="zone">
+              <h3>阶段 C：漏洞判定与修补</h3>
+              <div class="flow">
+                <div class="mini agent">
+                  <strong>评估 Agent</strong>
+                  <span>给出漏洞定级与处置优先级</span>
+                </div>
+                <div class="mini agent">
+                  <strong>修补 Agent</strong>
+                  <span>生成补丁、修复建议和回归检查</span>
+                </div>
+                <div class="mini system">
+                  <strong>回归验证</strong>
+                  <span>再次部署并检查漏洞是否消失</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="arrow-line">↓</div>
+
+            <div class="zone">
+              <h3>阶段 D：回放与优化</h3>
+              <div class="flow">
+                <div class="mini memory">
+                  <strong>时间线回放</strong>
+                  <span>回看整个实验链路发生了什么</span>
+                </div>
+                <div class="mini memory">
+                  <strong>项目级记忆</strong>
+                  <span>沉淀攻击经验、补丁经验与残余风险</span>
+                </div>
+                <div class="mini output">
+                  <strong>最终交付</strong>
+                  <span>输出中文报告、伪代码和代码实现</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <aside class="panel">
+          <h2>实验输出</h2>
+          <div class="stack">
+            <div class="box output">
+              <strong>漏洞证据</strong>
+              <span>攻击日志、发现结果、流量指标、工件引用</span>
+            </div>
+            <div class="box output">
+              <strong>修补方案</strong>
+              <span>补丁描述、验证步骤、回滚说明</span>
+            </div>
+            <div class="box memory">
+              <strong>回放记录</strong>
+              <span>timeline、snapshot、结构化交接和证据索引</span>
+            </div>
+            <div class="box output">
+              <strong>企业交付物</strong>
+              <span>中文报告、伪代码、Python/C++ 代码</span>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="notes">
+      <article class="note">
+        <h3>最适合的用途</h3>
+        <p>这版特别适合实验章节、系统实现章节、或者答辩里解释“沙盒到底在系统里扮演什么角色”。</p>
+      </article>
+      <article class="note">
+        <h3>怎么口头解释</h3>
+        <p>可以直接说：我们不是只做方案生成，而是在受控实验环境里完成部署、攻击、判定、修补和回归验证。</p>
+      </article>
+      <article class="note">
+        <h3>当前边界</h3>
+        <p>这张图表达的是实验执行框架和目标状态；真实容器执行平面、远程执行器和完整回执服务仍在后续主线中。</p>
+      </article>
+    </section>
+  </main>
+</body>
+</html>

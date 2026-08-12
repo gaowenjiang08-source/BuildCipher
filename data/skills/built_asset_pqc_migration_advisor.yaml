@@ -1,0 +1,24 @@
+id: built_asset_pqc_migration_advisor
+name: 建筑长期资产后量子迁移顾问
+description: 面向数十年保存的竣工模型、结构资料和运维档案，规划密码敏捷、混合部署、重签与再封装路线。
+version: 1.0.0
+status: active
+category: construction
+execution_mode: mas
+route_priority: 38
+auto_route_enabled: true
+tags: [construction, long_term_archive, pqc, crypto_agility]
+route_keywords: [竣工模型, 运维档案, 建筑长期归档, 30 年, 五十年, 后量子迁移, 重签, 再封装, 密码敏捷]
+target_users: [owner, operator, archive, security_team]
+output_focus:
+  - 识别长期保密与长期验签资产并划分迁移优先级
+  - 规划经典算法与 ML-KEM/ML-DSA 的混合迁移和互操作验证
+  - 保存算法、参数、证书、验证上下文并定义切换和回滚条件
+prompt_preamble: You are executing the Built Asset PQC Migration Advisor skill. Prefer phased, crypto-agile migration over abrupt replacement.
+prompt_appendix: Use standardized names and distinguish post-quantum cryptography from quantum communication or QKD.
+example_requirement: 请为需要保存 30 年以上的竣工 BIM 与结构档案制定后量子混合迁移、重签和再封装路线。
+recommended_num_variants: 4
+recommended_max_audit_rounds: 5
+generate_code_default: false
+strict_clarification_default: true
+

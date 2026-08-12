@@ -1,0 +1,78 @@
+name: TLS-1.3-KDF
+full_name: TLS 1.3 HKDF-based Key Derivation Function
+category: construction
+description: |
+  The TLS 1.3 KDF is based on HKDF-SHA256 or HKDF-SHA384. It provides a clean
+  key schedule with better security properties than the TLS 1.2 PRF.
+
+parameters:
+  output_size: 256
+
+properties:
+  - key_derivation
+  - hkdf_based
+  - extract_then_expand
+  - cryptographically_strong
+  - deterministic
+  - context_binding
+  - tls_specific
+
+performance:
+  software_speed: very_high
+  hardware_speed: high
+  memory: low
+  power: low
+
+security:
+  security_level: 256
+  best_attack: none_practical
+  attack_complexity: "2^256 for SHA-256 based"
+  status: secure
+  standardized: true
+  proven_security: true
+
+compatible_with:
+  - TLS_1_3
+  - HKDF
+  - SHA-256
+  - SHA-384
+  - modern_protocols
+
+not_compatible_with:
+  - TLS_1_2
+  - TLS_1_1
+  - TLS_1_0
+
+use_cases:
+  - tls_1_3_handshake
+  - tls_key_schedule
+  - session_key_derivation
+  - traffic_secrets
+  - modern_web_security
+  - quic_protocol
+
+not_recommended_for:
+  - legacy_tls_versions
+  - password_hashing
+  - general_purpose_kdf
+
+references:
+  - type: rfc
+    title: "RFC 8446: TLS 1.3"
+    url: https://tools.ietf.org/html/rfc8446
+    year: 2018
+  - type: rfc
+    title: "RFC 5869: HKDF"
+    url: https://tools.ietf.org/html/rfc5869
+    year: 2010
+
+implementation_notes: |
+  - Based on HKDF-Extract and HKDF-Expand-Label
+  - HKDF-Expand-Label adds TLS-specific label formatting
+  - Default uses HKDF-SHA256
+  - SHA-384 variant used for some cipher suites
+  - Cleaner key schedule than TLS 1.2
+  - Better forward secrecy properties
+  - Derive-Secret function for hierarchical key derivation
+  - Used for handshake traffic keys, application traffic keys
+  - Supports key updates without renegotiation

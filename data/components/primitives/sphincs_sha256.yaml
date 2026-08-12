@@ -1,0 +1,85 @@
+name: SPHINCS+ SHA-256
+full_name: SPHINCS+ with SHA-256 Hash Function
+category: signature
+description: |
+  SPHINCS+ with SHA-256 is a stateless hash-based post-quantum signature scheme
+  using SHA-256 as the underlying hash function. Offers familiar SHA-2 based
+  security for conservative post-quantum deployments.
+
+parameters:
+  hash_function: SHA-256
+  security_level: [128, 192, 256]
+  signature_size: [7856, 16224, 29792]
+
+properties:
+  - post_quantum
+  - digital_signature
+  - hash_based
+  - stateless
+  - quantum_resistant
+  - conservative_security
+  - sha2_variant
+
+performance:
+  software_speed: low
+  hardware_speed: medium
+  memory: medium
+  power: medium
+  signing_time: slow
+  verification_time: moderate
+
+security:
+  security_level: 256
+  best_attack: none_practical
+  attack_complexity: "quantum_resistant_conservative"
+  status: secure
+  standardized: true
+  proven_security: true
+  quantum_resistant: true
+
+compatible_with:
+  - certificates
+  - code_signing
+  - hybrid_signatures
+  - firmware_signing
+  - legacy_systems
+
+not_compatible_with:
+  - high_performance_applications
+  - bandwidth_constrained_systems
+
+use_cases:
+  - ultra_long_term_security
+  - conservative_post_quantum
+  - root_certificates
+  - firmware_signing
+  - code_signing
+  - legacy_compatibility
+
+not_recommended_for:
+  - high_frequency_signing
+  - bandwidth_constrained_systems
+  - resource_constrained_devices
+  - real_time_applications
+
+references:
+  - type: standard
+    title: "NIST FIPS 205: Stateless Hash-Based Digital Signature Standard"
+    url: https://csrc.nist.gov/pubs/fips/205/final
+    year: 2024
+  - type: paper
+    title: "SPHINCS+: Stateless Hash-Based Signatures"
+    url: https://sphincs.org/
+    year: 2020
+
+implementation_notes: |
+  - SHA-256 variant of SPHINCS+ (part of FIPS 205)
+  - Very large signatures (7-30 KB depending on security level)
+  - Based only on SHA-256 hash function
+  - May have better hardware acceleration than SHAKE variant
+  - Familiar SHA-2 family provides confidence
+  - Slower than Dilithium but more conservative
+  - Good for scenarios requiring proven hash functions
+  - Stateless operation (no state management)
+  - Three security levels: 128-bit, 192-bit, 256-bit
+  - Suitable for environments with SHA-256 hardware support

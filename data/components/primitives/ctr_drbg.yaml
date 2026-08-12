@@ -1,0 +1,78 @@
+name: CTR_DRBG
+full_name: Counter Mode Deterministic Random Bit Generator
+category: random_number_generator
+description: |
+  CTR_DRBG is a deterministic random bit generator specified in NIST SP 800-90A.
+  It uses block cipher algorithms (typically AES) in counter mode to generate
+  pseudorandom bits from a seed value.
+
+parameters:
+  block_cipher: AES
+  key_size: [128, 192, 256]
+  seed_length: [256, 320, 384]
+  reseed_interval: 2^48
+
+properties:
+  - deterministic
+  - cryptographically_secure
+  - hardware_accelerated
+  - nist_approved
+  - prediction_resistance_supported
+  - reseeding_capability
+
+performance:
+  software_speed: high
+  hardware_speed: very_high
+  memory: low
+  power: low
+
+security:
+  security_level: 256  # With AES-256
+  best_attack: none_known
+  attack_complexity: "2^256 for AES-256 variant"
+  status: secure
+  standardized: true
+  proven_security: true
+
+compatible_with:
+  - AES
+  - 3DES
+  - TLS
+  - IPsec
+  - cryptographic_protocols
+
+not_compatible_with:
+  - non_approved_block_ciphers
+
+use_cases:
+  - key_generation
+  - iv_generation
+  - nonce_generation
+  - cryptographic_protocols
+  - tls_random
+  - certificate_generation
+  - general_purpose_random
+
+not_recommended_for:
+  - gaming_applications
+  - monte_carlo_simulations
+  - non_cryptographic_use
+
+references:
+  - type: standard
+    title: "NIST SP 800-90A: Recommendation for Random Number Generation Using Deterministic Random Bit Generators"
+    url: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-90Ar1.pdf
+    year: 2015
+  - type: analysis
+    title: "Security Analysis of CTR_DRBG"
+    year: 2016
+
+implementation_notes: |
+  - Requires secure entropy source for seeding
+  - Must implement proper reseeding mechanisms
+  - Prediction resistance available through reseeding before each request
+  - Use derivation function for backward compatibility
+  - AES-based variant most commonly deployed
+  - Reseed after no more than 2^48 requests
+  - Use at least 256 bits of entropy for initial seed
+  - Follow NIST SP 800-90B for entropy source requirements

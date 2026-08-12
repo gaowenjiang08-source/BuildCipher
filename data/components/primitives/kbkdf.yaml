@@ -1,0 +1,75 @@
+name: KBKDF
+full_name: Key-Based Key Derivation Function
+category: construction
+description: |
+  KBKDF (NIST SP 800-108) is a key derivation function that derives keys from
+  existing key material. It supports multiple modes including counter, feedback, and pipeline.
+
+parameters:
+  output_size: 256
+
+properties:
+  - key_derivation
+  - nist_approved
+  - multiple_modes
+  - deterministic
+  - context_binding
+  - counter_based
+
+performance:
+  software_speed: very_high
+  hardware_speed: high
+  memory: low
+  power: low
+
+security:
+  security_level: 256
+  best_attack: none_practical
+  attack_complexity: "depends on PRF (HMAC-SHA256: 2^256)"
+  status: secure
+  standardized: true
+  proven_security: true
+
+compatible_with:
+  - HMAC
+  - CMAC
+  - SHA-256
+  - SHA-512
+  - AES
+  - government_systems
+
+not_compatible_with: []
+
+use_cases:
+  - key_hierarchy
+  - session_key_derivation
+  - cryptographic_key_management
+  - government_applications
+  - nist_compliance
+  - key_diversification
+  - smart_cards
+
+not_recommended_for:
+  - password_hashing
+  - low_entropy_inputs
+
+references:
+  - type: standard
+    title: "NIST SP 800-108: Recommendation for Key Derivation Using Pseudorandom Functions"
+    url: https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-108.pdf
+    year: 2009
+  - type: standard
+    title: "NIST SP 800-108r1: Recommendation for Key Derivation Using Pseudorandom Functions (Revised)"
+    url: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-108r1.pdf
+    year: 2022
+
+implementation_notes: |
+  - Three modes: Counter Mode, Feedback Mode, Double-Pipeline Iteration Mode
+  - Counter Mode: Most common, includes counter in PRF input
+  - Feedback Mode: Uses output of previous iteration as input
+  - Pipeline Mode: Uses chaining for additional security
+  - Supports HMAC and CMAC as PRF
+  - Context and label for domain separation
+  - Fixed input data provides binding to application
+  - Can derive multiple keys from single master key
+  - NIST approved for US government use

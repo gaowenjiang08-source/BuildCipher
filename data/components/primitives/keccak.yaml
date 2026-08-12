@@ -1,0 +1,77 @@
+name: Keccak
+full_name: Keccak Hash Function
+category: hash_function
+description: |
+  Keccak is the original hash function that won the SHA-3 competition.
+  It differs slightly from the final SHA-3 standard in padding. Used in Ethereum.
+
+parameters:
+  output_size: 256
+  block_size: 1088
+
+properties:
+  - collision_resistant
+  - preimage_resistant
+  - second_preimage_resistant
+  - sponge_construction
+  - sha3_predecessor
+  - no_length_extension
+
+performance:
+  software_speed: medium
+  hardware_speed: high
+  memory: low
+  power: medium
+
+security:
+  security_level: 256
+  best_attack: none_practical
+  attack_complexity: "2^256"
+  status: secure
+  standardized: false
+  proven_security: true
+
+compatible_with:
+  - ethereum
+  - blockchain
+  - smart_contracts
+  - KDF
+  - HMAC
+
+not_compatible_with:
+  - SHA3  # Different padding
+
+use_cases:
+  - ethereum_blockchain
+  - cryptocurrency
+  - smart_contracts
+  - merkle_trees
+  - digital_signatures
+  - general_hashing
+
+not_recommended_for:
+  - new_applications_prefer_sha3
+  - password_hashing_alone
+  - regulatory_compliance
+
+references:
+  - type: paper
+    title: "The Keccak SHA-3 submission"
+    authors: ["Guido Bertoni", "Joan Daemen", "Michael Peeters", "Gilles Van Assche"]
+    url: https://keccak.team/files/Keccak-submission-3.pdf
+    year: 2011
+  - type: standard
+    title: "FIPS 202: SHA-3 Standard"
+    url: https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.202.pdf
+    year: 2015
+
+implementation_notes: |
+  - Original SHA-3 competition winner
+  - Differs from SHA-3 standard only in padding bits
+  - Used extensively in Ethereum (Keccak-256)
+  - Ethereum uses original Keccak, not NIST SHA-3
+  - Based on sponge construction
+  - No length extension attacks
+  - For new applications, prefer SHA-3 unless Ethereum compatibility needed
+  - Same security properties as SHA-3
+  - Available output sizes: 224, 256, 384, 512 bits

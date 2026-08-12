@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>论文风架构图 V2 - 分层架构</title>
+  <style>
+    :root {
+      --bg: #f4f1ea;
+      --paper: rgba(255, 252, 247, 0.94);
+      --ink: #18312a;
+      --muted: #61706b;
+      --agent: #f8dfd0;
+      --agent-line: #d57a4d;
+      --system: #def1e9;
+      --system-line: #2d7a6c;
+      --memory: #e7eef7;
+      --memory-line: #5d7895;
+      --shadow: 0 18px 44px rgba(40, 34, 24, 0.1);
+      --radius-xl: 28px;
+      --radius-lg: 22px;
+      --radius-md: 18px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: "Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top left, rgba(213, 122, 77, 0.12), transparent 24rem),
+        radial-gradient(circle at top right, rgba(45, 122, 108, 0.12), transparent 24rem),
+        linear-gradient(180deg, #f9f6f0 0%, var(--bg) 100%);
+    }
+
+    .page {
+      max-width: 1420px;
+      margin: 0 auto;
+      padding: 28px 22px 42px;
+    }
+
+    .hero,
+    .layer,
+    .note {
+      background: var(--paper);
+      border: 1px solid rgba(110, 96, 74, 0.14);
+      box-shadow: var(--shadow);
+    }
+
+    .hero {
+      border-radius: var(--radius-xl);
+      padding: 28px 30px;
+      margin-bottom: 24px;
+    }
+
+    .eyebrow {
+      margin: 0 0 10px;
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--agent-line);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(28px, 4vw, 48px);
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+    }
+
+    .hero p {
+      margin: 12px 0 0;
+      color: var(--muted);
+      max-width: 860px;
+      font-size: 16px;
+    }
+
+    .layers {
+      display: grid;
+      gap: 18px;
+    }
+
+    .layer {
+      border-radius: var(--radius-xl);
+      padding: 22px;
+    }
+
+    .layer-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+
+    .layer-head h2 {
+      margin: 0;
+      font-size: 24px;
+    }
+
+    .layer-head p {
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+      max-width: 820px;
+    }
+
+    .badge {
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .badge.agent { background: var(--agent); color: var(--agent-line); }
+    .badge.system { background: var(--system); color: var(--system-line); }
+    .badge.memory { background: var(--memory); color: var(--memory-line); }
+
+    .grid {
+      display: grid;
+      gap: 12px;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+    }
+
+    .card {
+      border-radius: var(--radius-md);
+      padding: 16px 14px;
+      background: rgba(255, 255, 255, 0.78);
+      border: 1px solid rgba(110, 96, 74, 0.14);
+      min-height: 120px;
+    }
+
+    .agent .card { border-top: 4px solid var(--agent-line); background: #fff4ec; }
+    .system .card { border-top: 4px solid var(--system-line); background: #edf8f4; }
+    .memory .card { border-top: 4px solid var(--memory-line); background: #eef3f9; }
+
+    .card strong {
+      display: block;
+      font-size: 15px;
+      margin-bottom: 8px;
+    }
+
+    .card span {
+      display: block;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    .foot {
+      margin-top: 14px;
+      padding: 14px 16px;
+      border-radius: 18px;
+      background: rgba(24, 49, 42, 0.06);
+      color: var(--ink);
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .notes {
+      display: grid;
+      gap: 14px;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      margin-top: 22px;
+    }
+
+    .note {
+      border-radius: 22px;
+      padding: 18px;
+    }
+
+    .note h3 {
+      margin: 0 0 10px;
+      font-size: 18px;
+    }
+
+    .note p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    @media (max-width: 1120px) {
+      .grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .notes {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .page {
+        padding: 18px 14px 28px;
+      }
+
+      .hero,
+      .layer,
+      .note {
+        padding: 18px;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="hero">
+      <p class="eyebrow">Paper Figure V2</p>
+      <h1>MedCipher Studio 分层式 Agent 架构图</h1>
+      <p>适合作为论文或答辩里的“主图 2”。这一版不强调时间顺序，而是强调系统结构，特别适合回答“哪些是 Agent，哪些是系统模块，记忆又放在哪一层”这类问题。</p>
+    </section>
+
+    <section class="layers">
+      <article class="layer agent">
+        <div class="layer-head">
+          <div>
+            <h2>第一层：认知决策层</h2>
+            <p>这一层负责理解需求、生成方案、审查方案、决定攻击策略、评估漏洞和制定补丁。这里是“会思考”的部分，也是 LLM 能力最集中的地方。</p>
+          </div>
+          <span class="badge agent">Agent Layer</span>
+        </div>
+        <div class="grid">
+          <div class="card"><strong>需求分析 Agent</strong><span>补齐业务约束、目标和场景边界</span></div>
+          <div class="card"><strong>生成 Agent</strong><span>结合知识检索给出候选加密方案</span></div>
+          <div class="card"><strong>审计 Agent</strong><span>检查方案可行性、风险和合规性</span></div>
+          <div class="card"><strong>攻击 Agent</strong><span>动态选择攻击路径和试探策略</span></div>
+          <div class="card"><strong>评估 Agent</strong><span>判断漏洞真实性、严重度和优先级</span></div>
+          <div class="card"><strong>修补/反思 Agent</strong><span>给出补丁并把经验回灌下一轮</span></div>
+        </div>
+        <div class="foot">解释给外行听时，可以把这一层说成“几个会讨论、会判断、会给建议的专家”。</div>
+      </article>
+
+      <article class="layer system">
+        <div class="layer-head">
+          <div>
+            <h2>第二层：系统执行层</h2>
+            <p>这一层不负责“思考”，而是负责把方案安全地执行起来，包括知识检索、上下文组织、沙盒部署、流量记录、工件采集和最终交付。</p>
+          </div>
+          <span class="badge system">System Layer</span>
+        </div>
+        <div class="grid">
+          <div class="card"><strong>知识检索模块</strong><span>RAG、知识库、论文与规则资料输入</span></div>
+          <div class="card"><strong>上下文组织模块</strong><span>为每个 Agent 准备独立输入窗口</span></div>
+          <div class="card"><strong>沙盒调度器</strong><span>决定哪些动作允许被执行</span></div>
+          <div class="card"><strong>模拟服务器</strong><span>部署待测加密服务，避免碰真实生产环境</span></div>
+          <div class="card"><strong>工件与遥测模块</strong><span>记录日志、流量、指标、差异和漏洞证据</span></div>
+          <div class="card"><strong>交付输出模块</strong><span>汇总为中文报告、伪代码和代码文件</span></div>
+        </div>
+        <div class="foot">这一层可以对外讲成“实验平台和安全底座”，它支撑 Agent 工作，但自己不替 Agent 做决定。</div>
+      </article>
+
+      <article class="layer memory">
+        <div class="layer-head">
+          <div>
+            <h2>第三层：记忆与回放层</h2>
+            <p>这一层负责把本轮发生的事压缩成结构化记忆，便于跨阶段传递、跨轮次复用，以及后续做回放、解释和闭环优化。</p>
+          </div>
+          <span class="badge memory">Memory & Replay</span>
+        </div>
+        <div class="grid">
+          <div class="card"><strong>独立上下文窗口</strong><span>每个 Agent 都有自己的输入边界</span></div>
+          <div class="card"><strong>结构化交接包</strong><span>不是共享长对话，而是传摘要和引用</span></div>
+          <div class="card"><strong>项目级记忆</strong><span>保存漏洞经验、修补经验和剩余风险</span></div>
+          <div class="card"><strong>时间线回放</strong><span>回看每轮动作、证据和关键节点</span></div>
+          <div class="card"><strong>证据引用索引</strong><span>能说明结论来自哪份资料、哪条日志</span></div>
+          <div class="card"><strong>闭环优化入口</strong><span>把本轮经验送回下一轮生成与审计</span></div>
+        </div>
+        <div class="foot">这一层是“系统变聪明”的关键。没有它，多 Agent 只能像一次性对话，无法形成项目级连续改进。</div>
+      </article>
+    </section>
+
+    <section class="notes">
+      <article class="note">
+        <h3>最适合讲清的点</h3>
+        <p>这版很适合回答“为什么要多层，而不是把所有东西都堆进一个大模型里”。</p>
+      </article>
+      <article class="note">
+        <h3>最适合的场景</h3>
+        <p>适合论文架构章节、答辩中讲系统组成、或者老师追问“独立上下文窗口和项目记忆到底放在哪”。</p>
+      </article>
+      <article class="note">
+        <h3>当前边界</h3>
+        <p>这张图强调真实架构方向，不应被解释为“所有执行器和生产级基础设施已经完全落地”。</p>
+      </article>
+    </section>
+  </main>
+</body>
+</html>

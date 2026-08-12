@@ -1,0 +1,88 @@
+name: Oblivious Transfer
+full_name: 1-out-of-2 Oblivious Transfer Protocol
+category: protocol
+description: |
+  Oblivious Transfer (OT) is a fundamental cryptographic protocol where a sender transfers
+  one of multiple pieces of information to a receiver, but remains oblivious as to which
+  piece was transferred. The receiver learns only one piece without learning anything about others.
+
+parameters:
+  variant: 1-out-of-2 # or 1-out-of-n
+  security_model: semi_honest_or_malicious
+  extension: supported # OT extension for efficiency
+  message_size: variable
+
+properties:
+  - privacy_preserving
+  - sender_oblivious
+  - receiver_privacy
+  - foundational_primitive
+  - extensible
+
+performance:
+  setup_cost: high # public key operations
+  extended_ot: very_fast # symmetric operations only
+  communication: low
+  computation: medium
+  memory: low
+
+security:
+  security_level: 128
+  best_attack: none_practical
+  attack_complexity: "DDH_or_RSA_assumption"
+  status: secure
+  standardized: false
+  proven_security: true
+  quantum_resistant: false
+
+compatible_with:
+  - secure_multiparty_computation
+  - private_set_intersection
+  - garbled_circuits
+  - two_party_computation
+  - psi_protocols
+
+not_compatible_with:
+  - post_quantum_scenarios # standard constructions
+  - broadcast_scenarios
+
+use_cases:
+  - secure_multiparty_computation
+  - private_set_intersection
+  - two_party_computation
+  - private_information_retrieval
+  - secure_function_evaluation
+  - privacy_preserving_protocols
+
+not_recommended_for:
+  - standalone_use # typically building block
+  - post_quantum_security
+  - public_broadcast
+
+references:
+  - type: paper
+    title: "Oblivious Transfer and Polynomial Evaluation"
+    authors: ["Moni Naor", "Benny Pinkas"]
+    year: 1999
+  - type: paper
+    title: "Extending Oblivious Transfers Efficiently"
+    authors: ["Yuval Ishai", "Joe Kilian", "Kobbi Nissim", "Erez Petrank"]
+    year: 2003
+    url: https://www.iacr.org/archive/crypto2003/27290145/27290145.pdf
+  - type: paper
+    title: "More Efficient Oblivious Transfer Extensions"
+    authors: ["Gilad Asharov", "Yehuda Lindell", "Thomas Schneider", "Michael Zohner"]
+    year: 2016
+
+implementation_notes: |
+  - Foundation for many MPC protocols
+  - OT extension reduces expensive public key operations
+  - Base OTs: ~100-1000 using public key crypto
+  - Extended OTs: millions using only symmetric crypto
+  - 1-out-of-2 OT: sender has m0, m1; receiver gets m_b
+  - Receiver's choice bit b remains private
+  - Sender doesn't learn which message was chosen
+  - Critical component in garbled circuits
+  - Random OT variant for better efficiency
+  - Correlated OT for specific applications
+  - Post-quantum variants exist (lattice-based)

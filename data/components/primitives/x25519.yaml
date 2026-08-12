@@ -1,0 +1,69 @@
+name: X25519
+full_name: X25519 Elliptic Curve Diffie-Hellman
+category: protocol
+description: |
+  Modern elliptic curve Diffie-Hellman key exchange using Curve25519.
+  Designed for high performance and security, with built-in protection
+  against implementation mistakes and side-channel attacks.
+
+parameters:
+  key_size: [256]
+
+properties:
+  - fast_operations
+  - side_channel_resistant
+  - constant_time
+
+performance:
+  software_speed: very_fast
+  hardware_speed: fast
+  memory: low
+  power: low
+
+security:
+  security_level: 128
+  best_attack: discrete_logarithm
+  attack_complexity: "2^128 operations (discrete log on Curve25519)"
+  status: secure
+  standardized: true
+  proven_security: true
+
+compatible_with:
+  - ChaCha20-Poly1305
+  - AES-GCM
+  - HKDF
+  - SHA-256
+
+not_compatible_with: []
+
+use_cases:
+  - key_exchange
+  - tls
+  - vpn
+  - secure_messaging
+  - ssh
+  - signal_protocol
+  - wireguard
+
+not_recommended_for:
+  - digital_signatures  # Use Ed25519 for signatures
+
+references:
+  - type: paper
+    title: "Curve25519: New Diffie-Hellman Speed Records"
+    authors: ["Daniel J. Bernstein"]
+    year: 2006
+  - type: standard
+    title: "RFC 7748: Elliptic Curves for Security"
+    url: https://www.rfc-editor.org/rfc/rfc7748.html
+    year: 2016
+
+implementation_notes: |
+  - Use with HKDF for key derivation after ECDH
+  - Typical usage: X25519 + HKDF + ChaCha20-Poly1305
+  - Generate ephemeral key pairs for each session
+  - Never reuse private keys across sessions
+  - Constant-time implementation prevents side-channel attacks
+  - Simple API with no special point handling required
+  - Widely adopted in modern protocols (TLS 1.3, Signal, WireGuard)
+  - Faster than NIST P-256

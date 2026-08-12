@@ -1,0 +1,88 @@
+name: OPRF
+full_name: Oblivious Pseudorandom Function
+category: protocol
+description: |
+  OPRF is a two-party protocol where a client learns the output of a PRF on its input
+  under a server's secret key, without revealing the input to the server or learning
+  the key. Critical component in password-authenticated protocols like OPAQUE.
+
+parameters:
+  variant: base_or_verifiable # OPRF or VOPRF
+  curve: P256_P384_P521 # elliptic curves
+  hash_to_curve: supported
+  batch_size: configurable
+
+properties:
+  - oblivious_evaluation
+  - pseudorandom_output
+  - input_privacy
+  - key_privacy
+  - verifiable_variant
+
+performance:
+  client_computation: low # 2 scalar mults
+  server_computation: low # 1 scalar mult
+  communication: low # 2-3 group elements
+  rounds: 1
+  memory: low
+
+security:
+  security_level: 128
+  best_attack: none_practical
+  attack_complexity: "DDH_assumption"
+  status: secure
+  standardized: true
+  proven_security: true
+  quantum_resistant: false
+
+compatible_with:
+  - opaque_protocol
+  - password_authentication
+  - private_information_retrieval
+  - anonymous_credentials
+  - privacy_pass
+
+not_compatible_with:
+  - post_quantum_scenarios # elliptic curve based
+  - offline_protocols
+
+use_cases:
+  - password_authenticated_key_exchange
+  - private_password_checking
+  - anonymous_credentials
+  - privacy_preserving_tokens
+  - rate_limiting_tokens
+  - private_set_membership
+
+not_recommended_for:
+  - post_quantum_security
+  - non_interactive_scenarios
+
+references:
+  - type: rfc
+    title: "RFC 9497: Oblivious Pseudorandom Functions (OPRFs)"
+    url: https://datatracker.ietf.org/doc/rfc9497/
+    year: 2023
+  - type: paper
+    title: "The OPAQUE Asymmetric PAKE Protocol"
+    authors: ["Hugo Krawczyk"]
+    year: 2018
+    url: https://eprint.iacr.org/2018/163
+  - type: implementation
+    title: "Privacy Pass: VOPRF Application"
+    url: https://privacypass.github.io/
+    year: 2018
+
+implementation_notes: |
+  - Standardized in RFC 9497 (2023)
+  - Base OPRF: simple, no verifiability
+  - VOPRF: verifiable variant with proof
+  - Client blinds input, server evaluates, client unblinds
+  - 1-round protocol: single request-response
+  - Supports batching for efficiency
+  - Hash-to-curve: critical for security (RFC 9380)
+  - Curve choices: P-256, P-384, P-521, or Ristretto255
+  - Used in OPAQUE for password authentication
+  - Privacy Pass uses VOPRF for anonymous tokens
+  - Constant-time implementation essential
+  - Batch evaluation more efficient

@@ -1,0 +1,86 @@
+name: FrodoKEM
+full_name: Frodo Key Encapsulation Mechanism
+category: key_exchange
+description: |
+  FrodoKEM is a conservative post-quantum KEM based on Learning With Errors (LWE).
+  It offers high confidence in security but with larger keys and slower performance than Kyber.
+
+parameters:
+  security_level: [640, 976, 1344]  # AES-128, AES-192, AES-256 equivalent
+  matrix_size: [640x8, 976x8, 1344x8]
+  noise_distribution: discrete_gaussian
+
+properties:
+  - post_quantum_secure
+  - lattice_based
+  - plain_lwe
+  - conservative_design
+  - large_keys
+  - nist_alternate_candidate
+
+performance:
+  software_speed: low
+  hardware_speed: medium
+  memory: high
+  power: medium
+  public_key_size: 9616  # FrodoKEM-640
+  ciphertext_size: 9720
+  operation_slow: true
+
+security:
+  security_level: 128  # FrodoKEM-640
+  best_attack: lattice_reduction
+  attack_complexity: "2^128 for FrodoKEM-640"
+  status: secure
+  standardized: true
+  proven_security: true
+  quantum_resistant: true
+
+compatible_with:
+  - post_quantum_cryptography
+  - conservative_deployments
+  - high_assurance_systems
+  - nist_pqc_alternate
+
+not_compatible_with:
+  - bandwidth_constrained_systems
+  - resource_constrained_devices
+  - high_performance_applications
+
+use_cases:
+  - ultra_high_security
+  - conservative_deployments
+  - long_term_archives
+  - government_classified
+  - defense_applications
+  - research_systems
+
+not_recommended_for:
+  - general_web_applications
+  - mobile_devices
+  - iot_devices
+  - real_time_systems
+
+references:
+  - type: paper
+    title: "FrodoKEM: Learning With Errors Key Encapsulation"
+    authors: ["Erdem Alkim", "Joppe W. Bos", "Leo Ducas", "Patrick Longa", "Ilya Mironov", "Michael Naehrig", "Valeria Nikolaenko", "Chris Peikert", "Ananth Raghunathan", "Douglas Stebila"]
+    year: 2020
+  - type: standard
+    title: "NIST PQC Round 3 (Alternate Candidate)"
+    url: https://csrc.nist.gov/projects/post-quantum-cryptography
+    year: 2022
+
+implementation_notes: |
+  - NIST PQC alternate candidate (not selected but trusted)
+  - Most conservative lattice-based KEM
+  - Based on plain LWE (not Ring-LWE or Module-LWE)
+  - Very large keys (~9.6 KB for 128-bit security)
+  - Slower than Kyber but higher security confidence
+  - No algebraic structure exploits possible
+  - FrodoKEM-640: 9616-byte public keys
+  - IND-CCA2 secure
+  - Quantum-resistant
+  - Use when maximum security assurance needed
+  - Trade performance for conservative security
+  - Recommended for ultra-high-value targets

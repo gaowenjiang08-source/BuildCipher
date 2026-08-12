@@ -1,0 +1,89 @@
+name: AES
+full_name: Advanced Encryption Standard
+category: block_cipher
+description: |
+  AES is a symmetric block cipher standardized by NIST. It operates on 128-bit blocks
+  and supports key sizes of 128, 192, and 256 bits.
+
+parameters:
+  block_size: 128
+  key_size: [128, 192, 256]
+  rounds: 10
+
+properties:
+  - proven_security
+  - hardware_accelerated
+  - constant_time_capable
+  - parallelizable
+
+performance:
+  software_speed: medium
+  hardware_speed: very_high
+  memory: low
+  power: medium
+
+security:
+  security_level: 256  # Maximum with AES-256
+  best_attack: biclique
+  attack_complexity: "2^126.1 for AES-128, 2^254.4 for AES-256"
+  status: secure
+  standardized: true
+  proven_security: true
+
+security_profile:
+  classical_security_bits: 256
+  quantum_resistant: false
+  proof_model: standardized_block_cipher
+
+standard:
+  organization: NIST
+  identifier: FIPS-197
+  standardized_name: AES
+  status: final
+  published_at: "2001-11-26"
+  reviewed_at: "2026-08-11"
+  jurisdictions: [international]
+
+implementation_sources:
+  - name: OpenSSL EVP
+    source_type: mature_sdk
+    url: https://docs.openssl.org/3.0/man7/crypto/
+    validation_status: deployment_validation_required
+
+compatible_with:
+  - CBC
+  - CTR
+  - GCM
+  - CCM
+  - XTS
+  - ECB
+
+not_compatible_with: []
+
+use_cases:
+  - disk_encryption
+  - network_encryption
+  - file_encryption
+  - general_purpose
+  - tls
+  - ipsec
+
+not_recommended_for:
+  - ultra_lightweight_devices
+  - devices_without_hardware_support
+
+references:
+  - type: standard
+    title: "FIPS 197: Advanced Encryption Standard"
+    url: https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.197.pdf
+    year: 2001
+  - type: paper
+    title: "The Design of Rijndael"
+    authors: ["Joan Daemen", "Vincent Rijmen"]
+    year: 2002
+
+implementation_notes: |
+  - Use AES-NI instructions when available for best performance
+  - Avoid lookup tables in security-critical contexts to prevent cache timing attacks
+  - Use constant-time implementations for side-channel resistance
+  - AES-256 recommended for long-term security

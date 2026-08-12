@@ -1,0 +1,30 @@
+{
+  "release_contract": "buildtrust-competition-demo-v1",
+  "project_id": "buildtrust-competition-project",
+  "input_file": "coordination.ifc",
+  "input_sha256": "7530fb621c4a1cd6d8d67e620bdfcac86f3f880d70ef4d6a228a49bf25c6784e",
+  "expected_ifc": {
+    "schema_identifiers": [
+      "IFC4"
+    ],
+    "entity_count": 3
+  },
+  "expected_demo": {
+    "attack_count": 5,
+    "crypto_provider_mode": "localhost_provider",
+    "provider_mac_enabled": true,
+    "provider_signature_enabled": true,
+    "baseline_blocked_count": 0,
+    "hardened_blocked_count": 5,
+    "hardened_regression_passed_count": 5,
+    "evidence_ledger_valid": true
+  },
+  "expected_governance": {
+    "mac_verified": true,
+    "operation_receipt_count": 3,
+    "revoked_operation_rejected": true,
+    "rotation_due_count": 1,
+    "invalid_certificate_count": 1
+  },
+  "capability_boundary": "冻结包验证 IFC 结构摄取和本地五攻击证据闭环；不代表商业 CDE、完整 IFC 语义、生产 PKI/KMS/HSM 或分布式 IoT 平台。"
+}

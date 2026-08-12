@@ -1,0 +1,79 @@
+name: RSA
+full_name: Rivest-Shamir-Adleman
+category: signature
+description: |
+  RSA is one of the first public-key cryptosystems and is widely used for secure data transmission.
+  It is based on the practical difficulty of factoring the product of two large prime numbers.
+
+parameters:
+  key_size: [2048, 3072, 4096]
+
+properties:
+  - public_key_cryptography
+  - digital_signatures
+  - key_exchange
+  - provably_secure_with_proper_padding
+  - widely_deployed
+
+performance:
+  software_speed: low
+  hardware_speed: medium
+  memory: medium
+  power: high
+  key_generation_slow: true
+
+security:
+  security_level: 256  # RSA-4096 provides ~256-bit security
+  best_attack: general_number_field_sieve
+  attack_complexity: "2^112 for RSA-2048, 2^128 for RSA-3072, ~2^140 for RSA-4096"
+  status: secure
+  standardized: true
+  proven_security: true
+
+compatible_with:
+  - PKCS1_padding
+  - OAEP_padding
+  - PSS_signature
+  - X509_certificates
+  - TLS
+  - SSH
+  - PGP
+
+not_compatible_with:
+  - quantum_computers
+  - low_power_devices
+
+use_cases:
+  - key_exchange
+  - digital_signatures
+  - certificate_authorities
+  - tls_handshake
+  - ssh_authentication
+  - email_encryption
+  - code_signing
+
+not_recommended_for:
+  - bulk_encryption
+  - iot_devices
+  - post_quantum_security
+  - key_sizes_below_2048
+
+references:
+  - type: paper
+    title: "A Method for Obtaining Digital Signatures and Public-Key Cryptosystems"
+    authors: ["Ronald Rivest", "Adi Shamir", "Leonard Adleman"]
+    year: 1978
+  - type: standard
+    title: "PKCS #1: RSA Cryptography Standard"
+    url: https://tools.ietf.org/html/rfc8017
+    year: 2016
+
+implementation_notes: |
+  - Never use textbook RSA (always use proper padding)
+  - OAEP is recommended for encryption
+  - PSS is recommended for signatures
+  - Minimum 2048-bit keys for new applications
+  - 3072-bit for high security, 4096-bit for long-term
+  - Vulnerable to quantum computers (Shor's algorithm)
+  - Use constant-time implementations
+  - Consider ECC alternatives for better performance

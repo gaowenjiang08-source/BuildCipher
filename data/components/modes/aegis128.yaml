@@ -1,0 +1,79 @@
+name: AEGIS-128
+full_name: AEGIS-128 AEAD
+category: mode
+description: |
+  AEGIS-128 is a high-performance authenticated encryption algorithm that uses AES round functions.
+  It was a CAESAR competition finalist offering exceptional speed with hardware acceleration.
+
+parameters:
+  block_size: 128
+  nonce_size: 128
+  tag_size: 128
+
+properties:
+  - authenticated_encryption
+  - aes_round_based
+  - single_pass_mode
+  - parallelizable
+  - hardware_accelerated
+  - caesar_winner
+
+performance:
+  software_speed: very_high
+  hardware_speed: extremely_high
+  memory: low
+  power: low
+
+security:
+  security_level: 128
+  best_attack: none_practical
+  attack_complexity: "2^128"
+  status: secure
+  standardized: true
+  proven_security: true
+
+compatible_with:
+  - modern_processors
+  - AES_NI_hardware
+  - high_performance_systems
+  - network_encryption
+
+not_compatible_with:
+  - systems_without_AES_acceleration
+  - legacy_processors
+  - extremely_constrained_devices
+
+use_cases:
+  - high_speed_encryption
+  - network_protocols
+  - data_center_encryption
+  - tls_alternative
+  - vpn_encryption
+  - disk_encryption
+
+not_recommended_for:
+  - software_only_constrained_devices
+  - low_power_microcontrollers
+  - systems_without_AES_NI
+
+references:
+  - type: paper
+    title: "AEGIS: A Fast Authenticated Encryption Algorithm"
+    url: https://competitions.cr.yp.to/round3/aegisv11.pdf
+    year: 2016
+  - type: rfc
+    title: "RFC 9180: AEGIS AEAD Algorithm"
+    url: https://datatracker.ietf.org/doc/draft-irtf-cfrg-aegis-aead/
+    year: 2023
+
+implementation_notes: |
+  - CAESAR competition winner (high-performance portfolio)
+  - Uses AES round function as building block (not full AES)
+  - Extremely fast with AES-NI (>100 Gbps on modern CPUs)
+  - Single-pass authenticated encryption
+  - 128-bit security level
+  - Nonce must never be reused
+  - State-based design with 5 AES states
+  - Parallelizable to some degree
+  - Standardized in RFC (draft)
+  - Faster than AES-GCM on hardware-accelerated platforms

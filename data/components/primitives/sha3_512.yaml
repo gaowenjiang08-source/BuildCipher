@@ -1,0 +1,73 @@
+name: SHA3-512
+full_name: SHA-3 with 512-bit output
+category: hash_function
+description: |
+  SHA3-512 is part of the SHA-3 family based on the Keccak algorithm.
+  It provides 512-bit hash output and offers an alternative to SHA-512.
+
+parameters:
+  output_size: 512
+  block_size: 576
+
+properties:
+  - collision_resistant
+  - preimage_resistant
+  - second_preimage_resistant
+  - sponge_construction
+  - standardized
+  - no_length_extension
+  - maximum_security
+
+performance:
+  software_speed: medium
+  hardware_speed: high
+  memory: low
+  power: medium
+
+security:
+  security_level: 512  # 512-bit preimage, 256-bit collision
+  best_attack: none_practical
+  attack_complexity: "2^256 for collision, 2^512 for preimage"
+  status: secure
+  standardized: true
+  proven_security: true
+
+compatible_with:
+  - HMAC
+  - KDF
+  - digital_signatures
+  - SHAKE
+  - high_security_applications
+
+not_compatible_with: []
+
+use_cases:
+  - maximum_security_applications
+  - long_term_archival
+  - file_integrity
+  - digital_signatures
+  - certificates
+  - diversity_from_sha2
+  - government_applications
+
+not_recommended_for:
+  - password_hashing_alone
+  - performance_critical_applications
+  - bandwidth_constrained_systems
+
+references:
+  - type: standard
+    title: "FIPS 202: SHA-3 Standard"
+    url: https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.202.pdf
+    year: 2015
+
+implementation_notes: |
+  - Based on Keccak sponge construction
+  - Different internal structure from SHA-2 family
+  - Good for hedging against SHA-2 vulnerabilities
+  - Slowest SHA-3 variant due to smallest rate (576 bits)
+  - No length extension attacks (unlike SHA-2)
+  - Provides 256-bit collision resistance
+  - Highest security margin in SHA-3 family
+  - Often paired with 521-bit ECC curves
+  - Consider SHA3-256 if performance is more important than security margin

@@ -1,0 +1,19 @@
+id: built_asset_pqc_transition_delivery
+name: 建筑长期资产后量子迁移报告
+status: active
+scenario: construction
+applies_to_skills: [built_asset_pqc_migration_advisor]
+summary: 面向长期建筑档案的密码敏捷、混合部署、重签和再封装路线。
+target_audiences: [owner, operator, archive, security]
+control_focus: [长期资产分类, 算法盘点, 混合迁移, 互操作, 回滚, 重签再封装]
+evidence_checklist: [算法和参数清单, 证书与验证上下文, 兼容性测试, 切换回滚条件]
+open_question_prompts: [哪些资产需要长期保密或长期验签？, 现有平台和设备支持哪些算法与证书格式？]
+sections:
+  - {id: assets, title: 长期资产分类, purpose: 识别保密与验签期限。}
+  - {id: inventory, title: 当前算法与验证上下文盘点, purpose: 记录算法、参数、证书和实现。}
+  - {id: priority, title: 迁移优先级, purpose: 按暴露面和生命周期排序。}
+  - {id: hybrid, title: 混合部署路线, purpose: 说明经典与后量子组合。}
+  - {id: compatibility, title: 兼容性、切换与回滚, purpose: 说明测试和操作条件。}
+  - {id: renewal, title: 重签与再封装策略, purpose: 说明长期验证维护。}
+  - {id: risks, title: 剩余风险和决策记录, purpose: 记录限制、责任和时间点。}
+

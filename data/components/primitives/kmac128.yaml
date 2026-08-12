@@ -1,0 +1,73 @@
+name: KMAC128
+full_name: Keccak Message Authentication Code 128
+category: mac
+description: |
+  KMAC128 is a Keccak-based message authentication code providing 128-bit security.
+  It is built on the SHA-3 sponge construction and provides variable-length output.
+
+parameters:
+  key_size: [128, 256]
+  tag_size: 256  # Variable output length, 256 is common
+
+properties:
+  - keccak_based
+  - variable_output_length
+  - domain_separation
+  - customization_string
+  - sponge_construction
+  - nist_approved
+
+performance:
+  software_speed: high
+  hardware_speed: very_high
+  memory: low
+  power: low
+
+security:
+  security_level: 128
+  best_attack: none_practical
+  attack_complexity: "2^128"
+  status: secure
+  standardized: true
+  proven_security: true
+
+compatible_with:
+  - SHA-3
+  - Keccak
+  - SHAKE128
+  - cSHAKE128
+  - TupleHash
+  - ParallelHash
+
+not_compatible_with: []
+
+use_cases:
+  - message_authentication
+  - data_integrity
+  - api_authentication
+  - secure_messaging
+  - blockchain_applications
+  - iot_devices
+
+not_recommended_for:
+  - password_storage
+  - key_derivation_from_passwords
+
+references:
+  - type: standard
+    title: "NIST SP 800-185: SHA-3 Derived Functions"
+    url: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-185.pdf
+    year: 2016
+  - type: standard
+    title: "FIPS 202: SHA-3 Standard"
+    url: https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.202.pdf
+    year: 2015
+
+implementation_notes: |
+  - Based on cSHAKE128 primitive
+  - Supports customization strings for domain separation
+  - Variable-length output (minimum 32 bits)
+  - Provides 128-bit security level
+  - More flexible than HMAC-SHA256
+  - No length extension attacks (inherent to sponge)
+  - Standardized by NIST as alternative to HMAC

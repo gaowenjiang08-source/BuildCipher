@@ -1,0 +1,77 @@
+name: Argon2
+full_name: Argon2 Password Hashing Function
+category: construction
+description: |
+  Argon2 is a modern password hashing function that won the Password Hashing Competition in 2015.
+  It provides configurable memory hardness, making it resistant to GPU and ASIC attacks.
+
+parameters:
+  output_size: 256
+  memory_cost: 65536  # KB, configurable
+  time_cost: 3  # iterations, configurable
+  parallelism: 4  # threads, configurable
+
+properties:
+  - memory_hard
+  - password_hashing
+  - configurable_cost
+  - parallelizable
+  - side_channel_resistant
+  - proven_security
+
+performance:
+  software_speed: configurable
+  hardware_speed: medium
+  memory: configurable_high
+  power: configurable_high
+
+security:
+  security_level: 256  # Configurable, up to 256-bit
+  best_attack: none_practical
+  attack_complexity: "Memory-hard, resistant to GPU/ASIC"
+  status: secure
+  standardized: true
+  proven_security: true
+
+compatible_with:
+  - password_storage
+  - key_derivation
+  - any_application
+
+not_compatible_with:
+  - legacy_systems
+  - resource_constrained_devices
+
+use_cases:
+  - password_hashing
+  - password_storage
+  - key_derivation
+  - user_authentication
+  - cryptocurrency_mining
+  - proof_of_work
+
+not_recommended_for:
+  - ultra_low_memory_systems
+  - real_time_authentication
+  - iot_devices
+
+references:
+  - type: paper
+    title: "Argon2: the memory-hard function for password hashing and other applications"
+    authors: ["Alex Biryukov", "Daniel Dinu", "Dmitry Khovratovich"]
+    url: https://github.com/P-H-C/phc-winner-argon2/blob/master/argon2-specs.pdf
+    year: 2015
+  - type: standard
+    title: "RFC 9106: Argon2 Memory-Hard Function"
+    url: https://www.rfc-editor.org/rfc/rfc9106.html
+    year: 2021
+
+implementation_notes: |
+  - Three variants: Argon2d (data-dependent), Argon2i (data-independent), Argon2id (hybrid)
+  - Argon2id recommended for password hashing (resistant to side-channel and GPU attacks)
+  - Configure memory cost based on available RAM (64MB recommended minimum)
+  - Time cost: 3-10 iterations for most applications
+  - Parallelism: match number of CPU cores for best performance
+  - Winner of Password Hashing Competition 2015
+  - Superior to bcrypt, scrypt, and PBKDF2
+  - Use for new applications requiring password storage

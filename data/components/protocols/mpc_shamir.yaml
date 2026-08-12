@@ -1,0 +1,88 @@
+name: Shamir Secret Sharing
+full_name: Shamir's Secret Sharing Scheme
+category: protocol
+description: |
+  Shamir's Secret Sharing is a threshold cryptography protocol that divides a secret into
+  multiple shares, where a minimum threshold of shares is required to reconstruct the secret.
+  Based on polynomial interpolation, it provides information-theoretic security.
+
+parameters:
+  threshold: configurable # minimum shares needed
+  total_shares: configurable # total shares created
+  field_size: 256 # bits, typically matches secret size
+  scheme_type: threshold
+
+properties:
+  - information_theoretic_security
+  - threshold_cryptography
+  - perfect_secrecy
+  - verifiable_variant_available
+  - share_homomorphic
+
+performance:
+  share_generation: fast
+  secret_reconstruction: fast
+  share_size: equal_to_secret
+  computation: low
+  memory: low
+
+security:
+  security_level: 256  # Information-theoretically secure, using 256-bit field
+  best_attack: none_possible
+  attack_complexity: "information_theoretically_secure"
+  status: secure
+  standardized: false
+  proven_security: true
+  quantum_resistant: true
+
+compatible_with:
+  - key_management
+  - distributed_systems
+  - threshold_signatures
+  - secure_multiparty_computation
+  - backup_recovery
+
+not_compatible_with:
+  - online_secret_usage # requires reconstruction
+  - untrusted_combiners
+
+use_cases:
+  - distributed_key_management
+  - secure_backup
+  - threshold_signatures
+  - access_control
+  - disaster_recovery
+  - multi_party_authorization
+  - cryptocurrency_wallets
+
+not_recommended_for:
+  - frequent_secret_access
+  - untrusted_reconstructors
+  - dynamic_threshold_changes
+
+references:
+  - type: paper
+    title: "How to Share a Secret"
+    authors: ["Adi Shamir"]
+    year: 1979
+    url: https://dl.acm.org/doi/10.1145/359168.359176
+  - type: paper
+    title: "Verifiable Secret Sharing and Achieving Simultaneity in the Presence of Faults"
+    authors: ["Paul Feldman"]
+    year: 1987
+  - type: standard
+    title: "SLIP-0039: Shamir's Secret-Sharing for Mnemonic Codes"
+    url: https://github.com/satoshilabs/slips/blob/master/slip-0039.md
+    year: 2020
+
+implementation_notes: |
+  - Based on polynomial interpolation over finite fields
+  - k-out-of-n threshold: any k shares can reconstruct secret
+  - Information-theoretically secure: < k shares reveal nothing
+  - Each share is same size as the secret
+  - Verifiable Secret Sharing (VSS) variant prevents dealer cheating
+  - Use Feldman VSS for verifiability
+  - Suitable for master key backup
+  - Can be combined with MPC for threshold signatures
+  - Homomorphic: shares can be added/multiplied
+  - Ensure secure random polynomial coefficients

@@ -1,0 +1,62 @@
+name: SipHash
+full_name: SipHash Pseudorandom Function
+category: mac
+description: |
+  SipHash is a fast short-input PRF optimized for hash tables and short messages.
+  It provides good security against hash-flooding DoS attacks.
+
+parameters:
+  output_size: 64
+
+properties:
+  - message_authentication
+  - prf
+  - fast_short_messages
+  - dos_resistant
+
+performance:
+  software_speed: very_high
+  hardware_speed: high
+  memory: very_low
+  power: very_low
+
+security:
+  security_level: 64
+  best_attack: none_practical
+  attack_complexity: "2^64"
+  status: secure
+  standardized: false
+  proven_security: true
+
+compatible_with:
+  - hash_tables
+  - short_messages
+
+not_compatible_with: []
+
+use_cases:
+  - hash_table_keys
+  - short_message_mac
+  - dos_prevention
+  - network_protocols
+  - data_structures
+
+not_recommended_for:
+  - long_messages_use_hmac
+  - cryptographic_hashing
+  - 128bit_security_needed
+
+references:
+  - type: paper
+    title: "SipHash: a fast short-input PRF"
+    authors: ["Jean-Philippe Aumasson", "Daniel J. Bernstein"]
+    url: https://cr.yp.to/siphash/siphash-20120918.pdf
+    year: 2012
+
+implementation_notes: |
+  - Extremely fast for short inputs
+  - 64-bit output (not suitable for >64-bit security)
+  - Used in Rust, Python, Ruby hash tables
+  - SipHash-2-4 is standard (2 compression rounds, 4 finalization rounds)
+  - Protects against hash-flooding DoS attacks
+  - Not a replacement for HMAC for general MAC use

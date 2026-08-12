@@ -1,0 +1,88 @@
+name: Kyber
+full_name: CRYSTALS-Kyber (ML-KEM)
+category: key_exchange
+description: |
+  Kyber is a post-quantum key encapsulation mechanism (KEM) based on the hardness
+  of Module-LWE. Selected by NIST as the standard for post-quantum key exchange.
+
+parameters:
+  key_size: [512, 768, 1024]
+  security_level: [128, 192, 256]
+
+properties:
+  - post_quantum
+  - key_encapsulation
+  - lattice_based
+  - nist_selected
+  - quantum_resistant
+
+performance:
+  software_speed: high
+  hardware_speed: high
+  memory: medium
+  power: medium
+
+security:
+  security_level: 256
+  best_attack: none_practical
+  attack_complexity: "quantum_resistant"
+  status: secure
+  standardized: true
+  proven_security: true
+
+security_profile:
+  classical_security_bits: 256
+  nist_pqc_category: 5
+  quantum_resistant: true
+  proof_model: module_lwe
+
+standard:
+  organization: NIST
+  identifier: FIPS-203
+  standardized_name: ML-KEM
+  status: final
+  published_at: "2024-08-13"
+  reviewed_at: "2026-08-11"
+  jurisdictions: [international]
+
+implementation_sources:
+  - name: Open Quantum Safe liboqs
+    source_type: mature_sdk
+    url: https://github.com/open-quantum-safe/liboqs
+    validation_status: integration_candidate_not_automatically_fips_validated
+
+compatible_with:
+  - TLS
+  - hybrid_modes
+  - X25519
+
+not_compatible_with: []
+
+use_cases:
+  - post_quantum_key_exchange
+  - tls
+  - vpn
+  - long_term_security
+  - quantum_resistant_protocols
+
+not_recommended_for:
+  - resource_constrained_iot
+
+references:
+  - type: standard
+    title: "NIST FIPS 203: Module-Lattice-Based Key-Encapsulation Mechanism"
+    url: https://csrc.nist.gov/pubs/fips/203/final
+    year: 2024
+  - type: paper
+    title: "CRYSTALS-Kyber"
+    url: https://pq-crystals.org/kyber/
+    year: 2020
+
+implementation_notes: |
+  - NIST standardized as ML-KEM (FIPS 203)
+  - Three security levels: Kyber512, Kyber768, Kyber1024
+  - Resistant to quantum computer attacks
+  - Fast key generation and encapsulation
+  - Recommended for hybrid mode with X25519
+  - Larger keys than classical algorithms
+  - Critical for post-quantum transition

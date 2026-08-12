@@ -1,0 +1,81 @@
+name: BLS
+full_name: Boneh-Lynn-Shacham Signatures
+category: signature
+description: |
+  BLS signatures are based on elliptic curve pairings and offer unique properties like signature aggregation.
+  They are used in Ethereum 2.0 for validator signatures and other blockchain consensus protocols.
+
+parameters:
+  curve: [BLS12-381, BN-256]
+  hash_to_curve: [hash_to_G1, hash_to_G2]
+
+properties:
+  - pairing_based
+  - signature_aggregation
+  - threshold_signatures
+  - deterministic
+  - small_signatures
+  - provably_secure
+
+performance:
+  software_speed: medium
+  hardware_speed: medium
+  memory: medium
+  power: medium
+  signature_size: 48
+  verification_speed: slow
+
+security:
+  security_level: 128  # For BLS12-381
+  best_attack: discrete_log_on_pairing_groups
+  attack_complexity: "2^128 for BLS12-381"
+  status: secure
+  standardized: true
+  proven_security: true
+
+compatible_with:
+  - Ethereum_2.0
+  - BLS12_381_curve
+  - threshold_cryptography
+  - multi_signatures
+  - aggregate_signatures
+
+not_compatible_with:
+  - quantum_computers
+  - legacy_pki_systems
+  - resource_constrained_devices
+
+use_cases:
+  - ethereum_2.0_validators
+  - blockchain_consensus
+  - certificate_transparency
+  - aggregate_signatures
+  - threshold_signatures
+  - distributed_key_generation
+
+not_recommended_for:
+  - post_quantum_security
+  - low_latency_applications
+  - constrained_devices
+  - single_signature_verification
+
+references:
+  - type: paper
+    title: "Short Signatures from the Weil Pairing"
+    authors: ["Dan Boneh", "Ben Lynn", "Hovav Shacham"]
+    year: 2001
+  - type: standard
+    title: "BLS Signature Scheme"
+    url: https://datatracker.ietf.org/doc/draft-irtf-cfrg-bls-signature/
+    year: 2022
+
+implementation_notes: |
+  - Requires pairing-friendly elliptic curves (BLS12-381)
+  - Supports aggregation of many signatures into one
+  - Used in Ethereum 2.0 for validator consensus
+  - Slower verification than ECDSA or Schnorr
+  - Efficient for verifying aggregated signatures
+  - 48-byte signatures on BLS12-381
+  - Requires hash-to-curve function
+  - Vulnerable to rogue key attacks (need proof of possession)
+  - Not quantum-resistant

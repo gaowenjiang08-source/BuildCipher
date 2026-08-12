@@ -1,0 +1,68 @@
+name: Poly1305
+full_name: Poly1305 Message Authentication Code
+category: mac
+description: |
+  Poly1305 is a cryptographic message authentication code (MAC) created by Daniel J. Bernstein.
+  It can be used to verify the integrity and authenticity of a message. It uses a one-time key
+  derived from the encryption key.
+
+parameters:
+  key_size: [256]
+  tag_size: 128
+
+properties:
+  - fast_software_implementation
+  - constant_time
+  - one_time_key
+  - proven_security
+
+performance:
+  software_speed: very_high
+  hardware_speed: medium
+  memory: very_low
+  power: very_low
+
+security:
+  security_level: 128
+  best_attack: none_practical
+  attack_complexity: "Information-theoretic security with one-time keys"
+  status: secure
+  standardized: true
+  proven_security: true
+
+compatible_with:
+  - ChaCha20
+  - AES
+  - any_stream_cipher
+
+not_compatible_with: []
+
+use_cases:
+  - authenticated_encryption
+  - message_authentication
+  - aead_construction
+  - lightweight_mac
+  - iot_encryption
+  - mobile_encryption
+  - embedded_systems
+
+not_recommended_for:
+  - standalone_use_without_encryption
+
+references:
+  - type: paper
+    title: "The Poly1305-AES message-authentication code"
+    authors: ["Daniel J. Bernstein"]
+    url: https://cr.yp.to/mac.html
+    year: 2005
+  - type: standard
+    title: "RFC 8439: ChaCha20 and Poly1305 for IETF Protocols"
+    url: https://www.rfc-editor.org/rfc/rfc8439
+    year: 2018
+
+implementation_notes: |
+  - Extremely fast - typically 2-3 CPU cycles per byte
+  - Requires one-time key derived from main key
+  - Must use fresh key for each message (typically derived from nonce)
+  - Constant-time implementation critical for security
+  - Often paired with ChaCha20 for AEAD construction

@@ -1,0 +1,82 @@
+name: Streebog
+full_name: GOST R 34.11-2012 Streebog Hash Function
+category: hash_function
+description: |
+  Streebog is a cryptographic hash function defined in the Russian National Standard GOST R 34.11-2012.
+  It produces either 256-bit or 512-bit hash values and replaces the older GOST R 34.11-94.
+
+parameters:
+  output_size: 512  # or 256
+  block_size: 512
+  rounds: 12
+
+properties:
+  - collision_resistant
+  - preimage_resistant
+  - second_preimage_resistant
+  - deterministic
+  - avalanche_effect
+  - russian_standard
+  - variable_output
+
+performance:
+  software_speed: medium
+  hardware_speed: medium
+  memory: medium
+  power: medium
+
+security:
+  security_level: 256  # for 512-bit output
+  best_attack: none_practical
+  attack_complexity: "2^256 for collision (512-bit), 2^512 for preimage"
+  status: secure
+  standardized: true
+  proven_security: true
+
+compatible_with:
+  - GOST_signature_algorithms
+  - HMAC
+  - digital_signatures
+  - russian_cryptographic_standards
+
+not_compatible_with: []
+
+use_cases:
+  - russian_regulatory_compliance
+  - digital_signatures_russia
+  - government_applications_russia
+  - financial_systems_russia
+  - certificates
+  - eurasian_economic_union
+
+not_recommended_for:
+  - international_interoperability_primary
+  - applications_without_gost_requirement
+  - resource_constrained_devices
+
+references:
+  - type: standard
+    title: "GOST R 34.11-2012: Streebog Hash Function"
+    year: 2012
+  - type: standard
+    title: "RFC 6986: GOST R 34.11-2012 (Streebog)"
+    url: https://tools.ietf.org/html/rfc6986
+    year: 2013
+  - type: paper
+    title: "Cryptanalysis of Streebog"
+    authors: ["Alex Biryukov", "Dmitry Khovratovich", "Ivica Nikolic"]
+    year: 2013
+
+implementation_notes: |
+  - Official Russian National Standard (GOST R 34.11-2012)
+  - Replaces older GOST R 34.11-94 (withdrawn)
+  - Two output sizes: Streebog-256 and Streebog-512
+  - Based on AES-like compression function
+  - Mandatory for Russian government applications
+  - RFC 6986 provides detailed specification
+  - More complex than SHA-2 family
+  - Performance slower than SHA-256/SHA-512
+  - Required for compliance in Russia and some CIS countries
+  - Consider for Russia-specific compliance requirements
+  - For international applications, SHA-2/SHA-3 more widely supported
+  - Well-analyzed, no practical attacks known

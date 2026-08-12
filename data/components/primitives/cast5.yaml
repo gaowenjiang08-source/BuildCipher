@@ -1,0 +1,71 @@
+name: CAST5
+full_name: CAST-128 Block Cipher
+category: block_cipher
+description: |
+  CAST-128 (commonly known as CAST5) is a symmetric block cipher designed by Carlisle Adams and Stafford Tavares.
+  It operates on 64-bit blocks with key sizes from 40 to 128 bits. CAST5 is widely used in PGP and GPG
+  encryption systems and was selected as a finalist in the AES competition.
+
+parameters:
+  block_size: 64
+  key_size: [40, 128]
+  rounds: 16
+
+properties:
+  - feistel_structure
+  - pgp_standard
+  - variable_key_length
+  - proven_design
+  - legacy_status
+
+performance:
+  software_speed: medium
+  hardware_speed: medium
+  memory: low
+  power: low
+
+security:
+  security_level: 80  # Limited by 64-bit block size and 128-bit keys
+  best_attack: linear_cryptanalysis
+  attack_complexity: "2^55.1 chosen plaintexts for full cipher"
+  status: legacy
+  standardized: true
+  proven_security: true
+
+compatible_with:
+  - CBC
+  - CTR
+  - CFB
+  - OFB
+  - ECB
+
+not_compatible_with: []
+
+use_cases:
+  - pgp_encryption
+  - gpg_encryption
+  - email_encryption
+  - legacy_system_support
+  - backward_compatibility
+
+not_recommended_for:
+  - new_implementations
+  - high_volume_data_encryption
+  - long_term_security_requirements
+
+references:
+  - type: standard
+    title: "RFC 2144: The CAST-128 Encryption Algorithm"
+    url: https://www.rfc-editor.org/rfc/rfc2144.txt
+    year: 1997
+  - type: paper
+    title: "Constructing Symmetric Ciphers Using the CAST Design Procedure"
+    authors: ["Carlisle Adams", "Stafford Tavares"]
+    year: 1997
+
+implementation_notes: |
+  - Widely supported in OpenPGP implementations for backward compatibility
+  - S-boxes are generated from bent functions for cryptographic strength
+  - Key schedule is computationally efficient compared to other ciphers
+  - 64-bit block size makes it vulnerable to birthday attacks on large datasets
+  - For new PGP/GPG implementations, consider using AES instead

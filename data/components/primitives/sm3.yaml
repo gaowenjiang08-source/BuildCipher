@@ -1,0 +1,78 @@
+name: SM3
+full_name: ShangMi 3 Cryptographic Hash Algorithm
+category: hash_function
+description: |
+  SM3 is a cryptographic hash function published as a Chinese National Standard.
+  It produces a 256-bit hash value and is part of the ShangMi suite of algorithms.
+
+parameters:
+  output_size: 256
+  block_size: 512
+  rounds: 64
+
+properties:
+  - collision_resistant
+  - preimage_resistant
+  - second_preimage_resistant
+  - deterministic
+  - avalanche_effect
+  - chinese_standard
+
+performance:
+  software_speed: medium_high
+  hardware_speed: high
+  memory: low
+  power: low
+
+security:
+  security_level: 256  # 256-bit preimage, 128-bit collision
+  best_attack: none_practical
+  attack_complexity: "2^128 for collision, 2^256 for preimage"
+  status: secure
+  standardized: true
+  proven_security: true
+
+compatible_with:
+  - SM2  # Chinese ECC signature
+  - SM4  # Chinese block cipher
+  - HMAC
+  - digital_signatures
+  - chinese_cryptographic_standards
+
+not_compatible_with: []
+
+use_cases:
+  - chinese_regulatory_compliance
+  - digital_signatures_china
+  - government_applications_china
+  - financial_systems_china
+  - smart_cards
+  - certificates
+
+not_recommended_for:
+  - international_interoperability_primary
+  - applications_without_sm3_requirement
+
+references:
+  - type: standard
+    title: "GM/T 0004-2012: SM3 Cryptographic Hash Algorithm"
+    year: 2012
+  - type: standard
+    title: "ISO/IEC 10118-3:2018 (includes SM3)"
+    year: 2018
+  - type: paper
+    title: "Security Analysis of SM3"
+    authors: ["Xiaoyun Wang"]
+    year: 2011
+
+implementation_notes: |
+  - Official Chinese National Standard (GM/T 0004-2012)
+  - Added to ISO/IEC 10118-3:2018
+  - Similar structure to SHA-256 but with differences
+  - Required for many Chinese government and financial applications
+  - Well-analyzed by cryptographic community
+  - No practical attacks known
+  - Performance comparable to SHA-256
+  - Mandatory in Chinese Commercial Cryptography standards
+  - Consider for China-specific compliance requirements
+  - For international applications, SHA-256 more widely supported

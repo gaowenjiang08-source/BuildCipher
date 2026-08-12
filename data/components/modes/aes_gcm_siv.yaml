@@ -1,0 +1,80 @@
+name: AES-GCM-SIV
+full_name: AES-GCM with Synthetic IV
+category: mode
+description: |
+  AES-GCM-SIV is the specific instantiation of GCM-SIV using AES as the block cipher.
+  It provides nonce-misuse resistant authenticated encryption with hardware acceleration support.
+
+parameters:
+  block_size: 128
+  nonce_size: 96
+  tag_size: 128
+  key_sizes:
+    - 128
+    - 256
+
+properties:
+  - authenticated_encryption
+  - nonce_misuse_resistant
+  - deterministic_on_nonce_reuse
+  - parallelizable
+  - hardware_accelerated
+
+performance:
+  software_speed: high
+  hardware_speed: very_high
+  memory: low
+  power: low
+
+security:
+  security_level: 256  # For AES-256-GCM-SIV
+  best_attack: none_practical
+  attack_complexity: "birthday bound at 2^48 per nonce"
+  status: secure
+  standardized: true
+  proven_security: true
+
+compatible_with:
+  - AES
+  - TLS_1_3
+  - modern_protocols
+  - x86_processors
+  - arm_processors
+
+not_compatible_with:
+  - non_AES_ciphers
+  - legacy_systems
+  - systems_without_AES_support
+
+use_cases:
+  - nonce_reuse_risky_environments
+  - stateless_protocols
+  - distributed_systems
+  - key_wrap
+  - cloud_encryption
+  - database_encryption
+
+not_recommended_for:
+  - systems_guaranteeing_unique_nonces
+  - maximum_throughput_required
+
+references:
+  - type: rfc
+    title: "RFC 8452: AES-GCM-SIV: Nonce Misuse-Resistant Authenticated Encryption"
+    url: https://tools.ietf.org/html/rfc8452
+    year: 2019
+  - type: paper
+    title: "AES-GCM-SIV: Specification and Analysis"
+    url: https://eprint.iacr.org/2017/168
+    year: 2017
+
+implementation_notes: |
+  - Uses AES-256 or AES-128 as block cipher
+  - Hardware acceleration via AES-NI and PCLMULQDQ
+  - Nonce reuse only reveals duplicate messages
+  - Two-pass construction (authentication then encryption)
+  - Derived IV from message provides misuse resistance
+  - Approximately 1.5x slower than AES-GCM
+  - Used in Google Cloud Platform encryption
+  - Recommended when nonce uniqueness cannot be guaranteed
+  - Both AES-128-GCM-SIV and AES-256-GCM-SIV variants available

@@ -1,0 +1,66 @@
+name: SHA-1
+full_name: Secure Hash Algorithm 1
+category: hash_function
+description: |
+  SHA-1 is a cryptographic hash function designed by the NSA. It is now considered
+  broken for cryptographic purposes but still used in some legacy systems.
+
+parameters:
+  output_size: 160
+  block_size: 512
+
+properties:
+  - legacy
+  - deprecated
+
+performance:
+  software_speed: high
+  hardware_speed: high
+  memory: low
+  power: low
+
+security:
+  security_level: 0  # Broken
+  best_attack: collision_attack
+  attack_complexity: "2^63 (practical collision found in 2017)"
+  status: broken
+  standardized: true
+  proven_security: false
+
+compatible_with:
+  - legacy_systems
+  - git_internal
+
+not_compatible_with:
+  - new_cryptographic_applications
+
+use_cases:
+  - git_checksums
+  - legacy_compatibility
+  - non_cryptographic_checksums
+
+not_recommended_for:
+  - digital_signatures
+  - certificates
+  - password_hashing
+  - message_authentication
+  - any_new_cryptographic_use
+
+references:
+  - type: standard
+    title: "FIPS 180-4: Secure Hash Standard"
+    url: https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.180-4.pdf
+    year: 2015
+  - type: paper
+    title: "The first collision for full SHA-1"
+    authors: ["Marc Stevens et al."]
+    url: https://shattered.io/
+    year: 2017
+
+implementation_notes: |
+  - DEPRECATED: Do not use for new applications
+  - Practical collision attacks demonstrated in 2017
+  - NIST deprecated SHA-1 for digital signatures in 2011
+  - Still used in Git for non-cryptographic purposes
+  - Migration to SHA-256 or SHA-3 strongly recommended
+  - Only included for educational and legacy compatibility

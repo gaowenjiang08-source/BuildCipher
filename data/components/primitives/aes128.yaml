@@ -1,0 +1,66 @@
+name: AES-128
+full_name: Advanced Encryption Standard (128-bit)
+category: block_cipher
+description: |
+  AES with 128-bit key size, providing efficient symmetric encryption
+  for most commercial applications. Widely supported and highly optimized.
+
+parameters:
+  block_size: 128
+  key_size: [128]
+  rounds: 10
+
+properties:
+  - proven_security
+  - hardware_accelerated
+  - constant_time_capable
+  - parallelizable
+
+performance:
+  software_speed: fast
+  hardware_speed: very_high
+  memory: low
+  power: low
+
+security:
+  security_level: 128
+  best_attack: biclique
+  attack_complexity: "2^126.1 for AES-128"
+  status: secure
+  standardized: true
+  proven_security: true
+
+compatible_with:
+  - GCM
+  - CCM
+  - CTR
+  - CBC
+
+not_compatible_with: []
+
+use_cases:
+  - symmetric_encryption
+  - data_encryption
+  - file_encryption
+  - disk_encryption
+  - vpn
+  - tls
+  - iot_encryption
+  - mobile_encryption
+  - web_encryption
+
+not_recommended_for:
+  - long_term_archival  # Prefer AES-256
+
+references:
+  - type: standard
+    title: "FIPS 197: Advanced Encryption Standard"
+    url: https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.197.pdf
+    year: 2001
+
+implementation_notes: |
+  - Preferred for IoT and mobile devices due to lower computational requirements
+  - Use with authenticated encryption modes (GCM, CCM) for data integrity
+  - Hardware acceleration available on most modern processors (AES-NI)
+  - AES-128 provides adequate security for most commercial applications
+  - For long-term security (>20 years), consider AES-256

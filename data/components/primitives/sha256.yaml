@@ -1,0 +1,72 @@
+name: SHA-256
+full_name: Secure Hash Algorithm 256-bit
+category: hash_function
+description: |
+  SHA-256 is a cryptographic hash function from the SHA-2 family, standardized by NIST.
+  It produces a 256-bit (32-byte) hash value and is widely used in various security applications.
+
+parameters:
+  output_size: 256
+  block_size: 512
+
+properties:
+  - collision_resistant
+  - preimage_resistant
+  - second_preimage_resistant
+  - deterministic
+  - avalanche_effect
+
+performance:
+  software_speed: high
+  hardware_speed: very_high
+  memory: low
+  power: low
+
+security:
+  security_level: 256  # 256-bit preimage resistance, 128-bit collision resistance
+  best_attack: none_practical
+  attack_complexity: "2^128 for collision, 2^256 for preimage"
+  status: secure
+  standardized: true
+  proven_security: true
+
+compatible_with:
+  - HMAC
+  - HKDF
+  - PBKDF2
+  - RSA-PSS
+  - ECDSA
+  - digital_signatures
+
+not_compatible_with: []
+
+use_cases:
+  - digital_signatures
+  - certificate_generation
+  - password_hashing
+  - integrity_verification
+  - blockchain
+  - bitcoin
+  - file_checksums
+  - hmac
+
+not_recommended_for:
+  - password_storage_alone
+  - extremely_high_speed_hashing
+
+references:
+  - type: standard
+    title: "FIPS 180-4: Secure Hash Standard"
+    url: https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.180-4.pdf
+    year: 2015
+  - type: paper
+    title: "Finding Collisions in the Full SHA-1"
+    authors: ["Xiaoyun Wang", "Yiqun Lisa Yin", "Hongbo Yu"]
+    year: 2005
+
+implementation_notes: |
+  - Use hardware acceleration (SHA extensions) when available
+  - Consider SHA-256 for general purpose hashing
+  - For password hashing, use PBKDF2-HMAC-SHA256 or Argon2
+  - Bitcoin uses double SHA-256 (SHA-256(SHA-256(data)))
+  - More secure than SHA-1, recommended for new applications
