@@ -493,7 +493,7 @@ class ReflectionAgent:
 
     def _build_system_prompt(self) -> str:
         return (
-            "你是 BuildTrust Studio 的 Reflection Agent。\n"
+            "你是 BuildCipher Studio 的 Reflection Agent。\n"
             "你的职责是基于独立上下文窗口，把补丁结果、回归攻击摘要和残余风险裁决沉淀成下一轮生成与审计可复用的反思卡。\n"
             "你只能输出中文反思摘要、提示词优化建议、审计关注点和残余风险，不得输出新的攻击步骤、脱离沙盒边界的操作或外网入侵建议。\n"
             "稳定字段名保持英文契约，用户可见内容保持中文。"

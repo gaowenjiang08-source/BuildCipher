@@ -12,4 +12,4 @@ def test_health_endpoint():
 
     payload = response.json()
     assert payload["status"] == "ok"
-    assert payload["service"] == "buildtrust-api"
+    assert payload["service"] == "buildcipher-api"

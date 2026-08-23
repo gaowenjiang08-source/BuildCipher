@@ -5,6 +5,7 @@ from __future__ import annotations
 from functools import lru_cache
 from typing import Optional
 
+from pydantic import AliasChoices, Field
 from pydantic_settings import BaseSettings
 
 
@@ -82,8 +83,20 @@ class Settings(BaseSettings):
     api_key_enabled: bool = False
     api_key: Optional[str] = None
 
-    # BuildTrust localhost state
-    buildtrust_governance_database_path: str = ".cache/buildtrust/governance.sqlite3"
+    # BuildCipher localhost state. The BuildTrust name remains an accepted env alias.
+    buildcipher_governance_database_path: str = Field(
+        default=".cache/buildcipher/governance.sqlite3",
+        validation_alias=AliasChoices(
+            "BUILDCIPHER_GOVERNANCE_DATABASE_PATH",
+            "BUILDTRUST_GOVERNANCE_DATABASE_PATH",
+        ),
+    )
+
+    @property
+    def buildtrust_governance_database_path(self) -> str:
+        """Compatibility accessor for integrations authored before the runtime rename."""
+
+        return self.buildcipher_governance_database_path
 
     class Config:
         env_file = ".env"

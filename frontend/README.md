@@ -1,6 +1,6 @@
-# BuildTrust Studio Frontend
+# BuildCipher Studio Frontend
 
-`frontend/` 是 BuildTrust 的 React + Vite 前端。界面保留原项目的白蓝企业工作台视觉语言、渐变层级、圆角卡片、状态标签与轻量动效，但运行时业务模型已经切换为建筑工程可信交付。
+`frontend/` 是 BuildCipher Studio 的 React + Vite 前端。界面保留原项目的白蓝企业工作台视觉语言、渐变层级、圆角卡片、状态标签与轻量动效，`BuildTrust` 作为建筑工程可信交付能力呈现。
 
 ## 页面结构
 
@@ -26,7 +26,7 @@
 先在项目根目录启动后端：
 
 ```powershell
-poetry run buildtrust-api
+poetry run buildcipher-api
 ```
 
 ```powershell

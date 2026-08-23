@@ -130,7 +130,7 @@ export default function StudioHeaderView({
           <div className="min-w-0">
             <div className="flex flex-wrap items-center gap-3">
               <p className="text-[1.34rem] font-black tracking-[-0.04em] text-[color:var(--cg-text)] md:text-[1.62rem]">
-                BuildTrust Studio
+                BuildCipher Studio
               </p>
               <span className="hidden h-5 w-px bg-[color:var(--cg-border)] md:inline-block" />
               <p className="truncate text-[0.92rem] font-medium text-[color:var(--cg-text-soft)]">{scenario}</p>

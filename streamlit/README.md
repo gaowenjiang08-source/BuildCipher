@@ -1,4 +1,4 @@
-# Streamlit Maintenance Folder
+# BuildCipher Streamlit Compatibility Folder
 
 This folder centralizes Streamlit-related entry scripts for easier maintenance.
 
@@ -27,8 +27,8 @@ start_streamlit.bat
 The launcher will:
 
 - verify Python 3.10+
-- verify Poetry
-- run `poetry install` automatically when backend dependencies are missing
+- prefer `.buildcipher_runtime`, `.buildcipher_venv`, or `.venv`
+- otherwise verify Poetry and run `poetry install` when backend dependencies are missing
 
 From repository root:
 

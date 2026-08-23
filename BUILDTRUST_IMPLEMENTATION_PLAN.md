@@ -1,4 +1,4 @@
-# BuildTrust Studio 实施计划
+# BuildCipher Studio（BuildTrust 能力）实施计划
 
 当前进度：P0-A、P0-B、P1 与 localhost P2 基础均已完成；前端、活跃后端、外部命名与默认测试样例已完成建筑领域纯化。云和供应商结构暂不开发。实时能力、边界和待实现项见 `BUILDTRUST_CAPABILITY_STATUS.md`。
 

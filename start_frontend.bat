@@ -2,11 +2,11 @@
 setlocal
 cd /d "%~dp0"
 set "ROOT_DIR=%~dp0"
-title BuildTrust Studio - Frontend Launcher
+title BuildCipher Studio - Frontend Launcher
 
 echo.
 echo ==============================================
-echo   BuildTrust Studio - Frontend Launcher
+echo   BuildCipher Studio - Frontend Launcher
 echo ==============================================
 echo.
 
@@ -21,9 +21,9 @@ echo       API base: http://127.0.0.1:8000
 echo.
 pushd "%ROOT_DIR%frontend" >nul
 call npm run dev
-set "BUILDTRUST_FRONTEND_EXIT=%ERRORLEVEL%"
+set "BUILDCIPHER_FRONTEND_EXIT=%ERRORLEVEL%"
 popd >nul
-exit /b %BUILDTRUST_FRONTEND_EXIT%
+exit /b %BUILDCIPHER_FRONTEND_EXIT%
 
 :fail
 echo.

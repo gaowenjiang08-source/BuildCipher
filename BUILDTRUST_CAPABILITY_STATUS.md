@@ -1,7 +1,7 @@
-# BuildTrust Studio 能力状态
+# BuildCipher Studio / BuildTrust 能力状态
 
-最后更新：2026-08-12  
-当前阶段：localhost 第一版已完成运行时品牌与建筑测试纯化，进入赛事验收
+最后更新：2026-08-23
+当前阶段：以现有建筑执行主线完成 ZIP 优点的兼容吸收，进入完整垂直切片验收
 
 每轮改造结束都应同步更新本文档的“当前位置、已实现、能力边界、待实现”。
 
@@ -14,8 +14,9 @@
 - P1 建筑业务前端：第一版已完成；
 - P2 集成与赛事交付：localhost BIM/IoT provider、IFC/CDE 合同、IoT 持久化、治理记录和赛事冻结包已完成；云和供应商适配暂不开发。
 - 领域纯化：前端及活跃后端的医药 benchmark、Skill、报告模板和业务 API 已退役；通用密码与 LLM 内核保留。
-- 品牌与测试纯化：外部命令为 `buildtrust` / `buildtrust-api`，API 健康标识、报告、导出器、前端存储键和默认领域测试均已切换为 BuildTrust / construction。
-- 完整测试集使用离线 LLM fixture 验证 localhost fallback，结果为 `178 passed, 11 skipped`；生产 LLM provider 接口保留。
+- 运行时收口：产品、CLI、API 健康标识、Windows 启动器和前端导出统一为 `BuildCipher`；`BuildTrust` 保留为建筑可信交付能力名，旧命令与治理环境变量作为兼容入口。
+- ZIP 优点吸收：已将建筑参与方、数字资产、生命周期、安全不变量和威胁画像接入类型化合同、方案审计上下文与 LangGraph 约束投影；未恢复医药业务或云部署结构。
+- 完整测试集使用离线 LLM fixture 验证 localhost fallback，本轮结果为 `183 passed, 11 skipped`；生产 LLM provider 接口保留。
 
 ## 当前已实现能力
 

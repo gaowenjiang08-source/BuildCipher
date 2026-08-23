@@ -1,4 +1,4 @@
-﻿"""FastAPI application for BuildTrust Studio."""
+﻿"""FastAPI application for BuildCipher Studio."""
 
 from __future__ import annotations
 
@@ -151,7 +151,7 @@ def _validate_llm_provider(value: str | None) -> str | None:
 @app.get("/api/v1/health", response_model=HealthResponse)
 def health() -> HealthResponse:
     """Health check endpoint."""
-    return HealthResponse(status="ok", service="buildtrust-api", time=datetime.now(timezone.utc))
+    return HealthResponse(status="ok", service="buildcipher-api", time=datetime.now(timezone.utc))
 
 
 @app.post("/api/v1/generate", response_model=GenerateResponse)

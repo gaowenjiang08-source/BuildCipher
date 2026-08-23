@@ -1,4 +1,4 @@
-"""Data models for BuildTrust Studio."""
+"""Data models for BuildCipher Studio."""
 
 from cipher_genius.models.scheme import CryptographicScheme
 from cipher_genius.models.requirement import Requirement, SecurityRequirement, PerformanceConstraint
@@ -18,7 +18,11 @@ from cipher_genius.models.construction import (
     ConstructionLifecyclePhase,
     ConstructionParty,
     ConstructionPartyRole,
+    ConstructionPrimaryScenario,
     ConstructionProjectContext,
+    ConstructionRequirementProfile,
+    ConstructionSecurityInvariant,
+    ConstructionThreat,
     CDEConnectorStatus,
     CDEPackageDescriptor,
     ConstructionCredentialGovernanceRecord,
@@ -48,7 +52,11 @@ __all__ = [
     "ConstructionLifecyclePhase",
     "ConstructionParty",
     "ConstructionPartyRole",
+    "ConstructionPrimaryScenario",
     "ConstructionProjectContext",
+    "ConstructionRequirementProfile",
+    "ConstructionSecurityInvariant",
+    "ConstructionThreat",
     "CDEConnectorStatus",
     "CDEPackageDescriptor",
     "ConstructionCredentialGovernanceRecord",

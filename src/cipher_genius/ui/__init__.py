@@ -1,1 +1,1 @@
-﻿"""UI package for BuildTrust Studio."""
+﻿"""UI package for BuildCipher Studio."""

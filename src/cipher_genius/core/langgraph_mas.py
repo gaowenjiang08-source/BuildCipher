@@ -59,6 +59,7 @@ from cipher_genius.api.schemas import (
 from cipher_genius.core.artifact_summarizer import ArtifactSummarizer
 from cipher_genius.core.context_bus import ContextBusBuilder
 from cipher_genius.core.control_plane import ControlPlaneBuilder
+from cipher_genius.core.construction_domain import build_construction_context_summary
 from cipher_genius.core.mas_runtime_support import MASRuntimeSupport
 from cipher_genius.core.safety_notice import SECURITY_DISCLAIMER_TEXT
 from cipher_genius.models.requirement import (
@@ -5360,6 +5361,9 @@ class LangGraphMASService:
             append_constraint(kind="latency", value=f"延迟目标：{latency}")
         if structured_spec.get("quantum_safe") is True:
             append_constraint(kind="quantum_safe", value="后量子安全要求：是")
+        construction_summary = build_construction_context_summary(structured_spec)
+        if construction_summary:
+            append_constraint(kind="construction_model", value=construction_summary)
 
         for item in (case_memory.confirmed_constraints[:3] if case_memory else []):
             append_constraint(kind="case_memory", value=item, priority="medium", source="case_memory")
@@ -6440,6 +6444,9 @@ class LangGraphMASService:
             items.append(f"延迟目标：{latency}")
         if structured_spec.get("quantum_safe") is True:
             items.append("后量子要求：是")
+        construction_summary = build_construction_context_summary(structured_spec)
+        if construction_summary:
+            items.append(f"Construction model: {construction_summary}")
         return items
 
     def _build_case_decision_summary(

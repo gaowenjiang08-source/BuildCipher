@@ -1,8 +1,8 @@
 [tool.poetry]
-name = "buildtrust-studio"
+name = "buildcipher-studio"
 version = "0.1.0"
 description = "A construction digital-asset trust and cryptographic strategy agent"
-authors = ["BuildTrust Team"]
+authors = ["BuildCipher Team"]
 readme = "README.md"
 license = "MIT"
 packages = [{include = "cipher_genius", from = "src"}]
@@ -57,6 +57,9 @@ pytest-redis = "^3.1.0"
 fakeredis = "^2.26.0"
 
 [tool.poetry.scripts]
+buildcipher = "cipher_genius.cli.main:app"
+buildcipher-api = "cipher_genius.api.main:run"
+# Compatibility aliases for existing local scripts and team branches.
 buildtrust = "cipher_genius.cli.main:app"
 buildtrust-api = "cipher_genius.api.main:run"
 

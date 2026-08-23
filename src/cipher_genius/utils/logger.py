@@ -1,4 +1,4 @@
-"""Logging utilities for BuildTrust Studio."""
+"""Logging utilities for BuildCipher Studio."""
 
 import logging
 import sys

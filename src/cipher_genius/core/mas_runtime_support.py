@@ -32,6 +32,12 @@ from cipher_genius.api.schemas import (
 )
 from cipher_genius.core.audit_evaluation_agent import AuditEvaluationAgent
 from cipher_genius.core.attack_planning_agent import AttackPlanningAgent
+from cipher_genius.core.construction_domain import (
+    augment_construction_structured_spec,
+    build_construction_production_guide,
+    build_construction_scenario_fit,
+    enrich_scheme_with_construction_context,
+)
 from cipher_genius.codegen.generator import CodeGenerator
 from cipher_genius.core.expert_gate_agent import ExpertGateAgent
 from cipher_genius.core.generator import SchemeGenerator
@@ -295,7 +301,7 @@ class MASRuntimeSupport:
             compliance = "FEDRAMP"
 
         quantum_safe = requirement.security.quantum_resistant or "quantum" in text or "后量子" in text
-        return {
+        structured_spec = {
             "domain": domain,
             "compliance": compliance,
             "quantum_safe": quantum_safe,
@@ -304,6 +310,7 @@ class MASRuntimeSupport:
             "resource_level": self._enum_value(requirement.target_platform.resource_level),
             "constraints": requirement.performance.model_dump(),
         }
+        return augment_construction_structured_spec(structured_spec, raw_text)
 
     def _build_clarifications(self, raw_text: str, structured_spec: Dict[str, Any]) -> List[ClarificationPayload]:
         questions: List[ClarificationPayload] = []
@@ -642,6 +649,7 @@ class MASRuntimeSupport:
             candidate = scheme
             if quantum_required and not self._scheme_has_pq_components(candidate):
                 candidate = self._harden_scheme(candidate, quantum_required=True)
+            candidate = enrich_scheme_with_construction_context(candidate, structured_spec)
             prepared.append(candidate)
 
         prepared.sort(
@@ -1243,6 +1251,14 @@ class MASRuntimeSupport:
         domain = str(structured_spec.get("domain", "general")).lower()
         compliance = str(structured_spec.get("compliance", "NIST_CSF")).upper()
         quantum = bool(structured_spec.get("quantum_safe"))
+        if domain == "construction":
+            construction_fit = build_construction_scenario_fit(
+                structured_spec,
+                compliance=compliance,
+                quantum=quantum,
+            )
+            if construction_fit:
+                return construction_fit
         return f"场景画像：{domain}；主要合规目标：{compliance}；后量子要求：{'是' if quantum else '否'}。"
 
     def _build_production_guide(self, structured_spec: Dict[str, Any], audit_passed: bool) -> List[str]:
@@ -1257,12 +1273,7 @@ class MASRuntimeSupport:
             "为密码相关变更定义灰度发布与回滚预案。",
         ]
         if domain == "construction":
-            guide.extend(
-                [
-                    "将 BIM/IFC、图纸、检测记录与签批结论绑定到版本化证据引用。",
-                    "按项目角色验证交付包权限，并保留长期验签所需上下文。",
-                ]
-            )
+            guide.extend(build_construction_production_guide(structured_spec))
         if not audit_passed:
             guide.append("当前审计未完全通过，正式上线前需先关闭拒绝项。")
         return guide
