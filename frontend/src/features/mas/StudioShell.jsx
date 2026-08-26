@@ -11,7 +11,7 @@ export default function StudioShell({ header, sidebar, notices, children }) {
       </div>
 
       <div className="mx-auto max-w-[1680px]">
-        <div className="relative z-40 lg:sticky lg:top-4">{header}</div>
+        <div className="relative z-40">{header}</div>
 
         <div className="mt-6 grid gap-5 lg:grid-cols-[292px_minmax(0,1fr)] xl:gap-6">
           <div className="min-w-0 lg:sticky lg:top-[112px] lg:self-start">
