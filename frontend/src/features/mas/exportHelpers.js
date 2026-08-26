@@ -45,7 +45,7 @@ export function buildMarkdownExport(pkg = {}) {
   const credibility = pkg.credibility_assessment || scheme.credibility_assessment || {};
   const appliedSkill = pkg.applied_skill || pkg.delivery?.applied_skill || null;
   const lines = [
-    `# BuildTrust Studio 交付文档 - ${scheme.name || "未命名方案"}`,
+    `# BuildCipher Studio 交付文档 - ${scheme.name || "未命名方案"}`,
     "",
     "## 执行摘要",
     `- 交付编号：${pkg.request_id || "--"}`,
@@ -139,8 +139,8 @@ export function buildLatexExport(pkg = {}) {
     "\\usepackage[utf8]{inputenc}",
     "\\usepackage[a4paper,margin=1in]{geometry}",
     "\\usepackage{hyperref}",
-    "\\title{BuildTrust Studio 本地交付文档}",
-    "\\author{BuildTrust Studio}",
+    "\\title{BuildCipher Studio 本地交付文档}",
+    "\\author{BuildCipher Studio}",
     `\\date{${escapeLatex(pkg.generated_at || "--")}}`,
     "\\begin{document}",
     "\\maketitle",

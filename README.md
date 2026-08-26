@@ -1,6 +1,6 @@
-# BuildTrust Studio
+# BuildCipher Studio
 
-BuildTrust Studio 是面向建筑工程数字资产的可信协同与密码策略 Agent。第一版聚焦 **BIM/IFC 可信交付 + 工地 IoT 验收证据链**，把需求分析、方案生成、安全审计、攻击验证、修补回归和证据交付组织成一条 LangGraph 主线。
+BuildCipher Studio 是面向建筑工程数字资产的可信协同与密码策略 Agent。`BuildTrust` 是其中的建筑可信交付能力名，第一版聚焦 **BIM/IFC 可信交付 + 工地 IoT 验收证据链**，把需求分析、方案生成、安全审计、攻击验证、修补回归和证据交付组织成一条 LangGraph 主线。
 
 项目保留原系统的通用密码组件、MAS 编排、LLM provider、报告、记忆与回放内核；医药专属前端、benchmark、Skill、报告模板和 API 已退役。
 
@@ -28,7 +28,7 @@ start.bat
 
 ```powershell
 poetry install
-poetry run buildtrust-api
+poetry run buildcipher-api
 ```
 
 ```powershell
@@ -42,6 +42,8 @@ npm run dev
 - Swagger：`http://127.0.0.1:8000/docs`
 
 详细步骤见 [QUICK_START_V3.md](QUICK_START_V3.md)。
+
+Windows 启动器会优先识别 `.buildcipher_runtime`、`.buildcipher_venv` 或 Poetry 的 `.venv`。既有团队分支仍可使用 `poetry run buildtrust` / `poetry run buildtrust-api` 兼容别名；新代码与文档统一使用 `buildcipher` / `buildcipher-api`。
 
 ## 建筑 API
 

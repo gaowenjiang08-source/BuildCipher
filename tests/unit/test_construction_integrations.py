@@ -316,7 +316,7 @@ def test_local_crypto_provider_drives_bim_manifest_signing(tmp_path: Path):
 
 def test_construction_demo_service_builds_localhost_provider(monkeypatch, tmp_path: Path):
     settings = SimpleNamespace(
-        buildtrust_governance_database_path=str(tmp_path / "service-governance.sqlite3"),
+        buildcipher_governance_database_path=str(tmp_path / "service-governance.sqlite3"),
     )
     monkeypatch.setattr(construction_service, "get_settings", lambda: settings)
 
@@ -324,6 +324,6 @@ def test_construction_demo_service_builds_localhost_provider(monkeypatch, tmp_pa
 
     assert isinstance(service.runner.mac_provider, LocalReferenceHMACProvider)
     assert service.runner.signature_provider is service.runner.mac_provider
-    assert service.runner.mac_provider.provider_id == "buildtrust-localhost-provider"
+    assert service.runner.mac_provider.provider_id == "buildcipher-localhost-provider"
     assert service.runner.device_credential_ref.startswith("local://")
     assert service.runner.design_signing_credential_ref.startswith("local://")

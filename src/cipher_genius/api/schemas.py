@@ -1,4 +1,4 @@
-﻿"""Request and response schemas for the BuildTrust API."""
+﻿"""Request and response schemas for the BuildCipher API."""
 
 from __future__ import annotations
 

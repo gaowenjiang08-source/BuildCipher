@@ -16,7 +16,7 @@ def api_client():
         if response.status_code == 200:
             return True
     except requests.exceptions.RequestException:
-        pytest.skip("API server not running. Start with: poetry run buildtrust-api")
+        pytest.skip("API server not running. Start with: poetry run buildcipher-api")
     return False
 
 
@@ -26,7 +26,7 @@ def test_health_endpoint(api_client):
     assert response.status_code == 200
     data = response.json()
     assert data["status"] == "ok"
-    assert data["service"] == "buildtrust-api"
+    assert data["service"] == "buildcipher-api"
 
 
 def test_mas_execute_compatibility_flag_is_accepted(api_client):

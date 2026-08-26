@@ -1,10 +1,10 @@
-# BuildTrust Studio 技术文档
+# BuildCipher Studio 技术文档
 
-最后更新：2026-08-12
+最后更新：2026-08-23
 
 ## 1. 系统目标
 
-BuildTrust 将通用密码策略 Agent 内核应用到建筑数字资产可信交付。第一版只聚焦 BIM/IFC 模型交换与一条工地 IoT 验收证据链。核心判据不是算法名称，而是系统能否证明：谁以什么权限，对哪个版本做了什么，以及结论引用了哪些可复核证据。
+BuildCipher Studio 将通用密码策略 Agent 内核应用到建筑数字资产可信交付；`BuildTrust` 是建筑可信交付能力与冻结演示合同的名称。第一版只聚焦 BIM/IFC 模型交换与一条工地 IoT 验收证据链。核心判据不是算法名称，而是系统能否证明：谁以什么权限，对哪个版本做了什么，以及结论引用了哪些可复核证据。
 
 ## 2. 架构
 
@@ -24,6 +24,7 @@ BuildTrust 将通用密码策略 Agent 内核应用到建筑数字资产可信�
 建筑能力：
 
 - `models/construction.py`：参与方、资产、生命周期、权限、证据合同；
+- `core/construction_domain.py`：从自然语言推断参与方、资产、阶段、安全不变量和威胁，并映射到类型化建筑合同；兼容读取早期 ZIP 的字段值；
 - `sandbox/construction_runtime.py`：五攻击确定性运行时、控制配置与证据账本；
 - `integrations/construction/ifc.py`：IFC STEP 文件结构检查；
 - `integrations/construction/cde.py`：只读 CDE 合同与本地目录适配器；
@@ -67,7 +68,9 @@ SQLite 治理库存储：
 
 ## 6. API
 
-本地启动命令为 `poetry run buildtrust-api`；健康端点返回 `service=buildtrust-api`。内部 Python 包路径 `cipher_genius` 仅作为稳定导入契约保留。
+本地启动命令为 `poetry run buildcipher-api`；健康端点返回 `service=buildcipher-api`。内部 Python 包路径 `cipher_genius` 作为稳定导入契约保留。旧 `buildtrust` / `buildtrust-api` 命令及 `BUILDTRUST_GOVERNANCE_DATABASE_PATH` 环境变量继续兼容，主运行时命名与默认治理路径已切换到 `BuildCipher` / `.cache/buildcipher/`。
+
+Windows 启动器按 `.buildcipher_runtime`、`.buildcipher_venv`、`.venv` 的顺序发现项目 Python；未发现项目运行时则回退到 Poetry。共享包明确排除 `.env`、`.env.local` 及其他非示例 `.env.*` 文件。
 
 - `GET /api/v1/benchmarks/construction`
 - `POST /api/v1/construction/demo/run`

@@ -1,4 +1,4 @@
-"""Application service for the localhost BuildTrust demonstration."""
+"""Application service for the localhost BuildCipher construction demonstration."""
 
 from __future__ import annotations
 
@@ -15,9 +15,9 @@ from cipher_genius.sandbox.construction_runtime import ConstructionTrustDemoRunn
 from cipher_genius.utils.config import get_settings
 
 
-LOCAL_PROVIDER_ID = "buildtrust-localhost-provider"
-DESIGN_CREDENTIAL_REF = "local://buildtrust/design-signing-001"
-DEVICE_CREDENTIAL_REF = "local://buildtrust/device-mac-001"
+LOCAL_PROVIDER_ID = "buildcipher-localhost-provider"
+DESIGN_CREDENTIAL_REF = "local://buildcipher/design-signing-001"
+DEVICE_CREDENTIAL_REF = "local://buildcipher/device-mac-001"
 
 
 class ConstructionDemoService:
@@ -28,7 +28,7 @@ class ConstructionDemoService:
     def _build_localhost_runner() -> ConstructionTrustDemoRunner:
         settings = get_settings()
         governance_store = SQLiteCredentialGovernanceStore(
-            settings.buildtrust_governance_database_path
+            settings.buildcipher_governance_database_path
         )
         provider = LocalReferenceHMACProvider(
             provider_id=LOCAL_PROVIDER_ID,
@@ -53,7 +53,7 @@ class ConstructionDemoService:
             provider.register_key(
                 record=ConstructionCredentialGovernanceRecord(
                     credential_ref=credential_ref,
-                    project_id="buildtrust-localhost",
+                    project_id="buildcipher-localhost",
                     owner_ref=owner_ref,
                     purpose=purpose,
                     algorithm="HMAC-SHA256",
@@ -62,7 +62,7 @@ class ConstructionDemoService:
                     key_version="v1",
                     created_at=now,
                     activated_at=now,
-                    policy_refs=["policy:buildtrust-localhost-demo"],
+                    policy_refs=["policy:buildcipher-localhost-demo"],
                 ),
                 key_material=key_material,
             )

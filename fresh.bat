@@ -2,7 +2,7 @@
 setlocal EnableExtensions EnableDelayedExpansion
 cd /d "%~dp0"
 set "ROOT_DIR=%~dp0"
-title MedCipher Studio - Fresh Cleanup
+title BuildCipher Studio - Fresh Cleanup
 
 set "AUTO_ALL=0"
 if /I "%~1"=="--all" set "AUTO_ALL=1"
@@ -12,7 +12,7 @@ set /a SKIP_COUNT=0
 
 echo.
 echo ==============================================
-echo   MedCipher Studio - Fresh Cleanup
+echo   BuildCipher Studio - Fresh Cleanup
 echo ==============================================
 echo.
 echo [INFO] Default cleanup removes local caches, build outputs,
@@ -46,12 +46,14 @@ if "%AUTO_ALL%"=="1" (
 ) else (
     call :ask_yes_no "Remove frontend\\node_modules (large, recreated by npm install)?" REMOVE_NODE_MODULES
     call :ask_yes_no "Remove .cache (clears remaining download/build cache)?" REMOVE_CACHE
-    call :ask_yes_no "Remove .venv if present (recreated by poetry install)?" REMOVE_VENV
+    call :ask_yes_no "Remove .venv/.buildcipher_venv/.buildcipher_runtime if present?" REMOVE_VENV
 )
 
 if /I "!REMOVE_NODE_MODULES!"=="Y" call :remove_dir "frontend\node_modules"
 if /I "!REMOVE_CACHE!"=="Y" call :remove_dir ".cache"
 if /I "!REMOVE_VENV!"=="Y" call :remove_dir ".venv"
+if /I "!REMOVE_VENV!"=="Y" call :remove_dir ".buildcipher_venv"
+if /I "!REMOVE_VENV!"=="Y" call :remove_dir ".buildcipher_runtime"
 
 echo.
 echo [DONE] Fresh cleanup finished.
@@ -64,10 +66,10 @@ exit /b 0
 
 :ask_yes_no
 set "%~2=N"
-set "MEDCIPHER_REPLY="
-set /p "MEDCIPHER_REPLY=%~1 [y/N]: "
-if /I "!MEDCIPHER_REPLY!"=="Y" set "%~2=Y"
-if /I "!MEDCIPHER_REPLY!"=="YES" set "%~2=Y"
+set "BUILDCIPHER_REPLY="
+set /p "BUILDCIPHER_REPLY=%~1 [y/N]: "
+if /I "!BUILDCIPHER_REPLY!"=="Y" set "%~2=Y"
+if /I "!BUILDCIPHER_REPLY!"=="YES" set "%~2=Y"
 exit /b 0
 
 :remove_dir

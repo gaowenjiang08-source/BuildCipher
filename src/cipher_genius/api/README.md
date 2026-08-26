@@ -109,7 +109,7 @@
 
 ## 1. 目录职责
 
-本目录负责 BuildTrust Studio 的 FastAPI 接口层、请求与响应 schema，以及对前端和外部调用方暴露的稳定契约。
+本目录负责 BuildCipher Studio 的 FastAPI 接口层、请求与响应 schema，以及对前端和外部调用方暴露的稳定契约。
 
 这里解决的是：
 

@@ -1,4 +1,4 @@
-"""CLI for BuildTrust Studio."""
+"""CLI for BuildCipher Studio."""
 
 import typer
 from rich.console import Console
@@ -14,8 +14,8 @@ from cipher_genius.codegen.generator import CodeGenerator
 from cipher_genius.knowledge.components import get_component_library
 
 app = typer.Typer(
-    name="buildtrust",
-    help="BuildTrust: construction digital-asset trust and cryptographic strategy",
+    name="buildcipher",
+    help="BuildCipher: construction digital-asset trust and cryptographic strategy",
     add_completion=False,
 )
 console = Console()
@@ -32,7 +32,7 @@ def generate(
     Generate cryptographic scheme from natural language requirements
     """
     console.print(Panel.fit(
-        "[bold blue]BuildTrust[/bold blue] - Construction Trust Strategy Agent",
+        "[bold blue]BuildCipher[/bold blue] - Construction Trust Strategy Agent",
         border_style="blue"
     ))
 
@@ -144,7 +144,7 @@ def interactive():
     Interactive mode for scheme generation
     """
     console.print(Panel.fit(
-        "[bold blue]BuildTrust Interactive Mode[/bold blue]",
+        "[bold blue]BuildCipher Interactive Mode[/bold blue]",
         border_style="blue"
     ))
 
@@ -186,7 +186,7 @@ def components():
 def version():
     """Show version information"""
     from cipher_genius import __version__
-    console.print(f"BuildTrust version {__version__}")
+    console.print(f"BuildCipher version {__version__}")
 
 
 def save_scheme_to_file(scheme, filepath: str):

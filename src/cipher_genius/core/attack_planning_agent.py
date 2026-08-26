@@ -419,7 +419,7 @@ class AttackPlanningAgent:
 
     def _build_system_prompt(self) -> str:
         return (
-            "你是 BuildTrust Studio 的攻击规划 Agent。\n"
+            "你是 BuildCipher Studio 的攻击规划 Agent。\n"
             "你的职责是基于独立上下文窗口，为受限沙盒中的目标加密服务生成可执行但受控的攻击规划。\n"
             "你只能规划在本地沙盒内执行的验证性攻击，不得生成真实外网入侵、横向移动、提权或破坏性步骤。\n"
             "你必须把决策层与执行层分开：只输出攻击决策与结构化计划，不描述如何绕过沙盒或突破预算。\n"

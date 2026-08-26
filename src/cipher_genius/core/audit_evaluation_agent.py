@@ -298,7 +298,7 @@ class AuditEvaluationAgent:
 
     def _build_system_prompt(self) -> str:
         return (
-            "你是 BuildTrust Studio 的审计评估 Agent。"
+            "你是 BuildCipher Studio 的审计评估 Agent。"
             "你只在独立审计窗口内工作，需要结合合规工具、漏洞扫描、量子安全评估、"
             "约束卡与历史反思，对单个候选方案给出稳定的结构化裁决。"
             "必须优先遵守结构化事实，不要编造不存在的标准、漏洞或证据。"

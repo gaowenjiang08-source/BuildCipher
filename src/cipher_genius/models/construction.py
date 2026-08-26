@@ -78,6 +78,45 @@ class CertificateLifecycleState(str, Enum):
     REVOKED = "revoked"
 
 
+class ConstructionPrimaryScenario(str, Enum):
+    BIM_TRUSTED_DELIVERY = "bim_trusted_delivery"
+    IOT_ACCEPTANCE_EVIDENCE = "iot_acceptance_evidence"
+    COLLABORATION_ACCESS_CONTROL = "construction_collaboration_access_control"
+    BUILT_ASSET_PQC_MIGRATION = "built_asset_pqc_migration"
+
+
+class ConstructionSecurityInvariant(str, Enum):
+    IDENTITY_VERIFICATION = "identity_verification"
+    LEAST_PRIVILEGE = "least_privilege"
+    VERSION_INTEGRITY = "version_integrity"
+    EVIDENCE_TRACEABILITY = "evidence_traceability"
+    REPLAY_RESISTANCE = "replay_resistance"
+    PQC_MIGRATION = "pqc_migration"
+
+
+class ConstructionThreat(str, Enum):
+    CONTENT_TAMPERING = "content_tampering"
+    VERSION_ROLLBACK = "version_rollback"
+    OVERPRIVILEGED_ACCESS = "overprivileged_access"
+    DEVICE_IMPERSONATION = "device_impersonation"
+    TELEMETRY_REPLAY = "telemetry_replay"
+    REPUDIATION = "repudiation"
+    LONG_TERM_QUANTUM_HARVEST = "long_term_quantum_harvest"
+
+
+class ConstructionRequirementProfile(BaseModel):
+    """Typed construction intent inferred from one natural-language requirement."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    primary_scenario: ConstructionPrimaryScenario
+    participants: List[ConstructionPartyRole] = Field(default_factory=list)
+    digital_assets: List[ConstructionAssetType] = Field(default_factory=list)
+    lifecycle_phases: List[ConstructionLifecyclePhase] = Field(default_factory=list)
+    security_invariants: List[ConstructionSecurityInvariant] = Field(default_factory=list)
+    threats: List[ConstructionThreat] = Field(default_factory=list)
+
+
 class ConstructionParty(BaseModel):
     """An organization or device-owning party participating in a project."""
 

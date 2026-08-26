@@ -1,4 +1,4 @@
-# BuildTrust Studio localhost 快速开始
+# BuildCipher Studio localhost 快速开始
 
 ## 1. 环境
 
@@ -9,7 +9,7 @@
 复制 `.env.example` 为 `.env`，按需填写 LLM provider。建筑密码演示默认使用 localhost provider，不需要 AWS。
 
 ```env
-BUILDTRUST_GOVERNANCE_DATABASE_PATH=.cache/buildtrust/governance.sqlite3
+BUILDCIPHER_GOVERNANCE_DATABASE_PATH=.cache/buildcipher/governance.sqlite3
 ```
 
 ## 2. 安装
@@ -32,10 +32,12 @@ start.bat
 分别启动：
 
 ```powershell
-poetry run buildtrust-api
+poetry run buildcipher-api
 ```
 
 测试默认隔离外部 LLM 网络调用；运行时仍可在设置中选择已保留的 LLM provider。
+
+启动器也支持项目级 `.buildcipher_runtime` / `.buildcipher_venv`。检测到其中的 Windows Python 后会直接运行 `uvicorn`；否则使用 Poetry。旧 `buildtrust-api` 命令和 `BUILDTRUST_GOVERNANCE_DATABASE_PATH` 环境变量仍作为兼容入口保留，但不再用于新配置。
 
 ```powershell
 cd frontend

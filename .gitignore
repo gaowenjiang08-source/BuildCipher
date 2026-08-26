@@ -35,6 +35,8 @@ venv/
 ENV/
 env/
 .venv
+.buildcipher_venv/
+.buildcipher_runtime/
 
 # Environments
 .env
