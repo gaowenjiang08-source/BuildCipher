@@ -19,7 +19,7 @@ const BUSINESS_NAV_ITEMS = [
   { id: "workbench", label: "项目工作台", icon: BriefcaseIcon },
   { id: "context", label: "可信协同", icon: LayersIcon },
   { id: "validation", label: "安全验证", icon: ShieldIcon },
-  { id: "delivery", label: "可信交付", icon: SparkIcon },
+  { id: "delivery", label: "交付中心", icon: SparkIcon },
 ];
 
 const EXPERT_NAV_ITEMS = [

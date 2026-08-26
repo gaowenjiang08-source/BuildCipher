@@ -22,7 +22,7 @@ const VIEW_META = {
   workbench: ["工程项目工作台", "定义工程资产、参与方、可信目标与交付边界。"],
   context: ["可信协同依据", "解释每项控制保护什么、由谁负责、产生哪些证据。"],
   validation: ["安全验证实验室", "用同一组五类攻击比较补丁前后的真实状态。"],
-  delivery: ["可信交付中心", "汇总可交付结论、证据引用和工程复核边界。"],
+  delivery: ["交付中心", "汇总可交付结论、证据引用和工程复核边界。"],
 };
 
 const PARTICIPANTS = [
@@ -172,7 +172,7 @@ export default function ConstructionWorkspaceView({
               [BriefcaseIcon, "定义工程项目", "录入模型、参与方与验收边界", onOpenProject],
               [FlowIcon, "建立可信协同", "明确签批、版本和最小权限", onOpenContext],
               [ShieldIcon, "执行五类验证", "比较 baseline 与 hardened", onOpenValidation],
-              [SparkIcon, "形成可信交付", "汇总结论、证据和边界", onOpenDelivery],
+              [SparkIcon, "进入交付中心", "汇总结论、证据和边界", onOpenDelivery],
             ].map(([Icon, itemTitle, note, action]) => (
               <button key={itemTitle} type="button" onClick={action} className="group rounded-2xl border border-slate-200 bg-slate-50/70 p-4 text-left transition hover:-translate-y-0.5 hover:border-blue-300 hover:bg-white hover:shadow-lg">
                 <Icon size={20} className="text-blue-700" />
