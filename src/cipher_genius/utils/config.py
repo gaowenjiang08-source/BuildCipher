@@ -91,6 +91,13 @@ class Settings(BaseSettings):
             "BUILDTRUST_GOVERNANCE_DATABASE_PATH",
         ),
     )
+    buildcipher_construction_import_root: str = Field(
+        default=".cache/buildcipher/construction-imports",
+        validation_alias=AliasChoices(
+            "BUILDCIPHER_CONSTRUCTION_IMPORT_ROOT",
+            "BUILDTRUST_CONSTRUCTION_IMPORT_ROOT",
+        ),
+    )
 
     @property
     def buildtrust_governance_database_path(self) -> str:

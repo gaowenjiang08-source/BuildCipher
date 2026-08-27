@@ -235,7 +235,6 @@ export default function MissionView({
             <div className="flex flex-wrap items-center gap-2">
               <TagPill tone="neutral">专家模式首页</TagPill>
               <TagPill tone="ok">主线透明化入口</TagPill>
-              <TagPill tone="neutral">适合答辩开场</TagPill>
             </div>
 
             <div className="mt-5 flex flex-col gap-4 xl:flex-row xl:items-end xl:justify-between">
@@ -271,14 +270,7 @@ export default function MissionView({
           </div>
 
           <div className="rounded-[28px] border border-white/70 bg-white/88 p-5 shadow-sm">
-            <div className="flex flex-wrap items-center gap-2">
-              <TagPill tone="neutral">推荐下一步</TagPill>
-              <TagPill tone="neutral">点击直接跳转</TagPill>
-            </div>
-            <p className="mt-3 text-sm leading-6 text-slate-600">
-              如果你是在演示系统，建议按下面顺序讲解；如果你正在继续推进项目，也可以直接进入执行工作台。
-            </p>
-            <div className="mt-4 space-y-3">
+            <div className="space-y-3">
               {missionActionCards.map((item) => (
                 <MissionActionCard key={item.id} {...item} />
               ))}

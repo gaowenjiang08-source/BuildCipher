@@ -50,7 +50,7 @@ const COMPONENT_CACHE_KEY = "buildtrust.mas.components_cache";
 const CURRENT_CASE_KEY = "buildtrust.mas.current_case";
 const BUSINESS_READING_CONTEXT_KEY = "buildtrust.ui.business_reading_context";
 const BUSINESS_VIEWS = ["overview", "workbench", "context", "validation", "delivery"];
-const EXPERT_VIEWS = ["mission", "runtime", "reports", "workbench", "components", "ops"];
+const EXPERT_VIEWS = ["mission", "runtime", "reports", "workbench", "ops"];
 
 const TEAM_MEMBERS = [
   {
@@ -107,7 +107,7 @@ function ViewLoadingState({ view = "workbench" }) {
     settings: "设置面板",
     overview: "场景首页",
     context: "代码依据",
-    validation: "安全验证实验",
+    validation: "攻防验证实验",
     delivery: "交付中心",
     mission: "专家透明化",
     runtime: "运行控制台",
@@ -1576,9 +1576,13 @@ function App() {
           onOpenContext={businessViewCallbacks.onOpenContext}
           onOpenValidation={businessViewCallbacks.onOpenValidation}
           onOpenDelivery={businessViewCallbacks.onOpenDelivery}
-          onOpenComponents={() => openExpertView("components", { reason: "sidebar_components" })}
+          onOpenComponents={() => {
+            setSettingsOpen(false);
+            setView("components");
+            scrollViewportToTop();
+          }}
           onSwitchToBusiness={() => returnToBusinessContext("sidebar_return")}
-          onSwitchToExpert={() => openExpertView(businessReadingContext.lastExpertView || "mission", { reason: "sidebar_expert" })}
+          onSwitchToExpert={() => openExpertView("mission", { reason: "sidebar_expert" })}
           onReturnToBusinessContext={() => returnToBusinessContext("sidebar_context_return")}
           businessReturnContext={businessReturnContext}
           currentCaseSummary={currentCaseSummary}
@@ -1621,7 +1625,6 @@ function App() {
             settings={settings}
             workbenchContent={workbenchViewNode}
             exportFormats={EXPORT_FORMATS}
-            exportDelivery={exportDelivery}
             onOpenProject={businessViewCallbacks.onOpenProject}
             onOpenContext={businessViewCallbacks.onOpenContext}
             onOpenValidation={businessViewCallbacks.onOpenValidation}

@@ -52,6 +52,43 @@ def test_ifc_inspector_reads_schema_entities_and_global_ids():
     assert result.parse_errors == []
 
 
+def test_ifc_inspector_does_not_treat_material_and_style_names_as_global_ids():
+    payload = b"""ISO-10303-21;
+HEADER;
+FILE_NAME('building.ifc','2026-08-26T00:00:00',(),(),'BuildCipher','BuildCipher','');
+FILE_SCHEMA(('IFC4X3_ADD2'));
+ENDSEC;
+DATA;
+#1=IFCPROJECT('0YvctVUKr0kugbFTf53O9L',$,'Project',$,$,$,$,$,$);
+#2=IFCMATERIAL('composite_element_roof',$,$);
+#3=IFCSURFACESTYLE('composite_element_roof',.BOTH.,());
+ENDSEC;
+END-ISO-10303-21;
+"""
+
+    result = inspect_ifc_bytes(payload, source_ref="test:building.ifc")
+
+    assert result.valid is True
+    assert result.global_id_count == 1
+    assert result.duplicate_global_ids == []
+    assert result.parse_errors == []
+
+
+def test_ifc_inspector_still_rejects_a_duplicate_valid_global_id():
+    payload = VALID_IFC.replace(
+        b"1YvctVUKr0kugbFTf53O9L",
+        b"0YvctVUKr0kugbFTf53O9L",
+    )
+
+    result = inspect_ifc_bytes(payload)
+
+    assert result.valid is False
+    assert result.duplicate_global_ids == ["0YvctVUKr0kugbFTf53O9L"]
+    assert result.parse_errors == [
+        "duplicate_global_id:0YvctVUKr0kugbFTf53O9L"
+    ]
+
+
 def test_ifc_inspector_rejects_non_ifc_payload():
     result = inspect_ifc_bytes(b"not-an-ifc")
 
@@ -317,6 +354,7 @@ def test_local_crypto_provider_drives_bim_manifest_signing(tmp_path: Path):
 def test_construction_demo_service_builds_localhost_provider(monkeypatch, tmp_path: Path):
     settings = SimpleNamespace(
         buildcipher_governance_database_path=str(tmp_path / "service-governance.sqlite3"),
+        buildcipher_construction_import_root=str(tmp_path / "construction-imports"),
     )
     monkeypatch.setattr(construction_service, "get_settings", lambda: settings)
 

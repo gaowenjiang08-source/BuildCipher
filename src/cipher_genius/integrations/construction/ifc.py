@@ -23,7 +23,10 @@ _ENTITY_PATTERN = re.compile(
     re.IGNORECASE | re.DOTALL,
 )
 _FIRST_STRING_PATTERN = re.compile(r"^\s*'((?:''|[^'])*)'")
-_IFC_GLOBAL_ID_PATTERN = re.compile(r"^[0-9A-Za-z_$]{22}$")
+# An IFC compressed GUID contains 22 characters from the IFC base64 alphabet.
+# Its first character can only encode the two high bits of a 128-bit UUID, so
+# values beginning with 4-9, a letter, "_", or "$" are not IFC GlobalIds.
+_IFC_GLOBAL_ID_PATTERN = re.compile(r"^[0-3][0-9A-Za-z_$]{21}$")
 
 
 def _decode_step(data: bytes) -> str:

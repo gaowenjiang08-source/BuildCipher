@@ -839,7 +839,6 @@ export function ReportsEvidenceDeliveryBridgePanel({
         <div className="mt-5 rounded-[26px] border border-white/70 bg-white/88 p-4 shadow-sm">
           <div className="flex flex-wrap items-center gap-2">
             <TagPill tone="neutral">推荐收尾路径</TagPill>
-            <TagPill tone="neutral">点击直接跳转</TagPill>
           </div>
           <div className="mt-4 grid grid-cols-1 gap-3 xl:grid-cols-3">
             {actionItems.map((item) => (

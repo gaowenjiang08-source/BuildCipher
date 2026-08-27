@@ -10,8 +10,8 @@ from cipher_genius.sandbox.construction_runtime import (
     ProjectEvidenceLedgerRuntime,
     build_construction_attack_specs,
 )
-from cipher_genius.sandbox.local_runtime import LocalSandboxRuntime
 from cipher_genius.sandbox.dispatcher import LocalSandboxDispatcher
+from cipher_genius.sandbox.local_runtime import LocalSandboxRuntime
 from cipher_genius.sandbox.target_templates import build_bim_package_exchange_target_service
 
 
@@ -119,6 +119,28 @@ def test_demo_runner_executes_five_attacks_and_persists_evidence(tmp_path: Path)
     }
     assert all(item.artifact_refs for item in result.results)
     assert all(item.evidence_refs for item in result.results)
+
+    tamper_observation = result.results[0].before_state["tampered_delivery"]
+    assert tamper_observation["expected_content_sha256"]
+    assert tamper_observation["observed_content_sha256"]
+    assert (
+        tamper_observation["expected_content_sha256"]
+        != tamper_observation["observed_content_sha256"]
+    )
+    assert tamper_observation["checks"]["content_valid"] is False
+
+    rollback_observation = next(iter(result.results[1].before_state.values()))
+    assert rollback_observation["requested_version"] == "v2"
+    assert rollback_observation["current_approved_version"] == "v3"
+
+    device_observation = result.results[3].before_state["fake_device_ingest"]
+    assert device_observation["device_registered"] is False
+    assert device_observation["enforced_controls"]["device_registration"] is True
+
+    replay_observation = result.results[4].before_state["replayed_message"]
+    assert replay_observation["counter"] == 1
+    assert replay_observation["nonce"] == "nonce-1"
+    assert replay_observation["freshness_valid"] is False
 
     summary_path = tmp_path / "run-construction-001" / "buildtrust_demo_summary.json"
     ledger_path = tmp_path / "run-construction-001" / "project_evidence_ledger.json"

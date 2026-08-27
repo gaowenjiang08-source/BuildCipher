@@ -12,7 +12,7 @@
 - `tests/unit/test_construction_benchmark.py`
 - `tests/api/test_api_benchmarks.py`
 
-验证要求：7 个案例的 Skill、模板和必需章节命中率都必须为 1.0；`GET /api/v1/benchmarks/construction` 必须返回相同结果。
+验证要求：8 个案例的 Skill、模板和必需章节命中率都必须为 1.0；`GET /api/v1/benchmarks/construction` 必须返回相同结果。
 
 ```powershell
 poetry run pytest -o addopts='' tests/unit/test_construction_benchmark.py tests/api/test_api_benchmarks.py -q

@@ -1,7 +1,7 @@
-# MedCipher BuildTrust 建筑领域底座
+# BuildCipher / BuildTrust 建筑领域底座
 
 状态：第一版已落地；P2 IFC/CDE 合同与单主机 IoT 持久化基础已完成  
-最后更新：2026-08-12
+最后更新：2026-08-26
 
 ## 定位
 
@@ -25,7 +25,7 @@ BuildTrust 将现有密码策略与多 Agent 攻防闭环用于建筑数字资�
   - `construction_iot_evidence_delivery`
   - `built_asset_pqc_transition_delivery`
 - `data/benchmarks/construction_trusted_delivery.yaml`
-  - 7 个建筑路由与模板回归案例；
+  - 8 个建筑路由与模板回归案例，包含建筑密码治理评审；
 - `src/cipher_genius/sandbox/target_templates.py`
   - `bim_package_exchange_v1`
   - `construction_iot_gateway_v1`
@@ -35,11 +35,11 @@ BuildTrust 将现有密码策略与多 Agent 攻防闭环用于建筑数字资�
 
 `GET /api/v1/benchmarks/construction` 返回建筑 Benchmark 的 Skill 命中率、模板命中率、章节覆盖率和逐案例结果。
 
-`POST /api/v1/construction/demo/run` 执行 IFC 篡改、版本回滚、分包越权、设备冒充和遥测重放，输出 artifact、evidence、修补建议和回归结果。
+`POST /api/v1/construction/assets/import` 在 localhost 检查并保存 IFC STEP 文件，返回可复用 `asset_ref`。`POST /api/v1/construction/demo/run` 默认用同一内置或导入 IFC 执行 baseline/hardened 对照，覆盖 IFC 篡改、版本回滚、分包越权、设备冒充和遥测重放，输出 artifact、evidence、修补建议和回归结果。
 
 LangGraph 对三类建筑目标的 baseline、retry、regression 路径统一生成五条领域 attack spec。结果进入现有漏洞裁决、补丁规划与 reflection 合同；完整结果保存在 delivery/replay，证据引用同步到 case memory。
 
-MAS 基线工作区默认使用 `baseline` 控制配置，五类攻击可成功；补丁应用将工作区切换到 `hardened`，回归应阻断五类攻击。补丁前配置保存在独立快照中。若建筑回归缺少结果、结果未执行或任一 `regression_passed` 不为真，LangGraph 会调用 dispatcher 恢复补丁前配置并验证摘要一致性。独立 demo API 默认运行 `hardened` 参考实现，因此仍返回五类阻断结果。
+MAS 基线工作区默认使用 `baseline` 控制配置，五类攻击可成功；补丁应用将工作区切换到 `hardened`，回归应阻断五类攻击。补丁前配置保存在独立快照中。若建筑回归缺少结果、结果未执行或任一 `regression_passed` 不为真，LangGraph 会调用 dispatcher 恢复补丁前配置并验证摘要一致性。独立 demo API 默认运行两侧对照，同时保留 `mode=hardened` 单侧合同。
 
 `frontend/src/features/construction/` 提供第一版建筑业务 View Model 与五个业务视图：工程总览、项目工作台、可信协同、安全验证、可信交付。该界面展示本地证据闭环，不代表已连接生产 CDE/BIM 或 IoT 平台。
 
@@ -52,7 +52,9 @@ P2 localhost 路径通过 `LocalReferenceHMACProvider` 统一执行 BIM manifest
 ```json
 {
   "project_id": "buildtrust-demo-project",
-  "run_id": "optional-stable-run-id"
+  "run_id": "optional-stable-run-id",
+  "asset_ref": "construction-import://buildtrust-demo-project/ifc-...",
+  "mode": "compare"
 }
 ```
 
@@ -74,7 +76,7 @@ AES、ML-KEM（历史文件名 `kyber.yaml`）和 ML-DSA 已作为首批结构�
 
 ## P0-B 已实现的本地演示能力
 
-- IFC 文件字节摘要、manifest 验真和当前批准版本检查；
+- IFC 导入、STEP/schema/实体/候选 GlobalId 检查、字节摘要、manifest 验真和当前批准版本检查；
 - 完整交付包角色授权；
 - IoT 设备注册、HMAC 消息认证、计数器/nonce/时间窗口；
 - 追加式签名哈希链；
@@ -82,7 +84,7 @@ AES、ML-KEM（历史文件名 `kyber.yaml`）和 ML-DSA 已作为首批结构�
 
 ## 尚未实现
 
-- IFC 几何、属性关系、MVD/IDS、完整 EXPRESS schema 和模型视图验证；
+- IFC 几何、碰撞、属性关系、MVD/IDS、完整 EXPRESS schema 和模型视图验证；
 - 人员 PKI/设备证书与真实 KMS/HSM/商密供应商适配器；
 - 跨地域分布式防重放状态；
 - 数据库事务、WORM、外部时间戳和证据外部锚定；

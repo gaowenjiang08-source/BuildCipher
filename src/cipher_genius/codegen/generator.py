@@ -4,7 +4,7 @@ from typing import Optional
 
 from cipher_genius.models.scheme import CryptographicScheme, Implementation
 from cipher_genius.core.llm_interface import get_llm_interface
-from cipher_genius.core.safety_notice import with_disclaimer
+from cipher_genius.core.safety_notice import has_meaningful_artifact, with_disclaimer
 
 
 class CodeGenerator:
@@ -57,6 +57,8 @@ Use standard cryptographic notation. Include comments explaining each step."""
 
         try:
             pseudocode = self.llm.generate(user_prompt, system_prompt, temperature=0.3)
+            if not has_meaningful_artifact(pseudocode, "pseudocode"):
+                raise ValueError("LLM did not return implementation-shaped pseudocode")
             return with_disclaimer(pseudocode, "pseudocode")
         except Exception as e:
             print(f"Error generating pseudocode: {e}")
@@ -86,7 +88,10 @@ Generate complete, runnable code."""
 
         try:
             code = self.llm.generate(user_prompt, system_prompt, temperature=0.2, max_tokens=2000)
-            return with_disclaimer(self._clean_code(code), "python")
+            code = self._clean_code(code)
+            if not has_meaningful_artifact(code, "python"):
+                raise ValueError("LLM did not return implementation-shaped Python code")
+            return with_disclaimer(code, "python")
         except Exception as e:
             print(f"Error generating Python code: {e}")
             return with_disclaimer(self._fallback_python(scheme), "python")
@@ -115,7 +120,10 @@ Generate complete, compilable code."""
 
         try:
             code = self.llm.generate(user_prompt, system_prompt, temperature=0.2, max_tokens=2000)
-            return with_disclaimer(self._clean_code(code), "c")
+            code = self._clean_code(code)
+            if not has_meaningful_artifact(code, "c"):
+                raise ValueError("LLM did not return implementation-shaped C code")
+            return with_disclaimer(code, "c")
         except Exception as e:
             print(f"Error generating C code: {e}")
             return with_disclaimer(self._fallback_c(scheme), "c")
@@ -193,7 +201,6 @@ function decrypt(key, ciphertext):
 Auto-generated cryptographic scheme implementation
 """
 
-from typing import bytes
 from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.backends import default_backend
 
