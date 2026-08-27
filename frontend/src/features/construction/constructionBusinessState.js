@@ -88,7 +88,7 @@ const CONSTRUCTION_VIEW_LABELS = {
   workbench: "项目工作台",
   context: "可信协同",
   validation: "攻防验证",
-  delivery: "可信交付",
+  delivery: "交付中心",
 };
 
 const CONSTRUCTION_SECTION_LABELS = {

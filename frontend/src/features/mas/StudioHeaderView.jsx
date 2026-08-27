@@ -19,7 +19,7 @@ const VIEW_TITLES = {
   workbench: "项目工作台",
   context: "可信协同",
   validation: "攻防验证",
-  delivery: "可信交付",
+  delivery: "交付中心",
   mission: "专家总览",
   runtime: "运行控制台",
   reports: "专家报告",
