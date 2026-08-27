@@ -210,7 +210,7 @@ export default function useMasActions({
     try {
       const check = await validateConnection(settings);
       setConnectionStatus("ok");
-      setConnectionMessage(`连接成功：service=${check.health?.service || "BuildTrust"}`);
+      setConnectionMessage(`连接成功：service=${check.health?.service || "BuildCipher"}`);
     } catch (err) {
       setConnectionStatus("bad");
       setConnectionMessage(err.message || "连接失败");

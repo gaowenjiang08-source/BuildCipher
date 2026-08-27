@@ -140,9 +140,11 @@
 - `benchmark_service.py`
   - benchmark 相关 API 服务
   - `GET /api/v1/benchmarks/construction`
+  - `POST /api/v1/construction/assets/import`
   - `POST /api/v1/construction/demo/run`
-  - `GET /api/v1/benchmarks/construction`：返回 7 个建筑案例的 Skill 路由、报告模板和章节覆盖回归结果
-  - `POST /api/v1/construction/demo/run`：执行五类建筑语义攻击，返回 evidence、artifact、修补和回归摘要
+  - `GET /api/v1/benchmarks/construction`：返回 8 个建筑案例的 Skill 路由、报告模板和章节覆盖回归结果
+  - `POST /api/v1/construction/assets/import`：检查并落盘 localhost IFC，返回稳定 `asset_ref`
+  - `POST /api/v1/construction/demo/run`：对内置或导入 IFC 执行 baseline/hardened 五攻击对照，返回 evidence、artifact、修补和回归摘要
     - 返回中的 `security_profile` 当前为 `hardened`；该接口展示参考控制效果，不是 MAS 的未修补基线
   - MAS 建筑目标的五攻击结果继续沿用 `AttackResultPayload`，其 `metrics` 提供 `attack_type/detected/blocked/regression_passed/evidence_refs`，`artifact_refs` 提供结果文件和证据账本路径
 - `knowledge_ingestion_service.py`

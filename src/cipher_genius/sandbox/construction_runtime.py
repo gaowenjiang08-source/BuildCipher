@@ -22,13 +22,13 @@ from cipher_genius.api.schemas import (
     ConstructionDemoRunResponse,
     TargetServiceSpecPayload,
 )
-from cipher_genius.integrations.construction.iot_state import ConstructionIoTReplayState
 from cipher_genius.integrations.construction.crypto_provider import (
     ConstructionMACProvider,
     ConstructionSignatureProvider,
     CredentialNotUsableError,
 )
-
+from cipher_genius.integrations.construction.iot_state import ConstructionIoTReplayState
+from cipher_genius.models.construction import ConstructionAsset, IFCInspectionResult
 
 CONSTRUCTION_TARGET_TEMPLATE_IDS = frozenset(
     {
@@ -175,6 +175,19 @@ def _sha256_bytes(data: bytes) -> str:
     return hashlib.sha256(data).hexdigest()
 
 
+def _mutate_ifc_bytes(data: bytes) -> bytes:
+    """Create a deterministic one-byte content mutation without executing the file."""
+
+    marker_index = data.upper().find(b"DATA;")
+    index = marker_index + len(b"DATA;") if marker_index >= 0 else len(data) // 2
+    while index < len(data) and data[index] in b"\r\n\t ":
+        index += 1
+    if index >= len(data):
+        index = len(data) - 1
+    replacement = b"X" if data[index : index + 1] != b"X" else b"Y"
+    return data[:index] + replacement + data[index + 1 :]
+
+
 def _hmac_sha256(secret: bytes, payload: dict[str, Any]) -> str:
     return hmac.new(secret, _canonical_json(payload), hashlib.sha256).hexdigest()
 
@@ -300,9 +313,11 @@ class BIMPackageExchangeRuntime:
                 signature,
                 _hmac_sha256(secret, body),
             )
+        expected_content_sha256 = str(manifest.get("content_hash") or "")
+        observed_content_sha256 = _sha256_bytes(content)
         content_valid = hmac.compare_digest(
-            str(manifest.get("content_hash") or ""),
-            _sha256_bytes(content),
+            expected_content_sha256,
+            observed_content_sha256,
         )
         asset_id = str(manifest.get("asset_id") or "")
         current_version = self.latest_approved.get(asset_id)
@@ -333,7 +348,15 @@ class BIMPackageExchangeRuntime:
             "accepted": accepted,
             "checks": checks,
             "failure_reasons": failure_reasons,
+            "expected_content_sha256": expected_content_sha256,
+            "observed_content_sha256": observed_content_sha256,
+            "requested_version": manifest.get("version"),
             "current_approved_version": current_version,
+            "requester_role": requester_role,
+            "allowed_roles": manifest.get("allowed_roles") or [],
+            "signer_identity": signer_identity,
+            "signer_credential_ref": credential_ref,
+            "signature_algorithm": manifest.get("signature_algorithm"),
             "key_operation": key_operation,
             "provider_error": provider_error,
             "enforced_controls": {
@@ -422,6 +445,25 @@ class ConstructionIoTGatewayRuntime:
 
     def ingest(self, message: dict[str, Any], *, now: int) -> dict[str, Any]:
         device_id = str(message.get("device_id") or "")
+        counter = int(message.get("counter", -1))
+        nonce = str(message.get("nonce") or "")
+        timestamp = int(message.get("timestamp", 0))
+        device_registered = (
+            device_id in self.device_secrets or device_id in self.device_credential_refs
+        )
+        observation = {
+            "device_id": device_id,
+            "device_registered": device_registered,
+            "counter": counter,
+            "nonce": nonce,
+            "timestamp": timestamp,
+            "observed_at": now,
+            "freshness_window_seconds": self.freshness_window_seconds,
+            "enforced_controls": {
+                "device_registration": self.device_registration_enforced,
+                "replay_guard": self.replay_guard_enforced,
+            },
+        }
         credential_ref = self.device_credential_refs.get(device_id)
         if credential_ref is None and self.replay_state is not None:
             credential_ref = self.replay_state.credential_ref(device_id=device_id)
@@ -432,12 +474,14 @@ class ConstructionIoTGatewayRuntime:
         if secret is None and not (self.mac_provider and credential_ref):
             if not self.device_registration_enforced:
                 return {
+                    **observation,
                     "accepted": True,
                     "signature_valid": False,
                     "freshness_valid": True,
                     "reason": "device_registration_not_enforced",
                 }
             return {
+                **observation,
                 "accepted": False,
                 "signature_valid": False,
                 "freshness_valid": False,
@@ -458,6 +502,7 @@ class ConstructionIoTGatewayRuntime:
                 key_operation = receipt.model_dump(mode="json")
             except CredentialNotUsableError as exc:
                 return {
+                    **observation,
                     "accepted": False,
                     "signature_valid": False,
                     "freshness_valid": False,
@@ -471,9 +516,6 @@ class ConstructionIoTGatewayRuntime:
                 str(message.get("signature") or ""),
                 _hmac_sha256(secret, body),
             )
-        counter = int(message.get("counter", -1))
-        nonce = str(message.get("nonce") or "")
-        timestamp = int(message.get("timestamp", 0))
         if self.replay_state is not None:
             counter_valid, nonce_valid = self.replay_state.peek_freshness(
                 device_id=device_id,
@@ -502,6 +544,7 @@ class ConstructionIoTGatewayRuntime:
         elif not freshness_valid:
             reason = "replay_or_stale_message"
         return {
+            **observation,
             "accepted": accepted,
             "signature_valid": signature_valid,
             "freshness_valid": freshness_valid,
@@ -510,10 +553,6 @@ class ConstructionIoTGatewayRuntime:
             "time_valid": time_valid,
             "reason": reason,
             "key_operation": key_operation,
-            "enforced_controls": {
-                "device_registration": self.device_registration_enforced,
-                "replay_guard": self.replay_guard_enforced,
-            },
         }
 
 
@@ -623,6 +662,10 @@ class ConstructionTrustDemoRunner:
         project_id: str,
         run_id: str | None = None,
         security_profile: str = "hardened",
+        ifc_content: bytes | None = None,
+        ifc_asset: ConstructionAsset | None = None,
+        ifc_inspection: IFCInspectionResult | None = None,
+        asset_ref: str | None = None,
     ) -> ConstructionDemoRunResponse:
         resolved_run_id = run_id or f"buildtrust-{uuid4().hex[:12]}"
         workspace = self.root_dir / resolved_run_id
@@ -659,11 +702,21 @@ class ConstructionTrustDemoRunner:
         )
 
         content_v2 = b"ISO-10303-21;IFC-DEMO;VERSION=2;BEAM=300x500;ENDSEC;"
-        content_v3 = b"ISO-10303-21;IFC-DEMO;VERSION=3;BEAM=350x550;ENDSEC;"
+        content_v3 = ifc_content or b"ISO-10303-21;IFC-DEMO;VERSION=3;BEAM=350x550;ENDSEC;"
+        asset_id = ifc_asset.asset_id if ifc_asset else "ifc-main-model"
+        current_version = ifc_asset.version if ifc_asset else "v3"
+        parent_version = ifc_asset.parent_version if ifc_asset else "v2"
+        approval_state = ifc_asset.approval_state.value if ifc_asset else "approved"
+        allowed_roles = (
+            [role.value for role in ifc_asset.allowed_roles]
+            if ifc_asset
+            else ["general_contractor", "supervisor"]
+        )
+        previous_version = parent_version or "v2"
         manifest_v2 = bim.register_package(
             project_id=project_id,
-            asset_id="ifc-main-model",
-            version="v2",
+            asset_id=asset_id,
+            version=previous_version,
             parent_version="v1",
             content=content_v2,
             signer_identity="design-cert-001",
@@ -672,17 +725,17 @@ class ConstructionTrustDemoRunner:
         )
         manifest_v3 = bim.register_package(
             project_id=project_id,
-            asset_id="ifc-main-model",
-            version="v3",
-            parent_version="v2",
+            asset_id=asset_id,
+            version=current_version,
+            parent_version=parent_version,
             content=content_v3,
             signer_identity="design-cert-001",
-            approval_state="approved",
-            allowed_roles=["general_contractor", "supervisor"],
+            approval_state=approval_state,
+            allowed_roles=allowed_roles,
         )
 
         results: list[ConstructionAttackResultPayload] = []
-        tampered = content_v3.replace(b"350x550", b"250x400")
+        tampered = _mutate_ifc_bytes(content_v3)
         tamper_check = bim.verify_delivery(
             manifest=manifest_v3,
             content=tampered,
@@ -726,12 +779,12 @@ class ConstructionTrustDemoRunner:
                 case_id="bim_version_rollback",
                 attack_type="signed_old_version_rollback",
                 summary=(
-                    "v2 签名有效但不是当前批准版本，旧文件回滚被阻断。"
+                    f"{previous_version} 签名有效但不是当前批准版本，旧文件回滚被阻断。"
                     if not rollback_check["accepted"]
                     else "基线未强制当前批准版本，合法旧文件回滚成功。"
                 ),
-                before_state={"v2_delivery": rollback_check},
-                after_state={"v3_delivery": current_check},
+                before_state={f"{previous_version}_delivery": rollback_check},
+                after_state={f"{current_version}_delivery": current_check},
                 remediation="验签必须同时绑定父版本链、批准状态和当前批准版本指针。",
                 attack_blocked=not rollback_check["accepted"],
                 regression_passed=current_check["accepted"] and not rollback_check["accepted"],
@@ -865,6 +918,10 @@ class ConstructionTrustDemoRunner:
             "provider_signature_enabled": self.signature_provider is not None,
             "security_controls": controls,
             "capability_boundary": self.capability_boundary,
+            "asset_ref": asset_ref,
+            "asset_inspection": (
+                ifc_inspection.model_dump(mode="json") if ifc_inspection else None
+            ),
             "attack_count": len(results),
             "detected_count": sum(item.detected for item in results),
             "blocked_count": sum(item.blocked for item in results),
@@ -900,6 +957,8 @@ class ConstructionTrustDemoRunner:
                 _file_ref(summary_path),
             ],
             results=results,
+            asset_ref=asset_ref,
+            asset_inspection=ifc_inspection,
         )
 
     def _result(

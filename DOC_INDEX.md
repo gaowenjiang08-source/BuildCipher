@@ -6,6 +6,7 @@
 - [QUICK_START_V3.md](QUICK_START_V3.md)：localhost 安装、启动和验证；
 - [BUILDTRUST_CAPABILITY_STATUS.md](BUILDTRUST_CAPABILITY_STATUS.md)：当前位置、能力边界和待实现项；
 - [BUILDTRUST_IMPLEMENTATION_PLAN.md](BUILDTRUST_IMPLEMENTATION_PLAN.md)：分阶段改造路线；
+- [docs/BUILD_CIPHER_2MIN_DEMO.md](docs/BUILD_CIPHER_2MIN_DEMO.md)：比赛现场两分钟真实 IFC 演示路线；
 - [docs/TECHNICAL_DOCUMENTATION.md](docs/TECHNICAL_DOCUMENTATION.md)：当前技术架构和合同。
 
 ## 建筑领域
@@ -14,6 +15,7 @@
 - [docs/modules/target_service_templates.md](docs/modules/target_service_templates.md)
 - [src/cipher_genius/integrations/construction/README.md](src/cipher_genius/integrations/construction/README.md)
 - [frontend/README.md](frontend/README.md)
+- [docs/research/aicampus_competition_requirements.md](docs/research/aicampus_competition_requirements.md)：比赛官网要求核对记录；
 
 ## 通用内核
 

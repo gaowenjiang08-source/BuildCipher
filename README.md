@@ -7,8 +7,8 @@ BuildCipher Studio 是面向建筑工程数字资产的可信协同与密码策�
 ## 第一版能力
 
 - 建筑参与方、资产、生命周期、权限和证据引用合同；
-- 6 个建筑 Skill、3 个建筑报告模板、7 个建筑 benchmark；
-- IFC 内容摘要、manifest 验真、父版本、批准版本和交付包级角色授权；
+- 6 个建筑 Skill、3 个建筑报告模板、8 个建筑 benchmark；
+- 本地 IFC 导入、STEP/schema/实体/候选 GlobalId 检查、内容摘要、manifest 验真、父版本、批准版本和交付包级角色授权；
 - 工地设备注册、消息认证、单调计数器、nonce 与时间窗口；
 - IFC 篡改、旧版本回滚、分包越权、设备冒充、遥测重放五类确定性攻击；
 - baseline `0/5` 到 hardened `5/5` 回归，以及失败时的本地配置回滚；
@@ -28,7 +28,7 @@ start.bat
 
 ```powershell
 poetry install
-poetry run buildcipher-api
+poetry run python -m uvicorn cipher_genius.api.main:app --app-dir src --host 127.0.0.1 --port 8000
 ```
 
 ```powershell
@@ -42,13 +42,15 @@ npm run dev
 - Swagger：`http://127.0.0.1:8000/docs`
 
 详细步骤见 [QUICK_START_V3.md](QUICK_START_V3.md)。
+比赛演示按 [docs/BUILD_CIPHER_2MIN_DEMO.md](docs/BUILD_CIPHER_2MIN_DEMO.md) 执行。
 
-Windows 启动器会优先识别 `.buildcipher_runtime`、`.buildcipher_venv` 或 Poetry 的 `.venv`。既有团队分支仍可使用 `poetry run buildtrust` / `poetry run buildtrust-api` 兼容别名；新代码与文档统一使用 `buildcipher` / `buildcipher-api`。
+Windows 启动器会优先识别 `.buildcipher_runtime`、`.buildcipher_venv` 或 Poetry 的 `.venv`，并显式以当前仓库的 `src` 作为 Uvicorn 应用目录，避免加载其他工作区残留的同名 `cipher_genius` 包。既有团队分支仍可使用 `poetry run buildtrust` / `poetry run buildtrust-api` 兼容别名；新代码与文档统一使用 `buildcipher` / `buildcipher-api`。
 
 ## 建筑 API
 
 - `GET /api/v1/benchmarks/construction`：验证 Skill 路由、模板选择和章节覆盖；
-- `POST /api/v1/construction/demo/run`：运行五类确定性攻击；
+- `POST /api/v1/construction/assets/import`：导入并检查 localhost IFC 资产；
+- `POST /api/v1/construction/demo/run`：对内置或已导入 IFC 运行 baseline/hardened 五攻击对照；
 - `POST /api/v1/mas/execute`：执行完整 LangGraph MAS；
 - `POST /api/v1/mas/stream`：流式执行；
 - `POST /api/v1/mas/report`：生成报告；

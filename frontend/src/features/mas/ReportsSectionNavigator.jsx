@@ -89,7 +89,7 @@ export default function ReportsSectionNavigator({
     {
       id: "overview",
       title: "先讲全貌",
-      subtitle: "适合答辩开场，先交代项目、需求、审计结论和多 Agent 主线。",
+      subtitle: "汇总项目、需求、审计结论和多 Agent 主线。",
       pills: [<TagPill key="overview" tone={overviewActive ? "ok" : "neutral"}>{overviewActive ? "当前建议从这里开始" : "总览入口"}</TagPill>],
       items: [
         {

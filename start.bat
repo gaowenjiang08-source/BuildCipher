@@ -21,9 +21,9 @@ call "%ROOT_DIR%scripts\windows\common_env.bat" :warn_missing_env
 echo.
 echo [INFO] Starting backend API in a new window...
 if defined BUILDCIPHER_PYTHON (
-    start "BuildCipher API" cmd /k "cd /d ""%ROOT_DIR%"" && ""%BUILDCIPHER_PYTHON%"" -m uvicorn cipher_genius.api.main:app --host 127.0.0.1 --port 8000"
+    start "BuildCipher API" cmd /k "cd /d ""%ROOT_DIR%"" && ""%BUILDCIPHER_PYTHON%"" -m uvicorn cipher_genius.api.main:app --app-dir ""%ROOT_DIR%src"" --host 127.0.0.1 --port 8000"
 ) else (
-    start "BuildCipher API" cmd /k "cd /d ""%ROOT_DIR%"" && poetry run buildcipher-api"
+    start "BuildCipher API" cmd /k "cd /d ""%ROOT_DIR%"" && poetry run python -m uvicorn cipher_genius.api.main:app --app-dir ""%ROOT_DIR%src"" --host 127.0.0.1 --port 8000"
 )
 
 echo [INFO] Starting React frontend in a new window...

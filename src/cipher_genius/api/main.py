@@ -16,7 +16,10 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse
 
 from cipher_genius.api.benchmark_service import BenchmarkService
-from cipher_genius.api.construction_service import ConstructionDemoService
+from cipher_genius.api.construction_service import (
+    ConstructionDemoService,
+    ConstructionIFCImportService,
+)
 from cipher_genius.api.knowledge_ingestion_service import KnowledgeIngestionService
 from cipher_genius.core.langgraph_mas import LangGraphMASService
 from cipher_genius.api.report_service import MASReportService
@@ -39,6 +42,7 @@ from cipher_genius.api.schemas import (
     ComponentsResponse,
     ConstructionDemoRunRequest,
     ConstructionDemoRunResponse,
+    ConstructionIFCImportResponse,
     EnvSettingsPayload,
     EnvSettingsResponse,
     GenerateRequest,
@@ -100,7 +104,7 @@ SUPPORTED_LLM_PROVIDERS = {
 }
 
 app = FastAPI(
-    title="BuildTrust API",
+    title="BuildCipher API",
     version="1.0.0",
     description="Local API for construction digital-asset trust and cryptographic strategy.",
 )
@@ -635,6 +639,40 @@ def run_construction_demo(payload: ConstructionDemoRunRequest) -> ConstructionDe
     except Exception as exc:
         logger.exception("Construction demo failed")
         raise HTTPException(status_code=500, detail=f"Construction demo failed: {exc}") from exc
+
+
+@app.post(
+    "/api/v1/construction/assets/import",
+    response_model=ConstructionIFCImportResponse,
+)
+async def import_construction_ifc(
+    file: UploadFile = File(...),
+    project_id: str = Form(...),
+    asset_id: str = Form(default="ifc-main-model"),
+    version: str = Form(default="v3"),
+    parent_version: str = Form(default="v2"),
+    approval_state: str = Form(default="approved"),
+) -> ConstructionIFCImportResponse:
+    """Validate and store one IFC file for the localhost construction demo."""
+    try:
+        content = await file.read(50 * 1024 * 1024 + 1)
+        return ConstructionIFCImportService().import_ifc(
+            content=content,
+            original_filename=file.filename or "model.ifc",
+            project_id=project_id,
+            asset_id=asset_id,
+            version=version,
+            parent_version=parent_version or None,
+            approval_state=approval_state,
+        )
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+    except Exception as exc:
+        logger.exception("Construction IFC import failed")
+        raise HTTPException(
+            status_code=500,
+            detail=f"Construction IFC import failed: {exc}",
+        ) from exc
 
 
 @app.post("/api/v1/mas/report", response_model=MASReportResponse)

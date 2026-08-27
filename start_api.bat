@@ -21,9 +21,9 @@ echo       URL: http://127.0.0.1:8000
 echo       Docs: http://127.0.0.1:8000/docs
 echo.
 if defined BUILDCIPHER_PYTHON (
-    "%BUILDCIPHER_PYTHON%" -m uvicorn cipher_genius.api.main:app --host 127.0.0.1 --port 8000
+    "%BUILDCIPHER_PYTHON%" -m uvicorn cipher_genius.api.main:app --app-dir "%ROOT_DIR%src" --host 127.0.0.1 --port 8000
 ) else (
-    poetry run buildcipher-api
+    poetry run python -m uvicorn cipher_genius.api.main:app --app-dir "%ROOT_DIR%src" --host 127.0.0.1 --port 8000
 )
 exit /b %ERRORLEVEL%
 

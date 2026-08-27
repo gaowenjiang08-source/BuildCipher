@@ -44,3 +44,9 @@ cases:
     expected_skill_id: built_asset_pqc_migration_advisor
     expected_template_id: built_asset_pqc_transition_delivery
     required_sections: [长期资产分类, 混合部署路线, 重签与再封装策略]
+  - case_id: construction_crypto_review
+    scenario: construction
+    requirement: 请评审建筑可信交付中的 AES-GCM、SM4-GCM、SM2/ECDSA、KMS/HSM 与 ML-KEM 混合迁移，并核对标准状态、成熟实现、密钥证书治理和剩余风险。
+    expected_skill_id: trusted_construction_crypto_reviewer
+    expected_template_id: construction_trusted_delivery
+    required_sections: [密码组件和密钥策略, 证据清单, 剩余风险和决策记录]

@@ -6,6 +6,44 @@ export const CONSTRUCTION_ATTACKS = [
   { id: "valid_signed_telemetry_replay", label: "有效签名遥测重放", asset: "验收遥测", control: "计数器 + nonce + 时间窗" },
 ];
 
+export const CONSTRUCTION_VALIDATION_CONTROLS = {
+  ifc_content_tamper: {
+    attackMethod: "保持 manifest 与文件身份不变，只修改 IFC DATA 段中的一个字节。",
+    primitive: "SHA-256 内容摘要 + HMAC-SHA256 manifest 签名/验签",
+    invariant: "observed_content_sha256 必须等于 manifest 中的 expected_content_sha256。",
+    controlKey: "content_hash_enforced",
+    acceptance: "篡改文件拒绝，原始文件在相同签名与角色下通过。",
+  },
+  signed_old_version_rollback: {
+    attackMethod: "提交签名仍有效的父版本，尝试覆盖当前批准版本。",
+    primitive: "签名 manifest + parent_version + current_approved_version 指针",
+    invariant: "requested_version 必须等于服务端 latest_approved[asset_id]。",
+    controlKey: "current_version_enforced",
+    acceptance: "旧签名版本拒绝，当前批准版本通过。",
+  },
+  full_model_overprivilege: {
+    attackMethod: "以 specialty_subcontractor 身份请求只允许总包和监理访问的完整模型。",
+    primitive: "交付包 allowed_roles 与 requester_role 的 RBAC 判定",
+    invariant: "requester_role 必须出现在签名 manifest 的 allowed_roles 中。",
+    controlKey: "role_scope_enforced",
+    acceptance: "专业分包完整模型请求拒绝，并转向专业过滤交付包。",
+  },
+  unregistered_device_impersonation: {
+    attackMethod: "使用攻击者自有密钥构造未注册 device_id 的遥测消息。",
+    primitive: "设备注册表 + 独立 credential_ref + HMAC-SHA256 MAC 验证",
+    invariant: "device_id 必须已注册，且 MAC 必须由该设备绑定凭据验证通过。",
+    controlKey: "device_registration_enforced",
+    acceptance: "未知设备拒绝，已注册设备的新消息通过。",
+  },
+  valid_signed_telemetry_replay: {
+    attackMethod: "原样重放一条 MAC 仍有效的历史遥测消息。",
+    primitive: "单调 counter + 一次性 nonce + ±300 秒时间窗",
+    invariant: "counter 递增、nonce 未使用且 timestamp 位于 freshness_window 内。",
+    controlKey: "telemetry_replay_guard_enforced",
+    acceptance: "历史消息因新鲜度失败被拒绝，后续新 counter/nonce 消息通过。",
+  },
+};
+
 export const CONSTRUCTION_TEMPLATES = [
   {
     title: "BIM/IFC 可信交付",
@@ -49,7 +87,7 @@ const CONSTRUCTION_VIEW_LABELS = {
   overview: "工程总览",
   workbench: "项目工作台",
   context: "可信协同",
-  validation: "安全验证",
+  validation: "攻防验证",
   delivery: "交付中心",
 };
 
@@ -97,5 +135,7 @@ export function buildConstructionState({ attackLoop = {}, delivery = {}, current
 }
 
 export function attackResultByType(results = [], attackType) {
-  return asArray(results).find((item) => item?.metrics?.attack_type === attackType);
+  return asArray(results).find(
+    (item) => item?.attack_type === attackType || item?.metrics?.attack_type === attackType
+  );
 }

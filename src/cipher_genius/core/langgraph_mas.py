@@ -61,7 +61,7 @@ from cipher_genius.core.context_bus import ContextBusBuilder
 from cipher_genius.core.control_plane import ControlPlaneBuilder
 from cipher_genius.core.construction_domain import build_construction_context_summary
 from cipher_genius.core.mas_runtime_support import MASRuntimeSupport
-from cipher_genius.core.safety_notice import SECURITY_DISCLAIMER_TEXT
+from cipher_genius.core.safety_notice import SECURITY_DISCLAIMER_TEXT, has_meaningful_artifact
 from cipher_genius.models.requirement import (
     ParsedRequirement,
     PlatformType,
@@ -1862,9 +1862,24 @@ class LangGraphMASService:
                     "execution_plane": execution_plane.model_dump(mode="json"),
                 },
                 "code_artifacts": {
-                    "pseudocode_ready": bool(final_scheme_payload and final_scheme_payload.implementation.pseudocode),
-                    "python_ready": bool(final_scheme_payload and final_scheme_payload.implementation.python),
-                    "c_ready": bool(final_scheme_payload and final_scheme_payload.implementation.c),
+                    "pseudocode_ready": bool(
+                        final_scheme_payload
+                        and has_meaningful_artifact(
+                            final_scheme_payload.implementation.pseudocode,
+                            "pseudocode",
+                        )
+                    ),
+                    "python_ready": bool(
+                        final_scheme_payload
+                        and has_meaningful_artifact(
+                            final_scheme_payload.implementation.python,
+                            "python",
+                        )
+                    ),
+                    "c_ready": bool(
+                        final_scheme_payload
+                        and has_meaningful_artifact(final_scheme_payload.implementation.c, "c")
+                    ),
                 },
                 "case_memory_summary": self._build_case_memory_summary(case_memory),
                 "next_action": (

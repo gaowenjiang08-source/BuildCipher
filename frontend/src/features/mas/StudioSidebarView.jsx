@@ -18,7 +18,7 @@ const BUSINESS_NAV_ITEMS = [
   { id: "overview", label: "工程总览", icon: HomeIcon },
   { id: "workbench", label: "项目工作台", icon: BriefcaseIcon },
   { id: "context", label: "可信协同", icon: LayersIcon },
-  { id: "validation", label: "安全验证", icon: ShieldIcon },
+  { id: "validation", label: "攻防验证", icon: ShieldIcon },
   { id: "delivery", label: "交付中心", icon: SparkIcon },
 ];
 
@@ -176,13 +176,22 @@ export default function StudioSidebarView({
           </span>
         </div>
 
-        <div className="mt-4">
+        <div className="mt-4 grid grid-cols-2 gap-2" role="group" aria-label="工作台模式">
           <button
             type="button"
             onClick={() => onSwitchToBusiness?.()}
             className={cn("cg-sidebar-switch w-full", mode === "business" && "cg-sidebar-switch--active")}
+            aria-pressed={mode === "business"}
           >
             业务模式
+          </button>
+          <button
+            type="button"
+            onClick={() => onSwitchToExpert?.()}
+            className={cn("cg-sidebar-switch w-full", mode === "expert" && "cg-sidebar-switch--active")}
+            aria-pressed={mode === "expert"}
+          >
+            专家模式
           </button>
         </div>
 

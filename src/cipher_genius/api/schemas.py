@@ -3,9 +3,11 @@
 from __future__ import annotations
 
 from datetime import datetime
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Literal, Optional
 
 from pydantic import BaseModel, Field
+
+from cipher_genius.models.construction import ConstructionAsset, IFCInspectionResult
 
 
 class GenerateRequest(BaseModel):
@@ -1441,6 +1443,21 @@ class ConstructionDemoRunRequest(BaseModel):
 
     project_id: str = Field(default="buildtrust-demo-project", min_length=3, max_length=120)
     run_id: Optional[str] = Field(default=None, min_length=3, max_length=120)
+    asset_ref: Optional[str] = Field(default=None, max_length=300)
+    mode: Literal["hardened", "compare"] = "compare"
+
+
+class ConstructionIFCImportResponse(BaseModel):
+    """Metadata and stable localhost reference for one validated IFC import."""
+
+    import_id: str
+    asset_ref: str
+    imported_at: str
+    original_filename: str
+    stored_ref: str
+    asset: ConstructionAsset
+    inspection: IFCInspectionResult
+    capability_boundary: str
 
 
 class ConstructionAttackResultPayload(BaseModel):
@@ -1479,3 +1496,11 @@ class ConstructionDemoRunResponse(BaseModel):
     evidence_ledger_valid: bool
     evidence_refs: List[str] = Field(default_factory=list)
     results: List[ConstructionAttackResultPayload] = Field(default_factory=list)
+    asset_ref: Optional[str] = None
+    asset_inspection: Optional[IFCInspectionResult] = None
+    comparison_verified: bool = False
+    baseline_blocked_count: Optional[int] = None
+    hardened_blocked_count: Optional[int] = None
+    baseline_workspace: Optional[str] = None
+    hardened_workspace: Optional[str] = None
+    baseline_results: List[ConstructionAttackResultPayload] = Field(default_factory=list)

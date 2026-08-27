@@ -16,18 +16,21 @@
 - 领域纯化：前端及活跃后端的医药 benchmark、Skill、报告模板和业务 API 已退役；通用密码与 LLM 内核保留。
 - 运行时收口：产品、CLI、API 健康标识、Windows 启动器和前端导出统一为 `BuildCipher`；`BuildTrust` 保留为建筑可信交付能力名，旧命令与治理环境变量作为兼容入口。
 - ZIP 优点吸收：已将建筑参与方、数字资产、生命周期、安全不变量和威胁画像接入类型化合同、方案审计上下文与 LangGraph 约束投影；未恢复医药业务或云部署结构。
-- 完整测试集使用离线 LLM fixture 验证 localhost fallback，本轮结果为 `183 passed, 11 skipped`；生产 LLM provider 接口保留。
+- 2026-08-26 P0 的可重复 localhost 回归结果为 `190 passed, 4 skipped`（排除需要另行启动 8000 端口服务的 `tests/integration/test_mas_api.py`）；生产 LLM provider 接口保留。该外部进程集成模块单独运行时曾因后台 API 连接重置失败，不计入确定性回归。
 
 ## 当前已实现能力
 
 - 建筑参与方、资产、生命周期、权限和证据引用合同；
-- 6 个建筑 Skill、3 个报告模板、7 个 Benchmark；
-- IFC 内容摘要、manifest 验真、父版本、当前批准版本和角色授权；
+- 6 个建筑 Skill、3 个报告模板、8 个 Benchmark；
+- localhost IFC 导入、STEP/schema/实体/候选 GlobalId 检查、内容摘要、manifest 验真、父版本、当前批准版本和角色授权；
 - IoT 设备注册、消息认证、单调计数器、nonce 和时间窗口；
 - 带签名、前序哈希和链头摘要的项目证据账本；
 - IFC 篡改、版本回滚、分包越权、设备冒充、遥测重放五类攻击；
+- 前端攻防验证可下钻预期/实测摘要、请求/批准版本、RBAC、设备注册、counter、nonce 和时间窗；
+- 建筑验证快照支持浏览器本地导出 JSON、Markdown、LaTeX 与 HTML；
 - 每次攻击生成 JSON artifact、SHA-256 evidence、修补建议和回归结果；
 - `GET /api/v1/benchmarks/construction`；
+- `POST /api/v1/construction/assets/import`；
 - `POST /api/v1/construction/demo/run`；
 - LangGraph 根据 `construction` 领域和需求信号选择 BIM、IoT 或证据账本目标模板。
 - LangGraph 的基线、同轮补充验证和补丁回归会把建筑目标统一解析为五条领域 attack spec；
@@ -37,7 +40,7 @@
 - 建筑控制配置保留补丁前快照，并可通过 dispatcher 显式执行回滚；恢复文件与快照使用 SHA-256 一致性验证。
 - LangGraph 只依据五条客观回归探针判定建筑补丁是否有效；任何探针未执行或 `regression_passed=false` 都会自动恢复补丁前配置，并把实际回滚 dispatch、验证结果和证据文件写入交付结果。
 - 已完成一次无外部 LLM 的完整 LangGraph 建筑验收：construction/BIM 路由正确，baseline 0/5 阻断，hardened 回归 5/5 阻断，case memory 收到 12 个证据引用。
-- 建筑业务前端第一版提供工程总览、项目工作台、可信协同、安全验证和可信交付五个视图；安全验证可直接调用建筑参考演示 API 展示五类攻击的基线/加固对比。
+- 建筑业务前端第一版提供工程总览、项目工作台、可信协同、攻防验证和可信交付五个视图；攻防验证可直接调用建筑参考演示 API，并下钻五类攻击的控制机制与基线/加固原始检查。
 - IFC 检查器可读取真实 STEP physical file 的文件头、IFC schema、实体编号、实体类型计数、候选 GlobalId、重复编号/GlobalId 和内容 SHA-256；
 - 定义了只读 `ConstructionCDEConnector` 合同，并提供项目目录形式的 `LocalDirectoryCDEConnector` 参考适配器；
 - SQLite IoT 状态保存设备凭据引用、最后计数器和已用 nonce，进程重启后仍能拒绝历史遥测；密钥材料不写入 SQLite。
@@ -55,10 +58,10 @@
 
 - 参考运行仍是单进程 localhost 演示；SQLite IoT 适配器可保留计数器与 nonce，但默认演示中的 IFC 批准状态和跨服务一致性不是生产持久化合同；
 - `LocalReferenceHMACProvider` 只用于验证不可导出式 MAC/签名调用合同，不等于人员数字签名、设备证书或生产 PKI；
-- IFC 当前按文件字节处理，没有解析实体、属性、构件 GUID 或模型视图；
+- IFC 当前解析 STEP 结构、schema、实体类型/数量和候选 GlobalId，但不处理几何、碰撞、属性关系、规范或完整模型视图；
 - 权限控制当前到角色/完整包级，尚无构件、属性、专业视图和字段级最小披露；
 - 证据账本是本地 JSON 哈希链，没有数据库事务、外部时间戳、WORM 或外部锚定；
-- LangGraph 已接入建筑五攻击适配器，但尚未在攻击主链调用 P2 IFC 检查器、商业 CDE 或 IoT 消息总线；
+- 独立建筑 demo 已让导入 IFC 进入五攻击 baseline/hardened 对照；LangGraph 主链仍未接入商业 CDE 或 IoT 消息总线；
 - 补丁会真实改写本地演示工作区的控制配置，但不会修改真实 CDE、BIM 平台或 IoT 网关；
 - 自动回滚当前只覆盖建筑目标的五条确定性回归探针；通用密码场景及专家拒绝策略仍沿用原流程；
 - 前端第一版是本地演示视图，尚未连接真实 CDE/BIM、IoT 平台和统一身份源；

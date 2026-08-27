@@ -76,13 +76,15 @@ async function requestJson(path, options = {}, settings = {}) {
   }
   const timeout = setTimeout(() => controller.abort(), Number(settings.timeoutMs || 120000));
   try {
+    const headers = {
+      ...buildHeaders(settings),
+      ...(options.headers || {}),
+    };
+    if (options.body instanceof FormData) delete headers["Content-Type"];
     const response = await fetch(`${buildApiBase(settings)}${path}`, {
       ...options,
       signal: controller.signal,
-      headers: {
-        ...buildHeaders(settings),
-        ...(options.headers || {}),
-      },
+      headers,
     });
     if (!response.ok) {
       const detail = await response.json().catch(() => ({}));
@@ -113,6 +115,21 @@ export function runConstructionDemo(payload = {}, settings = {}) {
   return requestJson(
     "/api/v1/construction/demo/run",
     { method: "POST", body: JSON.stringify(payload) },
+    settings
+  );
+}
+
+export function importConstructionIfc(payload = {}, settings = {}) {
+  const form = new FormData();
+  form.append("file", payload.file);
+  form.append("project_id", payload.projectId);
+  form.append("asset_id", payload.assetId || "ifc-main-model");
+  form.append("version", payload.version || "v3");
+  form.append("parent_version", payload.parentVersion || "v2");
+  form.append("approval_state", payload.approvalState || "approved");
+  return requestJson(
+    "/api/v1/construction/assets/import",
+    { method: "POST", body: form },
     settings
   );
 }

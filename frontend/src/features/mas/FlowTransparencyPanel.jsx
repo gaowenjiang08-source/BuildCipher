@@ -2,6 +2,10 @@ import { MetricCard, Panel } from "../../components/Panel";
 import { SemanticPill, TagPill } from "../../components/SemanticPill";
 import { ReplayFocusPill } from "./ReplayFocusPill";
 
+function cn(...values) {
+  return values.filter(Boolean).join(" ");
+}
+
 const PROJECTION_META = {
   generation: { label: "生成窗口", owner: "Generation Agent" },
   audit: { label: "审计窗口", owner: "Audit Agent" },

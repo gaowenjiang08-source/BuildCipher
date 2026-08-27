@@ -44,6 +44,27 @@ function countLines(value = "") {
   return String(value || "").split(/\r?\n/).filter(Boolean).length;
 }
 
+function hasMeaningfulCodeArtifact(value = "", language = "") {
+  const content = String(value || "").trim();
+  if (!content) return false;
+
+  if (language === "c") {
+    const withoutComments = content.replace(/\/\*[\s\S]*?\*\//g, "").replace(/\/\/.*$/gm, "");
+    return /\b[A-Za-z_]\w*(?:\s+|\s*\*\s*)+[A-Za-z_]\w*\s*\([^;{}]*\)\s*\{/.test(withoutComments);
+  }
+  if (language === "python") {
+    return /^\s*(async\s+def|def|class)\s+[A-Za-z_]\w*/m.test(content);
+  }
+  if (language === "pseudocode") {
+    const lines = content
+      .split(/\r?\n/)
+      .map((line) => line.trim())
+      .filter((line) => line && !line.startsWith("#") && !line.startsWith("//"));
+    return lines.length >= 3 && /\b(function|procedure|algorithm|encrypt|decrypt|sign|verify)\b/i.test(lines.join("\n"));
+  }
+  return false;
+}
+
 function normalizeCodeOutputs({ finalScheme, result, deliveryPackage, codeArtifacts }) {
   const implementation =
     finalScheme?.implementation ||
@@ -86,9 +107,9 @@ function normalizeCodeOutputs({ finalScheme, result, deliveryPackage, codeArtifa
     pseudocode,
     json,
     markdown,
-    cppReady: Boolean(cpp || artifacts.cpp_ready || artifacts.c_ready),
-    pythonReady: Boolean(python || artifacts.python_ready),
-    pseudocodeReady: Boolean(pseudocode || artifacts.pseudocode_ready),
+    cppReady: hasMeaningfulCodeArtifact(cpp, "c"),
+    pythonReady: hasMeaningfulCodeArtifact(python, "python"),
+    pseudocodeReady: hasMeaningfulCodeArtifact(pseudocode, "pseudocode"),
   };
 }
 
@@ -708,19 +729,19 @@ function CodeProgressPanel({ loading, activeRunId, finalScheme, result, codeOutp
         id: "pseudo",
         label: "伪代码",
         detail: "生成逻辑骨架",
-        done: Boolean(codeOutputs.pseudocodeReady || codeOutputs.pseudocode),
+        done: codeOutputs.pseudocodeReady,
       },
       {
         id: "python",
         label: "Python",
         detail: "生成可读实现",
-        done: Boolean(codeOutputs.pythonReady || codeOutputs.python),
+        done: codeOutputs.pythonReady,
       },
       {
         id: "cpp",
-        label: "C++",
-        detail: "生成高性能实现",
-        done: Boolean(codeOutputs.cppReady || codeOutputs.cpp),
+        label: "C",
+        detail: "生成 C11 实现",
+        done: codeOutputs.cppReady,
       },
     ];
   }, [finalScheme, result, codeOutputs]);
@@ -796,9 +817,9 @@ function CodeFormatsPanel({
 }) {
   const tabs = useMemo(() => {
     return [
-      { id: "cpp", label: "C++", language: "cpp", content: codeOutputs.cpp, ready: Boolean(codeOutputs.cpp) },
-      { id: "python", label: "Python", language: "python", content: codeOutputs.python, ready: Boolean(codeOutputs.python) },
-      { id: "pseudocode", label: "伪代码", language: "text", content: codeOutputs.pseudocode, ready: Boolean(codeOutputs.pseudocode) },
+      { id: "cpp", label: "C", language: "c", content: codeOutputs.cpp, ready: codeOutputs.cppReady },
+      { id: "python", label: "Python", language: "python", content: codeOutputs.python, ready: codeOutputs.pythonReady },
+      { id: "pseudocode", label: "伪代码", language: "text", content: codeOutputs.pseudocode, ready: codeOutputs.pseudocodeReady },
       { id: "json", label: "JSON", language: "json", content: codeOutputs.json, ready: Boolean(codeOutputs.json) },
       { id: "markdown", label: "Markdown", language: "markdown", content: codeOutputs.markdown, ready: Boolean(codeOutputs.markdown) },
     ];
@@ -807,15 +828,15 @@ function CodeFormatsPanel({
   const availableTabs = tabs.filter((item) => item.ready);
   const activeTab = tabs.find((item) => item.id === codeTab && item.ready) || availableTabs[0] || tabs[0];
   const codeGenerationComplete = Boolean(
-    (codeOutputs.cppReady || codeOutputs.cpp) &&
-    (codeOutputs.pythonReady || codeOutputs.python) &&
-    (codeOutputs.pseudocodeReady || codeOutputs.pseudocode)
+    codeOutputs.cppReady &&
+    codeOutputs.pythonReady &&
+    codeOutputs.pseudocodeReady
   );
 
   return (
     <Panel
       title="多格式代码切换页"
-      subtitle="代码生成完成后，这里可以在 C++、Python、伪代码、JSON 和 Markdown 之间切换查看。"
+      subtitle="代码生成完成后，这里可以在 C、Python、伪代码、JSON 和 Markdown 之间切换查看。"
       right={<TagPill tone={codeGenerationComplete ? "ok" : "neutral"}>{codeGenerationComplete ? "代码已完整生成" : "仍在等待完整生成"}</TagPill>}
       icon={CheckBadgeIcon}
     >
