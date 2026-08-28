@@ -2,9 +2,9 @@
 
 from typing import Optional
 
-from cipher_genius.models.scheme import CryptographicScheme, Implementation
 from cipher_genius.core.llm_interface import get_llm_interface
 from cipher_genius.core.safety_notice import has_meaningful_artifact, with_disclaimer
+from cipher_genius.models.scheme import CryptographicScheme, Implementation
 
 
 class CodeGenerator:
@@ -14,15 +14,66 @@ class CodeGenerator:
         self.llm = get_llm_interface(llm_provider)
 
     def generate_all(self, scheme: CryptographicScheme) -> Implementation:
-        """Generate all code implementations"""
+        """Generate the complete implementation bundle with one LLM request."""
 
-        implementation = Implementation(
-            pseudocode=self.generate_pseudocode(scheme),
-            python=self.generate_python(scheme),
-            c=self.generate_c(scheme),
+        system_prompt = """You are a cryptography implementation engineer.
+Return one compact JSON object containing educational pseudocode, runnable Python,
+and compilable C11 for the same scheme. Keep the three artifacts consistent."""
+        user_prompt = f"""Generate one implementation bundle for this cryptographic scheme:
+
+{scheme.get_specification()}
+
+Architecture pattern: {scheme.architecture.composition.get('pattern', 'standard')}
+Dataflow: {', '.join(scheme.architecture.dataflow)}
+Parameters:
+{self._format_parameters(scheme)}
+
+Requirements:
+- pseudocode must describe encryption/signing and decryption/verification;
+- python must use the cryptography library, type hints, and a runnable example;
+- c must use C11, include error handling, and contain a main example;
+- return source text without Markdown fences.
+"""
+        schema = {
+            "type": "object",
+            "properties": {
+                "pseudocode": {"type": "string"},
+                "python": {"type": "string"},
+                "c": {"type": "string"},
+            },
+            "required": ["pseudocode", "python", "c"],
+            "additionalProperties": False,
+        }
+
+        try:
+            bundle = self.llm.generate_structured(
+                user_prompt,
+                schema,
+                system_prompt=system_prompt,
+                temperature=0.2,
+                schema_name="implementation_bundle",
+            )
+        except Exception as exc:
+            print(f"Error generating implementation bundle: {exc}")
+            bundle = {}
+
+        return Implementation(
+            pseudocode=self._validated_artifact(
+                bundle.get("pseudocode"),
+                "pseudocode",
+                self._fallback_pseudocode(scheme),
+            ),
+            python=self._validated_artifact(
+                bundle.get("python"),
+                "python",
+                self._fallback_python(scheme),
+            ),
+            c=self._validated_artifact(
+                bundle.get("c"),
+                "c",
+                self._fallback_c(scheme),
+            ),
         )
-
-        return implementation
 
     def generate_pseudocode(self, scheme: CryptographicScheme) -> str:
         """Generate pseudocode for the scheme"""
@@ -99,7 +150,8 @@ Generate complete, runnable code."""
     def generate_c(self, scheme: CryptographicScheme) -> str:
         """Generate C implementation"""
 
-        system_prompt = """You are an expert C programmer specializing in cryptographic implementations.
+        system_prompt = """You are an expert C programmer specializing in
+cryptographic implementations.
 Write secure, efficient C code."""
 
         spec = scheme.get_specification()
@@ -153,6 +205,12 @@ Generate complete, compilable code."""
             code = code.split("```")[1].split("```")[0]
 
         return code.strip()
+
+    def _validated_artifact(self, value: object, artifact_type: str, fallback: str) -> str:
+        content = self._clean_code(value) if isinstance(value, str) else ""
+        if not has_meaningful_artifact(content, artifact_type):
+            content = fallback
+        return with_disclaimer(content, artifact_type)
 
     def _fallback_pseudocode(self, scheme: CryptographicScheme) -> str:
         """Fallback pseudocode generation"""

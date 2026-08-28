@@ -93,7 +93,11 @@ Windows 启动器按 `.buildcipher_runtime`、`.buildcipher_venv`、`.venv` 的�
 
 医药 benchmark API 已移除。LLM provider 接口保持独立，没有因 localhost 密码 provider 而收窄。
 
-代码生成的完成态使用 `has_meaningful_artifact` 判断：C 必须包含函数定义，Python 必须包含函数或类，伪代码必须具备算法步骤；只有安全免责声明或普通说明文字不再算作代码工件。界面统一显示后端实际生成的 C11，而不是误标为 C++。该判断只证明“存在实现形态”，编译、沙箱运行与专业密码评审仍是独立阶段。
+代码生成主流程通过一次 `generate_structured` 请求取得 `pseudocode`、`python` 与 `c` 三个字段，不再按语言串行调用三次 LLM。任一字段缺少实现形态时只对该字段使用本地模板，不再发起额外补救请求。完成态继续使用 `has_meaningful_artifact` 判断：C 必须包含函数定义，Python 必须包含函数或类，伪代码必须具备算法步骤；只有安全免责声明或普通说明文字不算代码工件。该判断只证明“存在实现形态”，编译、沙箱运行与专业密码评审仍是独立阶段。
+
+前端接收 MAS 结果后保持当前页面，不执行强制工作台跳转。工作台只规范化三种主要代码字段；完整交付 JSON 和 Markdown 延迟到用户打开相应标签时构造。代码与导出预览限制为前 500 行，复制仍使用完整字符串。代码结果区由局部错误边界隔离，避免单个序列化或渲染错误造成整页空白。
+
+运行历史采用“浏览器摘要、后端完整证据”的分层存储。`localStorage` 只保存最近 20 条运行的标识、时间、方案名、状态和有限长度说明，不复制代码、讨论日志、攻击时间线、证据集合或沙箱产物。完整当前结果保留在会话内存，跨刷新复核以后端 case/evidence 记录和导出工件为准。这避免大型 LLM/MAS 响应超过同步浏览器存储配额并中断 React 提交阶段。
 
 建筑交付页不再依赖 MAS `deliveryPackage` 才能导出。页面将当前项目、IFC 导入元数据、baseline/hardened 五攻击结果、证据引用、MAS 交付摘要和能力边界组装为 `construction_trust_validation` 快照，并在浏览器本地生成 JSON、Markdown、LaTeX 与自包含 HTML；HTML 导出不调用外部服务。
 

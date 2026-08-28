@@ -18,6 +18,7 @@ import { DEFAULT_CLARIFICATION_DETAILS } from "./features/mas/clarificationHelpe
 import useMasDerivedState from "./features/mas/useMasDerivedState";
 import useMasExport from "./features/mas/useMasExport";
 import useMasLocalOps from "./features/mas/useMasLocalOps";
+import { compactRunHistory } from "./features/mas/runHistoryStorage";
 import { SimpleBarChart, SimpleRadarChart, SimpleScatterChart } from "./features/mas/MasCharts";
 import { actorMatches, displayOrDash } from "./features/mas/masHelpers";
 import {
@@ -550,7 +551,7 @@ function App() {
   const [skillRoute, setSkillRoute] = useState(null);
   const [routingSkill, setRoutingSkill] = useState(false);
   const [componentFilter, setComponentFilter] = useState("");
-  const [history, setHistory] = useState(() => loadJson(RUN_HISTORY_KEY, []));
+  const [history, setHistory] = useState(() => compactRunHistory(loadJson(RUN_HISTORY_KEY, [])));
   const [businessReadingContext, setBusinessReadingContext] = useState(() => resolveBusinessReadingContext(loadStoredCaseId()));
   const businessReadingCaseIdRef = useRef(loadStoredCaseId());
 
@@ -569,7 +570,7 @@ function App() {
   }, [settings]);
 
   useEffect(() => {
-    saveJson(RUN_HISTORY_KEY, history.slice(0, 50));
+    saveJson(RUN_HISTORY_KEY, compactRunHistory(history));
   }, [history]);
 
   useEffect(() => {
@@ -1425,7 +1426,6 @@ function App() {
     setActiveRunId,
     setHistory,
     setNotice,
-    setView,
     setConnectionStatus,
     setConnectionMessage,
     setLlmStatus,

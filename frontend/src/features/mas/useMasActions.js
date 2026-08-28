@@ -191,7 +191,6 @@ export default function useMasActions({
   setActiveRunId,
   setHistory,
   setNotice,
-  setView,
   setConnectionStatus,
   setConnectionMessage,
   setLlmStatus,
@@ -503,7 +502,7 @@ export default function useMasActions({
   function persistRunResult(next) {
     if (!next) return;
     setResult(next);
-    setHistory((prev) => [next, ...prev]);
+    setHistory((prev) => [next, ...prev].slice(0, 20));
     if (next.case_id) setCurrentCaseId(next.case_id);
     if (next.case_memory) {
       setCurrentCaseDetails(next.case_memory);
@@ -617,7 +616,6 @@ export default function useMasActions({
         }
       }
 
-      setView("workbench");
     } catch (err) {
       if (isAbortError(err)) {
         setNotice(`任务已停止：${runId}`);
