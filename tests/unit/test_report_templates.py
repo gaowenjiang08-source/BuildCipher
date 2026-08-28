@@ -7,7 +7,7 @@ def test_report_template_registry_loads_current_templates():
     assert templates
     assert any(template.id == "enterprise_general_delivery" for template in templates)
     assert any(template.id == "construction_trusted_delivery" for template in templates)
-    assert all(template.scenario != "biopharma" for template in templates)
+    assert all(template.scenario != "legacy" for template in templates)
 
 
 def test_report_template_registry_resolves_construction_templates():

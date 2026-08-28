@@ -91,7 +91,7 @@ Windows 启动器按 `.buildcipher_runtime`、`.buildcipher_venv`、`.venv` 的�
 - `/api/v1/settings/*`
 - `POST /api/v1/llm/validate`
 
-医药 benchmark API 已移除。LLM provider 接口保持独立，没有因 localhost 密码 provider 而收窄。
+旧行业 benchmark API 已移除。LLM provider 接口保持独立，没有因 localhost 密码 provider 而收窄。
 
 代码生成的完成态使用 `has_meaningful_artifact` 判断：C 必须包含函数定义，Python 必须包含函数或类，伪代码必须具备算法步骤；只有安全免责声明或普通说明文字不再算作代码工件。界面统一显示后端实际生成的 C11，而不是误标为 C++。该判断只证明“存在实现形态”，编译、沙箱运行与专业密码评审仍是独立阶段。
 
@@ -107,7 +107,7 @@ Windows 启动器按 `.buildcipher_runtime`、`.buildcipher_venv`、`.venv` 的�
 
 ## 8. 验证
 
-当前默认 API、集成、记忆、摄取、检索和方案生成测试使用 construction / BIM / IFC / CDE 样例。医药名称只存在旧端点和模板的退役断言，以及通用合规内核的独立能力测试中。
+当前默认 API、集成、记忆、摄取、检索和方案生成测试使用 construction / BIM / IFC / CDE 样例。旧行业名称只存在退役端点和模板的断言，以及通用合规内核的独立能力测试中。
 
 冻结合同：
 

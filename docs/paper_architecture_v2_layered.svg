@@ -20,7 +20,7 @@
   <rect width="1600" height="920" fill="url(#bg2)"/>
 
   <rect x="48" y="40" width="1504" height="140" rx="28" fill="#FFFDF9" stroke="#DCCFBE" filter="url(#shadow2)"/>
-  <text x="88" y="94" class="title">MedCipher Studio 论文主图 V2：分层式 Agent 架构</text>
+  <text x="88" y="94" class="title">BuildCipher 论文主图 V2：分层式 Agent 架构</text>
   <text x="88" y="130" class="subtitle">这张图不强调时间顺序，而强调系统“谁负责思考、谁负责执行、谁负责记忆与回放”。</text>
 
   <g filter="url(#shadow2)">

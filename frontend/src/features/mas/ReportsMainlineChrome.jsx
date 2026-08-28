@@ -100,7 +100,7 @@ export function MainlinePanelFrame({
     },
     {
       id: "focus",
-      eyebrow: active ? "为什么现在看" : "为什么要补看",
+      eyebrow: active ? "当前重点" : "补充信息",
       detail: guideFocus,
       tone: active ? "border-emerald-200 bg-emerald-50/88 text-emerald-900" : "border-slate-200 bg-slate-50/88 text-slate-700",
     },
@@ -222,7 +222,7 @@ export function MainlinePanelRail({
     {
       id: "flow",
       step: "01",
-      title: "流程透明化",
+      title: "流程概览",
       detail: stageItem?.label || (focusedStageRef ? focusedStageRef : "默认全流程"),
       active: flowPanelActive,
       accent: "sky",
@@ -336,7 +336,7 @@ export function MainlinePositionBar({
   const focusedStageRef = normalizeRef(replayScope?.stageRef);
   const focusedServiceRef = normalizeRef(replayScope?.targetServiceRef);
   const activePanels = [
-    flowPanelActive ? "流程透明化" : null,
+    flowPanelActive ? "流程概览" : null,
     replayPanelActive ? "Replay 深钻" : null,
     attackPanelActive ? "攻击闭环" : null,
     dispatcherPanelActive ? "执行平面" : null,
@@ -345,9 +345,9 @@ export function MainlinePositionBar({
     ? `当前阶段焦点：${focusedStageRef}`
     : focusedServiceRef
       ? `当前目标服务焦点：${focusedServiceRef}`
-      : "当前仍在全局总览模式";
+      : "全局总览模式";
   const navItems = [
-    { id: "mainline-panel-flow", label: "流程透明化", active: flowPanelActive },
+    { id: "mainline-panel-flow", label: "流程概览", active: flowPanelActive },
     { id: "mainline-panel-replay", label: "Replay 深钻", active: replayPanelActive },
     { id: "mainline-panel-attack", label: "攻击闭环", active: attackPanelActive },
     { id: "mainline-panel-dispatch", label: "执行平面", active: dispatcherPanelActive },
@@ -361,7 +361,7 @@ export function MainlinePositionBar({
     ? `刚刚已定位到 ${jumpedPanelLabel}，现在可以顺着这一块继续往下讲。`
     : activePriorityPanel?.active
       ? `当前建议优先阅读 ${activePriorityPanel.label}，它已经命中本轮主线焦点。`
-      : "当前还在整页总览模式，可先从流程透明化开始，再顺着主线往后阅读。";
+      : "全局总览模式。可查看流程与回放。";
 
   return (
     <div className="xl:col-span-2">

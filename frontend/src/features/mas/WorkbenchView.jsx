@@ -211,7 +211,7 @@ function RequirementInputPanel({
   return (
     <Panel
       title="需求输入窗口"
-      subtitle="这里只保留项目需求本身。先把要做什么写清楚，再决定是否展开辅助工具。"
+      subtitle="输入项目需求。"
       right={<TagPill tone={activeRunId ? "warn" : "neutral"}>{activeRunId ? `运行中 ${activeRunId}` : "待启动"}</TagPill>}
       className="h-full"
       icon={CompassIcon}
@@ -240,7 +240,7 @@ function RequirementInputPanel({
           />
           <div className="mt-3 flex flex-wrap items-center justify-between gap-3">
             <p className="text-xs leading-6 text-[color:var(--cg-text-soft)]">
-              当前只突出这个主输入框，避免被次要模块打断。
+              请填写核心需求。
             </p>
             <p className="text-xs font-semibold text-[color:var(--cg-text-soft)]">
               {requirementLength > 0 ? `${requirementLength} 字` : "尚未输入"}
@@ -251,7 +251,7 @@ function RequirementInputPanel({
         <DisclosureSection
           id="workbench-input-helpers"
           title="辅助输入工具"
-          summary="把快捷补全和场景模板收进这里，需要时再打开。"
+          summary="使用快捷补全与场景模板。"
           icon={SparkIcon}
           open={helpersOpen}
           onToggle={() => setHelpersOpen((value) => !value)}
@@ -284,7 +284,7 @@ function RequirementInputPanel({
 
             <div className="rounded-[22px] border border-[color:var(--cg-border)] bg-white p-4">
               <p className="text-sm font-black text-[color:var(--cg-text)]">场景模板</p>
-              <p className="mt-1 text-sm leading-6 text-[color:var(--cg-text-soft)]">适合快速起步，但仍建议按真实项目继续细化。</p>
+              <p className="mt-1 text-sm leading-6 text-[color:var(--cg-text-soft)]">可选择模板快速生成需求。</p>
               <div className="mt-4 space-y-3">
                 {(scenarioTemplates || []).slice(0, 4).map((item) => (
                   <button
@@ -430,7 +430,7 @@ function ClarificationPanel({
   return (
     <Panel
       title="澄清信息补齐"
-      subtitle="这里只保留会直接影响执行结果的边界信息，其余内容放进可展开区域。"
+      subtitle="补充影响执行结果的关键边界。"
       right={
         <TagPill tone={missingRequiredCount > 0 || gateBlocked ? "warn" : "ok"}>
           {missingRequiredCount > 0 || gateBlocked ? "仍有阻塞项" : "基础门槛已满足"}
@@ -451,7 +451,7 @@ function ClarificationPanel({
             <span>
               <span className="block text-sm font-semibold text-[color:var(--cg-text)]">开启严格澄清门槛</span>
               <span className="mt-1 block text-xs leading-6 text-[color:var(--cg-text-soft)]">
-                开启后，如果关键信息缺失，系统会优先要求补齐，而不是直接继续执行。
+                缺少关键信息时暂停执行。
               </span>
             </span>
           </label>
@@ -527,7 +527,7 @@ function ClarificationPanel({
         <DisclosureSection
           id="workbench-clarification-coverage"
           title="查看覆盖情况"
-          summary="把覆盖详情和待澄清问题放进这里，只有需要检查时再展开。"
+          summary="查看覆盖详情与待澄清问题。"
           icon={InfoCircleIcon}
           open={coverageOpen}
           onToggle={() => setCoverageOpen((value) => !value)}
@@ -573,7 +573,7 @@ function ClarificationPanel({
         <DisclosureSection
           id="workbench-clarification-preview"
           title="查看补齐预览"
-          summary="把补齐内容和最终合并预览放进隐藏区，避免默认占满页面。"
+          summary="查看补齐内容与提交预览。"
           icon={SparkIcon}
           open={previewOpen}
           onToggle={() => setPreviewOpen((value) => !value)}
@@ -648,7 +648,7 @@ function CodeLivePanel({ streamLog, loading, activeRunId, codeOutputs, copyText 
   return (
     <Panel
       title="实时代码生成"
-      subtitle="这里持续显示最新的代码生成动态和当前已产出的代码片段。"
+      subtitle="实时查看代码生成结果。"
       right={<TagPill tone={activeRunId || loading ? "warn" : "neutral"}>{activeRunId || loading ? "实时更新中" : "等待运行"}</TagPill>}
       icon={CpuIcon}
     >
@@ -687,7 +687,7 @@ function CodeLivePanel({ streamLog, loading, activeRunId, codeOutputs, copyText 
             <div>
               <p className="text-sm font-black text-[color:var(--cg-text)]">{liveLabel}</p>
               <p className="mt-1 text-sm leading-6 text-[color:var(--cg-text-soft)]">
-                已生成的内容会持续在这里刷新，便于边看边确认方向。
+                生成内容将实时刷新。
               </p>
             </div>
             {liveCode ? (
@@ -836,7 +836,7 @@ function CodeFormatsPanel({
   return (
     <Panel
       title="多格式代码切换页"
-      subtitle="代码生成完成后，这里可以在 C、Python、伪代码、JSON 和 Markdown 之间切换查看。"
+      subtitle="查看 C、Python、伪代码、JSON 与 Markdown。"
       right={<TagPill tone={codeGenerationComplete ? "ok" : "neutral"}>{codeGenerationComplete ? "代码已完整生成" : "仍在等待完整生成"}</TagPill>}
       icon={CheckBadgeIcon}
     >
@@ -909,7 +909,7 @@ function CodeFormatsPanel({
           <div className="rounded-[20px] border border-dashed border-[color:var(--cg-border)] bg-[linear-gradient(180deg,rgba(248,251,255,0.96)_0%,rgba(255,255,255,0.98)_100%)] px-4 py-8 text-center">
             <p className="text-sm font-black text-[color:var(--cg-text)]">代码生成完成后，这里会开启多格式切换。</p>
             <p className="mt-2 text-sm leading-7 text-[color:var(--cg-text-soft)]">
-              当前至少需要生成伪代码、Python 或 C++ 代码后，才能进入可切换页面。JSON 和 Markdown 会根据交付包自动补齐。
+              生成代码后可查看多格式结果。
             </p>
             {deliveryPackage ? (
               <p className="mt-3 text-xs font-semibold text-[color:var(--cg-text-soft)]">交付包已存在，等待主要代码工件补齐。</p>

@@ -41,18 +41,18 @@ export function CredibilityPanel({
   const credibilitySummary =
     credibilityAssessment?.trust_summary ||
     credibilityAssessment?.summary ||
-    "当前可通过可信度评分、证据覆盖和优势缺口来解释这份结果为什么值得采信。";
+    "查看可信度评分、证据覆盖和优势缺口。";
 
   return (
     <Panel title="可信度、对比与整改摘要" subtitle="集中展示可信度评分、候选方案对比图，以及本轮关键发现与整改建议。">
       <ClosurePanelLead
         eyebrow="收尾模块"
-        title="先回答“为什么可信”，再进入证据或交付收尾"
-        detail="这一块负责把可信度评分、优势缺口、对比图和整改建议收成一句可答辩的话，先建立“这份结果为何可采信”的结论。"
+        title="可信结论与交付"
+        detail="查看可信度评分、优势缺口、对比图和整改建议。"
         statusLabel={credibilityAssessment?.trust_level_label || credibilityAssessment?.trust_level || "等待可信度摘要"}
         statusTone={credibilityAssessment?.credibility_score != null ? "ok" : "neutral"}
         nextLabel="下一步建议"
-        nextDetail="若当前更想强调依据链，可跳到证据包继续讲来源；若已经讲完可信度，可直接进入最终交付完成收尾。"
+        nextDetail="可查看证据包或最终交付。"
         actionLabel="跳到最终交付"
         onAction={() => onJumpToSection?.("reports-section-delivery")}
         accent="emerald"
@@ -117,7 +117,7 @@ export function CredibilityPanel({
 
         <div className="rounded-2xl border border-slate-200 bg-white p-4">
           <p className="text-sm font-black text-slate-900">证据来源</p>
-          <p className="mt-1 text-xs text-slate-500">用于解释可信度评分的主要证据来源与组件依据。</p>
+          <p className="mt-1 text-xs text-slate-500">可信度评分的主要证据来源与组件依据。</p>
           <div className="mt-3 space-y-2">
             {credibilitySources.length === 0 ? <p className="text-sm text-slate-500">暂无证据来源。</p> : null}
             {credibilitySources.slice(0, 8).map((item, idx) => (
@@ -261,7 +261,7 @@ export function DeliveryPanel({
       value: finalSchemeName,
       detail: selectedDeliveryFragmentId
         ? `当前已锁定交付片段：${selectedDeliveryFragmentId}`
-        : "当前适合用最终方案名称和交付状态做答辩结尾的一句话总结。",
+        : "查看最终方案名称和交付状态。",
       toneClass: finalScheme?.name ? "border-violet-200 bg-violet-50/90" : "border-slate-200 bg-white",
       pills: [
         <TagPill key="status" tone={selectedDeliveryFragmentId || finalScheme?.name ? "ok" : "neutral"}>{deliveryStatusLabel}</TagPill>,
@@ -273,7 +273,7 @@ export function DeliveryPanel({
       value: exportCount ? `${exportCount} 类导出可用` : "导出待配置",
       detail: exportCount
         ? "可以直接导出交付摘要、证据包、审计结论和完整交付 JSON。"
-        : "当前尚未检测到可用导出格式，适合先完成交付包生成后再演示。", 
+        : "当前尚未检测到可用导出格式。",
       toneClass: exportCount ? "border-emerald-200 bg-emerald-50/90" : "border-slate-200 bg-white",
       pills: [
         <TagPill key="export-count" tone={exportCount ? "ok" : "neutral"}>{`${exportCount} 个导出入口`}</TagPill>,
@@ -284,8 +284,8 @@ export function DeliveryPanel({
       eyebrow: "复盘能力",
       value: historyCount ? `${historyCount} 条历史可回放` : "暂无历史回放",
       detail: historyCount
-        ? "可以在答辩结尾展示不同轮次的结果对比，强调系统具备复盘和持续迭代能力。"
-        : "如果当前还没有历史记录，可以把这一块作为后续演示预留区。", 
+        ? "可查看不同轮次的结果对比。"
+        : "暂无历史记录。",
       toneClass: historyCount ? "border-sky-200 bg-sky-50/90" : "border-slate-200 bg-white",
       pills: [
         <TagPill key="history-count" tone={historyCount ? "ok" : "neutral"}>{`${historyCount} 条历史`}</TagPill>,
@@ -305,11 +305,11 @@ export function DeliveryPanel({
       <ClosurePanelLead
         eyebrow="收口模块"
         title="把方案、交付片段、导出物和历史回放收成最后一页"
-        detail="这一块负责把前面的证据、可信度、候选方案和整改结果最终沉淀到交付包，形成可以导出、回放、对外展示的结尾。"
+        detail="查看证据、可信度、候选方案和整改结果。"
         statusLabel={selectedDeliveryFragmentId ? "交付片段已锁定" : finalScheme?.name ? "最终方案已形成" : "等待交付收口"}
         statusTone={selectedDeliveryFragmentId || finalScheme?.name ? "ok" : "neutral"}
         nextLabel="收尾建议"
-        nextDetail="这一页适合做答辩结尾。讲完交付片段和导出包之后，可以顺手回放历史运行，展示系统具备复盘和对比能力。"
+        nextDetail="查看交付片段、导出包与历史运行。"
         actionLabel="回看可信度摘要"
         onAction={() => onJumpToSection?.("reports-section-credibility")}
         accent="violet"
@@ -323,17 +323,17 @@ export function DeliveryPanel({
               <TagPill tone={finalScheme?.name ? "ok" : "neutral"}>{finalScheme?.name ? "最终方案已成形" : "等待方案收口"}</TagPill>
               <TagPill tone={selectedDeliveryFragmentId ? "ok" : "neutral"}>{selectedDeliveryFragmentId ? "交付片段已锁定" : "交付片段待锁定"}</TagPill>
             </div>
-            <p className="mt-4 text-2xl font-black tracking-tight text-slate-950">把整个系统的结果沉淀成可导出、可回放、可答辩的最后一页</p>
+            <p className="mt-4 text-2xl font-black tracking-tight text-slate-950">查看最终结果</p>
             <p className="mt-3 text-sm leading-7 text-slate-600">
-              这里不是单纯的导出按钮区，而是整套多 Agent 审计流程的最终落点。适合用来总结最终方案、交付能力和复盘能力，让答辩在这里完成收尾。
+              查看最终方案、导出物与历史回放。
             </p>
           </div>
 
           <div className="rounded-[24px] border border-white/80 bg-white/88 px-4 py-4 shadow-sm xl:max-w-sm">
-            <p className="text-[11px] font-black uppercase tracking-[0.18em] text-slate-500">收尾讲解脚本</p>
+            <p className="text-[11px] font-black uppercase tracking-[0.18em] text-slate-500">交付摘要</p>
             <p className="mt-2 text-sm font-black text-slate-950">推荐顺序：先报交付结论，再展示导出物，最后点一下历史回放能力。</p>
             <p className="mt-2 text-sm leading-6 text-slate-600">
-              这样可以把“最终方案是什么”“如何交付”“系统如何复盘”三件事一次讲完，更像完整产品收尾，而不是功能列表。
+              查看最终方案、交付方式与复盘能力。
             </p>
           </div>
         </div>
@@ -359,7 +359,7 @@ export function DeliveryPanel({
               <TagPill tone={historyCount ? "ok" : "neutral"}>{historyCount ? `${historyCount} 条历史可回放` : "历史回放待沉淀"}</TagPill>
             </div>
             <p className="mt-3 text-sm leading-6 text-slate-700">
-              这一层先把“最终交付是否已经成形、能不能导出、是否能拿历史结果做复盘”三件事讲清楚，再进入片段级细节。
+              查看交付成形、导出与复盘状态。
             </p>
           </div>
           <div className="grid grid-cols-2 gap-2 xl:min-w-[320px]">
@@ -385,7 +385,7 @@ export function DeliveryPanel({
           {selectedDeliveryFragmentId ? <TagPill tone="ok">已定位</TagPill> : null}
         </div>
         <p className="mt-2 text-xs leading-5 text-slate-500">
-          这里把下一步动作、场景适配、生产部署建议、合规摘要、漏洞摘要和最终方案设计理由收口成一份交付片段目录，方便从证据解读反向定位到具体交付落点。
+          查看下一步动作、场景适配与交付摘要。
         </p>
         <div className="mt-3 rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3">
           <div className="flex flex-wrap items-center gap-2">

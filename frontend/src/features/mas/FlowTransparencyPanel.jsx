@@ -174,7 +174,7 @@ export default function FlowTransparencyPanel({
 
   return (
     <Panel
-      title="流程透明化与上下文窗口"
+      title="流程与上下文"
       subtitle="这一块直接消费后端的 workflow trace、独立上下文窗口和结构化交接包，并与本地 replay 深钻共享同一套 ref 焦点。"
     >
       <div className="grid grid-cols-2 gap-2 md:grid-cols-4">

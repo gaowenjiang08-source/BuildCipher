@@ -75,7 +75,7 @@ export default function ReportsSectionNavigator({
   onJumpToSection,
 }) {
   const activeMainlineLabel =
-    (flowPanelActive && "流程透明化") ||
+    (flowPanelActive && "流程概览") ||
     (replayPanelActive && "回放深钻") ||
     (attackPanelActive && "攻击闭环") ||
     (dispatcherPanelActive && "执行平面") ||
@@ -88,21 +88,21 @@ export default function ReportsSectionNavigator({
   const groups = [
     {
       id: "overview",
-      title: "先讲全貌",
+      title: "全貌",
       subtitle: "汇总项目、需求、审计结论和多 Agent 主线。",
       pills: [<TagPill key="overview" tone={overviewActive ? "ok" : "neutral"}>{overviewActive ? "当前建议从这里开始" : "总览入口"}</TagPill>],
       items: [
         {
           id: "reports-section-overview",
           label: "项目与需求摘要",
-          detail: "先讲项目记忆、结构化需求和审计判定，建立业务背景。",
+          detail: "项目记忆、结构化需求和审计判定。",
           active: overviewActive,
           onClick: () => onJumpToSection?.("reports-section-overview"),
         },
         {
           id: "mainline-panel-flow",
-          label: "流程透明化",
-          detail: "再讲上下文窗口、流程轨迹和结构化交接。",
+          label: "流程概览",
+          detail: "上下文窗口、流程轨迹和结构化交接。",
           active: flowPanelActive,
           tone: "info",
           onClick: () => onJumpToMainlinePanel?.("mainline-panel-flow"),
@@ -110,7 +110,7 @@ export default function ReportsSectionNavigator({
         {
           id: "mainline-panel-replay",
           label: "回放深钻",
-          detail: "把事件、快照、交接与目标服务轨迹讲成一条回看主线。",
+          detail: "事件、快照、交接与目标服务轨迹。",
           active: replayPanelActive,
           tone: "info",
           onClick: () => onJumpToMainlinePanel?.("mainline-panel-replay"),
@@ -119,14 +119,14 @@ export default function ReportsSectionNavigator({
     },
     {
       id: "attack",
-      title: "再讲攻击闭环",
-      subtitle: "适合讲系统如何从攻击、评估、修补一路推进到执行治理。",
+      title: "攻击闭环",
+      subtitle: "查看攻击、评估、修补与执行治理。",
       pills: [<TagPill key="attack" tone={activeMainlineLabel ? "ok" : "neutral"}>{activeMainlineLabel ? `当前主线：${activeMainlineLabel}` : "等待主线焦点"}</TagPill>],
       items: [
         {
           id: "mainline-panel-attack",
           label: "攻击闭环",
-          detail: "围绕目标服务解释攻击轮次、漏洞评估与代码交付。",
+          detail: "目标服务、攻击轮次、漏洞评估与代码交付。",
           active: attackPanelActive,
           tone: "warn",
           onClick: () => onJumpToMainlinePanel?.("mainline-panel-attack"),
@@ -142,15 +142,15 @@ export default function ReportsSectionNavigator({
         {
           id: "reports-section-handoff",
           label: "交接与工件深钻",
-          detail: "继续讲跨 Agent 结构化交接、工件引用与证据来源。",
+          detail: "跨 Agent 结构化交接、工件引用与证据来源。",
           onClick: () => onJumpToSection?.("reports-section-handoff"),
         },
       ],
     },
     {
       id: "evidence",
-      title: "最后讲证据与交付",
-      subtitle: "适合收口到证据闭环、可信度解释和最终交付输出。",
+      title: "证据与交付",
+      subtitle: "查看证据闭环、可信度解释和最终交付输出。",
       pills: [
         <TagPill key="evidence" tone={evidenceActive ? "ok" : "neutral"}>{evidenceActive ? "当前已进入证据联动" : "证据区待展开"}</TagPill>,
         <TagPill key="delivery" tone={deliveryActive ? "warn" : "neutral"}>{deliveryActive ? "已锁定交付片段" : "交付区待展开"}</TagPill>,
@@ -159,7 +159,7 @@ export default function ReportsSectionNavigator({
         {
           id: "reports-section-credibility",
           label: "可信度与整改摘要",
-          detail: "解释当前方案的可信度、对比结果与整改方向。",
+          detail: "当前方案的可信度、对比结果与整改方向。",
           active: evidenceActive && !deliveryActive,
           tone: "ok",
           onClick: () => onJumpToSection?.("reports-section-credibility"),
@@ -167,7 +167,7 @@ export default function ReportsSectionNavigator({
         {
           id: "reports-section-evidence-pack",
           label: "证据包与联动解读",
-          detail: "讲清楚证据如何支撑审计、候选方案与回放路径。",
+          detail: "证据如何支撑审计、候选方案与回放路径。",
           active: evidenceActive,
           tone: "ok",
           onClick: () => onJumpToSection?.("reports-section-evidence-pack"),
@@ -186,14 +186,14 @@ export default function ReportsSectionNavigator({
 
   return (
     <Panel
-      title="章节导航与讲解路径"
-      subtitle="把这页报告拆成几条更适合讲解的阅读路径，既能顺着主线讲，也能快速跳到证据或交付收口。"
+      title="章节导航"
+      subtitle="查看报告章节，可快速跳到证据或交付。"
       className="xl:col-span-2"
     >
       <div className="rounded-[28px] border border-slate-200 bg-[linear-gradient(135deg,#ffffff_0%,#f8fafc_42%,#eef6ff_100%)] p-4 shadow-sm">
         <div className="rounded-[24px] border border-white/80 bg-white/88 p-4 shadow-sm">
           <div className="flex flex-wrap items-center gap-2">
-            <TagPill tone={overviewActive ? "ok" : "neutral"}>{overviewActive ? "当前适合先讲全貌" : "总览段待展开"}</TagPill>
+            <TagPill tone={overviewActive ? "ok" : "neutral"}>{overviewActive ? "当前显示全貌" : "总览段待展开"}</TagPill>
             <TagPill tone={activeMainlineLabel ? "ok" : "neutral"}>
               {activeMainlineLabel ? `主线已命中：${activeMainlineLabel}` : "主线段待定位"}
             </TagPill>
@@ -202,7 +202,7 @@ export default function ReportsSectionNavigator({
             </TagPill>
           </div>
           <p className="mt-3 text-sm leading-6 text-slate-600">
-            这一层更像报告页的“讲解路线选择器”。如果面对外行或答辩评委，建议先从第一列起讲；如果已经锁定主线焦点或证据焦点，可以直接切到对应章节。
+            这一层用于切换报告章节。
           </p>
         </div>
 

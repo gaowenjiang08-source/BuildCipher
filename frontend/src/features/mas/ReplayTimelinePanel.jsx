@@ -1023,7 +1023,7 @@ export default function ReplayTimelinePanel({
             <TagPill tone="neutral">最近 6 次记录</TagPill>
           </div>
           <p className="mt-2 text-xs leading-5 text-slate-500">
-            这里把 `drilldown / events / snapshots` 三个回放数据面的最近成功/失败压成一条轻量时间带，方便快速判断哪一段链路在抖动。
+            查看 drilldown、events 和 snapshots 的近期状态。
           </p>
           <div className="mt-3 grid grid-cols-1 gap-3 xl:grid-cols-3">
             {replayDataSources.map((item) => {
@@ -1180,7 +1180,7 @@ export default function ReplayTimelinePanel({
               ) : null}
             </div>
             <p className="mt-2 text-xs leading-5 text-slate-500">
-              这里把整页共享的 replay 焦点拆成两类展示：
+              查看共享 replay 焦点：
               `Projection / Handoff / 工件 / 证据 / 恢复点` 会写回后端回看查询；
               `运行 / 阶段 / 目标服务` 更偏向前端联动镜头，其中目标服务还会驱动单服务 lineage 拉取。
             </p>
@@ -1257,7 +1257,7 @@ export default function ReplayTimelinePanel({
           <TagPill tone="neutral">{`恢复点 ${activeRetrySummary.retryResumeCheckpointRefs.length}`}</TagPill>
         </div>
         <p className="mt-2 text-xs leading-5 text-slate-500">
-          这里把 same-run retry 的独立窗口、压缩策略和恢复定位点直接翻译成可读视图。当前只是 replay
+          查看 same-run retry 的独立窗口、压缩策略和恢复定位点。
           查询层可回看，不代表系统已经按这些恢复点自动续跑。
         </p>
         {!hasRetryRecoveryData(activeRetrySummary) ? (
@@ -1377,7 +1377,7 @@ export default function ReplayTimelinePanel({
           <TagPill tone="neutral">{`目标服务 ${proposalReplaySummary.targetServiceCount}`}</TagPill>
         </div>
         <p className="mt-2 text-xs leading-5 text-slate-500">
-          这里把当前 proposal 已命中的 replay 线索收口成一个专题视角，不新增后端接口，只复用现有 drilldown 结果来解释 proposal 在运行、阶段、handoff 和目标服务上的落点。
+          查看 proposal 命中的 replay 线索。
         </p>
         <div className="mt-3 flex flex-wrap gap-2">
           {proposalRunIds.map((item) => (
@@ -1429,7 +1429,7 @@ export default function ReplayTimelinePanel({
           ) : null}
         </div>
         <p className="mt-2 text-xs leading-5 text-slate-500">
-          这里显式拆成两类入口：左侧是当前结果上的本地导航镜头，右侧是会写回共享 replay 焦点的后端深钻入口。这样更容易解释为什么有些按钮只影响当前面板，有些会带动整页一起联动。
+          左侧用于本地查看，右侧用于后端深钻。
         </p>
         <div className="mt-3 flex flex-wrap gap-2">
           {selectedRunId ? <TagPill tone="ok">{`运行 ${selectedRunId}`}</TagPill> : <TagPill tone="neutral">全部运行</TagPill>}
@@ -1638,7 +1638,7 @@ export default function ReplayTimelinePanel({
                 <TagPill tone="neutral">{`${evidenceTopology.length} 个候选证据`}</TagPill>
               </div>
               <p className="mt-2 text-xs leading-5 text-slate-500">
-                这里把证据也提升为独立深钻入口，方便从 replay 侧直接按 evidence 回看，而不是只在工件卡或详情标签里被动点击。
+                这里把证据作为独立深钻入口。
               </p>
               <div className="mt-3 space-y-2">
                 {evidenceTopology.length === 0 ? <p className="text-sm text-slate-500">当前范围内还没有证据引用。</p> : null}
@@ -1708,7 +1708,7 @@ export default function ReplayTimelinePanel({
             </div>
             <div className="mt-3 grid grid-cols-1 gap-2 md:grid-cols-2">
               {handoffTopology.length === 0 ? (
-                <p className="text-sm text-slate-500">当前还没有可聚合的 handoff 泳道。</p>
+                <p className="text-sm text-slate-500">暂无 handoff 泳道。</p>
               ) : null}
               {handoffTopology.slice(0, 6).map((lane) => {
                 const laneActive = lane.relationRefs.includes(String(replayScope?.handoffRef || "").trim());
@@ -1768,7 +1768,7 @@ export default function ReplayTimelinePanel({
                 <TagPill tone="neutral">{`${proposalHandoffRefs.length} 个 relation`}</TagPill>
               </div>
               <p className="mt-2 text-xs leading-5 text-slate-600">
-                这里把当前 proposal 命中的 handoff 泳道单独收口出来，方便在答辩时直接说明这条方案穿过了哪些 agent 边界、阶段对与 dominant contract。
+                查看当前 proposal 命中的 handoff 泳道。
               </p>
               <div className="mt-3 grid grid-cols-1 gap-2 md:grid-cols-2">
                 {proposalHandoffLanes.length === 0 ? (
@@ -2151,7 +2151,7 @@ export default function ReplayTimelinePanel({
               <SemanticPill kind="status" value={selectedEvent.status} label={selectedEvent.status_label || selectedEvent.status} />
             ) : null}
           </div>
-          {!selectedEvent ? <p className="mt-2 text-sm text-slate-500">当前还没有可查看的事件详情。</p> : null}
+          {!selectedEvent ? <p className="mt-2 text-sm text-slate-500">暂无事件详情。</p> : null}
           {selectedEvent ? (
             <>
               <p className="mt-2 text-sm text-slate-800">{summarizeText(selectedEvent.summary || "当前事件暂无摘要。", 220)}</p>
@@ -2244,7 +2244,7 @@ export default function ReplayTimelinePanel({
             ) : null}
             {selectedSnapshot?.selected_proposal ? <TagPill tone="neutral">{selectedSnapshot.selected_proposal}</TagPill> : null}
           </div>
-          {!selectedSnapshot ? <p className="mt-2 text-sm text-slate-500">当前还没有可查看的 snapshot 详情。</p> : null}
+          {!selectedSnapshot ? <p className="mt-2 text-sm text-slate-500">暂无 snapshot 详情。</p> : null}
           {selectedSnapshot ? (
             <>
               <p className="mt-2 text-sm text-slate-800">{summarizeText(selectedSnapshot.summary || "当前快照暂无摘要。", 220)}</p>
@@ -2613,7 +2613,7 @@ export default function ReplayTimelinePanel({
             ) : null}
           </div>
           <p className="mt-2 text-sm text-slate-700">
-            {summarizeText(latestSnapshot?.summary || latestLineage?.summary || "当前还没有最新 snapshot / lineage 摘要。")}
+            {summarizeText(latestSnapshot?.summary || latestLineage?.summary || "暂无最新 snapshot / lineage 摘要。")}
           </p>
           <div className="mt-3 flex flex-wrap gap-2">
             {latestSnapshot?.projection_ref ? (

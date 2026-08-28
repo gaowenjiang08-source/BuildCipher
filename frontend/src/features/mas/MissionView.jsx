@@ -146,7 +146,7 @@ export default function MissionView({
       id: "workflow",
       eyebrow: "主线推进",
       value: `${completedSteps}/${workflowProgress.length || 0} 阶段已完成`,
-      detail: "专家模式首页会先把需求澄清、候选生成、攻击闭环和交付收口讲成一条主线，再进入深层报告与工作台。",
+      detail: "展示需求、方案、验证与交付进度。",
       tone: completedSteps > 0 ? "emerald" : "slate",
       statusLabel: completedSteps > 0 ? "已有进展" : "待启动",
     },
@@ -154,7 +154,7 @@ export default function MissionView({
       id: "roles",
       eyebrow: "专家席位",
       value: `${activeRoleCount} 个角色在线`,
-      detail: "不同角色对应不同职责、工具和判断口径，首页先用席位图帮助用户理解谁负责哪一段。",
+      detail: "查看各专家角色与当前职责。",
       tone: "sky",
       statusLabel: selectedActor === "all" ? "当前看全体" : "已聚焦单角色",
     },
@@ -162,7 +162,7 @@ export default function MissionView({
       id: "discussion",
       eyebrow: "协作记录",
       value: `${discussionCount} 条内部记录`,
-      detail: "讨论回放区用于展示多 Agent 的可解释协作过程，而不是只给出单次黑盒输出。",
+      detail: "查看多 Agent 协作记录。",
       tone: discussionCount > 0 ? "amber" : "slate",
       statusLabel: discussionCount > 0 ? "可回放" : "待生成",
     },
@@ -174,7 +174,7 @@ export default function MissionView({
       step: "01",
       eyebrow: "直接看主图",
       title: "进入专家报告页",
-      detail: "适合已经有运行结果时，直接从主线、攻防闭环、证据和交付四段开始讲解。",
+      detail: "查看主线、攻防闭环、证据和交付。",
       tone: "sky",
       onClick: () => setView("reports"),
     },
@@ -193,7 +193,7 @@ export default function MissionView({
       eyebrow: "快速起步",
       title: activeTemplate ? `套用样例：${activeTemplate.title}` : "等待样例模板",
       detail: activeTemplate
-        ? "会把首页推荐样例直接带入执行工作台，适合演示从需求进入系统的完整过程。"
+        ? "将首页推荐样例带入执行工作台。"
         : "当前尚未加载可用样例模板。",
       tone: "emerald",
       onClick: () => {
@@ -241,19 +241,18 @@ export default function MissionView({
               <div className="max-w-3xl">
                 <p className="text-[11px] font-black uppercase tracking-[0.28em] text-slate-500">专家首页摘要</p>
                 <h1 className="mt-3 max-w-4xl text-3xl font-black tracking-tight text-slate-950 md:text-4xl">
-                  把多 Agent 协作、推进阶段和内部讨论先讲清楚
+                  多 Agent 协作总览
                 </h1>
                 <p className="mt-3 text-sm leading-7 text-slate-600 md:text-base">
-                  这页不直接下钻到某一个算法或某一张报告图，而是先帮助用户建立“谁在工作、现在推进到哪、下一步该去哪里”的整体心智模型。
-                  适合在答辩、汇报和对外演示时作为专家模式的第一页。
+                  查看专家角色、执行阶段与下一步动作。
                 </p>
               </div>
 
               <div className="rounded-[28px] border border-slate-200 bg-slate-950 px-5 py-4 text-white shadow-sm">
                 <p className="text-[11px] font-black uppercase tracking-[0.22em] text-slate-300">首页定位</p>
-                <p className="mt-2 text-lg font-black">先讲清角色、阶段和协作</p>
+                <p className="mt-2 text-lg font-black">角色、阶段和协作</p>
                 <p className="mt-2 text-sm leading-6 text-slate-200">
-                  如果要详细展示攻击闭环、证据链和交付收口，建议从这里进入专家报告页或执行工作台。
+                  可进入专家报告或执行工作台查看详情。
                 </p>
                 <div className="mt-3 flex flex-wrap gap-2">
                   <TagPill tone="neutral">{`${activeRoleCount} 个席位`}</TagPill>
@@ -299,7 +298,7 @@ export default function MissionView({
 
       <Panel
         title="专家席位与职责地图"
-        subtitle="每个席位对应一类责任、工具和协作边界。先让用户理解“谁负责哪一段”，再去看具体的讨论回放和执行细节。"
+        subtitle="查看专家角色、工具与责任范围。"
       >
         <div className="grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-4">
           {teamMembers.map((member) => {
@@ -321,7 +320,7 @@ export default function MissionView({
       <div className="grid grid-cols-1 gap-4 xl:grid-cols-[0.95fr_1.25fr]">
         <Panel
           title="主线推进阶段"
-          subtitle="把 MAS 过程翻译成业务用户也能理解的推进状态。这里更适合讲“现在走到哪一步”，而不是直接展开底层技术细节。"
+          subtitle="查看 MAS 执行阶段与当前状态。"
         >
           <div className="space-y-3">
             {workflowProgress.map((step, idx) => (
@@ -332,7 +331,7 @@ export default function MissionView({
 
         <Panel
           title="内部讨论与决策回放"
-          subtitle="这里展示的是可解释协作过程，而不是单次黑盒生成。可以按角色筛选，帮助外行人看懂每个 Agent 在项目里的职责。"
+          subtitle="查看协作记录，可按角色筛选。"
           right={
             <div className="flex flex-wrap gap-2">
               <button

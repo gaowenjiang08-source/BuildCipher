@@ -21,14 +21,14 @@ export default function ReplayFocusLegendPanel({ replayScope = {} }) {
     {
       id: "primary",
       title: "主线联动焦点",
-      description: "这一层更适合先解释主流程当前在看哪个阶段、哪个上下文窗口、哪条交接以及哪一个目标服务。",
+      description: "查看当前阶段、上下文窗口、交接和目标服务。",
       order: REPLAY_FOCUS_ORDER,
       columns: "lg:grid-cols-2 xl:grid-cols-4",
     },
     {
       id: "query",
       title: "深钻查询焦点",
-      description: "这一层更适合解释回放查询到底进一步锁定了哪个工件、证据或重试恢复定位点。",
+      description: "查看工件、证据或恢复定位点。",
       order: REPLAY_QUERY_FOCUS_ORDER,
       columns: "lg:grid-cols-2 xl:grid-cols-4",
     },
@@ -45,7 +45,7 @@ export default function ReplayFocusLegendPanel({ replayScope = {} }) {
   return (
     <Panel
       title="共享焦点图例与当前状态"
-      subtitle="这张图例条先解释主线联动焦点，再解释深钻查询焦点，让外行也能先看懂这页到底有哪些锁定条件。"
+      subtitle="查看主线联动焦点与深钻查询焦点。"
       className="xl:col-span-2"
     >
       <div className="rounded-[28px] border border-slate-200 bg-[linear-gradient(135deg,#ffffff_0%,#f8fafc_45%,#eef6ff_100%)] p-4 shadow-sm">
@@ -54,10 +54,10 @@ export default function ReplayFocusLegendPanel({ replayScope = {} }) {
             <TagPill tone={activeFocusItems.length ? "ok" : "neutral"}>
               {activeFocusItems.length ? `已锁定 ${activeFocusItems.length} 类焦点` : "当前为全局概览"}
             </TagPill>
-            <TagPill tone="neutral">先看主线，再看深钻</TagPill>
+            <TagPill tone="neutral">主线 / 深钻</TagPill>
           </div>
           <p className="mt-3 text-sm leading-6 text-slate-600">
-            如果是第一次展示这页，建议先看“主线联动焦点”；如果已经开始回看具体证据、工件或恢复点，再看“深钻查询焦点”。
+            先看主线联动焦点，再看深钻查询焦点。
           </p>
         </div>
 

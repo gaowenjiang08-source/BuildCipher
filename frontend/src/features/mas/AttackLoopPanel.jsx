@@ -35,7 +35,7 @@ function buildAttackStageFocusSummary(focusedStageRef = "") {
     return {
       tone: "neutral",
       label: "未锁定攻击闭环阶段",
-      summary: "当前仍在默认查看攻击闭环；若从流程透明化面板点选某个阶段，这里会同步告诉你它是否属于攻击、评估或修补主链。",
+      summary: "默认查看攻击闭环。选中阶段后显示所属主链。",
     };
   }
 
@@ -82,7 +82,7 @@ function buildPatchStatusSummary(patchSpec = {}, reflectionCards = [], currentRo
   return {
     tone: "neutral",
     label: "修补链路待收口",
-    summary: "当前还没有形成稳定的修补与反思结论，建议继续推进漏洞评估与补丁策略。",
+    summary: "暂无修补与反思结论。",
   };
 }
 
@@ -161,7 +161,7 @@ export default function AttackLoopPanel({
   return (
     <Panel
       title="攻击闭环与沙盒态势"
-      subtitle="这一块把“目标服务部署、攻击执行、漏洞评估、修补建议、反思卡片”收拢到同一个视图里，方便演示多 Agent 闭环。"
+      subtitle="汇总目标服务、攻击执行、漏洞评估与修补建议。"
     >
       <div className="grid grid-cols-2 gap-2 md:grid-cols-4">
         <MetricCard label="目标服务" value={targetService?.service_name || "--"} />
@@ -213,8 +213,8 @@ export default function AttackLoopPanel({
               {focusedServiceRef
                 ? serviceFocusActive
                   ? "当前目标服务已经命中这条攻击闭环，可直接围绕同一服务轨迹看版本、攻击轮次和修补状态。"
-                  : "当前有目标服务焦点，但它和这条攻击闭环还未对齐，说明你正在跨服务回看。"
-                : "还没有共享的目标服务焦点，当前更适合用来讲整体闭环结构。"}
+                  : "目标服务与当前闭环未对齐。"
+                : "尚未选择目标服务。"}
             </p>
             <div className="mt-3 flex flex-wrap gap-2">
               <TagPill tone={focusedRoundCount ? "ok" : "neutral"}>{`命中轮次 ${focusedRoundCount}`}</TagPill>
@@ -273,7 +273,7 @@ export default function AttackLoopPanel({
             ) : null}
           </div>
           <p className="mt-2 text-sm leading-6 text-slate-700">
-            当前已经不是只落文件的占位壳子，而是会在本地拉起一个受限进程型目标服务，对其执行健康探针和加密接口探测，再把监测工件落盘。
+            系统会拉起受限目标服务，执行健康探针和加密接口探测，并保存监测工件。
           </p>
 
           <div className="mt-3 grid grid-cols-2 gap-2">
@@ -331,7 +331,7 @@ export default function AttackLoopPanel({
                         >
                           {roundFocused
                             ? "这轮攻击已经命中当前共享目标服务，适合直接对照版本、漏洞命中与修补状态。"
-                            : "当前共享阶段落在攻击闭环主链上，建议把这一轮和上方阶段焦点一起看，便于解释攻击、评估与修补的衔接。"}
+                            : "当前阶段已命中攻击闭环主链。"}
                         </div>
                       ) : null}
                       <div className="mt-2 flex flex-wrap gap-2">

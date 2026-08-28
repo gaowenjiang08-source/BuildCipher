@@ -70,16 +70,16 @@ export default function ReportsChapterSummaryBar({
         <TagPill tone="ok">四段阅读总览</TagPill>
         <TagPill tone="neutral">专家模式阅读地图</TagPill>
       </div>
-      <p className="mt-3 text-xl font-black text-slate-950">先讲全局，再讲主线、攻防和交付。</p>
+      <p className="mt-3 text-xl font-black text-slate-950">查看全局、主线、攻防和交付。</p>
       <p className="mt-2 text-sm leading-6 text-slate-600">
-        这条章节总览条用于把长报告页收成四段。无论是答辩演示还是内部评审，都可以先定当前位置，再决定往下钻到哪一层。
+        这条章节总览条用于把长报告页分成四段。
       </p>
 
       <div className="mt-4 grid grid-cols-1 gap-3 xl:grid-cols-4">
         <ChapterCard
           step="0"
           title="总览摘要"
-          detail="先讲项目背景、结构化需求和审计起点。"
+          detail="项目背景、结构化需求和审计起点。"
           active={overviewActive}
           statusLabel={overviewActive ? "当前所在" : "起始段"}
           accent="slate"
@@ -88,7 +88,7 @@ export default function ReportsChapterSummaryBar({
         <ChapterCard
           step="1"
           title="主线透视"
-          detail="讲流程透明化、回放深钻与上下文传递。"
+          detail="流程、回放与上下文。"
           active={mainlineActive}
           statusLabel={mainlineActive ? "当前所在" : "建议第二段"}
           accent="sky"
@@ -97,7 +97,7 @@ export default function ReportsChapterSummaryBar({
         <ChapterCard
           step="2"
           title="攻防闭环"
-          detail="讲攻击轮次、漏洞评估、修补与执行治理。"
+          detail="攻击轮次、漏洞评估、修补与执行治理。"
           active={attackActive}
           statusLabel={attackActive ? "当前所在" : "技术核心段"}
           accent="rose"
@@ -106,7 +106,7 @@ export default function ReportsChapterSummaryBar({
         <ChapterCard
           step="3"
           title="证据与交付"
-          detail="讲证据来源、可信度、交付物与历史记录。"
+          detail="证据来源、可信度、交付物与历史记录。"
           active={deliveryActive}
           statusLabel={deliveryActive ? "当前所在" : "收尾段"}
           accent="emerald"

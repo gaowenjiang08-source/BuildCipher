@@ -61,7 +61,7 @@ function buildConstructionExportPayload({ projectId, state, demo, ifcImport, del
     mas_delivery: delivery || null,
     capability_boundary:
       demo?.capability_boundary ||
-      "localhost IFC 结构与可信交付验证；不等同于几何审查、商业 CDE、PKI、KMS 或 HSM。",
+      "IFC 结构与可信交付验证；生产环境需接入正式 CDE、PKI、KMS 或 HSM。",
   };
 }
 
@@ -143,9 +143,9 @@ function buildConstructionHtml(payload) {
 }
 
 const VIEW_META = {
-  overview: ["工程可信总览", "把模型、设备、参与方和验收证据放进同一条可信交付链。"],
+  overview: ["工程可信总览", "汇总工程资产、参与方与验收证据。"],
   workbench: ["工程项目工作台", "定义工程资产、参与方、可信目标与交付边界。"],
-  context: ["可信协同依据", "解释每项控制保护什么、由谁负责、产生哪些证据。"],
+  context: ["可信协同依据", "查看控制目标、责任方与证据产出。"],
   validation: ["攻防验证实验室", "对同一 IFC 与 IoT 输入执行五类攻击，检查摘要、版本、角色、凭据和消息新鲜度控制。"],
   delivery: ["交付中心", "汇总可交付结论、证据引用和工程复核边界。"],
 };
@@ -248,7 +248,7 @@ function TechnicalValidationPanel({ state, demo }) {
         <p className="text-xs font-black uppercase tracking-[0.16em] text-cyan-300">Deterministic control inspection</p>
         <h3 className="mt-2 text-xl font-black">技术控制与原始检查输出</h3>
         <p className="mt-2 max-w-4xl text-sm leading-6 text-slate-300">
-          这里验证的不是 Agent 是否“说安全”，而是同一个攻击输入在控制关闭和开启时，具体布尔检查、摘要、版本、角色或消息新鲜度是否发生可复核变化。
+          对比控制开启前后的攻击阻断结果。
         </p>
       </div>
 
@@ -468,7 +468,7 @@ export default function ConstructionWorkspaceView({
         <Section
           id="ifc-import"
           title="导入 IFC 工程资产"
-          description="文件先在 localhost 完成 STEP 结构、schema、实体数量和 SHA-256 检查，再作为五攻击前后对照的真实输入。"
+          description="导入 IFC 文件并完成结构、版本与摘要校验。"
         >
           <div className="grid gap-4 lg:grid-cols-[1.4fr_0.6fr_0.6fr_auto] lg:items-end">
             <label className="block text-sm font-bold text-slate-800">
@@ -581,11 +581,11 @@ export default function ConstructionWorkspaceView({
 
   return (
     <div className="space-y-5">{header}
-      <Section id="conclusion" title="可信交付结论" description="交付内容包含可复核证据，同时明确演示能力与生产能力的边界。">
+      <Section id="conclusion" title="可信交付结论" description="交付内容包含可复核证据，并明确能力边界。">
         <div className="grid gap-3 md:grid-cols-3">
           <div className="rounded-2xl border border-emerald-200 bg-emerald-50 p-5"><CheckCircleIcon size={22} className="text-emerald-700"/><p className="mt-3 font-black text-emerald-950">五攻击控制</p><p className="mt-2 text-sm text-emerald-800">{hardenedBlockedCount}/{comparisonAttackCount} 已形成回归阻断证据</p></div>
           <div className="rounded-2xl border border-blue-200 bg-blue-50 p-5"><DatabaseIcon size={22} className="text-blue-700"/><p className="mt-3 font-black text-blue-950">证据材料</p><p className="mt-2 text-sm text-blue-800">{visibleEvidenceCount} 个去重引用进入当前交付</p></div>
-          <div className="rounded-2xl border border-amber-200 bg-amber-50 p-5"><ShieldIcon size={22} className="text-amber-700"/><p className="mt-3 font-black text-amber-950">人工复核</p><p className="mt-2 text-sm text-amber-800">生产接入前仍需 BIM、密码与项目治理专家确认</p></div>
+          <div className="rounded-2xl border border-amber-200 bg-amber-50 p-5"><ShieldIcon size={22} className="text-amber-700"/><p className="mt-3 font-black text-amber-950">人工复核</p><p className="mt-2 text-sm text-amber-800">生产接入前需人工复核</p></div>
         </div>
         <div className="mt-5 flex flex-wrap gap-3">
           {exportFormats.map((format) => (
@@ -606,7 +606,7 @@ export default function ConstructionWorkspaceView({
       </Section>
       <Section id="boundaries" title="第一版能力边界">
         <ul className="grid gap-3 text-sm leading-6 text-slate-700 md:grid-cols-2">
-          {["IFC 只检查 STEP 结构、schema、实体计数与候选 GlobalId；尚未做几何、碰撞或规范校核。","身份认证使用 localhost HMAC provider，不等于生产 PKI、KMS、HSM 或人员证书。","证据账本是本地 JSON 哈希链，不是 WORM、外部可信时间或跨节点账本。","权限控制到角色和完整交付包级，尚未实现字段与构件级最小披露。"].map((item)=><li key={item} className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3">{item}</li>)}
+          {["IFC 校验范围：结构、schema、实体计数与 GlobalId。","身份认证为演示配置，生产环境需接入正式密钥体系。","证据账本为本地哈希链，生产环境需配置可信存证。","权限控制覆盖角色与交付包级别。"].map((item)=><li key={item} className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3">{item}</li>)}
         </ul>
       </Section>
     </div>

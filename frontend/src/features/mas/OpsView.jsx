@@ -54,7 +54,7 @@ function buildGovernanceTips(item = {}) {
   }
 
   if ((item.files || []).length > 1) {
-    tips.push("当前记录包含多份源文件，适合在答辩时解释这批知识是如何按一次导入任务统一治理的。");
+    tips.push("当前记录包含多份源文件。");
   }
 
   return tips;
@@ -225,8 +225,7 @@ function AssetDetailPanel({
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">资产详情</p>
           <h3 className="mt-1 text-xl font-black text-slate-900">{`导入编号 ${item.request_id}`}</h3>
           <p className="mt-2 text-sm text-slate-600">
-            这不是一条孤立的上传记录，而是一份可解释的知识资产档案。你可以直接回答它包含了什么、来自哪里、是否仍有本地副本，以及是否已经进入
-            Qdrant。
+            查看来源、内容、本地副本和 Qdrant 状态。
           </p>
         </div>
 
@@ -292,7 +291,7 @@ function AssetDetailPanel({
             </div>
             <p className="mt-3 text-lg font-black tracking-tight text-slate-950">这条记录既是导入结果，也是可复核的知识资产档案</p>
             <p className="mt-2 text-sm leading-6 text-slate-600">
-              在答辩或企业演示时，可以直接用这里解释这批资料的来源、处理方式、治理状态和是否进入向量检索层，而不需要再翻回日志。
+              查看这批资料的来源、处理方式和治理状态。
             </p>
           </div>
           <div className="grid min-w-[16rem] grid-cols-2 gap-3 xl:grid-cols-1">
@@ -324,7 +323,7 @@ function AssetDetailPanel({
           </div>
 
           <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
-            <p className="text-sm font-black text-slate-900">可用于答辩的解释点</p>
+            <p className="text-sm font-black text-slate-900">说明要点</p>
             <div className="mt-3 space-y-2 text-sm leading-6 text-slate-700">
               {governanceTips.map((tip) => (
                 <p key={tip}>- {tip}</p>
@@ -473,9 +472,9 @@ export default function OpsView({
               <TagPill tone={knowledgeIngestionRunning ? "warn" : "neutral"}>{knowledgeIngestionRunning ? "导入任务运行中" : "当前无导入任务"}</TagPill>
               <TagPill tone={governancePendingCount ? "warn" : "ok"}>{governancePendingCount ? "存在待治理副本" : "当前治理状态可控"}</TagPill>
             </div>
-            <p className="mt-3 text-2xl font-black tracking-tight text-slate-950">企业知识运维页先讲清资产状态，再进入导入和治理动作</p>
+            <p className="mt-3 text-2xl font-black tracking-tight text-slate-950">企业知识资产运维</p>
             <p className="mt-2 text-sm leading-6 text-slate-600">
-              这页不只是一个“上传文件”的地方，还承担企业知识导入、向量副本治理、资产复核和答辩解释四类职责，所以入口层需要先说明当前资产规模和治理状态。
+              管理企业知识导入、索引与治理状态。
             </p>
           </div>
           <div className="grid min-w-[18rem] grid-cols-2 gap-3 xl:grid-cols-1">
@@ -741,8 +740,7 @@ export default function OpsView({
           {selectedAsset ? <TagPill tone="ok">{`当前查看 ${selectedAsset.request_id}`}</TagPill> : null}
         </div>
         <p className="mt-2 text-xs leading-5 text-slate-500">
-          这里不只是展示历史导入记录，还把每次导入变成可选中的资产档案。演示时可以直接点开解释这批知识的来源、范围、本地副本状态和
-          Qdrant 治理状态。
+          查看知识来源、范围、副本与入库状态。
         </p>
 
         <div className="mt-4 grid grid-cols-1 gap-4 xl:grid-cols-[0.78fr_1.22fr]">
@@ -780,7 +778,7 @@ export default function OpsView({
               <SensitiveNotice
                 title="请选择一条知识资产"
                 tone="slate"
-                body="选中左侧任意记录后，这里会展示可直接用于答辩和治理操作的资产详情。"
+                body="选中左侧记录后，这里会展示资产详情。"
               />
             )}
           </div>

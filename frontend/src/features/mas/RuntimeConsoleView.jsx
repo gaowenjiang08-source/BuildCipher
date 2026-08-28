@@ -58,7 +58,7 @@ const STAGE_EXPLANATIONS = {
   delivery: {
     what: "汇总代码、伪代码、报告、证据和回放入口。",
     why: "企业交付需要可解释、可引用、可复盘，而不是只给一段模型回答。",
-    result: "最终形成可下载、可答辩、可复查的交付包。",
+    result: "最终形成可下载、可复查的交付包。",
   },
 };
 
@@ -193,7 +193,7 @@ function RuntimeConsoleHero({ currentCaseSummary, activeRunId, latestEngineLabel
             从任务发起到攻击闭环的一页式运行观察台
           </h2>
           <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-650 md:text-base">
-            这里把需求输入、主流程阶段、攻击沙盒、漏洞评估、patch 决策和交付预览放在同一条主线上，方便外行理解“当前阶段在做什么、为什么这么做、结果意味着什么”。
+            汇总任务、验证、修补与交付状态。
           </p>
         </div>
         <div className="grid min-w-[18rem] grid-cols-1 gap-3 sm:grid-cols-3 xl:grid-cols-1">
@@ -415,7 +415,7 @@ function StageInspector({ stage, streamLog = [], memoryHandoffs = [], contextPro
           <p className="mt-2 text-sm leading-6 text-slate-700">{explanation.what}</p>
         </div>
         <div className="rounded-2xl border border-emerald-100 bg-emerald-50/70 p-4">
-          <p className="text-xs font-black text-emerald-700">为什么这么做</p>
+          <p className="text-xs font-black text-emerald-700">原因</p>
           <p className="mt-2 text-sm leading-6 text-slate-700">{explanation.why}</p>
         </div>
         <div className="rounded-2xl border border-amber-100 bg-amber-50/70 p-4">
@@ -458,7 +458,7 @@ function LiveConsolePanel({
   return (
     <Panel
       title="B. 主流程实时观测"
-      subtitle="阶段轨道、当前阶段详情和人话解释面板合并展示，让用户知道系统正在如何推进。"
+      subtitle="查看执行阶段与当前结果。"
       right={<TagPill tone="warn">Live Console</TagPill>}
     >
       <div className="grid grid-cols-1 gap-4 xl:grid-cols-[0.72fr_1.28fr]">
@@ -519,7 +519,7 @@ function AttackLoopPanel({ attackLoop, sandboxDispatcher, replayScope, setReplay
   return (
     <Panel
       title="C. 攻击可视化层"
-      subtitle="把攻击规划、治理检查、沙盒执行、漏洞评估和 patch 决策拆开看，避免被普通日志淹没。"
+      subtitle="查看攻击规划、执行、评估与修补决策。"
       right={<TagPill tone="bad">Attack Loop</TagPill>}
     >
       <div className="grid grid-cols-1 gap-4 xl:grid-cols-[0.92fr_1.08fr]">
@@ -661,7 +661,7 @@ function EventsAndDeliveryPanel({ streamLog, deliveryPackage, codeArtifacts, rep
   return (
     <Panel
       title="D. 日志、交付与复盘入口"
-      subtitle="第一版先把 Events、Findings、Artifacts、Replay 状态放在控制台底部，后续再拆成独立 Delivery Workspace 和 Replay 页面。"
+      subtitle="查看事件、发现、工件与回放状态。"
       right={<TagPill tone="neutral">Events / Delivery / Replay</TagPill>}
     >
       <div className="grid grid-cols-1 gap-4 xl:grid-cols-[1.05fr_0.95fr]">
@@ -717,9 +717,9 @@ function EventsAndDeliveryPanel({ streamLog, deliveryPackage, codeArtifacts, rep
             </div>
           </div>
           <div className="rounded-[24px] border border-slate-200 bg-slate-900 p-4 text-white">
-            <p className="text-xs font-black uppercase tracking-[0.18em] text-slate-300">解释面板</p>
+            <p className="text-xs font-black uppercase tracking-[0.18em] text-slate-300">数据摘要</p>
             <p className="mt-2 text-sm leading-7 text-slate-100">
-              当前控制台是桥接实现：它复用现有 MAS 执行、报告、攻击闭环和 replay 数据，不改后端接口。下一步可以继续把 Delivery Workspace 和 Replay / 复盘拆成更完整的专页。
+              控制台汇总运行、报告、攻击闭环与回放数据。
             </p>
           </div>
         </div>

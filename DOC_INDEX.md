@@ -33,6 +33,6 @@
 - [src/cipher_genius/testing/README.md](src/cipher_genius/testing/README.md)
 - [docs/agent_skills/README.md](docs/agent_skills/README.md)
 
-历史医药业务前端、benchmark、Skill 和报告模板文档已从当前索引移除。旧分享 ZIP 仍保留在工作目录上一级，可用于追溯原始版本。
+历史行业业务前端、benchmark、Skill 和报告模板文档已从当前索引移除。旧分享 ZIP 仍保留在工作目录上一级，可用于追溯原始版本。
 
 命名约定：`BuildCipher Studio` 是产品与运行时，`BuildTrust` 是建筑可信交付能力及其冻结赛事演示合同。

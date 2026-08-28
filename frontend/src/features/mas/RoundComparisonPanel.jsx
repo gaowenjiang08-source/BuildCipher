@@ -94,21 +94,21 @@ function buildRegressionTone(baseline, regression) {
       return {
         tone: "ok",
         label: "残余风险下降",
-        summary: "补丁回归轮的严重度低于基线轮，说明当前修补方向已经产生了正向效果。",
+        summary: "回归严重度低于基线。",
       };
     }
     if (after > before) {
       return {
         tone: "bad",
         label: "残余风险上升",
-        summary: "回归轮的严重度高于基线轮，说明当前补丁可能引入了新的问题，或原始问题仍在扩大。",
+        summary: "回归严重度高于基线，请复核补丁影响。",
       };
     }
   }
   return {
     tone: "warn",
     label: "仍需人工复核",
-    summary: "当前回归轮和基线轮之间没有形成足够明确的风险下降信号，建议继续查看 findings、artifact 和 handoff 细节。",
+    summary: "风险下降信号不足。",
   };
 }
 
@@ -118,7 +118,7 @@ function buildTargetFocusSummary(baseline, regression, focusedServiceRef) {
       tone: "neutral",
       label: "未锁定目标服务",
       summary:
-        "当前仍在查看默认轮次对比范围；若从关系回放轨迹或其他面板选中某个目标服务，这里会同步告诉你该服务在基线轮、回归轮中的命中情况。",
+        "默认轮次对比。选中目标服务后显示两轮命中情况。",
     };
   }
 
@@ -149,7 +149,7 @@ function buildStageFocusSummary(focusedStageRef = "") {
     return {
       tone: "neutral",
       label: "未锁定流程阶段",
-      summary: "当前仍在查看默认轮次对比范围；若从流程透明化面板点选某个阶段，这里会同步告诉你该阶段是否属于攻击/回归对比语义。",
+      summary: "默认轮次对比。选中阶段后显示对比归属。",
     };
   }
 
@@ -258,7 +258,7 @@ export default function RoundComparisonPanel({ attackLoop, replayScope, setRepla
           title="基线轮与回归轮对比"
           subtitle="用于解释补丁前后是否真的产生了效果；如果当前没有两轮数据，就先诚实显示为空。"
         >
-        <p className="text-sm text-slate-500">当前还没有足够的基线轮 / 回归轮数据，暂时无法生成对比总览。</p>
+        <p className="text-sm text-slate-500">基线轮 / 回归轮数据不足。</p>
         </Panel>
       );
   }
@@ -296,7 +296,7 @@ export default function RoundComparisonPanel({ attackLoop, replayScope, setRepla
             <p className="text-[11px] font-black uppercase tracking-[0.26em] text-sky-700">轮次对比总览</p>
             <h3 className="mt-2 text-xl font-black text-slate-950">修补前后对比总览</h3>
             <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-700">
-              这里把“修补前是什么样、修补后变成什么样、两轮是否对齐同一目标服务”放进同一张对比板，方便直接讲清整改是否有效。
+              查看修补前后差异和目标服务对齐情况。
             </p>
           </div>
           <div className="flex flex-wrap items-center gap-2 xl:max-w-[380px] xl:justify-end">
@@ -356,7 +356,7 @@ export default function RoundComparisonPanel({ attackLoop, replayScope, setRepla
         <div className="rounded-2xl border border-emerald-200 bg-emerald-50 p-4">
           <p className="text-sm font-black text-slate-900">已被压下的发现</p>
           <div className="mt-3 space-y-2">
-            {findingDiff.removed.length === 0 ? <p className="text-sm text-slate-500">当前还没有明确被压下的发现。</p> : null}
+            {findingDiff.removed.length === 0 ? <p className="text-sm text-slate-500">暂无已降低风险。</p> : null}
             {findingDiff.removed.slice(0, 5).map((item, index) => (
               <p key={`removed-${index}`} className="rounded-lg border border-emerald-200 bg-white px-3 py-2 text-sm text-emerald-800">
                 {index + 1}. {item}

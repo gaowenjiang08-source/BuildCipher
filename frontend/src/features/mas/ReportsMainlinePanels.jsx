@@ -51,7 +51,7 @@ function getLaunchDecision(delivery = {}, auditorRounds = []) {
   return {
     label: "需要继续整改",
     tone: "warn",
-    summary: "当前交付仍处于审计整改阶段，建议继续围绕阻塞项迭代候选方案，再决定是否进入上线评审。",
+    summary: "交付处于整改阶段，请处理阻塞项后再进入上线评审。",
   };
 }
 
@@ -60,7 +60,7 @@ function buildAttackStageFocusSummary(focusedStageRef = "") {
     return {
       tone: "neutral",
       label: "未锁定攻击闭环阶段",
-      summary: "当前仍在默认查看攻击闭环；若从流程透明化面板点选某个阶段，这里会同步告诉你它是否属于攻击、评估或修补主链。",
+      summary: "默认查看攻击闭环。选中阶段后显示所属主链。",
     };
   }
 
@@ -271,7 +271,7 @@ export function ReportsMainlineOverviewPanel({
       step: "05",
       title: "代码交付",
       value: codeReady.length ? "可生成交付代码" : "待补齐交付代码",
-      detail: codeReady.length ? codeReady.join(" / ") : "当前尚未形成稳定伪代码或工程代码交付物。",
+      detail: codeReady.length ? codeReady.join(" / ") : "暂无稳定代码交付物。",
       tone: "delivery",
       active: Boolean(codeReady.length),
       tag: codeReady.length ? `${codeReady.length} 类交付` : "尚未就绪",
@@ -282,7 +282,7 @@ export function ReportsMainlineOverviewPanel({
   return (
     <Panel
       title="整页主线总览"
-      subtitle="把项目主线、审计判定、当前阶段、攻击闭环和代码交付放在同一张总览里，帮助外行先建立阅读坐标。"
+      subtitle="查看项目主线、审计判定、攻击闭环与交付状态。"
       className="xl:col-span-2"
     >
       <div className="rounded-[30px] border border-slate-200 bg-[linear-gradient(135deg,#ffffff_0%,#f8fafc_42%,#eef2ff_100%)] p-5 shadow-sm">
@@ -292,7 +292,7 @@ export function ReportsMainlineOverviewPanel({
             <p className="mt-2 text-sm leading-6 text-slate-700">
               {focusedStageRef || focusedServiceRef
                 ? "当前报告已经进入共享焦点驱动模式，下面各面板会围绕同一条阶段或目标服务主线展开。"
-                : "当前报告仍处于默认全局总览模式，适合先讲完整多 Agent 主线，再切换到具体焦点。"}
+                : "当前报告处于总览模式。"}
             </p>
           </div>
           <div className="flex flex-wrap gap-2">
@@ -306,9 +306,9 @@ export function ReportsMainlineOverviewPanel({
 
         <div className="mt-4 rounded-[26px] border border-white/70 bg-white/65 p-4 shadow-sm">
           <div className="flex flex-wrap items-center gap-2">
-            <TagPill tone="neutral">五段答辩路线</TagPill>
+            <TagPill tone="neutral">五段路线</TagPill>
             <TagPill tone={focusedStageRef || focusedServiceRef ? "ok" : "neutral"}>
-              {focusedStageRef || focusedServiceRef ? "当前已进入焦点讲解模式" : "当前适合先讲整体全貌"}
+              {focusedStageRef || focusedServiceRef ? "当前已进入焦点模式" : "当前显示整体全貌"}
             </TagPill>
             {focusedStageRef ? <ReplayFocusPill kind="stageRef" value={focusedStageRef} active /> : null}
             {focusedServiceRef ? <ReplayFocusPill kind="targetServiceRef" value={focusedServiceRef} active /> : null}
@@ -359,26 +359,26 @@ export function ReportsHeroBanner({
   const currentRoundLabel = currentRound?.round_index ? `第 ${currentRound.round_index} 轮` : "等待进入攻击轮次";
   const caseStatusLabel = currentCaseSummary?.status_label || currentCaseSummary?.status || "进行中";
   const heroSummary = focusedStageRef || focusedServiceRef
-    ? "当前报告已经进入焦点驱动模式，适合直接顺着阶段或目标服务讲完整条多 Agent 主线。"
-    : "当前报告仍处于全局总览模式，适合先讲系统全貌，再逐步下钻到攻击闭环、证据和交付。";
+    ? "当前报告已经进入焦点驱动模式。"
+    : "当前报告处于总览模式。";
   const focusLabel = stageItem?.label || focusedStageRef || (focusedServiceRef ? "目标服务焦点已锁定" : "当前为全局总览");
   const actionItems = [
     {
       id: "mainline-panel-flow",
       eyebrow: "开场路径",
-      label: "先看流程透明化",
-      detail: "适合先讲上下文窗口、流程轨迹和结构化交接。",
+      label: "查看流程",
+      detail: "上下文窗口、流程轨迹和结构化交接。",
       toneClass: "border-sky-200 bg-[linear-gradient(135deg,#ffffff_0%,#f0f9ff_100%)] hover:border-sky-300",
       statusTone: "ok",
       statusLabel: "建议第一跳",
-      ctaLabel: "跳到流程透明化",
+      ctaLabel: "查看流程",
       action: () => onJumpToMainlinePanel?.("mainline-panel-flow"),
     },
     {
       id: "mainline-panel-attack",
       eyebrow: "技术核心",
       label: "转到攻击闭环",
-      detail: "适合直接讲攻击轮次、漏洞评估与修补结果。",
+      detail: "攻击轮次、漏洞评估与修补结果。",
       toneClass: "border-rose-200 bg-[linear-gradient(135deg,#ffffff_0%,#fff1f2_100%)] hover:border-rose-300",
       statusTone: "warn",
       statusLabel: "主实验段",
@@ -389,10 +389,10 @@ export function ReportsHeroBanner({
       id: "reports-section-delivery",
       eyebrow: "结尾收口",
       label: "收口到最终交付",
-      detail: "适合最后展示交付结果、导出物与历史记录。",
+      detail: "最终方案、交付片段、导出物和历史回放。",
       toneClass: "border-emerald-200 bg-[linear-gradient(135deg,#ffffff_0%,#ecfdf5_100%)] hover:border-emerald-300",
       statusTone: "ok",
-      statusLabel: "答辩收尾段",
+      statusLabel: "收尾段",
       ctaLabel: "跳到最终交付",
       action: () => onJumpToSection?.("reports-section-delivery"),
     },
@@ -420,7 +420,7 @@ export function ReportsHeroBanner({
         ? `目标服务：${focusedServiceRef}`
         : focusedStageRef
           ? `阶段标识：${focusedStageRef}`
-          : "尚未锁定具体焦点，适合先讲整体主线。",
+          : "尚未锁定具体焦点。",
       toneClass: focusedStageRef || focusedServiceRef ? "border-sky-300/70 bg-sky-50/90" : "border-slate-200 bg-white/90",
       statusTone: focusedStageRef || focusedServiceRef ? "ok" : "neutral",
       statusLabel: focusedStageRef || focusedServiceRef ? "已锁定" : "全局模式",
@@ -438,7 +438,7 @@ export function ReportsHeroBanner({
       id: "delivery",
       eyebrow: "代码交付",
       value: codeReady.length ? `${codeReady.length} 类交付已就绪` : "代码交付待补齐",
-      detail: codeReady.length ? codeReady.join(" / ") : "当前尚未形成稳定伪代码或工程代码交付物。",
+      detail: codeReady.length ? codeReady.join(" / ") : "暂无稳定代码交付物。",
       toneClass: codeReady.length ? "border-violet-300/70 bg-violet-50/90" : "border-slate-200 bg-white/90",
       statusTone: codeReady.length ? "ok" : "neutral",
       statusLabel: codeReady.length ? "可导出" : "待生成",
@@ -494,7 +494,7 @@ export function ReportsHeroBanner({
       step: "05",
       title: "交付",
       value: codeReady.length ? `${codeReady.length} 类交付已就绪` : "代码交付待补齐",
-      detail: codeReady.length ? codeReady.join(" / ") : "当前尚未形成稳定伪代码或工程代码交付物。",
+      detail: codeReady.length ? codeReady.join(" / ") : "暂无稳定代码交付物。",
       tone: "delivery",
       active: Boolean(codeReady.length),
       tag: codeReady.length ? "可导出" : "待生成",
@@ -528,8 +528,7 @@ export function ReportsHeroBanner({
                   企业密码方案多 Agent 审计报告
                 </h1>
                 <p className="mt-3 text-sm leading-7 text-slate-600 md:text-base">
-                  该页面用于把项目背景、主线流程、攻击闭环、证据链和最终交付串成同一条可讲解的技术故事，
-                  适合答辩、汇报和对外演示直接使用。
+                  查看项目背景、主线流程、攻击闭环、证据链和最终交付。
                 </p>
               </div>
               <div className="rounded-3xl border border-slate-200 bg-slate-950 px-5 py-4 text-white shadow-sm">
@@ -558,9 +557,9 @@ export function ReportsHeroBanner({
 
             <div className="mt-5 rounded-[28px] border border-slate-200 bg-white/82 p-4 shadow-sm">
               <div className="flex flex-wrap items-center gap-2">
-                <TagPill tone="neutral">答辩故事线</TagPill>
+                <TagPill tone="neutral">报告主线</TagPill>
                 <TagPill tone={focusedStageRef || focusedServiceRef ? "ok" : "neutral"}>
-                  {focusedStageRef || focusedServiceRef ? "当前已进入焦点讲解" : "当前适合先讲全貌"}
+                  {focusedStageRef || focusedServiceRef ? "当前已进入焦点模式" : "当前显示全貌"}
                 </TagPill>
               </div>
               <div className="mt-4 flex flex-col gap-3 xl:flex-row xl:items-stretch">
@@ -583,8 +582,8 @@ export function ReportsHeroBanner({
 
             <div className="rounded-[28px] border border-slate-200 bg-white/88 p-4 shadow-sm">
               <div className="flex flex-wrap items-center gap-2">
-                <TagPill tone="neutral">推荐讲解路径</TagPill>
-                <TagPill tone="neutral">按顺序更适合答辩</TagPill>
+                <TagPill tone="neutral">推荐路径</TagPill>
+                <TagPill tone="neutral">推荐顺序</TagPill>
               </div>
               <div className="mt-4 space-y-3">
                 {actionItems.map((item, index) => (
@@ -618,8 +617,8 @@ export function WorkflowAttackBridgePanel({ workflowProgress, replayScope, attac
   const currentRoundIndexLabel = currentRound?.round_index ? `第 ${currentRound.round_index} 轮` : "尚未进入轮次";
   const loopStatusLabel = attackLoop?.loop_status || "待进入攻击闭环";
   const observationSummary = focusedStageRef || focusedServiceRef
-    ? "当前正沿共享焦点收口主线，适合从流程阶段一路讲到攻击轮次与代码交付。"
-    : "当前按默认顺序展示流程到攻击闭环的完整主线，适合先讲系统全貌，再下钻具体焦点。";
+    ? "当前正沿共享焦点收口主线。"
+    : "当前按默认顺序展示主线。";
   const bridgeCards = [
     {
       id: "stage",
@@ -656,7 +655,7 @@ export function WorkflowAttackBridgePanel({ workflowProgress, replayScope, attac
       id: "delivery",
       title: "代码交付",
       value: codeReady.length ? "可生成交付代码" : "待补齐代码交付",
-      detail: codeReady.length ? codeReady.join(" / ") : "当前尚未形成稳定代码交付物",
+      detail: codeReady.length ? codeReady.join(" / ") : "暂无稳定代码交付物",
       toneClass: codeReady.length ? "border-emerald-200 bg-emerald-50/80" : "border-slate-200 bg-white",
       pills: codeReady.length ? [<TagPill key="delivery-ready" tone="ok">{`${codeReady.length} 类交付`}</TagPill>] : [],
     },
@@ -665,7 +664,7 @@ export function WorkflowAttackBridgePanel({ workflowProgress, replayScope, attac
   return (
     <Panel
       title="联动主线与当前观察路径"
-      subtitle="把流程阶段、共享焦点、攻击轮次与代码交付收口到一条线上，方便对外解释多 Agent 主线现在跑到哪里。"
+      subtitle="查看流程阶段、共享焦点、攻击轮次与代码交付。"
     >
       <div className="rounded-[28px] border border-slate-200 bg-[linear-gradient(135deg,#ffffff_0%,#f8fafc_45%,#eff6ff_100%)] p-5 shadow-sm">
         <div className="flex flex-col gap-3 xl:flex-row xl:items-center xl:justify-between">
@@ -729,16 +728,16 @@ export function ReportsEvidenceDeliveryBridgePanel({
       ? "已具备交付收口条件"
       : "仍需继续补齐交付收口";
   const closureSummary = selectedDeliveryFragmentId
-    ? "当前已经锁定交付片段，适合直接从证据链讲到具体交付落点。"
+    ? "当前已经锁定交付片段。"
     : selectedProposalId
-      ? "当前已经锁定候选方案，适合继续说明该方案最终如何沉淀到交付。"
-      : "当前更适合先讲证据与可信度，再顺势收口到交付片段和导出物。";
+      ? "候选方案已锁定，可查看交付片段。"
+      : "请先查看证据与可信度。";
   const bridgeCards = [
     {
       id: "evidence",
       eyebrow: "证据焦点",
       value: selectedEvidence ? "证据已联动" : "证据待展开",
-      detail: selectedEvidence ? evidenceFocusLabel : `当前证据包共 ${evidenceCount} 条，可先从证据来源与命中片段开始讲。`,
+      detail: selectedEvidence ? evidenceFocusLabel : `当前证据包共 ${evidenceCount} 条。`,
       toneClass: selectedEvidence ? "border-emerald-200 bg-emerald-50/85" : "border-slate-200 bg-white",
       pills: [
         <TagPill key="evidence-count" tone="neutral">{`${evidenceCount} 条证据`}</TagPill>,
@@ -752,7 +751,7 @@ export function ReportsEvidenceDeliveryBridgePanel({
       detail:
         credibilityAssessment?.trust_level_label ||
         credibilityAssessment?.trust_level ||
-        "当前可通过可信度评分、优势与缺口摘要，解释为什么这份交付值得采信。",
+        "查看可信度评分、优势与缺口摘要。",
       toneClass: Number.isFinite(credibilityScore) ? "border-sky-200 bg-sky-50/85" : "border-slate-200 bg-white",
       pills: [
         credibilityAssessment?.evidence_coverage != null ? (
@@ -777,20 +776,20 @@ export function ReportsEvidenceDeliveryBridgePanel({
   const actionItems = [
     {
       id: "credibility",
-      label: "先讲可信度摘要",
-      detail: "适合先说明评分、对比图与关键整改项，建立“为什么可信”的收尾逻辑。",
+      label: "可信度摘要",
+      detail: "评分、对比图与关键整改项。",
       action: () => onJumpToSection?.("reports-section-credibility"),
     },
     {
       id: "evidence",
-      label: "再看证据包联动",
-      detail: "适合继续讲证据如何支撑 replay、方案选择和交付片段命中。",
+      label: "证据包联动",
+      detail: "证据、回放、方案选择与交付片段。",
       action: () => onJumpToSection?.("reports-section-evidence-pack"),
     },
     {
       id: "delivery",
       label: "最后收口到交付",
-      detail: "适合展示最终方案、交付片段、导出物和历史回放，完成答辩结尾。",
+      detail: "展示最终方案、交付片段、导出物和历史回放。",
       action: () => onJumpToSection?.("reports-section-delivery"),
     },
   ];
@@ -798,7 +797,7 @@ export function ReportsEvidenceDeliveryBridgePanel({
   return (
     <Panel
       title="证据与交付收口总览"
-      subtitle="把证据命中、可信度解释和最终交付收成同一块展板，帮助在证据与交付层一开始就讲清楚“为什么可信、最后交付什么”。"
+      subtitle="查看证据命中、可信度解释与最终交付。"
       className="xl:col-span-2"
     >
       <div
@@ -812,9 +811,9 @@ export function ReportsEvidenceDeliveryBridgePanel({
               <TagPill tone={selectedEvidence ? "ok" : "neutral"}>{selectedEvidence ? "证据已进入讲解状态" : "证据尚未锁定"}</TagPill>
               <TagPill tone={selectedDeliveryFragmentId ? "warn" : "neutral"}>{selectedDeliveryFragmentId ? "交付片段已锁定" : "交付片段待收口"}</TagPill>
             </div>
-            <p className="mt-4 text-2xl font-black tracking-tight text-slate-950">先讲“为什么可信”，再讲“最后交付什么”</p>
+            <p className="mt-4 text-2xl font-black tracking-tight text-slate-950">查看可信度与最终交付</p>
             <p className="mt-3 text-sm leading-7 text-slate-600">
-              这一段是证据层和交付层之间的收尾桥。适合先从证据来源与可信度解释入手，再把候选方案、交付片段和导出物串成完整结尾。
+              查看证据来源、可信度、候选方案与导出物。
             </p>
           </div>
 

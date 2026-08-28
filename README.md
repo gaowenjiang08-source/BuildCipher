@@ -2,7 +2,7 @@
 
 BuildCipher Studio 是面向建筑工程数字资产的可信协同与密码策略 Agent。`BuildTrust` 是其中的建筑可信交付能力名，第一版聚焦 **BIM/IFC 可信交付 + 工地 IoT 验收证据链**，把需求分析、方案生成、安全审计、攻击验证、修补回归和证据交付组织成一条 LangGraph 主线。
 
-项目保留原系统的通用密码组件、MAS 编排、LLM provider、报告、记忆与回放内核；医药专属前端、benchmark、Skill、报告模板和 API 已退役。
+项目保留原系统的通用密码组件、MAS 编排、LLM provider、报告、记忆与回放内核；旧行业专属前端、benchmark、Skill、报告模板和 API 已退役。
 
 ## 第一版能力
 
@@ -13,7 +13,7 @@ BuildCipher Studio 是面向建筑工程数字资产的可信协同与密码策�
 - IFC 篡改、旧版本回滚、分包越权、设备冒充、遥测重放五类确定性攻击；
 - baseline `0/5` 到 hardened `5/5` 回归，以及失败时的本地配置回滚；
 - 本地 JSON 证据工件、SHA-256 引用、哈希链账本和 SQLite 治理记录；
-- React 前端五个业务视图：工程总览、项目工作台、可信协同、安全验证、可信交付；
+- React 前端五个业务视图：工程总览、项目工作台、可信协同、安全验证、交付中心；
 - OpenAI、Anthropic、Gemini、智谱、DeepSeek、通义、百度和兼容 relay 的 LLM 接口继续保留。
 
 ## 本地启动
@@ -57,7 +57,7 @@ Windows 启动器会优先识别 `.buildcipher_runtime`、`.buildcipher_venv` �
 - `/api/v1/skills/*`：建筑 Skill 列表、路由与执行；
 - `/api/v1/settings/*` 与 `/api/v1/llm/validate`：本地设置与 LLM provider 验证。
 
-原 `/api/v1/benchmarks/biopharma` 已移除，现在返回 404。
+原旧行业 benchmark 端点已移除，现在返回 404。
 
 ## 验证
 

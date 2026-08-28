@@ -69,7 +69,7 @@ export default function EvidencePackPanel({ evidencePack, selectedChunkId, onSel
   return (
     <Panel
       title="规范依据与证据包"
-      subtitle="把命中的规范条款、模板章节、案例和组件能力整理成可复盘证据卡，方便团队直接看到“为什么这样推荐”。"
+      subtitle="查看命中的规范、模板、案例与组件能力。"
       className="xl:col-span-2"
       right={
         <div className="flex flex-wrap items-center gap-2">
@@ -82,12 +82,12 @@ export default function EvidencePackPanel({ evidencePack, selectedChunkId, onSel
     >
       <ClosurePanelLead
         eyebrow="Closure Block"
-        title="先讲证据从哪里来，再讲它支撑了什么"
-        detail="这一块负责把命中的规范、模板、案例和组件能力整理成可追溯证据卡，帮助把“为什么这样设计”讲得更具体。"
+        title="查看证据来源与作用"
+        detail="查看证据如何支持方案。"
         statusLabel={items.length ? "证据包已形成" : "等待证据命中"}
         statusTone={items.length ? "ok" : "neutral"}
         nextLabel="下一步建议"
-        nextDetail="讲完证据卡之后，建议继续进入证据联动解读，说明这些依据如何真正影响审计轮次、整改建议和交付片段。"
+        nextDetail="继续查看证据联动解读。"
         actionLabel="跳到证据联动解读"
         onAction={() => onJumpToSection?.("reports-section-evidence-links")}
         accent="sky"
@@ -112,7 +112,7 @@ export default function EvidencePackPanel({ evidencePack, selectedChunkId, onSel
       <div className="mt-4 rounded-[28px] border border-slate-200/90 bg-[linear-gradient(135deg,rgba(255,255,255,0.96),rgba(238,247,255,0.92))] p-4 shadow-[0_12px_40px_rgba(15,23,42,0.06)]">
         <div className="flex flex-wrap items-center gap-2">
           <p className="text-sm font-black text-slate-900">检索任务摘要</p>
-          <TagPill tone="warn">中文优先交付</TagPill>
+          <TagPill tone="warn">中文优先</TagPill>
         </div>
         <p className="mt-2 text-sm leading-6 text-slate-700">
           {evidencePack?.query || "当前尚未形成 evidence pack，通常表示本轮还没有返回可用检索结果。"}
@@ -122,7 +122,7 @@ export default function EvidencePackPanel({ evidencePack, selectedChunkId, onSel
       <div className="mt-4 grid grid-cols-1 gap-3 xl:grid-cols-2">
         {items.length === 0 ? (
           <div className="rounded-[26px] border border-dashed border-slate-300 bg-white/80 px-4 py-8 text-center text-sm text-slate-500 xl:col-span-2">
-            暂无结构化证据卡。建议先执行一次 LangGraph 流程，再回到报告页查看命中的规范、模板和案例依据。
+            暂无结构化证据卡。请先执行一次流程。
           </div>
         ) : null}
 
