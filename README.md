@@ -4,7 +4,7 @@ BuildCipher Studio 是面向建筑工程数字资产的可信协同与密码策�
 
 项目保留原系统的通用密码组件、MAS 编排、LLM provider、报告、记忆与回放内核；医药专属前端、benchmark、Skill、报告模板和 API 已退役。
 
-## 第一版能力
+## 第一版能力 
 
 - 建筑参与方、资产、生命周期、权限和证据引用合同；
 - 6 个建筑 Skill、3 个建筑报告模板、8 个建筑 benchmark；
