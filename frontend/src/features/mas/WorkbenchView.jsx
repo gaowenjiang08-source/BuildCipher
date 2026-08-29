@@ -710,7 +710,10 @@ function CodeLivePanel({ streamLog, loading, activeRunId, codeOutputs, copyText 
             <div>
               <p className="text-sm font-black text-[color:var(--cg-text)]">{liveLabel}</p>
               <p className="mt-1 text-sm leading-6 text-[color:var(--cg-text-soft)]">
+ feature/reconnected
                 生成内容将实时刷新。
+
+main
                 {livePreview.truncated
                   ? `已生成内容较长，当前只显示前 ${livePreview.visibleLines} 行。`
                   : "已生成的内容会持续在这里刷新，便于边看边确认方向。"}
