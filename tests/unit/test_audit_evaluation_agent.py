@@ -54,7 +54,7 @@ def build_projection() -> ContextProjectionPayload:
                         "mode": "gcm",
                         "key_size": 256,
                     },
-                    "standards_checked": ["HIPAA", "NIST"],
+                    "standards_checked": ["ISO 27001", "NIST"],
                     "compliance_score": 78.0,
                     "risk_score": 72,
                     "critical_count": 1,

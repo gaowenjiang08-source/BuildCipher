@@ -35,8 +35,9 @@ export default function useMasLocalOps({
 
   function loadFromHistory(item) {
     setResult(item);
-    setView("workbench");
-    setNotice("已载入历史交付");
+    const summaryOnly = item?.history_scope === "summary";
+    setView(summaryOnly ? "reports" : "workbench");
+    setNotice(summaryOnly ? "已载入历史摘要；完整交付仍以后端项目证据为准" : "已载入历史交付");
   }
 
   function applyTemplate(template) {

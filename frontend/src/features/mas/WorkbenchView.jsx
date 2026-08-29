@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import { MetricCard, Panel } from "../../components/Panel";
 import { TagPill } from "../../components/SemanticPill";
+import { ComponentErrorBoundary } from "../../components/ErrorBoundary";
 import {
   AlertCircleIcon,
   CheckBadgeIcon,
@@ -42,6 +43,31 @@ function summarizeText(value = "", maxChars = 180) {
 
 function countLines(value = "") {
   return String(value || "").split(/\r?\n/).filter(Boolean).length;
+}
+
+const CODE_PREVIEW_LINE_LIMIT = 500;
+
+function buildLimitedPreview(value = "", maxLines = CODE_PREVIEW_LINE_LIMIT) {
+  const content = String(value || "");
+  let end = 0;
+  let visibleLines = 0;
+
+  while (visibleLines < maxLines && end < content.length) {
+    const nextBreak = content.indexOf("\n", end);
+    visibleLines += 1;
+    if (nextBreak === -1) {
+      end = content.length;
+      break;
+    }
+    end = nextBreak + 1;
+  }
+
+  const truncated = end < content.length;
+  return {
+    content: truncated ? `${content.slice(0, end)}\n... 预览已截断，请复制完整内容查看其余部分。` : content,
+    truncated,
+    visibleLines,
+  };
 }
 
 function hasMeaningfulCodeArtifact(value = "", language = "") {
@@ -98,18 +124,14 @@ function normalizeCodeOutputs({ finalScheme, result, deliveryPackage, codeArtifa
     implementation.pseudocode,
     implementation.pseudocode_text
   );
-  const json = deliveryPackage ? JSON.stringify(deliveryPackage, null, 2) : "";
-  const markdown = deliveryPackage ? buildMarkdownExport(deliveryPackage) : "";
-
   return {
     cpp,
     python,
     pseudocode,
-    json,
-    markdown,
     cppReady: hasMeaningfulCodeArtifact(cpp, "c"),
     pythonReady: hasMeaningfulCodeArtifact(python, "python"),
     pseudocodeReady: hasMeaningfulCodeArtifact(pseudocode, "pseudocode"),
+    deliveryReady: Boolean(deliveryPackage),
   };
 }
 
@@ -641,9 +663,10 @@ function CodeLivePanel({ streamLog, loading, activeRunId, codeOutputs, copyText 
       ? "当前预览：Python"
       : codeOutputs.pseudocode
         ? "当前预览：伪代码"
-        : activeRunId || loading
+          : activeRunId || loading
           ? "当前预览：生成日志"
           : "等待生成";
+  const livePreview = useMemo(() => buildLimitedPreview(liveCode), [liveCode]);
 
   return (
     <Panel
@@ -688,6 +711,9 @@ function CodeLivePanel({ streamLog, loading, activeRunId, codeOutputs, copyText 
               <p className="text-sm font-black text-[color:var(--cg-text)]">{liveLabel}</p>
               <p className="mt-1 text-sm leading-6 text-[color:var(--cg-text-soft)]">
                 生成内容将实时刷新。
+                {livePreview.truncated
+                  ? `已生成内容较长，当前只显示前 ${livePreview.visibleLines} 行。`
+                  : "已生成的内容会持续在这里刷新，便于边看边确认方向。"}
               </p>
             </div>
             {liveCode ? (
@@ -696,13 +722,13 @@ function CodeLivePanel({ streamLog, loading, activeRunId, codeOutputs, copyText 
                 onClick={() => copyText?.(liveCode, "当前代码预览已复制")}
                 className="cg-button cg-button-secondary"
               >
-                复制当前预览
+                复制完整内容
               </button>
             ) : null}
           </div>
 
           <pre className="mt-4 max-h-[26rem] overflow-auto rounded-[20px] border border-slate-900/85 bg-slate-950 p-4 text-xs leading-6 text-slate-100">
-            {liveCode || "代码开始生成后，这里会显示最新片段或实时日志。"}
+            {livePreview.content || "代码开始生成后，这里会显示最新片段或实时日志。"}
           </pre>
         </section>
       </div>
@@ -820,13 +846,19 @@ function CodeFormatsPanel({
       { id: "cpp", label: "C", language: "c", content: codeOutputs.cpp, ready: codeOutputs.cppReady },
       { id: "python", label: "Python", language: "python", content: codeOutputs.python, ready: codeOutputs.pythonReady },
       { id: "pseudocode", label: "伪代码", language: "text", content: codeOutputs.pseudocode, ready: codeOutputs.pseudocodeReady },
-      { id: "json", label: "JSON", language: "json", content: codeOutputs.json, ready: Boolean(codeOutputs.json) },
-      { id: "markdown", label: "Markdown", language: "markdown", content: codeOutputs.markdown, ready: Boolean(codeOutputs.markdown) },
+      { id: "json", label: "JSON", language: "json", content: "", ready: codeOutputs.deliveryReady },
+      { id: "markdown", label: "Markdown", language: "markdown", content: "", ready: codeOutputs.deliveryReady },
     ];
   }, [codeOutputs]);
 
   const availableTabs = tabs.filter((item) => item.ready);
   const activeTab = tabs.find((item) => item.id === codeTab && item.ready) || availableTabs[0] || tabs[0];
+  const activeContent = useMemo(() => {
+    if (activeTab.id === "json") return JSON.stringify(deliveryPackage, null, 2);
+    if (activeTab.id === "markdown") return buildMarkdownExport(deliveryPackage);
+    return activeTab.content;
+  }, [activeTab, deliveryPackage]);
+  const preview = useMemo(() => buildLimitedPreview(activeContent), [activeContent]);
   const codeGenerationComplete = Boolean(
     codeOutputs.cppReady &&
     codeOutputs.pythonReady &&
@@ -879,17 +911,19 @@ function CodeFormatsPanel({
               <div>
                 <p className="text-sm font-black text-[color:var(--cg-text)]">{activeTab.label}</p>
                 <p className="mt-1 text-xs leading-6 text-[color:var(--cg-text-soft)]">
-                  当前内容共 {countLines(activeTab.content)} 行。
+                  {preview.truncated
+                    ? `当前仅预览前 ${preview.visibleLines} 行，完整内容仍可复制。`
+                    : `当前内容共 ${countLines(activeContent)} 行。`}
                 </p>
               </div>
               <div className="flex flex-wrap gap-2">
                 <TagPill tone={activeTab.ready ? "ok" : "neutral"}>{activeTab.ready ? "可查看" : "生成中"}</TagPill>
                 <button
                   type="button"
-                  onClick={() => copyText?.(activeTab.content, `${activeTab.label} 内容已复制`)}
+                  onClick={() => copyText?.(activeContent, `${activeTab.label} 完整内容已复制`)}
                   className="cg-button cg-button-secondary"
                 >
-                  复制当前页
+                  复制完整内容
                 </button>
               </div>
             </div>
@@ -901,7 +935,7 @@ function CodeFormatsPanel({
               className="mt-4"
             >
               <pre className="max-h-[34rem] overflow-auto rounded-[20px] border border-slate-900/85 bg-slate-950 p-4 text-xs leading-6 text-slate-100">
-                {activeTab.content}
+                {preview.content}
               </pre>
             </div>
           </>
@@ -918,6 +952,52 @@ function CodeFormatsPanel({
         )}
       </div>
     </Panel>
+  );
+}
+
+function CodeResultsArea({
+  loading,
+  activeRunId,
+  finalScheme,
+  result,
+  deliveryPackage,
+  codeArtifacts,
+  streamLog,
+  copyText,
+  codeTab,
+  setCodeTab,
+}) {
+  const codeOutputs = useMemo(
+    () => normalizeCodeOutputs({ finalScheme, result, deliveryPackage, codeArtifacts }),
+    [finalScheme, result, deliveryPackage, codeArtifacts]
+  );
+
+  return (
+    <>
+      <CodeLivePanel
+        streamLog={streamLog}
+        loading={loading}
+        activeRunId={activeRunId}
+        codeOutputs={codeOutputs}
+        copyText={copyText}
+      />
+
+      <CodeProgressPanel
+        loading={loading}
+        activeRunId={activeRunId}
+        finalScheme={finalScheme}
+        result={result}
+        codeOutputs={codeOutputs}
+      />
+
+      <CodeFormatsPanel
+        codeOutputs={codeOutputs}
+        deliveryPackage={deliveryPackage}
+        codeTab={codeTab}
+        setCodeTab={setCodeTab}
+        copyText={copyText}
+      />
+    </>
   );
 }
 
@@ -956,11 +1036,6 @@ export default function WorkbenchView({
   streamLog,
   codeArtifacts,
 }) {
-  const codeOutputs = useMemo(
-    () => normalizeCodeOutputs({ finalScheme, result, deliveryPackage, codeArtifacts }),
-    [finalScheme, result, deliveryPackage, codeArtifacts]
-  );
-
   return (
     <div className="space-y-4">
       <div className={cn("grid grid-cols-1 gap-4 2xl:grid-cols-[1.08fr_0.92fr]")}>
@@ -997,29 +1072,29 @@ export default function WorkbenchView({
         />
       </div>
 
-      <CodeLivePanel
-        streamLog={streamLog}
-        loading={loading}
-        activeRunId={activeRunId}
-        codeOutputs={codeOutputs}
-        copyText={copyText}
-      />
-
-      <CodeProgressPanel
-        loading={loading}
-        activeRunId={activeRunId}
-        finalScheme={finalScheme}
-        result={result}
-        codeOutputs={codeOutputs}
-      />
-
-      <CodeFormatsPanel
-        codeOutputs={codeOutputs}
-        deliveryPackage={deliveryPackage}
-        codeTab={codeTab}
-        setCodeTab={setCodeTab}
-        copyText={copyText}
-      />
+      <ComponentErrorBoundary
+        key={`${activeRunId || "idle"}:${result?.request_id || result?.run_id || "none"}`}
+        fallback={(
+          <Panel title="代码结果暂时无法显示" subtitle="本次运行结果仍然保留，可返回运行控制台查看执行记录。" icon={AlertCircleIcon}>
+            <div role="alert" className="rounded-[20px] border border-[color:var(--cg-warning-border)] bg-[color:var(--cg-warning-fog)] px-4 py-5 text-sm leading-6 text-[color:var(--cg-text)]">
+              代码结果面板处理失败。请保留当前页面并重新运行；该错误只隔离代码预览，不影响其他工程面板。
+            </div>
+          </Panel>
+        )}
+      >
+        <CodeResultsArea
+          loading={loading}
+          activeRunId={activeRunId}
+          finalScheme={finalScheme}
+          result={result}
+          deliveryPackage={deliveryPackage}
+          codeArtifacts={codeArtifacts}
+          streamLog={streamLog}
+          copyText={copyText}
+          codeTab={codeTab}
+          setCodeTab={setCodeTab}
+        />
+      </ComponentErrorBoundary>
     </div>
   );
 }

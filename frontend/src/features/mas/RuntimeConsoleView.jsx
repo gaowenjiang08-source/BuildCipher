@@ -17,7 +17,7 @@ const STAGE_EXPLANATIONS = {
   },
   context_builder: {
     what: "检索企业知识、组件知识、规范依据和历史案例，形成证据包。",
-    why: "让生成 agent 不只靠通用模型记忆，而是带着可引用证据工作。",
+    why: "基于引用证据生成方案。",
     result: "输出会进入方案生成和审计解释，影响候选方案排序与报告依据。",
   },
   architect: {
@@ -42,7 +42,7 @@ const STAGE_EXPLANATIONS = {
   },
   attack_executor: {
     what: "攻击 agent 规划并执行探测任务，观察服务响应和异常信号。",
-    why: "真实 LLM 决策需要能够选择攻击族、调整任务并读取执行反馈。",
+    why: "根据目标选择攻击类型并读取执行反馈。",
     result: "攻击 trace、metrics 和发现会移交给漏洞评估与专家闸门。",
   },
   vulnerability_evaluation: {
@@ -52,7 +52,7 @@ const STAGE_EXPLANATIONS = {
   },
   patch_reflection: {
     what: "根据漏洞和专家判断生成修补计划，并沉淀反思结果。",
-    why: "闭环价值不只是修 bug，还要把经验反馈给下一次生成与审计。",
+    why: "将修补经验写入后续生成与审计。",
     result: "反思可以回灌到提示词、检索策略、记忆卡和后续运行策略。",
   },
   delivery: {

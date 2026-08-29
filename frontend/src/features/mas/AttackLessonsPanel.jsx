@@ -519,7 +519,7 @@ export default function AttackLessonsPanel({
           {focusedGroupCount ? <TagPill tone="ok">{`${focusedGroupCount} 个规划轮已命中当前 handoff`}</TagPill> : null}
         </div>
         <p className="mt-2 text-sm leading-6 text-slate-600">
-          这块面板现在不只解释攻击经验本身，也能把这些经验与攻击规划阶段、攻击规划窗口以及相关 handoff 的回看焦点接起来。
+          展示攻击经验与相关回放入口。
         </p>
       </div>
 

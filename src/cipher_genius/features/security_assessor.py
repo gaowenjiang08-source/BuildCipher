@@ -509,7 +509,7 @@ class SecurityAssessor:
             'iso_iec_18033': False,
             'nist_approved': False,
             'pci_dss': False,
-            'hipaa_compliant': False,
+            'privacy_suitable': False,
             'gdpr_suitable': False
         }
 
@@ -541,9 +541,9 @@ class SecurityAssessor:
         elif 'rsa' in algorithm and key_length >= 2048:
             compliance['pci_dss'] = True
 
-        # HIPAA (Healthcare)
+        # General privacy-sensitive deployments
         if key_length >= 128 and mode in ['gcm', 'ccm', 'cbc']:
-            compliance['hipaa_compliant'] = True
+            compliance['privacy_suitable'] = True
 
         # GDPR (General Data Protection Regulation)
         if key_length >= 128 and 'aes' in algorithm:

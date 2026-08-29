@@ -191,7 +191,6 @@ export default function useMasActions({
   setActiveRunId,
   setHistory,
   setNotice,
-  setView,
   setConnectionStatus,
   setConnectionMessage,
   setLlmStatus,
@@ -256,7 +255,7 @@ export default function useMasActions({
       const data = await getComponents(300, settings);
       setComponents(data.items || []);
     } catch (err) {
-      setError(err.message || "鍔犺浇缁勪欢澶辫触");
+      setError(err.message || "加载组件失败");
     }
   }
 
@@ -274,7 +273,7 @@ export default function useMasActions({
       const data = await getCases(20, settings);
       setCaseCatalog(data.items || []);
     } catch (err) {
-      setError(err.message || "鍔犺浇椤圭洰鍒楄〃澶辫触");
+      setError(err.message || "加载项目列表失败");
     }
   }
 
@@ -283,7 +282,7 @@ export default function useMasActions({
       const data = await getKnowledgeIngestions(20, settings);
       setKnowledgeCatalog(data.items || []);
     } catch (err) {
-      setError(err.message || "鍔犺浇鐭ヨ瘑璧勪骇鍒楄〃澶辫触");
+      setError(err.message || "加载知识资产列表失败");
     }
   }
 
@@ -292,7 +291,7 @@ export default function useMasActions({
     if (!normalized) {
       setCurrentCaseId("");
       setCurrentCaseDetails(null);
-      setNotice("宸插垏鎹负鏂伴」鐩紝涓嬩竴娆℃墽琛屼細鑷姩鐢熸垚 case_id");
+      setNotice("已切换为新项目，下一次执行会自动生成 case_id");
       return;
     }
 
@@ -319,9 +318,9 @@ export default function useMasActions({
         setCurrentCaseId("");
         setCurrentCaseDetails(null);
       }
-      setNotice(`宸插垹闄ら」鐩細${normalized}`);
+      setNotice(`已删除项目：${normalized}`);
     } catch (err) {
-      setError(err.message || "鍒犻櫎椤圭洰澶辫触");
+      setError(err.message || "删除项目失败");
     }
   }
 
@@ -362,10 +361,10 @@ export default function useMasActions({
             : item
         )
       );
-      setNotice(`宸插垹闄ょ煡璇嗗鍏ヤ骇鐗╋細${normalized}`);
+      setNotice(`已删除知识导入产物：${normalized}`);
       return data;
     } catch (err) {
-      setError(err.message || "鍒犻櫎鐭ヨ瘑瀵煎叆浜х墿澶辫触");
+      setError(err.message || "删除知识导入产物失败");
       return null;
     }
   }
@@ -464,12 +463,12 @@ export default function useMasActions({
       setSkillRoute(data);
       if (data?.recommended_skill?.id) {
         setSelectedSkillId(data.recommended_skill.id);
-        setNotice(`宸茶嚜鍔ㄦ帹鑽愯涓氫笓瀹讹細${data.recommended_skill.name}`);
+        setNotice(`已自动推荐行业专家：${data.recommended_skill.name}`);
       } else {
         setNotice("当前需求没有明显匹配的行业专家，仍可继续使用通用方案模式。");
       }
     } catch (err) {
-      setError(err.message || "琛屼笟涓撳鎺ㄨ崘澶辫触");
+      setError(err.message || "行业专家推荐失败");
     } finally {
       setRoutingSkill(false);
     }
@@ -497,13 +496,13 @@ export default function useMasActions({
       setStrictClarification(skill.strict_clarification_default);
     }
 
-    setNotice(`琛屼笟涓撳宸茶浇鍏ワ細${skill.name}`);
+    setNotice(`行业专家已载入：${skill.name}`);
   }
 
   function persistRunResult(next) {
     if (!next) return;
     setResult(next);
-    setHistory((prev) => [next, ...prev]);
+    setHistory((prev) => [next, ...prev].slice(0, 20));
     if (next.case_id) setCurrentCaseId(next.case_id);
     if (next.case_memory) {
       setCurrentCaseDetails(next.case_memory);
@@ -572,7 +571,7 @@ export default function useMasActions({
           const next = data?.result || null;
           persistRunResult(next);
           setActiveRunId("");
-          setNotice(`琛屼笟涓撳娴佺▼宸插畬鎴愪氦浠橈細${selectedSkill.name} 路 ${getMainlineEngineLabel(next)}`);
+          setNotice(`行业专家流程已完成交付：${selectedSkill.name} · ${getMainlineEngineLabel(next)}`);
         }
       } else {
         const payload = {
@@ -617,7 +616,6 @@ export default function useMasActions({
         }
       }
 
-      setView("workbench");
     } catch (err) {
       if (isAbortError(err)) {
         setNotice(`任务已停止：${runId}`);

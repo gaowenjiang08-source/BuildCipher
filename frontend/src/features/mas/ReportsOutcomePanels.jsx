@@ -532,8 +532,8 @@ export function DeliveryPanel({
         </div>
 
         <div className="rounded-2xl border border-slate-200 bg-white p-4">
-          <p className="text-sm font-black text-slate-900">历史运行回放</p>
-          <p className="mt-1 text-xs text-slate-500">可以回载本地保存的运行结果，快速对比不同轮次的方案和审计变化。</p>
+          <p className="text-sm font-black text-slate-900">历史运行摘要</p>
+          <p className="mt-1 text-xs text-slate-500">浏览器只保存轻量摘要用于轮次对比；完整代码、证据和沙箱产物以后端项目记录为准。</p>
           <div className="mt-3 space-y-2">
             {history.length === 0 ? <p className="text-sm text-slate-500">暂无历史记录。</p> : null}
             {history.slice(0, 8).map((item, idx) => (

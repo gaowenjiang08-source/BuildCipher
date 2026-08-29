@@ -528,7 +528,7 @@ class KnowledgeRetrievalService:
             focus.append("key isolation boundary")
         if any(token in raw for token in ["share", "共享", "exchange", "跨机构", "对接"]):
             focus.append("data exchange boundary")
-        if any(token in raw for token in ["privacy", "隐私", "脱敏", "基因", "icsr", "e2b"]):
+        if any(token in raw for token in ["privacy", "隐私", "脱敏", "sensitive", "confidential"]):
             focus.append("privacy leakage boundary")
         if any(token in raw for token in ["archive", "归档", "长期", "csv", "validation"]):
             focus.append("long-term validation path")

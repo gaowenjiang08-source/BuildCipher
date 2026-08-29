@@ -62,7 +62,7 @@ use_cases:
   - encrypted_databases
   - secure_computation_outsourcing
   - confidential_data_processing
-  - genomic_privacy
+  - confidential_model_analysis
 
 not_recommended_for:
   - real_time_applications
