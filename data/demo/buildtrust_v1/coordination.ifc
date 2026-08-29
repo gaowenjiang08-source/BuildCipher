@@ -1,7 +1,7 @@
 ISO-10303-21;
 HEADER;
 FILE_DESCRIPTION(('ViewDefinition [CoordinationView]'),'2;1');
-FILE_NAME('buildtrust-coordination.ifc','2026-08-11T00:00:00',('BuildTrust'),('MedCipher Studio'),'BuildTrust V1','BuildTrust','');
+FILE_NAME('buildtrust-coordination.ifc','2026-08-11T00:00:00',('BuildTrust'),('BuildCipher'),'BuildTrust V1','BuildTrust','');
 FILE_SCHEMA(('IFC4'));
 ENDSEC;
 DATA;

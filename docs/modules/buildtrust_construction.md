@@ -41,7 +41,7 @@ LangGraph 对三类建筑目标的 baseline、retry、regression 路径统一生
 
 MAS 基线工作区默认使用 `baseline` 控制配置，五类攻击可成功；补丁应用将工作区切换到 `hardened`，回归应阻断五类攻击。补丁前配置保存在独立快照中。若建筑回归缺少结果、结果未执行或任一 `regression_passed` 不为真，LangGraph 会调用 dispatcher 恢复补丁前配置并验证摘要一致性。独立 demo API 默认运行两侧对照，同时保留 `mode=hardened` 单侧合同。
 
-`frontend/src/features/construction/` 提供第一版建筑业务 View Model 与五个业务视图：工程总览、项目工作台、可信协同、安全验证、可信交付。该界面展示本地证据闭环，不代表已连接生产 CDE/BIM 或 IoT 平台。
+`frontend/src/features/construction/` 提供第一版建筑业务 View Model 与五个业务视图：工程总览、项目工作台、可信协同、攻防验证、交付中心。该界面展示本地证据闭环，不代表已连接生产 CDE/BIM 或 IoT 平台。
 
 `data/demo/buildtrust_v1/` 与 `scripts/validate_buildtrust_v1.py` 固定赛事第一版的 IFC 输入摘要、`baseline 0/5 -> hardened 5/5`、密码操作回执、撤销门禁、轮换到期和证书失效验收合同，便于比赛现场无外部服务复验。
 

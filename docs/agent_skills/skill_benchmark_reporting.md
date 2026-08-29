@@ -18,4 +18,4 @@
 poetry run pytest -o addopts='' tests/unit/test_construction_benchmark.py tests/api/test_api_benchmarks.py -q
 ```
 
-医药 benchmark 已退役，不再作为兼容目标。
+旧行业 benchmark 已退役，不再作为兼容目标。

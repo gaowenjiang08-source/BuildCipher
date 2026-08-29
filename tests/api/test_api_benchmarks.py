@@ -19,8 +19,8 @@ def test_construction_benchmark_endpoint():
     assert payload["section_hit_rate"] == 1.0
 
 
-def test_retired_biopharma_benchmark_endpoint_is_not_exposed():
-    response = client.get("/api/v1/benchmarks/biopharma")
+def test_retired_benchmark_endpoint_is_not_exposed():
+    response = client.get("/api/v1/benchmarks/retired")
     assert response.status_code == 404
 
 

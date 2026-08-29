@@ -1,4 +1,4 @@
-# MedCipher Studio Remaining Work
+# BuildCipher Studio Remaining Work
 
 最后更新：2026-04-19  
 状态：active
@@ -11,8 +11,8 @@
 2. 哪些缺口最影响“后端架构完整性”
 3. 下一阶段应该先补哪里
 
-如果要看“项目现在已经有什么”，请看 [README.md](/F:/密码学/MedCipherStudio/README.md) 与 [docs/TECHNICAL_DOCUMENTATION.md](/F:/密码学/MedCipherStudio/docs/TECHNICAL_DOCUMENTATION.md)。  
-如果要看“下一轮具体执行清单”，请看 [TODO_VIBING.md](/F:/密码学/MedCipherStudio/TODO_VIBING.md)。
+如果要看“项目现在已经有什么”，请看 [README.md](README.md) 与 [docs/TECHNICAL_DOCUMENTATION.md](docs/TECHNICAL_DOCUMENTATION.md)。
+如果要看“下一轮具体执行清单”，请看 [TODO_VIBING.md](TODO_VIBING.md)。
 
 ## 一句话判断
 

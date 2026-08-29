@@ -271,7 +271,7 @@ def create_design_report():
         '综合安全评分：0-100分的量化评估',
         '威胁等级分类：LOW/MEDIUM/HIGH/CRITICAL',
         '攻击抗性分析：评估对10+种攻击的抵抗能力（暴力破解、时序攻击、侧信道攻击等）',
-        '合规性检查：FIPS 140-2/3, PCI DSS, HIPAA, GDPR等9大标准',
+        '合规性检查：FIPS 140-2/3, PCI DSS, ISO 27001, GDPR等9大标准',
         '漏洞检测：扫描已知漏洞和弱配置',
         '量子就绪性：评估后量子密码学迁移路径'
     ]
@@ -650,7 +650,7 @@ def create_design_report():
     add_paragraph_with_indent(doc, '典型用例：', bold=True)
     use_cases_1 = [
         '金融系统：支付交易加密、数字签名验证、密钥管理',
-        '医疗系统：患者数据加密存储、访问控制、隐私保护（HIPAA合规）',
+        '建筑工程平台：BIM/IFC 交付验真、访问控制、证据留痕',
         '云存储：端到端加密、密钥托管、数据去重',
         '区块链：共识算法、智能合约安全、隐私保护'
     ]
@@ -672,7 +672,7 @@ def create_design_report():
     standards = [
         'FIPS 140-2/140-3：密码模块认证（4个安全级别）',
         'PCI DSS v4.0：支付卡行业数据安全标准',
-        'HIPAA：医疗数据隐私保护',
+        'ISO 19650：建筑信息管理参考',
         'GDPR：欧盟数据保护条例',
         'SOC 2 Type II：服务组织控制',
         'ISO 27001:2022：信息安全管理',
@@ -697,7 +697,7 @@ def create_design_report():
         '智能家居：门锁、摄像头、传感器',
         '工业控制：PLC、SCADA系统',
         '车联网：V2X通信、OTA更新',
-        '医疗设备：可穿戴设备、远程监护'
+        '工地设备：传感器、网关、验收终端'
     ]
     for device in iot_devices:
         add_paragraph_with_indent(doc, f'• {device}', indent_level=1)
@@ -761,7 +761,7 @@ def create_design_report():
         ('金融科技', '银行、支付公司', '500亿元'),
         ('云服务', '云厂商、SaaS企业', '800亿元'),
         ('物联网', '设备制造商', '300亿元'),
-        ('医疗健康', '医院、医疗软件', '200亿元'),
+        ('建筑工程', '总包、设计院、BIM 平台', '200亿元'),
         ('教育培训', '高校、培训机构', '50亿元')
     ]
 
@@ -781,7 +781,7 @@ def create_design_report():
 
     add_paragraph_with_indent(doc, '2. 企业定制开发', bold=True)
     add_paragraph_with_indent(doc,
-        '为特定行业定制密码学方案生成逻辑，如金融、医疗、政务等。', indent_level=1)
+        '为特定行业定制密码学方案生成逻辑，如建筑、金融、政务等。', indent_level=1)
     add_paragraph_with_indent(doc, '预估单价：20-100万元/项目', indent_level=1)
 
     add_paragraph_with_indent(doc, '3. 培训与咨询', bold=True)
@@ -995,7 +995,7 @@ def create_design_report():
     add_heading_with_style(doc, '5.3.3 产业应用落地', level=3)
     add_paragraph_with_indent(doc, '目标行业：', bold=True)
     add_paragraph_with_indent(doc,
-        '金融、医疗、云计算、物联网、区块链', indent_level=1)
+        '建筑、金融、云计算、物联网、区块链', indent_level=1)
 
     add_paragraph_with_indent(doc, '落地策略：', bold=True)
     industry_plan = [

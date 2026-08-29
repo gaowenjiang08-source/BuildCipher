@@ -131,7 +131,7 @@ function ViewLoadingState({ view = "workbench" }) {
       </div>
       <p className="mt-3 text-lg font-black text-slate-950">正在加载 {viewLabel}</p>
       <p className="mt-2 text-sm leading-6 text-slate-600">
-        当前大页面已经改为按需加载，首次打开某个页签时会短暂显示这张过渡卡片，用来换取更轻的首屏主包体积。
+        页面加载中，请稍候。
       </p>
       <div className="mt-4 grid grid-cols-1 gap-3 md:grid-cols-3">
         {[0, 1, 2].map((item) => (
@@ -968,7 +968,7 @@ function App() {
       } catch (err) {
         if (!cancelled) {
           setReplayLineage(null);
-          setReplayLineageError(err.message || "閻楀牊婀扮拫杈╅兇閹峰褰囨径杈Е");
+          setReplayLineageError(err.message || "回放版本链路拉取失败");
         }
       } finally {
         if (!cancelled) {

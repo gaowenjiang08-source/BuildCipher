@@ -1204,7 +1204,7 @@ def test_case_memory_list_endpoint_returns_recent_summaries():
 def test_case_memory_delete_endpoint_removes_snapshot():
     case_id = f"case-delete-{uuid4().hex[:8]}"
     payload = {
-        "requirement": "面向中国医院科研平台设计支持审计追踪的后量子迁移方案。",
+        "requirement": "面向建筑工程协作平台设计支持审计追踪的后量子迁移方案。",
         "case_id": case_id,
         "num_variants": 2,
         "generate_code": False,

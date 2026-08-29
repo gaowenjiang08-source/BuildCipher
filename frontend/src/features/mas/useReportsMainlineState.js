@@ -49,31 +49,31 @@ export default function useReportsMainlineState({
       attackLoop?.target_service?.service_ref
   );
 
-  const flowSpotlightTitle = flowPanelActive ? "当前焦点已进入流程透明化主线" : "当前还未锁定流程透明化焦点";
+  const flowSpotlightTitle = flowPanelActive ? "已选择流程焦点" : "未选择流程焦点";
   const flowSpotlightDetail = focusedStageRef
     ? `当前阶段焦点为 ${focusedStageRef}，适合继续查看上下文窗口、memory handoff 与流程节点。`
-    : "这里负责解释 workflow trace、独立上下文窗口和结构化交接。";
+    : "查看 workflow trace、独立上下文窗口和结构化交接。";
 
   const replaySpotlightTitle = replayPanelActive ? "当前焦点已进入 Replay 深钻主线" : "当前还未锁定 Replay 深钻焦点";
   const replaySpotlightDetail = normalizeRef(replayScope?.runId)
     ? `当前 run 焦点为 ${normalizeRef(replayScope?.runId)}，并会继续联动事件、快照与目标服务轨迹。`
     : focusedServiceRef
       ? `当前目标服务焦点为 ${focusedServiceRef}，适合继续查看回看事件、快照与 lineage。`
-      : "这里负责把事件、快照、handoff 与目标服务轨迹串成同一条回看主线。";
+      : "查看事件、快照、handoff 与目标服务轨迹。";
 
   const attackSpotlightTitle = attackPanelActive ? "当前焦点已进入攻击闭环主线" : "当前还未锁定攻击闭环焦点";
   const attackSpotlightDetail = focusedServiceRef
     ? `当前围绕目标服务 ${focusedServiceRef} 观察攻击轮次、漏洞评估与修补结果。`
     : attackMainlineStageActive
-      ? `当前阶段 ${focusedStageRef} 已落在攻击闭环主链，适合讲攻击、评估与修补衔接。`
-      : "这里负责把目标服务、攻击轮次、漏洞评估与代码交付讲成一条技术主线。";
+      ? `当前阶段 ${focusedStageRef} 已落在攻击闭环主链。`
+      : "查看目标服务、攻击轮次、漏洞评估与代码交付。";
 
   const dispatchSpotlightTitle = dispatcherPanelActive ? "当前焦点已进入执行平面主线" : "当前还未锁定执行平面焦点";
   const dispatchSpotlightDetail = focusedServiceRef
     ? `当前执行平面会优先围绕目标服务 ${focusedServiceRef} 展示沙盒调度与审批。`
     : attackMainlineStageActive
       ? `当前阶段 ${focusedStageRef} 已命中执行平面相关主链，可继续查看调度、审批与回归动作。`
-      : "这里负责展示沙盒调度、部署审批与回归动作如何被治理。";
+      : "查看沙盒调度、部署审批与回归治理。";
 
   function jumpToMainlinePanel(panelId) {
     setJumpedPanelId(panelId);

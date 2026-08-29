@@ -38,17 +38,17 @@ export default function EvidenceLinkPanel({
   return (
     <Panel
       title="证据联动解读"
-      subtitle="选中一条证据后，这里会同步展示它影响到的审计轮次、整改建议和交付片段，帮助团队看清证据如何进入决策链。"
+      subtitle="查看证据影响到的审计轮次、整改建议和交付片段。"
       className="xl:col-span-2"
     >
       <ClosurePanelLead
         eyebrow="收口模块"
-        title="把证据真正接到回放、审计和交付链路上"
-        detail="这一块负责解释一条证据为什么不只是静态引用，而是会沿着事件、快照、交接记录、审计轮次和交付片段一路产生影响。"
+        title="查看证据联动"
+        detail="查看证据与回放、审计和交付的关联。"
         statusLabel={selectedEvidence ? "当前证据已进入联动区" : "等待选择证据"}
         statusTone={selectedEvidence ? "ok" : "neutral"}
         nextLabel="下一步建议"
-        nextDetail="如果已经讲清楚证据的联动路径，下一步建议切到最终交付，展示这些依据最终沉淀在哪些交付片段与导出物中。"
+        nextDetail="继续查看最终交付。"
         actionLabel="跳到最终交付"
         onAction={() => onJumpToSection?.("reports-section-delivery")}
         accent="emerald"
@@ -56,7 +56,7 @@ export default function EvidenceLinkPanel({
 
       {!selectedEvidence ? (
         <div className="rounded-[24px] border border-dashed border-slate-300 bg-white/80 px-4 py-8 text-center text-sm text-slate-500">
-          先从上方证据卡中选择一条依据，这里才会展示它对审计、整改与交付的联动结果。
+          先选择一条证据卡。
         </div>
       ) : (
         <>
@@ -89,22 +89,22 @@ export default function EvidenceLinkPanel({
                   (replayEvidenceContext?.matchedSnapshots?.length || 0) +
                   (replayEvidenceContext?.matchedHandoffs?.length || 0)}
               </p>
-              <p className="mt-2 text-xs leading-5 text-slate-600">用于说明这条证据已经进入多少个回放节点。</p>
+              <p className="mt-2 text-xs leading-5 text-slate-600">查看这条证据进入了多少个回放节点。</p>
             </div>
             <div className="rounded-[20px] border border-slate-200 bg-white p-4">
               <p className="text-[11px] font-black uppercase tracking-[0.18em] text-slate-500">审计轮次</p>
               <p className="mt-2 text-lg font-black text-slate-950">{linkedRounds.length}</p>
-              <p className="mt-2 text-xs leading-5 text-slate-600">帮助说明这条依据具体影响了哪些审计判断。</p>
+              <p className="mt-2 text-xs leading-5 text-slate-600">查看这条依据影响了哪些审计判断。</p>
             </div>
             <div className="rounded-[20px] border border-slate-200 bg-white p-4">
               <p className="text-[11px] font-black uppercase tracking-[0.18em] text-slate-500">整改建议</p>
               <p className="mt-2 text-lg font-black text-slate-950">{linkedRecommendations.length}</p>
-              <p className="mt-2 text-xs leading-5 text-slate-600">用来展示这条证据如何继续影响整改与修补方向。</p>
+              <p className="mt-2 text-xs leading-5 text-slate-600">查看这条证据影响的整改方向。</p>
             </div>
             <div className="rounded-[20px] border border-slate-200 bg-white p-4">
               <p className="text-[11px] font-black uppercase tracking-[0.18em] text-slate-500">交付落点</p>
               <p className="mt-2 text-lg font-black text-slate-950">{linkedDeliveryFragments.length}</p>
-              <p className="mt-2 text-xs leading-5 text-slate-600">适合最后说明这条依据如何沉淀到交付片段与导出物。</p>
+              <p className="mt-2 text-xs leading-5 text-slate-600">查看这条依据沉淀到哪些交付片段。</p>
             </div>
           </div>
 
@@ -120,8 +120,8 @@ export default function EvidenceLinkPanel({
               {replayEvidenceContext?.matchedEvents?.length ||
               replayEvidenceContext?.matchedSnapshots?.length ||
               replayEvidenceContext?.matchedHandoffs?.length
-                ? "这条证据已经进入本地回放链路，可以继续解释它落在哪些事件、快照和交接节点上。"
-                : "当前回放深钻里还没有命中这条证据，说明它暂时主要停留在交付解释层。"}
+                ? "这条证据已进入本地回放链路。"
+                : "当前回放深钻里还没有命中这条证据。"}
             </p>
             <div className="mt-3 flex flex-wrap gap-2">
               {(replayEvidenceContext?.runIds || []).map((item) => (

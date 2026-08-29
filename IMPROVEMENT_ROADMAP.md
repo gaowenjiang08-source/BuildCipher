@@ -191,12 +191,12 @@ class VectorSkillRouter:
 ### 10. 实现 Skill 组合工作流
 **建议**:
 ```yaml
-# data/skills/composite_healthcare_pqc.yaml
-id: composite_healthcare_pqc
-name: Healthcare PQC Migration
+# data/skills/composite_built_asset_pqc.yaml
+id: composite_built_asset_pqc
+name: Built Asset PQC Migration
 type: composite
 workflow:
-  - skill: healthcare_compliance_architect
+  - skill: built_asset_pqc_migration_advisor
   - skill: pqc_migration_advisor
   - skill: trusted_crypto_reviewer
 ```

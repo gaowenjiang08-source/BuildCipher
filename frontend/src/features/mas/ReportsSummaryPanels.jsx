@@ -45,7 +45,7 @@ function getLaunchDecision(delivery = {}, auditorRounds = []) {
   return {
     label: "需要继续整改",
     tone: "warn",
-    summary: "当前交付仍处于审计整改阶段，建议继续围绕阻塞项迭代候选方案，再决定是否进入上线评审。",
+    summary: "交付处于整改阶段，请先处理阻塞项。",
   };
 }
 
@@ -89,7 +89,7 @@ function buildRequirementReadiness(structuredSpec, clarifications = []) {
   return {
     tone: "neutral",
     label: "需求结构仍待整理",
-    summary: "当前还没有形成稳定的结构化规格，适合先补齐输入边界、目标场景和合规约束。",
+    summary: "暂无结构化规格，请补齐输入边界、目标场景和合规约束。",
   };
 }
 
@@ -112,7 +112,7 @@ export function ProjectMemoryPanel({ currentCaseId, currentCaseSummary }) {
             <p className="mt-2 text-sm leading-6 text-slate-700">
               {hasProjectContext
                 ? "你可以把后续整改、复跑、审计结论和交付历史都当成同一项目上的连续动作来讲。"
-                : "如果这里还是空的，答辩时就很难解释“为什么这轮结果和之前有关联”，建议优先补齐项目上下文。"}
+                : "当前缺少项目上下文，建议优先补齐。"}
             </p>
           </div>
           <div className="flex flex-wrap items-center gap-2 xl:max-w-[360px] xl:justify-end">

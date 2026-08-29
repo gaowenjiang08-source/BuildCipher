@@ -497,7 +497,7 @@ export default function AttackLessonsPanel({
   return (
     <Panel
       title="攻击经验与来源依据"
-      subtitle="把攻击 agent 的 benchmark / paper 增强来源单独讲清楚，避免它只在透明化面板里以 hit_count 的形式一闪而过。"
+      subtitle="查看攻击 agent 的 benchmark 与 paper 增强来源。"
     >
       <div className="grid grid-cols-2 gap-2 md:grid-cols-4">
         <MetricCard label="规划轮次" value={plannerGroups.length} />
@@ -519,7 +519,7 @@ export default function AttackLessonsPanel({
           {focusedGroupCount ? <TagPill tone="ok">{`${focusedGroupCount} 个规划轮已命中当前 handoff`}</TagPill> : null}
         </div>
         <p className="mt-2 text-sm leading-6 text-slate-600">
-          这块面板现在不只解释攻击经验本身，也能把这些经验与攻击规划阶段、攻击规划窗口以及相关 handoff 的回看焦点接起来。
+          展示攻击经验与相关回放入口。
         </p>
       </div>
 

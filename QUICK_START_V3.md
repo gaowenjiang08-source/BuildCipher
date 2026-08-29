@@ -38,7 +38,7 @@ poetry run python -m uvicorn cipher_genius.api.main:app --app-dir src --host 127
 
 测试默认隔离外部 LLM 网络调用；运行时仍可在设置中选择已保留的 LLM provider。
 
-启动器也支持项目级 `.buildcipher_runtime` / `.buildcipher_venv`。检测到其中的 Windows Python 后会直接运行 `uvicorn`；否则使用 Poetry。两条路径都会将当前仓库的 `src` 显式设为应用目录，避免系统中其他 MedCipher/BuildTrust 工作区的同名 Python 包覆盖当前 BuildCipher。旧 `buildtrust-api` 命令和 `BUILDTRUST_GOVERNANCE_DATABASE_PATH` 环境变量仍作为兼容入口保留，但不再用于新配置。
+启动器也支持项目级 `.buildcipher_runtime` / `.buildcipher_venv`。检测到其中的 Windows Python 后会直接运行 `uvicorn`；否则使用 Poetry。两条路径都会将当前仓库的 `src` 显式设为应用目录，避免系统中其他历史工作区的同名 Python 包覆盖当前 BuildCipher。旧 `buildtrust-api` 命令和 `BUILDTRUST_GOVERNANCE_DATABASE_PATH` 环境变量仍作为兼容入口保留，但不再用于新配置。
 
 ```powershell
 cd frontend
@@ -56,10 +56,10 @@ npm run dev
 2. 在“项目工作台”导入 `data/demo/buildtrust_v1/coordination.ifc`，确认 IFC4、实体数和 SHA-256；
 3. 在“可信协同”查看五类参与方责任与证据结构；
 4. 在“攻防验证”运行前后对照，让同一 IFC 输入分别进入 baseline/hardened，并点击五个技术探针检查原始摘要、版本、角色和消息新鲜度字段；
-5. 在“可信交付”查看证据引用、能力边界，并下载 JSON、Markdown、LaTeX 或 HTML 建筑验证快照；
+5. 在“交付中心”查看证据引用、能力边界，并下载 JSON、Markdown、LaTeX 或 HTML 建筑验证快照；
 6. 需要检查 Agent 过程时切换专家模式，查看运行、报告和 replay。
 
-左侧项目卡提供“业务模式 / 专家模式”直接切换；专家模式固定从专家总览开始，组件库不会改变当前模式。五攻击对照完成后，工程总览、攻防验证和可信交付会继续显示同一组阻断与证据指标。
+左侧项目卡提供“业务模式 / 专家模式”直接切换；专家模式固定从专家总览开始，组件库不会改变当前模式。五攻击对照完成后，工程总览、攻防验证和交付中心会继续显示同一组阻断与证据指标。
 
 两分钟讲解词和时间分配见 [docs/BUILD_CIPHER_2MIN_DEMO.md](docs/BUILD_CIPHER_2MIN_DEMO.md)。
 

@@ -89,7 +89,6 @@ ACTOR_LABELS = {
 }
 
 TERM_REPLACEMENTS = [
-    ("ePHI", "电子受保护健康信息（ePHI）"),
     ("General Purpose / Best Overall", "通用场景 / 综合最优"),
     ("Maximum Security Required", "最高安全优先"),
     ("Performance Critical Applications", "性能敏感场景"),

@@ -13,9 +13,9 @@
 - P0-B3 API 与 LangGraph 主链接入：本地第一版已完成；
 - P1 建筑业务前端：第一版已完成；
 - P2 集成与赛事交付：localhost BIM/IoT provider、IFC/CDE 合同、IoT 持久化、治理记录和赛事冻结包已完成；云和供应商适配暂不开发。
-- 领域纯化：前端及活跃后端的医药 benchmark、Skill、报告模板和业务 API 已退役；通用密码与 LLM 内核保留。
+- 领域纯化：前端及活跃后端的旧行业 benchmark、Skill、报告模板和业务 API 已退役；通用密码与 LLM 内核保留。
 - 运行时收口：产品、CLI、API 健康标识、Windows 启动器和前端导出统一为 `BuildCipher`；`BuildTrust` 保留为建筑可信交付能力名，旧命令与治理环境变量作为兼容入口。
-- ZIP 优点吸收：已将建筑参与方、数字资产、生命周期、安全不变量和威胁画像接入类型化合同、方案审计上下文与 LangGraph 约束投影；未恢复医药业务或云部署结构。
+- ZIP 优点吸收：已将建筑参与方、数字资产、生命周期、安全不变量和威胁画像接入类型化合同、方案审计上下文与 LangGraph 约束投影；未恢复旧行业业务或云部署结构。
 - 2026-08-26 P0 的可重复 localhost 回归结果为 `190 passed, 4 skipped`（排除需要另行启动 8000 端口服务的 `tests/integration/test_mas_api.py`）；生产 LLM provider 接口保留。该外部进程集成模块单独运行时曾因后台 API 连接重置失败，不计入确定性回归。
 
 ## 当前已实现能力
@@ -40,7 +40,7 @@
 - 建筑控制配置保留补丁前快照，并可通过 dispatcher 显式执行回滚；恢复文件与快照使用 SHA-256 一致性验证。
 - LangGraph 只依据五条客观回归探针判定建筑补丁是否有效；任何探针未执行或 `regression_passed=false` 都会自动恢复补丁前配置，并把实际回滚 dispatch、验证结果和证据文件写入交付结果。
 - 已完成一次无外部 LLM 的完整 LangGraph 建筑验收：construction/BIM 路由正确，baseline 0/5 阻断，hardened 回归 5/5 阻断，case memory 收到 12 个证据引用。
-- 建筑业务前端第一版提供工程总览、项目工作台、可信协同、攻防验证和可信交付五个视图；攻防验证可直接调用建筑参考演示 API，并下钻五类攻击的控制机制与基线/加固原始检查。
+- 建筑业务前端第一版提供工程总览、项目工作台、可信协同、攻防验证和交付中心五个视图；攻防验证可直接调用建筑参考演示 API，并下钻五类攻击的控制机制与基线/加固原始检查。
 - IFC 检查器可读取真实 STEP physical file 的文件头、IFC schema、实体编号、实体类型计数、候选 GlobalId、重复编号/GlobalId 和内容 SHA-256；
 - 定义了只读 `ConstructionCDEConnector` 合同，并提供项目目录形式的 `LocalDirectoryCDEConnector` 参考适配器；
 - SQLite IoT 状态保存设备凭据引用、最后计数器和已用 nonce，进程重启后仍能拒绝历史遥测；密钥材料不写入 SQLite。
@@ -52,7 +52,7 @@
 - localhost 演示密钥在进程内随机生成，不写入源码或 SQLite，进程结束后不持久化；
 - OpenAI、Anthropic、智谱、Gemini、DeepSeek、通义、百度和 relay LLM 接口保持原状，与 localhost 密码执行边界独立。
 - `data/demo/buildtrust_v1/` 已冻结 IFC 输入、SHA-256、预期 schema/实体数和 baseline/hardened 五攻击指标；`scripts/validate_buildtrust_v1.py` 可一键复验并输出机器可读结果。
-- `/api/v1/benchmarks/biopharma` 已移除并返回 404；当前唯一行业 benchmark 为 `/api/v1/benchmarks/construction`。
+- 旧行业 benchmark API 已移除并返回 404；当前唯一行业 benchmark 为 `/api/v1/benchmarks/construction`。
 
 ## 当前能力边界
 
@@ -77,7 +77,7 @@
 ### 第一版验收剩余
 
 - 使用可用外部 LLM 再运行完整建筑案例，验收裁决、补丁理由与 reflection 文本质量；
-- 通用合规枚举及其独立回归测试保留，但不注册成建筑默认路由，也不对外暴露医药业务产品线。
+- 通用合规枚举及其独立回归测试保留，但不注册成建筑默认路由，也不对外暴露旧行业业务产品线。
 
 ### P2
 

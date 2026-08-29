@@ -23,7 +23,7 @@
   <rect width="1600" height="960" fill="url(#bg3)"/>
 
   <rect x="48" y="40" width="1504" height="146" rx="28" fill="#FFFDF9" stroke="#DCCFBE" filter="url(#shadow3)"/>
-  <text x="88" y="94" class="title">MedCipher Studio 论文主图 V3：实验执行与沙盒验证架构</text>
+  <text x="88" y="94" class="title">BuildCipher 论文主图 V3：实验执行与沙盒验证架构</text>
   <text x="88" y="130" class="subtitle">这张图适合讲“实验系统怎么跑起来”。重点是受控沙盒、模拟服务器、攻击观测、漏洞判定、修补回归和实验输出。</text>
 
   <g filter="url(#shadow3)">

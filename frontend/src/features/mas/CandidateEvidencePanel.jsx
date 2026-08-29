@@ -38,17 +38,17 @@ export default function CandidateEvidencePanel({
   return (
     <Panel
       title="证据支持候选方案"
-      subtitle="把当前证据和候选方案放在一起看，帮助团队理解这条依据更偏向支持哪一个 proposal。"
+      subtitle="查看证据与候选方案的对应关系。"
       className="xl:col-span-2"
     >
       <ClosurePanelLead
         eyebrow="Closure Block"
-        title="把证据支持的候选方案讲清楚"
-        detail="这一块负责回答“这条依据更支持哪一个 proposal”，并把方案视角继续回接到 replay 路径与最终交付落点。"
+        title="查看候选方案"
+        detail="查看这条依据对应的 proposal。"
         statusLabel={selectedProposalId ? "当前 proposal 已锁定" : "等待锁定 proposal"}
         statusTone={selectedProposalId ? "ok" : "neutral"}
         nextLabel="下一步建议"
-        nextDetail="如果已经从证据讲到了候选方案，建议继续进入最终交付，展示方案最后是如何落到交付片段和导出包上的。"
+        nextDetail="继续查看最终交付。"
         actionLabel="跳到最终交付"
         onAction={() => onJumpToSection?.("reports-section-delivery")}
         accent="amber"
@@ -56,7 +56,7 @@ export default function CandidateEvidencePanel({
 
       {!selectedEvidence ? (
         <div className="rounded-[24px] border border-dashed border-slate-300 bg-white/80 px-4 py-8 text-center text-sm text-slate-500">
-          先选择一条证据卡，这里才会展示受当前证据支持的候选方案。
+          先选择一条证据卡。
         </div>
       ) : candidateLinks.length === 0 ? (
         <div className="rounded-[24px] border border-dashed border-slate-300 bg-white/80 px-4 py-8 text-center text-sm text-slate-500">
@@ -77,9 +77,9 @@ export default function CandidateEvidencePanel({
                 ? proposalReplayContext?.matchedEvents?.length ||
                   proposalReplayContext?.matchedSnapshots?.length ||
                   proposalReplayContext?.matchedHandoffs?.length
-                  ? "当前 proposal 已经在本地 replay 里形成一条可解释路径，你可以直接从方案视角回跳到命中的事件、快照和 handoff。"
-                  : "当前 replay 里还没有明显命中这条 proposal 的记录，说明它暂时主要停留在方案与交付解释层。"
-                : "先锁定一个 proposal，这里才会出现 proposal 到 replay 的回跳路径。"}
+                  ? "当前 proposal 已命中 replay 记录。"
+                  : "当前 replay 里暂无命中记录。"
+                : "先锁定一个 proposal。"}
             </p>
             <div className="mt-3 flex flex-wrap gap-2">
               {(proposalReplayContext?.runIds || []).map((item) => (

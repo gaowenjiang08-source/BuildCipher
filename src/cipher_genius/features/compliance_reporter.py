@@ -15,7 +15,6 @@ class ComplianceStandard(Enum):
     FIPS_140_2 = "fips_140_2"
     FIPS_140_3 = "fips_140_3"
     PCI_DSS = "pci_dss"
-    HIPAA = "hipaa"
     GDPR = "gdpr"
     SOC2 = "soc2"
     ISO_27001 = "iso_27001"
@@ -91,8 +90,6 @@ class ComplianceReporter:
                 result = self.check_fips_140(scheme, level=3)
             elif standard == ComplianceStandard.PCI_DSS:
                 result = self.check_pci_dss(scheme)
-            elif standard == ComplianceStandard.HIPAA:
-                result = self.check_hipaa(scheme)
             elif standard == ComplianceStandard.GDPR:
                 result = self.check_gdpr(scheme)
             elif standard == ComplianceStandard.SOC2:
@@ -301,130 +298,6 @@ class ComplianceReporter:
             "gaps": gaps,
             "recommendations": recommendations,
             "applicable_requirements": ["3.4", "3.5", "3.6", "4.1", "4.2"]
-        }
-
-    def check_hipaa(self, scheme: Dict[str, Any]) -> Dict:
-        """
-        Check HIPAA compliance (Health Insurance Portability and Accountability Act)
-
-        Key requirements:
-        - Encryption of ePHI at rest and in transit
-        - Access controls
-        - Audit controls
-        """
-        requirements = []
-
-        # 164.312(a)(2)(iv) - Encryption and Decryption
-        encryption_req = ComplianceRequirement(
-            id="HIPAA-164.312(a)(2)(iv)",
-            description="Implement mechanism to encrypt and decrypt ePHI",
-            status=ComplianceStatus.COMPLIANT.value,
-            category="encryption",
-            severity="high"
-        )
-
-        algorithm = scheme.get("algorithm", "").lower()
-        key_size = scheme.get("key_size", 0)
-
-        if algorithm in ["aes", "aes-gcm", "aes-256"]:
-            if key_size >= 256:
-                encryption_req.evidence.append(
-                    "NIST-approved AES-256 encryption implemented"
-                )
-            else:
-                encryption_req.status = ComplianceStatus.PARTIAL.value
-                encryption_req.recommendations.append("Use AES-256 for ePHI protection")
-        else:
-            encryption_req.status = ComplianceStatus.NON_COMPLIANT.value
-            encryption_req.gaps.append("Non-approved encryption algorithm for ePHI")
-            encryption_req.recommendations.append(
-                "Implement NIST-approved encryption (AES-256)"
-            )
-
-        requirements.append(encryption_req)
-
-        # 164.312(e)(2)(ii) - Encryption in transit
-        transmission_req = ComplianceRequirement(
-            id="HIPAA-164.312(e)(2)(ii)",
-            description="Implement encryption for ePHI transmission",
-            status=ComplianceStatus.COMPLIANT.value,
-            category="transmission",
-            severity="high"
-        )
-
-        if scheme.get("authenticated_encryption"):
-            transmission_req.evidence.append("Authenticated encryption enabled")
-        else:
-            transmission_req.status = ComplianceStatus.PARTIAL.value
-            transmission_req.recommendations.append(
-                "Enable authenticated encryption for data integrity"
-            )
-
-        requirements.append(transmission_req)
-
-        # 164.308(a)(3) - Workforce security
-        access_control_req = ComplianceRequirement(
-            id="HIPAA-164.308(a)(3)",
-            description="Implement access controls for ePHI",
-            status=ComplianceStatus.PARTIAL.value,
-            category="access_control",
-            severity="high"
-        )
-
-        if scheme.get("access_control"):
-            access_control_req.evidence.append("Access control mechanisms present")
-            access_control_req.status = ComplianceStatus.COMPLIANT.value
-        else:
-            access_control_req.gaps.append("No access control implementation")
-            access_control_req.recommendations.append(
-                "Implement role-based access control (RBAC)"
-            )
-
-        requirements.append(access_control_req)
-
-        # 164.312(b) - Audit controls
-        audit_req = ComplianceRequirement(
-            id="HIPAA-164.312(b)",
-            description="Implement audit controls to record access to ePHI",
-            status=ComplianceStatus.PARTIAL.value,
-            category="audit",
-            severity="medium"
-        )
-
-        if scheme.get("audit_logging"):
-            audit_req.evidence.append("Audit logging enabled")
-            audit_req.status = ComplianceStatus.COMPLIANT.value
-        else:
-            audit_req.gaps.append("No audit logging")
-            audit_req.recommendations.append(
-                "Implement comprehensive audit logging for all ePHI access"
-            )
-
-        requirements.append(audit_req)
-
-        # Calculate compliance
-        compliant_count = sum(1 for req in requirements
-                            if req.status == ComplianceStatus.COMPLIANT.value)
-        partial_count = sum(1 for req in requirements
-                          if req.status == ComplianceStatus.PARTIAL.value)
-
-        compliance_percentage = (
-            (compliant_count + 0.5 * partial_count) / len(requirements) * 100
-        )
-
-        gaps = []
-        recommendations = []
-        for req in requirements:
-            gaps.extend(req.gaps)
-            recommendations.extend(req.recommendations)
-
-        return {
-            "standard": "HIPAA Security Rule",
-            "compliance_percentage": compliance_percentage,
-            "requirements": [vars(req) for req in requirements],
-            "gaps": gaps,
-            "recommendations": recommendations,
-            "risk_analysis_required": True
         }
 
     def check_gdpr(self, scheme: Dict[str, Any]) -> Dict:
@@ -805,11 +678,6 @@ class ComplianceReporter:
                 "requirements": 12,
                 "encryption_requirements": ["3.4", "3.5", "3.6", "4.1", "4.2"]
             },
-            "hipaa": {
-                "security_rule": True,
-                "privacy_rule": True,
-                "encryption": "addressable"
-            }
         }
 
     def _load_approved_algorithms(self) -> Dict[str, List[str]]:

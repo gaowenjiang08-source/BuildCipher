@@ -26,7 +26,7 @@ function buildFocusedStageSummary(stages = [], focusedServiceRef = "") {
     return {
       tone: "neutral",
       label: "未锁定目标服务",
-      summary: "当前还没有接入共享目标服务焦点；当你在关系回放或轮次面板里点选某个服务后，这里会同步高亮该服务命中的审批节点。",
+      summary: "尚未选择目标服务。",
       matchedCount: 0,
     };
   }
@@ -44,7 +44,7 @@ function buildFocusedStageSummary(stages = [], focusedServiceRef = "") {
   return {
     tone: "warn",
     label: "未命中当前审批节点",
-    summary: `当前共享焦点为 ${focusedServiceRef}，但 dispatcher 摘要里没有对应 target_service_ref，可能说明当前在看别的服务版本，或该服务尚未进入执行审批链路。`,
+    summary: `目标服务 ${focusedServiceRef} 未命中调度摘要。`,
     matchedCount: 0,
   };
 }
@@ -54,7 +54,7 @@ function buildStageFocusSummary(stages = [], focusedStageRef = "") {
     return {
       tone: "neutral",
       label: "未锁定流程阶段",
-      summary: "当前还没有接入共享阶段焦点；当你在流程透明化面板里点选某个阶段后，这里会同步高亮对应执行节点。",
+      summary: "尚未选择阶段。",
       matchedCount: 0,
     };
   }
@@ -72,7 +72,7 @@ function buildStageFocusSummary(stages = [], focusedStageRef = "") {
   return {
     tone: "warn",
     label: "当前阶段未映射到执行平面",
-    summary: `当前共享阶段焦点为 ${focusedStageRef}，但 dispatcher 摘要中没有同名 stage，可能说明该阶段属于控制/审计面而非执行面。`,
+    summary: `阶段 ${focusedStageRef} 未命中执行节点。`,
     matchedCount: 0,
   };
 }
@@ -188,7 +188,7 @@ export default function SandboxDispatcherPanel({ sandboxDispatcher, replayScope,
   return (
     <Panel
       title="沙盒调度与审批治理"
-      subtitle="这一块直接消费 delivery.sandbox_dispatcher，展示后端 dispatcher 的审批、执行和审计轨迹，帮助外行也能看懂沙盒为什么能放行、为什么会阻断。"
+      subtitle="展示沙盒审批、执行与阻断结果。"
     >
       <div className="grid grid-cols-2 gap-2 md:grid-cols-4">
         <MetricCard label="执行后端" value={sandboxDispatcher?.backend || "--"} />
@@ -201,9 +201,9 @@ export default function SandboxDispatcherPanel({ sandboxDispatcher, replayScope,
         <div className="flex flex-col gap-4 xl:flex-row xl:items-start xl:justify-between">
           <div>
             <p className="text-[11px] font-black uppercase tracking-[0.26em] text-sky-700">沙盒调度治理</p>
-            <h3 className="mt-2 text-xl font-black text-slate-950">审批与调度一眼看清</h3>
+            <h3 className="mt-2 text-xl font-black text-slate-950">审批与调度</h3>
             <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-700">
-              这里把基线部署、基线攻击、回归部署、回归攻击四段审批收成同一张治理面板，方便解释沙盒为什么放行、为什么阻断，以及哪些节点已经跟共享焦点对齐。
+              查看基线部署、基线攻击、回归部署和回归攻击审批。
             </p>
           </div>
           <div className="flex flex-wrap items-center gap-2 xl:max-w-[380px] xl:justify-end">

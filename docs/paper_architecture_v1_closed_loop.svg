@@ -27,7 +27,7 @@
   <rect width="1680" height="1040" fill="url(#bg)"/>
 
   <rect x="44" y="36" width="1592" height="148" rx="28" fill="#FFFDF9" stroke="#DCCFBE" filter="url(#shadow)"/>
-  <text x="84" y="90" class="title">MedCipher Studio 论文主图 V1：多元素闭环流程图</text>
+  <text x="84" y="90" class="title">BuildCipher 论文主图 V1：多元素闭环流程图</text>
   <text x="84" y="126" class="subtitle">这版强调“节点更细、路径更完整、箭头更清楚”。适合答辩第一页或论文主图，直接讲清系统如何从需求走到交付，再回流下一轮优化。</text>
 
   <rect x="84" y="146" width="144" height="28" rx="14" fill="#F8DFD1"/>
